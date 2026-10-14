@@ -45,6 +45,26 @@ TEST_SEEDS_GENERALIZATION = [101, 202, 303]
 ABLATION_SEEDS = [101, 202, 303]
 
 
+def normalize_character_positions(positions: Any) -> Tuple[List[Dict[str, Any]], List[str]]:
+    """Normalizes character positions into a list of dicts and a list of present character IDs."""
+    if isinstance(positions, dict):
+        cpositions = [{"character_id": k, "position": v} for k, v in positions.items()]
+    elif isinstance(positions, list):
+        cpositions = []
+        for p in positions:
+            if isinstance(p, dict):
+                cpositions.append(p)
+            elif hasattr(p, "dict"):
+                cpositions.append(p.dict())
+            elif isinstance(p, str):
+                cpositions.append({"character_id": p, "position": "center"})
+    else:
+        cpositions = []
+
+    chars_present = [cp.get("character_id") for cp in cpositions if isinstance(cp, dict) and cp.get("character_id")]
+    return cpositions, chars_present
+
+
 def compute_file_sha256(file_path: Path) -> str:
     """Computes SHA256 hexadecimal hash of a local file."""
     h = hashlib.sha256()
@@ -138,18 +158,18 @@ class Phase5MasterEvaluator:
         if img_bgr is None:
             return {"error": f"Failed to load {image_path}"}
 
-        detected_faces = self.auditor.detect_faces(img_bgr)
+        # Audit scene-level defects and detect faces
+        scene_audit = self.auditor.audit_scene_with_vision(
+            image_bgr=img_bgr,
+            expected_faces=len(expected_characters),
+            vision_data={}
+        )
+        detected_faces = scene_audit.get("detected_faces", [])
         h_img, w_img = img_bgr.shape[:2]
 
         char_evals = []
         overall_biometrics = []
         overall_bindings = []
-
-        # Audit scene-level defects
-        scene_audit = self.auditor.audit_scene_defects(
-            image_bgr=img_bgr,
-            expected_character_count=len(expected_characters)
-        )
 
         for char_id in expected_characters:
             cbank = identity_banks.get(char_id, {})
@@ -193,7 +213,7 @@ class Phase5MasterEvaluator:
                     expected_position_str=pos_str,
                     expected_clothing_colors=w_info.get("clothing_colors", [])
                 )
-                overall_bindings.append(binding_res["overall_binding_passed"])
+                overall_bindings.append(binding_res.get("overall_binding_passed", False))
 
                 # Rank-1 discrimination: check if similarity to own bank exceeds impostors
                 is_rank1 = True
@@ -211,11 +231,11 @@ class Phase5MasterEvaluator:
                     "biometric_ensemble": round(mean_ens, 4),
                     "per_model_scores": {k: round(v, 4) for k, v in sims.items()},
                     "rank1_passed": is_rank1,
-                    "binding_passed": binding_res["overall_binding_passed"],
-                    "spatial_passed": binding_res["spatial_passed"],
-                    "wardrobe_passed": binding_res["wardrobe_color_passed"],
-                    "clothing_delta_e": binding_res["clothing_delta_e"],
-                    "overall_pass": bool(mean_ens >= 0.60 and binding_res["overall_binding_passed"])
+                    "binding_passed": binding_res.get("overall_binding_passed", False),
+                    "spatial_passed": binding_res.get("spatial_passed", False),
+                    "wardrobe_passed": binding_res.get("wardrobe_passed", False),
+                    "clothing_delta_e": binding_res.get("clothing_delta_e", 99.0),
+                    "overall_pass": bool(mean_ens >= 0.60 and binding_res.get("overall_binding_passed", False))
                 })
 
         # Generate Contact Sheet
@@ -232,8 +252,8 @@ class Phase5MasterEvaluator:
             "image_name": image_path.name,
             "mean_biometric_ensemble": round(float(np.mean(overall_biometrics)), 4) if overall_biometrics else 0.50,
             "binding_pass_rate": round(float(np.mean(overall_bindings)), 4) if overall_bindings else 0.0,
-            "scene_defects_count": len(scene_audit.get("defects_detected", [])),
-            "defects_detected": scene_audit.get("defects_detected", []),
+            "scene_defects_count": scene_audit.get("defect_count", 0),
+            "defects_detected": scene_audit.get("defect_taxonomy_violations", []),
             "characters": char_evals,
             "contact_sheet": str(cs_path)
         }
@@ -431,6 +451,7 @@ def run_full_phase5():
         "m8_reference_only": {"enable_reference_attention": True}
     }
 
+    identity_banks = v2_pipeline.bank_manager._banks
     ablation_results = {}
     for ab_name, overrides in ablation_experiments.items():
         print(f"  -> Testing Ablation: {ab_name}")
@@ -458,14 +479,13 @@ def run_full_phase5():
 
             if img_cv is not None:
                 # Fast evaluation
-                cpositions = [cp.dict() if hasattr(cp, "dict") else cp for cp in target_scene.character_positions]
-                chars_present = [cp.get("character_id") for cp in cpositions if cp.get("character_id")]
+                cpositions, chars_present = normalize_character_positions(target_scene.character_positions)
                 ev = evaluator.evaluate_image(
                     image_path=ab_img_p,
                     expected_characters=chars_present,
                     character_positions=cpositions,
                     character_wardrobes={},
-                    identity_banks=evaluator.ensemble.calibration.get("banks", {}),
+                    identity_banks=identity_banks,
                     scene_meta=meta
                 )
                 ab_scores.append(ev.get("mean_biometric_ensemble", 0.50))
@@ -491,11 +511,8 @@ def run_full_phase5():
     v2_rank1_hits = 0
     total_characters_evaluated = 0
 
-    identity_banks = v2_pipeline.bank_manager._banks
-
     for img_p, scene, seed, meta in v2_renders:
-        cpositions = [cp.dict() if hasattr(cp, "dict") else cp for cp in scene.character_positions]
-        chars_present = [cp.get("character_id") for cp in cpositions if cp.get("character_id")]
+        cpositions, chars_present = normalize_character_positions(scene.character_positions)
 
         char_wardrobes = {}
         for cid in chars_present:
@@ -525,11 +542,7 @@ def run_full_phase5():
     if gen_renders:
         print("\n>>> 4b. Executing Frozen Verifier on Generalization Benchmark (Chrono-Archivists)...")
         for img_p, scene, seed, meta in gen_renders:
-            if isinstance(scene.character_positions, dict):
-                cpositions = [{"character_id": k, "position": v} for k, v in scene.character_positions.items()]
-            else:
-                cpositions = [cp.dict() if hasattr(cp, "dict") else cp for cp in scene.character_positions]
-            chars_present = [cp.get("character_id") for cp in cpositions if cp.get("character_id")]
+            cpositions, chars_present = normalize_character_positions(scene.character_positions)
 
             char_wardrobes = {}
             for cid in chars_present:

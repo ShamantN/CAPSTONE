@@ -134,23 +134,30 @@ class BindingChecker:
         from PIL import Image
         pil_torso = Image.fromarray(torso_rgb)
 
-        inputs = self._segformer_proc(images=pil_torso, return_tensors="pt")
-        with torch.no_grad():
-            outputs = self._segformer_model(**inputs)
+        clothing_pixels = None
+        try:
+            inputs = self._segformer_proc(images=pil_torso, return_tensors="pt")
+            with torch.no_grad():
+                outputs = self._segformer_model(**inputs)
 
-        logits = outputs.logits
-        # Upsample logits to torso size
-        upsampled = torch.nn.functional.interpolate(
-            logits,
-            size=(torso_rgb.shape[0], torso_rgb.shape[1]),
-            mode="bilinear",
-            align_corners=False
-        )
-        pred_mask = upsampled.argmax(dim=1)[0].cpu().numpy()
+            logits = outputs.logits
+            # Upsample logits to torso size
+            upsampled = torch.nn.functional.interpolate(
+                logits,
+                size=(torso_rgb.shape[0], torso_rgb.shape[1]),
+                mode="bilinear",
+                align_corners=False
+            )
+            pred_mask = upsampled.argmax(dim=1)[0].cpu().numpy()
 
-        # Class 4: Upper-clothes, Class 7: Dress, Class 8: Coat/Suit
-        clothing_pixels = (pred_mask == 4) | (pred_mask == 7)
-        if np.sum(clothing_pixels) < 50:
+            # Class 4: Upper-clothes, Class 7: Dress, Class 8: Coat/Suit
+            cloth_candidates = (pred_mask == 4) | (pred_mask == 7)
+            if np.sum(cloth_candidates) >= 50:
+                clothing_pixels = cloth_candidates
+        except Exception as e:
+            logger.warning(f"SegFormer clothing segmentation fallback: {e}")
+
+        if clothing_pixels is None:
             # Fallback: take central patch of torso
             th, tw = torso_rgb.shape[:2]
             clothing_pixels = np.zeros((th, tw), dtype=bool)
@@ -246,6 +253,10 @@ class BindingChecker:
         return {
             "character_id": character_id,
             "overall_binding_pass": overall_binding_pass,
+            "overall_binding_passed": overall_binding_pass,
+            "spatial_passed": spatial_pass,
+            "wardrobe_passed": wardrobe_pass,
+            "clothing_delta_e": min_de,
             "spatial_check": {
                 "passed": spatial_pass,
                 "expected": expected_position_str,
