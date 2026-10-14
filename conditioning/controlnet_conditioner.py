@@ -41,14 +41,21 @@ class ControlNetConditioner:
         return Path(p).exists() if p else False
 
     @classmethod
-    def create_openpose_spec(cls, pose_image_b64: Optional[str] = None, weight: float = 0.70) -> Optional[ControlSpec]:
-        """Creates an OpenPose ControlSpec if model is available."""
-        if not cls.is_model_on_disk("openpose"):
+    def create_openpose_spec(
+        cls,
+        pose_image_b64: Optional[str] = None,
+        weight: float = 0.70,
+        module: Optional[str] = None
+    ) -> Optional[ControlSpec]:
+        """Creates an OpenPose ControlSpec. Returns None if no valid input image is provided (fixing D1)."""
+        if not cls.is_model_on_disk("openpose") or not pose_image_b64:
             return None
+        # If pre-rendered skeleton from LayoutPlanner, use module="none"
+        chosen_module = module if module is not None else ("none" if pose_image_b64 else cls.MODULE_MAP["openpose"])
         return ControlSpec(
             name="openpose",
             model=cls.AVAILABLE_MODELS["openpose"],
-            module=cls.MODULE_MAP["openpose"],
+            module=chosen_module,
             image_b64=pose_image_b64,
             weight=weight,
             guidance_start=0.0,
@@ -57,14 +64,20 @@ class ControlNetConditioner:
         )
 
     @classmethod
-    def create_depth_spec(cls, depth_image_b64: Optional[str] = None, weight: float = 0.65) -> Optional[ControlSpec]:
-        """Creates a Depth ControlSpec if model is available."""
-        if not cls.is_model_on_disk("depth"):
+    def create_depth_spec(
+        cls,
+        depth_image_b64: Optional[str] = None,
+        weight: float = 0.65,
+        module: Optional[str] = None
+    ) -> Optional[ControlSpec]:
+        """Creates a Depth ControlSpec. Returns None if no valid input image is provided (fixing D1)."""
+        if not cls.is_model_on_disk("depth") or not depth_image_b64:
             return None
+        chosen_module = module if module is not None else ("none" if depth_image_b64 else cls.MODULE_MAP["depth"])
         return ControlSpec(
             name="depth",
             model=cls.AVAILABLE_MODELS["depth"],
-            module=cls.MODULE_MAP["depth"],
+            module=chosen_module,
             image_b64=depth_image_b64,
             weight=weight,
             guidance_start=0.0,
