@@ -66,7 +66,7 @@
 - [x] M4: Dual-Unit InstantID & IP-Adapter Plus-Face SDXL tuning (`consistency_v2/identity_units.py`).
 - [x] M5: Reliable Identity Transplant (ReActor script-info + Direct InsightFace blended swap; `consistency_v2/face_swap.py`).
 - [x] M6: Identity-Conditioned Face Detailer (`consistency_v2/face_detailer.py`).
-- [ ] M7: Wardrobe and Palette Lock via SegFormer (`consistency_v2/wardrobe.py`).
+- [x] M7: Wardrobe and Palette Lock via SegFormer (`consistency_v2/wardrobe.py`).
 - [ ] M8: Reference-Only Attention Injection (`consistency_v2/reference_unit.py`).
 - [ ] M9: Best-of-N Selection & Diagnostic-Driven Healing (`consistency_v2/candidates.py`, `healing_v2.py`).
 - [ ] M10: Identity Memory Across Scenes with Drift Guard (`consistency_v2/identity_memory.py`).
@@ -95,10 +95,9 @@
 ---
 
 ## 3. Next Immediate Steps
-1. Cut topic branch `feat/m7-wardrobe-lock` from `consistency-v2`.
-2. Implement M7: Wardrobe and Palette Lock via SegFormer (`consistency_v2/wardrobe.py`):
-   - SegFormer clothes/hair/skin segmentation per person.
-   - CIELAB color delta ($\Delta E$) measurement against character spec and bank wardrobe palette.
-   - Masked inpaint repair and bounded histogram matching preserving face identity.
-3. Test on DEV-FAST, verify wardrobe palette accuracy boost on frozen verifier.
-4. Open PR, squash-merge to `consistency-v2`.
+1. Cut topic branch `feat/m8-reference-only` from `consistency-v2`.
+2. Implement M8: Reference-Only Attention Injection (`consistency_v2/reference_unit.py`):
+   - ControlNet unit with `reference_only` or `reference_adain+attn` preprocessor.
+   - Fed with best bank reference or verified anchor in Pass 1.
+   - Screen on DEV-FAST, verify whether it preserves style/clothing without copying reference pose.
+3. Open PR, squash-merge to `consistency-v2`.
