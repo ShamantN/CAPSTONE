@@ -67,7 +67,7 @@
 - [x] M5: Reliable Identity Transplant (ReActor script-info + Direct InsightFace blended swap; `consistency_v2/face_swap.py`).
 - [x] M6: Identity-Conditioned Face Detailer (`consistency_v2/face_detailer.py`).
 - [x] M7: Wardrobe and Palette Lock via SegFormer (`consistency_v2/wardrobe.py`).
-- [ ] M8: Reference-Only Attention Injection (`consistency_v2/reference_unit.py`).
+- [x] M8: Reference-Only Attention Injection (`consistency_v2/reference_unit.py`).
 - [ ] M9: Best-of-N Selection & Diagnostic-Driven Healing (`consistency_v2/candidates.py`, `healing_v2.py`).
 - [ ] M10: Identity Memory Across Scenes with Drift Guard (`consistency_v2/identity_memory.py`).
 - [x] Scope Guard: M11 (LoRA) OUT OF SCOPE (`use_character_lora=False` flag); seeds {606, 707, 808} reserved.
@@ -95,9 +95,9 @@
 ---
 
 ## 3. Next Immediate Steps
-1. Cut topic branch `feat/m8-reference-only` from `consistency-v2`.
-2. Implement M8: Reference-Only Attention Injection (`consistency_v2/reference_unit.py`):
-   - ControlNet unit with `reference_only` or `reference_adain+attn` preprocessor.
-   - Fed with best bank reference or verified anchor in Pass 1.
-   - Screen on DEV-FAST, verify whether it preserves style/clothing without copying reference pose.
+1. Cut topic branch `feat/m9-best-of-n-healing` from `consistency-v2`.
+2. Implement M9: Best-of-N Selection & Diagnostic-Driven Healing (`consistency_v2/candidates.py`, `healing_v2.py`):
+   - Fast screening of Pass 1 candidates (face count, size, spatial position, defect filters).
+   - Refine best candidate through Pass 2, Face Detailer, and Wardrobe Lock.
+   - Diagnostic table mapping failure mode to targeted remedy.
 3. Open PR, squash-merge to `consistency-v2`.
