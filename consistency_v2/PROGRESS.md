@@ -17,6 +17,8 @@
 | `consistency-v2` | `sync/local-baseline` | Active | `fcfaaf5` | - | Long-lived v2 integration branch |
 | `feat/verifier` | `consistency-v2` | Merged (PR #3) | `96aa099` | [PR #3](https://github.com/ShamantN/CAPSTONE/pull/3) | Multi-modal verification suite |
 | `fix/verifier-encoding` | `consistency-v2` | Merged (PR #4) | `85257ee` | [PR #4](https://github.com/ShamantN/CAPSTONE/pull/4) | Verifier Windows UTF-8 stdout encoding |
+| `feat/m1-identity-bank` | `consistency-v2` | Merged (PR #5) | `31afaf8` | [PR #5](https://github.com/ShamantN/CAPSTONE/pull/5) | M1: Multi-reference identity bank and centroid embeddings |
+| `feat/m2-layout-planner` | `consistency-v2` | Merged (PR #6) | `32eea5d` | [PR #6](https://github.com/ShamantN/CAPSTONE/pull/6) | M2: Programmatic layout planner, OpenPose skeleton & D1 fix |
 
 ---
 
@@ -54,8 +56,8 @@
 - [x] D6: Reconcile code vs documentation contradictions documented in `docs_generated/v2/claims_corrected.md` and `docs_generated/v2/diagnostics.md`.
 
 ### Phase 3: Implement Consistency Methods (M1 to M10 Only)
-- [ ] M1: Multi-reference Identity Bank with pose clustering (`consistency_v2/identity_bank.py`).
-- [ ] M2: Layout Planner with OpenPose skeleton & region masks (`consistency_v2/layout_planner.py`).
+- [x] M1: Multi-reference Identity Bank with pose clustering (`consistency_v2/identity_bank.py`).
+- [x] M2: Layout Planner with OpenPose skeleton & region masks (`consistency_v2/layout_planner.py`).
 - [ ] M3: True Regional Conditioning via Forge Couple extension (`consistency_v2/regional.py`).
 - [ ] M4: Dual-Unit InstantID & IP-Adapter Plus-Face SDXL tuning (`consistency_v2/identity_units.py`).
 - [ ] M5: Reliable Identity Transplant (ReActor script-info + Direct InsightFace blended swap; `consistency_v2/face_swap.py`).
@@ -89,5 +91,7 @@
 ---
 
 ## 3. Next Immediate Steps
-1. Execute Step 4 of Phase 0: Image-Viewing Canary Check (view standard test image vs inverted canary).
-2. Execute Step 5 of Phase 0: Run baseline v1 on DEV-FULL and TEST splits, caching outputs to `results/baseline_v1/`.
+1. Cut topic branch `feat/m3-regional-couple` from `consistency-v2`.
+2. Implement M3: True Regional Conditioning (`consistency_v2/regional.py`) using Forge Couple extension.
+3. Test on DEV-FAST (Scene 1 two-character render) with frozen verifier to confirm spatial attention isolation without identity bleed.
+4. Open PR, squash-merge to `consistency-v2`.

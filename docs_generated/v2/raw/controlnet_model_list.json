@@ -1,10 +1,12 @@
 {
   "model_list": [
     "None",
+    "control_instant_id_sdxl [c5c25a50]",
     "depth_xl [4a0891d4]",
     "instantid_xl [c5c25a50]",
     "ip-adapter-faceid-plusv2_sdxl [187cb962]",
     "ip-adapter-plus-face_sdxl_vit-h [368cf551]",
+    "ip-adapter_instant_id_sdxl [eb2d3ec0]",
     "ip-adapter_sdxl_vit-h [68f9f08d]",
     "ip-adapter_xl [af81326a]",
     "openpose_xl [f4251cb4]"
