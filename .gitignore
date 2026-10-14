@@ -1,0 +1,47 @@
+# Python Virtual Environments
+my_app_env/
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Secrets & Environment Configurations
+.env
+*.env
+!.env.example
+.streamlit/secrets.toml
+
+# Logs, Diagnostics & Temp files
+*.log
+*.tmp
+*.temp
+scratch/
+
+# Local Caches & Generated Outputs
+edu_outputs/
+cache/
+hardcoded_cache.json
+consistency_v2/banks/
+results/raw/
+docs_generated/raw/ablation_images/
+docs_generated/raw/best_images/
+docs_generated/raw/*.csv
+docs_generated/raw/vram_telemetry.csv
+experiments/**/*.png
+
+# Model Weights & Binary Checkpoints
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.bin
+
+# Hugging Face & Pip caches
+.cache/
+huggingface/

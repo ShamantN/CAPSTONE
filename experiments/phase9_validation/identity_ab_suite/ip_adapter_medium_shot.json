@@ -1,0 +1,16 @@
+{
+  "engine": "ip_adapter",
+  "shot_type": "medium_shot",
+  "scene_number": 3,
+  "runtime_s": 106.55,
+  "image_file": "ip_adapter_medium_shot.png",
+  "metrics": {
+    "arcface": 0.4976,
+    "clip_i": 0.9261,
+    "structural_ssim": 0.5917,
+    "composite": 0.6342,
+    "qa_passed": 5,
+    "qa_total": 6,
+    "qa_rate_pct": 83.3
+  }
+}

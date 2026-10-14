@@ -1,0 +1,26 @@
+[
+  {
+    "test": "close_up",
+    "scene_number": 2,
+    "status": "PASS",
+    "runtime_s": 38.6,
+    "arcface_similarity": 0.5747,
+    "image_path": "experiments\\phase8_4_tests\\faceid\\multi_condition_suite\\faceid_close_up.png"
+  },
+  {
+    "test": "medium_shot",
+    "scene_number": 3,
+    "status": "PASS",
+    "runtime_s": 41.28,
+    "arcface_similarity": 0.5262,
+    "image_path": "experiments\\phase8_4_tests\\faceid\\multi_condition_suite\\faceid_medium_shot.png"
+  },
+  {
+    "test": "wide_shot",
+    "scene_number": 6,
+    "status": "PASS",
+    "runtime_s": 38.96,
+    "arcface_similarity": 0.5534,
+    "image_path": "experiments\\phase8_4_tests\\faceid\\multi_condition_suite\\faceid_wide_shot.png"
+  }
+]

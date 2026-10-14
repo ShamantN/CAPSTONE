@@ -1,0 +1,196 @@
+{
+  "components": [
+    {
+      "name": "StorySpec",
+      "status": "Active",
+      "optional": false,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "Provides canonical structured narrative data (characters, scenes, props)."
+    },
+    {
+      "name": "Story Analyzer",
+      "status": "Active",
+      "optional": true,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "Parses raw text into a StorySpec using Gemini API or heuristic NLP rules."
+    },
+    {
+      "name": "Character Registry",
+      "status": "Active",
+      "optional": false,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "Stores and retrieves canonical character anchors and biometric embeddings."
+    },
+    {
+      "name": "Visual DNA",
+      "status": "Active",
+      "optional": false,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "Metadata and ArcFace embeddings representing the unchangeable core identity of a character."
+    },
+    {
+      "name": "Scene Planner",
+      "status": "Active",
+      "optional": false,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "Resolves scene properties, calculates denoising schedules, and prepares base control inputs."
+    },
+    {
+      "name": "Prompt Builder",
+      "status": "Active",
+      "optional": false,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "Generates structured prompts including demographic tags and regional isolation boundaries."
+    },
+    {
+      "name": "Generic IP-Adapter",
+      "status": "Active",
+      "optional": false,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "Primary identity conditioning engine using CLIP-ViT-bigG."
+    },
+    {
+      "name": "FaceID Plus V2",
+      "status": "Active",
+      "optional": true,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "Alternative identity conditioning engine utilizing native face embeddings and LoRA."
+    },
+    {
+      "name": "InstantID",
+      "status": "Inactive",
+      "optional": false,
+      "inactive": true,
+      "substituted": true,
+      "purpose": "Designed for identity injection, but currently inactive due to Forge runtime preprocessor errors."
+    },
+    {
+      "name": "OpenPose",
+      "status": "Active",
+      "optional": true,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "ControlNet adapter enforcing specific human poses, activated automatically by the Healing Controller."
+    },
+    {
+      "name": "Depth",
+      "status": "Active",
+      "optional": true,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "ControlNet adapter for spatial geometry enforcement."
+    },
+    {
+      "name": "Regional Conditioning",
+      "status": "Active",
+      "optional": false,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "Partitions prompt attention using BREAK tokens and regional ratios to prevent attribute leakage."
+    },
+    {
+      "name": "LoRA",
+      "status": "Active",
+      "optional": true,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "Adds localized style or detail weights to the generation process."
+    },
+    {
+      "name": "FreeU",
+      "status": "Active",
+      "optional": false,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "Native U-Net modification re-weighting backbone frequencies to improve image coherence."
+    },
+    {
+      "name": "PAG",
+      "status": "Active",
+      "optional": false,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "Perturbed Attention Guidance; enhances structural integrity natively."
+    },
+    {
+      "name": "CFG-Fix",
+      "status": "Active",
+      "optional": false,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "Dynamic thresholding to prevent color burning at high Classifier-Free Guidance values."
+    },
+    {
+      "name": "Adaptive Denoising",
+      "status": "Active",
+      "optional": false,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "Modulates Pass 2 img2img strength based on the scene's shot type (e.g. close-up vs. wide)."
+    },
+    {
+      "name": "ReActor",
+      "status": "Active",
+      "optional": false,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "High-fidelity faceswapping post-processor applied during Pass 2 to force facial likeness."
+    },
+    {
+      "name": "CodeFormer",
+      "status": "Active",
+      "optional": false,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "Face restoration algorithm run alongside ReActor to enhance clarity and repair artifacts."
+    },
+    {
+      "name": "ArcFace",
+      "status": "Active",
+      "optional": false,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "Biometric QA metric calculating cosine similarity between generated faces and canonical anchors."
+    },
+    {
+      "name": "CLIP",
+      "status": "Active",
+      "optional": false,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "Semantic QA metric scoring zero-shot probabilities of required or forbidden props."
+    },
+    {
+      "name": "VLM",
+      "status": "Inactive",
+      "optional": true,
+      "inactive": true,
+      "substituted": true,
+      "purpose": "Vision-Language Model for holistic visual evaluation. Unverified/inactive in current automated QA flow."
+    },
+    {
+      "name": "HealingController",
+      "status": "Active",
+      "optional": false,
+      "inactive": false,
+      "substituted": false,
+      "purpose": "Detects QA failures and triggers re-generations with tuned parameters."
+    },
+    {
+      "name": "CrossFrameConditioner",
+      "status": "Inactive",
+      "optional": false,
+      "inactive": true,
+      "substituted": true,
+      "purpose": "Intended to pass visual history between frames, but unused in the current Generation Orchestrator flow."
+    }
+  ]
+}

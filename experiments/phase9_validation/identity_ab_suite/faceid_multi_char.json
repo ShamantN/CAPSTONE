@@ -1,0 +1,16 @@
+{
+  "engine": "faceid",
+  "shot_type": "multi_char",
+  "scene_number": 1,
+  "runtime_s": 152.1,
+  "image_file": "faceid_multi_char.png",
+  "metrics": {
+    "arcface": 0.5423,
+    "clip_i": 0.7247,
+    "structural_ssim": 0.4807,
+    "composite": 0.5873,
+    "qa_passed": 5,
+    "qa_total": 7,
+    "qa_rate_pct": 71.4
+  }
+}

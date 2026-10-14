@@ -1,0 +1,16 @@
+{
+  "engine": "ip_adapter",
+  "shot_type": "multi_char",
+  "scene_number": 1,
+  "runtime_s": 121.24,
+  "image_file": "ip_adapter_multi_char.png",
+  "metrics": {
+    "arcface": 0.5639,
+    "clip_i": 0.7668,
+    "structural_ssim": 0.4838,
+    "composite": 0.608,
+    "qa_passed": 7,
+    "qa_total": 7,
+    "qa_rate_pct": 100.0
+  }
+}

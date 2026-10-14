@@ -1,0 +1,113 @@
+[
+  {
+    "scene_number": 2,
+    "scene_title": "The Butterfly Basement",
+    "same_character": false,
+    "identity_confidence": 63,
+    "facial_continuity": "WARN",
+    "age_continuity": "PASS",
+    "anatomy": "PASS",
+    "multi_character_separation": "PASS",
+    "story_adherence": "WARN",
+    "major_failure": null,
+    "detected_faces_count": 1,
+    "arcface_score": 0.5684,
+    "clip_i_score": 0.8268,
+    "ssim_score": 0.4658,
+    "scene_visual_caption": "a young boy with a yellow shirt and blue shirt",
+    "anchor_visual_caption": "a young boy with a backpack on his back",
+    "clip_attribute_breakdown": {
+      "anatomy_probabilities": {
+        "a photo with clean realistic human anatomy and clear face": 0.351,
+        "a distorted image with deformed anatomy, melted face, or extra limbs": 0.649
+      },
+      "age_probabilities": {
+        "a photo of an 8-year-old young child boy": 0.9908,
+        "a photo of a 15-year-old adolescent teenage boy": 0.0072,
+        "a photo of a 21-year-old young adult man": 0.0008,
+        "a photo of an adult woman": 0.0011
+      },
+      "environment_probabilities": {
+        "a photo set in a Basement Rearing Laboratory": 0.0176,
+        "a photo set in an unrelated outdoor or studio background": 0.9824
+      }
+    },
+    "label": "age_08_child",
+    "runtime_s": 56.94,
+    "image_file": "age_08_child.png"
+  },
+  {
+    "scene_number": 3,
+    "scene_title": "Failure at the Science Fair",
+    "same_character": false,
+    "identity_confidence": 61,
+    "facial_continuity": "WARN",
+    "age_continuity": "PASS",
+    "anatomy": "PASS",
+    "multi_character_separation": "PASS",
+    "story_adherence": "WARN",
+    "major_failure": null,
+    "detected_faces_count": 1,
+    "arcface_score": 0.5017,
+    "clip_i_score": 0.875,
+    "ssim_score": 0.4951,
+    "scene_visual_caption": "a man with a green and black shirt",
+    "anchor_visual_caption": "a young man with a green shirt and a white shirt",
+    "clip_attribute_breakdown": {
+      "anatomy_probabilities": {
+        "a photo with clean realistic human anatomy and clear face": 0.9147,
+        "a distorted image with deformed anatomy, melted face, or extra limbs": 0.0853
+      },
+      "age_probabilities": {
+        "a photo of an 8-year-old young child boy": 0.022,
+        "a photo of a 15-year-old adolescent teenage boy": 0.5909,
+        "a photo of a 21-year-old young adult man": 0.387,
+        "a photo of an adult woman": 0.0001
+      },
+      "environment_probabilities": {
+        "a photo set in a County Science Fair Gymnasium": 0.0081,
+        "a photo set in an unrelated outdoor or studio background": 0.9919
+      }
+    },
+    "label": "age_15_teen",
+    "runtime_s": 68.03,
+    "image_file": "age_15_teen.png"
+  },
+  {
+    "scene_number": 6,
+    "scene_title": "Graduation",
+    "same_character": false,
+    "identity_confidence": 63,
+    "facial_continuity": "WARN",
+    "age_continuity": "PASS",
+    "anatomy": "PASS",
+    "multi_character_separation": "PASS",
+    "story_adherence": "WARN",
+    "major_failure": null,
+    "detected_faces_count": 1,
+    "arcface_score": 0.5088,
+    "clip_i_score": 0.9148,
+    "ssim_score": 0.5169,
+    "scene_visual_caption": "a man in a graduation gown",
+    "anchor_visual_caption": "a man in a yellow shirt posing for a picture",
+    "clip_attribute_breakdown": {
+      "anatomy_probabilities": {
+        "a photo with clean realistic human anatomy and clear face": 0.9588,
+        "a distorted image with deformed anatomy, melted face, or extra limbs": 0.0412
+      },
+      "age_probabilities": {
+        "a photo of an 8-year-old young child boy": 0.0008,
+        "a photo of a 15-year-old adolescent teenage boy": 0.0333,
+        "a photo of a 21-year-old young adult man": 0.9653,
+        "a photo of an adult woman": 0.0007
+      },
+      "environment_probabilities": {
+        "a photo set in a Harvard Commencement Hall": 0.1089,
+        "a photo set in an unrelated outdoor or studio background": 0.8911
+      }
+    },
+    "label": "age_21_adult",
+    "runtime_s": 68.29,
+    "image_file": "age_21_adult.png"
+  }
+]

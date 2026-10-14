@@ -1,0 +1,245 @@
+{
+  "story_id": "chrono_archivists_solarium",
+  "title": "The Chrono-Archivists: The Quest for the Solarium Astrolabe",
+  "timestamp": "2026-08-27 18:37:05",
+  "total_tests": 26,
+  "passed": 20,
+  "failed": 6,
+  "pass_rate_pct": 76.9,
+  "results": [
+    {
+      "test_id": "S1.1",
+      "scene": 1,
+      "category": "Spatial",
+      "passed": true,
+      "description": "Face count expected 2, detected 2",
+      "measured_value": 2,
+      "threshold": 2
+    },
+    {
+      "test_id": "S1.2",
+      "scene": 1,
+      "category": "Spatial",
+      "passed": false,
+      "description": "Multi-person spatial separation: Left x=0.05, Right x=0.44",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "P1.1",
+      "scene": 1,
+      "category": "Prop",
+      "passed": true,
+      "description": "Required prop 'brass armillary sphere' verification (score=0.999)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "P1.2",
+      "scene": 1,
+      "category": "Prop",
+      "passed": true,
+      "description": "Required prop 'mahogany workbench' verification (score=0.001)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "FP1.1",
+      "scene": 1,
+      "category": "ForbiddenProp",
+      "passed": true,
+      "description": "Rejection of forbidden artifact 'modern plastic' (score=0.004)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "FP1.2",
+      "scene": 1,
+      "category": "ForbiddenProp",
+      "passed": true,
+      "description": "Rejection of forbidden artifact 'computer' (score=0.162)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "S2.1",
+      "scene": 2,
+      "category": "Spatial",
+      "passed": true,
+      "description": "Face count expected 1, detected 1",
+      "measured_value": 1,
+      "threshold": 1
+    },
+    {
+      "test_id": "P2.1",
+      "scene": 2,
+      "category": "Prop",
+      "passed": true,
+      "description": "Required prop 'brass drafting compass' verification (score=0.025)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "P2.2",
+      "scene": 2,
+      "category": "Prop",
+      "passed": true,
+      "description": "Required prop 'star map parchment' verification (score=0.958)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "FP2.1",
+      "scene": 2,
+      "category": "ForbiddenProp",
+      "passed": true,
+      "description": "Rejection of forbidden artifact 'adult woman' (score=0.040)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "FP2.2",
+      "scene": 2,
+      "category": "ForbiddenProp",
+      "passed": false,
+      "description": "Rejection of forbidden artifact 'modern pen' (score=0.260)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "S3.1",
+      "scene": 3,
+      "category": "Spatial",
+      "passed": false,
+      "description": "Face count expected 2, detected 1",
+      "measured_value": 1,
+      "threshold": 2
+    },
+    {
+      "test_id": "P3.1",
+      "scene": 3,
+      "category": "Prop",
+      "passed": false,
+      "description": "Required prop 'brass navigational sextant' verification (score=0.001)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "P3.2",
+      "scene": 3,
+      "category": "Prop",
+      "passed": true,
+      "description": "Required prop 'golden desert sand dunes' verification (score=0.993)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "FP3.1",
+      "scene": 3,
+      "category": "ForbiddenProp",
+      "passed": true,
+      "description": "Rejection of forbidden artifact 'child' (score=0.075)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "FP3.2",
+      "scene": 3,
+      "category": "ForbiddenProp",
+      "passed": true,
+      "description": "Rejection of forbidden artifact 'modern car' (score=0.008)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "S4.1",
+      "scene": 4,
+      "category": "Spatial",
+      "passed": true,
+      "description": "Face count expected 1, detected 1",
+      "measured_value": 1,
+      "threshold": 1
+    },
+    {
+      "test_id": "P4.1",
+      "scene": 4,
+      "category": "Prop",
+      "passed": false,
+      "description": "Required prop 'golden astrolabe with crystal gears' verification (score=0.014)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "P4.2",
+      "scene": 4,
+      "category": "Prop",
+      "passed": true,
+      "description": "Required prop 'sandstone temple pillars' verification (score=0.790)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "FP4.1",
+      "scene": 4,
+      "category": "ForbiddenProp",
+      "passed": true,
+      "description": "Rejection of forbidden artifact 'glowing magic wand' (score=0.079)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "FP4.2",
+      "scene": 4,
+      "category": "ForbiddenProp",
+      "passed": true,
+      "description": "Rejection of forbidden artifact 'modern weapons' (score=0.039)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "S5.1",
+      "scene": 5,
+      "category": "Spatial",
+      "passed": true,
+      "description": "Face count expected 1, detected 1",
+      "measured_value": 1,
+      "threshold": 1
+    },
+    {
+      "test_id": "P5.1",
+      "scene": 5,
+      "category": "Prop",
+      "passed": true,
+      "description": "Required prop 'ceremonial emerald silk robes' verification (score=1.000)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "P5.2",
+      "scene": 5,
+      "category": "Prop",
+      "passed": false,
+      "description": "Required prop 'golden astrolabe' verification (score=0.000)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "FP5.1",
+      "scene": 5,
+      "category": "ForbiddenProp",
+      "passed": true,
+      "description": "Rejection of forbidden artifact 'casual t-shirt' (score=0.004)",
+      "measured_value": null,
+      "threshold": null
+    },
+    {
+      "test_id": "FP5.2",
+      "scene": 5,
+      "category": "ForbiddenProp",
+      "passed": true,
+      "description": "Rejection of forbidden artifact 'jeans' (score=0.000)",
+      "measured_value": null,
+      "threshold": null
+    }
+  ]
+}

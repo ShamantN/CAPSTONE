@@ -1,0 +1,14 @@
+{
+  "seed": 219,
+  "runtime_s": 59.24,
+  "image_file": "seed_219.png",
+  "metrics": {
+    "arcface": 0.5688,
+    "clip_i": 0.8022,
+    "structural_ssim": 0.5162,
+    "composite": 0.6239,
+    "qa_passed": 3,
+    "qa_total": 6,
+    "qa_rate_pct": 50.0
+  }
+}

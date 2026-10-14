@@ -1,0 +1,92 @@
+[
+  {
+    "character_id": "young_ebright",
+    "verdict": "CERTIFIED",
+    "resolution": "1024x1024",
+    "resolution_pass": true,
+    "faces_detected": 1,
+    "single_face_pass": true,
+    "face_area_pct": 21.97,
+    "bbox_ratio_pass": true,
+    "embedding_norm": 1.0,
+    "embedding_valid": true,
+    "facial_bbox": {
+      "x": 260,
+      "y": 222,
+      "w": 480,
+      "h": 480
+    }
+  },
+  {
+    "character_id": "teen_ebright",
+    "verdict": "CERTIFIED",
+    "resolution": "1024x1024",
+    "resolution_pass": true,
+    "faces_detected": 1,
+    "single_face_pass": true,
+    "face_area_pct": 26.69,
+    "bbox_ratio_pass": true,
+    "embedding_norm": 1.0,
+    "embedding_valid": true,
+    "facial_bbox": {
+      "x": 264,
+      "y": 206,
+      "w": 529,
+      "h": 529
+    }
+  },
+  {
+    "character_id": "college_ebright",
+    "verdict": "CERTIFIED",
+    "resolution": "1024x1024",
+    "resolution_pass": true,
+    "faces_detected": 1,
+    "single_face_pass": true,
+    "face_area_pct": 30.88,
+    "bbox_ratio_pass": true,
+    "embedding_norm": 1.0,
+    "embedding_valid": true,
+    "facial_bbox": {
+      "x": 206,
+      "y": 146,
+      "w": 569,
+      "h": 569
+    }
+  },
+  {
+    "character_id": "mother",
+    "verdict": "CERTIFIED",
+    "resolution": "1024x1024",
+    "resolution_pass": true,
+    "faces_detected": 1,
+    "single_face_pass": true,
+    "face_area_pct": 12.64,
+    "bbox_ratio_pass": true,
+    "embedding_norm": 1.0,
+    "embedding_valid": true,
+    "facial_bbox": {
+      "x": 371,
+      "y": 231,
+      "w": 364,
+      "h": 364
+    }
+  },
+  {
+    "character_id": "james_wong",
+    "verdict": "CERTIFIED",
+    "resolution": "1024x1024",
+    "resolution_pass": true,
+    "faces_detected": 1,
+    "single_face_pass": true,
+    "face_area_pct": 32.19,
+    "bbox_ratio_pass": true,
+    "embedding_norm": 1.0,
+    "embedding_valid": true,
+    "facial_bbox": {
+      "x": 199,
+      "y": 204,
+      "w": 581,
+      "h": 581
+    }
+  }
+]

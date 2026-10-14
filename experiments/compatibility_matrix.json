@@ -1,0 +1,82 @@
+{
+  "timestamp": "2026-08-25 19:24:37",
+  "components": [
+    {
+      "requested_component": "SDXL Base Checkpoint",
+      "discovered_component": "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+      "repository_source": "RunDiffusion / Civitai",
+      "local_path": "C:\\Stable-Diffusion\\webui\\models\\Stable-diffusion\\Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+      "version_commit": "v9",
+      "compatibility_status": "COMPATIBLE",
+      "invocation_mechanism": "Forge /sdapi/v1/txt2img & /sdapi/v1/img2img with sd_model_checkpoint",
+      "notes": "Primary high-realism photorealistic SDXL base checkpoint loaded in VRAM",
+      "fallback": "animagine-xl-3.1.safetensors"
+    },
+    {
+      "requested_component": "Native U-Net Attention Conditioning (FreeU / PAG / SAG / CFG-Fix)",
+      "discovered_component": "FreeU + Perturbed Attention Guidance (PAG) + DynamicThresholding CFG-Fix",
+      "repository_source": "Forge Built-in Core U-Net Hooks",
+      "local_path": "Forge Core Backend",
+      "version_commit": "Integrated",
+      "compatibility_status": "COMPATIBLE",
+      "invocation_mechanism": "alwayson_scripts payload: 'freeu integrated (sd 1.x, sd 2.x, sdxl)', 'perturbedattentionguidance integrated', 'dynamicthresholding (cfg-fix) integrated'",
+      "notes": "Applies native U-Net spatial and frequency domain feature enhancement directly inside SDXL diffusion passes without external plugins",
+      "fallback": "Standard SDXL sampling"
+    },
+    {
+      "requested_component": "Native Identity Conditioning (IP-Adapter SDXL)",
+      "discovered_component": "ip-adapter_xl.safetensors + CLIP-ViT-H-14.safetensors + Buffalo_L",
+      "repository_source": "h94/IP-Adapter (SDXL)",
+      "local_path": "C:\\Stable-Diffusion\\webui\\models\\ControlNet\\ip-adapter_xl.safetensors",
+      "version_commit": "af81326a",
+      "compatibility_status": "COMPATIBLE",
+      "invocation_mechanism": "Forge ControlNet API: model='ip-adapter_xl [af81326a]', module='InsightFace+CLIP-H (IPAdapter)' / 'CLIP-ViT-H (IPAdapter)'",
+      "notes": "Injects native cross-attention reference identity embeddings directly into SDXL cross-attention layers during sampling",
+      "fallback": "Direct image-guided conditioning"
+    },
+    {
+      "requested_component": "ControlNet OpenPose (SDXL)",
+      "discovered_component": "openpose_xl.safetensors + DWPose/OpenPose preprocessors",
+      "repository_source": "thibaud/controlnet-openpose-sdxl-1.0",
+      "local_path": "C:\\Stable-Diffusion\\webui\\models\\ControlNet\\openpose_xl.safetensors",
+      "version_commit": "f4251cb4",
+      "compatibility_status": "COMPATIBLE",
+      "invocation_mechanism": "Forge ControlNet API: model='openpose_xl [f4251cb4]', module='dw_openpose_full' / 'openpose_full'",
+      "notes": "Enforces precise skeleton body poses, hands, and facial landmarks for multi-person and solo scenes",
+      "fallback": "Pose-guided img2img draft"
+    },
+    {
+      "requested_component": "InstantID (SDXL)",
+      "discovered_component": "InstantID ControlNet & IP-Adapter",
+      "repository_source": "InstantX/InstantID",
+      "local_path": "C:\\Stable-Diffusion\\webui\\models\\ControlNet\\instantid_xl.safetensors",
+      "version_commit": "InstantX official",
+      "compatibility_status": "PROVISIONABLE",
+      "invocation_mechanism": "Forge ControlNet: module='InsightFace (InstantID)' + 'instant_id_face_keypoints'",
+      "notes": "Can be downloaded and registered into ControlNet models directory via download_sota_models.py",
+      "fallback": "ip-adapter_xl.safetensors (Native SDXL cross-attention)"
+    },
+    {
+      "requested_component": "Regional Multi-Character Conditioning",
+      "discovered_component": "Latent Regional Spatial Isolation with BREAK Syntax & Column Ratios",
+      "repository_source": "Forge Native Latent Conditioning Parser",
+      "local_path": "Built-in Tokenizer & Cross-Attention Dispatcher",
+      "version_commit": "Native",
+      "compatibility_status": "COMPATIBLE",
+      "invocation_mechanism": "75-token BREAK chunking with spatial column prompt weighting ('sitting on the left' / 'sitting on the right')",
+      "notes": "Physically isolates character conditioning tokens into distinct spatial latent regions preventing cross-character attribute bleed",
+      "fallback": "Sequential localized inpainting"
+    },
+    {
+      "requested_component": "Secondary High-Resolution Biometric Refinement",
+      "discovered_component": "ReActor v0.7.1-b3 + CodeFormer v0.1.0 + inswapper_128.onnx",
+      "repository_source": "Gourieff/sd-webui-reactor",
+      "local_path": "C:\\Stable-Diffusion\\webui\\extensions\\sd-webui-reactor",
+      "version_commit": "v0.7.1-b3 (Device: CUDA)",
+      "compatibility_status": "COMPATIBLE",
+      "invocation_mechanism": "alwayson_scripts payload: 'reactor' with deterministic 30-argument interface",
+      "notes": "Used strictly as a secondary local high-frequency biometric polish pass, NOT as a substitute for native diffusion conditioning",
+      "fallback": "Localized Poisson feathering inpainting"
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "total_canonical_anchors": 5,
+  "approved_count": 5,
+  "rejected_count": 0,
+  "anchors": [
+    {
+      "char_id": "young_ebright",
+      "anchor_file": "young_ebright_ground_truth.png",
+      "status": "APPROVED_CANONICAL",
+      "resolution": "1024x1024",
+      "resolution_pass": true,
+      "detected_faces_count": 1,
+      "face_count_pass": true,
+      "face_area_percentage": 31.53,
+      "face_size_pass": true,
+      "facial_bbox": {
+        "x": 192,
+        "y": 201,
+        "w": 575,
+        "h": 575
+      },
+      "biometric_embedding_valid": true,
+      "acceptable_orientation": true,
+      "occlusion_detected": false,
+      "unintended_preprocessing_distortion": false
+    },
+    {
+      "char_id": "teen_ebright",
+      "anchor_file": "teen_ebright_ground_truth.png",
+      "status": "APPROVED_CANONICAL",
+      "resolution": "1024x1024",
+      "resolution_pass": true,
+      "detected_faces_count": 1,
+      "face_count_pass": true,
+      "face_area_percentage": 24.42,
+      "face_size_pass": true,
+      "facial_bbox": {
+        "x": 227,
+        "y": 236,
+        "w": 506,
+        "h": 506
+      },
+      "biometric_embedding_valid": true,
+      "acceptable_orientation": true,
+      "occlusion_detected": false,
+      "unintended_preprocessing_distortion": false
+    },
+    {
+      "char_id": "college_ebright",
+      "anchor_file": "college_ebright_ground_truth.png",
+      "status": "APPROVED_CANONICAL",
+      "resolution": "1024x1024",
+      "resolution_pass": true,
+      "detected_faces_count": 1,
+      "face_count_pass": true,
+      "face_area_percentage": 24.13,
+      "face_size_pass": true,
+      "facial_bbox": {
+        "x": 249,
+        "y": 234,
+        "w": 503,
+        "h": 503
+      },
+      "biometric_embedding_valid": true,
+      "acceptable_orientation": true,
+      "occlusion_detected": false,
+      "unintended_preprocessing_distortion": false
+    },
+    {
+      "char_id": "mother",
+      "anchor_file": "mother_ground_truth.png",
+      "status": "APPROVED_CANONICAL",
+      "resolution": "1024x1024",
+      "resolution_pass": true,
+      "detected_faces_count": 1,
+      "face_count_pass": true,
+      "face_area_percentage": 22.43,
+      "face_size_pass": true,
+      "facial_bbox": {
+        "x": 244,
+        "y": 258,
+        "w": 485,
+        "h": 485
+      },
+      "biometric_embedding_valid": true,
+      "acceptable_orientation": true,
+      "occlusion_detected": false,
+      "unintended_preprocessing_distortion": false
+    },
+    {
+      "char_id": "james_wong",
+      "anchor_file": "james_wong_ground_truth.png",
+      "status": "APPROVED_CANONICAL",
+      "resolution": "1024x1024",
+      "resolution_pass": true,
+      "detected_faces_count": 1,
+      "face_count_pass": true,
+      "face_area_percentage": 29.27,
+      "face_size_pass": true,
+      "facial_bbox": {
+        "x": 228,
+        "y": 223,
+        "w": 554,
+        "h": 554
+      },
+      "biometric_embedding_valid": true,
+      "acceptable_orientation": true,
+      "occlusion_detected": false,
+      "unintended_preprocessing_distortion": false
+    }
+  ]
+}

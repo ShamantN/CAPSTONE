@@ -1,0 +1,31 @@
+{
+  "story_id": "chrono_archivists_solarium",
+  "scene_id": "scene_4",
+  "scene_number": 4,
+  "title": "The Solarium Vault",
+  "model_checkpoint": "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+  "identity_engine": "IP-Adapter-SDXL",
+  "sampler": "DPM++ 2M Karras",
+  "steps_pass1": 25,
+  "steps_pass2": 15,
+  "denoising_strength": 0.504,
+  "cfg_scale": 5.5,
+  "width": 1024,
+  "height": 1024,
+  "seed": 3438371691,
+  "positive_prompt": "(Cinematic Realistic:1.2), masterpiece, cinematic lighting, 8k resolution, highly detailed, 28-year-old Master Elena Vance in her emerald duster coat standing inside an ancient sandstone sun temple, carefully holding the glowing golden Solarium Astrolabe in both hands as brilliant light refracts through its crystalline gears. BREAK ((ElenaV_A8X1:1.4)), centered in frame, ((strictly Hispanic Latina:1.45)), (warm olive skin tone:1.35), (oval face:1.25), 28 years old master archivist female, wearing (emerald green explorer duster coat with brass buckles:1.30), (emerald green garment:1.30) and (amber brown garment:1.30), dark brown hair (wavy layered), clean face, detailed eyes BREAK Background: Ancient Sun Temple Chamber, indoor ancient sandstone vault environment, Brilliant concentrated sunbeams piercing through crystal roof prisms, Medium shot, Eye level.",
+  "negative_prompt": "blurry, deformed, bad anatomy, bad hands, missing fingers, extra fingers, ugly, watermark, text, signature, cartoon, 3d render, modern room, office, child, casual clothing, no glowing magic wand, no modern weapons",
+  "native_conditioning": {
+    "identity_adapter": "IP-Adapter-SDXL",
+    "openpose_active": false,
+    "depth_active": false,
+    "freeu_active": true,
+    "pag_active": true,
+    "cfg_fix_active": true,
+    "regional_isolation": {
+      "regional_active": false
+    }
+  },
+  "runtime_s": 42.61,
+  "peak_vram_mb": 591.8
+}

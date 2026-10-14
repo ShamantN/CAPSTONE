@@ -1,0 +1,674 @@
+{
+  "baseline_date": "2026-08-25",
+  "checkpoint": "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+  "benchmark_a": {
+    "story_id": "ebright_monarch_expedition",
+    "title": "The Making of a Scientist: Richard Ebright",
+    "timestamp": "2026-08-25 21:21:39",
+    "total_tests": 39,
+    "passed": 36,
+    "failed": 3,
+    "pass_rate_pct": 92.3,
+    "results": [
+      {
+        "test_id": "S1.1",
+        "scene": 1,
+        "category": "Spatial",
+        "passed": true,
+        "description": "Face count expected 2, detected 2",
+        "measured_value": 2,
+        "threshold": 2
+      },
+      {
+        "test_id": "S1.2",
+        "scene": 1,
+        "category": "Spatial",
+        "passed": false,
+        "description": "Multi-person spatial separation: Left x=0.31, Right x=0.37",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "B1.1",
+        "scene": 1,
+        "category": "Biometric",
+        "passed": true,
+        "description": "Young Richard Ebright ArcFace identity similarity",
+        "measured_value": 0.9913,
+        "threshold": 0.45
+      },
+      {
+        "test_id": "B1.2",
+        "scene": 1,
+        "category": "Biometric",
+        "passed": true,
+        "description": "Ebright's Mother ArcFace identity similarity",
+        "measured_value": 0.9777,
+        "threshold": 0.45
+      },
+      {
+        "test_id": "P1.1",
+        "scene": 1,
+        "category": "Prop",
+        "passed": true,
+        "description": "Required prop 'an open illustrated book on the table' verification (score=0.994)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP1.1",
+        "scene": 1,
+        "category": "ForbiddenProp",
+        "passed": false,
+        "description": "Rejection of forbidden artifact 'laptop' (score=0.297)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP1.2",
+        "scene": 1,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'computer' (score=0.190)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "S2.1",
+        "scene": 2,
+        "category": "Spatial",
+        "passed": true,
+        "description": "Face count expected 1, detected 1",
+        "measured_value": 1,
+        "threshold": 1
+      },
+      {
+        "test_id": "B2.1",
+        "scene": 2,
+        "category": "Biometric",
+        "passed": true,
+        "description": "Young Richard Ebright ArcFace identity similarity",
+        "measured_value": 0.5042,
+        "threshold": 0.45
+      },
+      {
+        "test_id": "P2.1",
+        "scene": 2,
+        "category": "Prop",
+        "passed": true,
+        "description": "Required prop 'wire mesh butterfly cages' verification (score=0.023)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "P2.2",
+        "scene": 2,
+        "category": "Prop",
+        "passed": true,
+        "description": "Required prop 'monarch butterflies' verification (score=0.961)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP2.1",
+        "scene": 2,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'teenager' (score=0.128)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP2.2",
+        "scene": 2,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'adult man' (score=0.081)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "S3.1",
+        "scene": 3,
+        "category": "Spatial",
+        "passed": true,
+        "description": "Face count expected 1, detected 1",
+        "measured_value": 1,
+        "threshold": 1
+      },
+      {
+        "test_id": "B3.1",
+        "scene": 3,
+        "category": "Biometric",
+        "passed": true,
+        "description": "Teenage Richard Ebright ArcFace identity similarity",
+        "measured_value": 0.5351,
+        "threshold": 0.45
+      },
+      {
+        "test_id": "P3.1",
+        "scene": 3,
+        "category": "Prop",
+        "passed": true,
+        "description": "Required prop 'a microscope on a table' verification (score=0.999)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "P3.2",
+        "scene": 3,
+        "category": "Prop",
+        "passed": true,
+        "description": "Required prop 'glass slides' verification (score=0.001)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP3.1",
+        "scene": 3,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'empty desk' (score=0.074)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP3.2",
+        "scene": 3,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'laptop' (score=0.172)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "S4.1",
+        "scene": 4,
+        "category": "Spatial",
+        "passed": true,
+        "description": "Face count expected 1, detected 1",
+        "measured_value": 1,
+        "threshold": 1
+      },
+      {
+        "test_id": "B4.1",
+        "scene": 4,
+        "category": "Biometric",
+        "passed": true,
+        "description": "Teenage Richard Ebright ArcFace identity similarity",
+        "measured_value": 0.4977,
+        "threshold": 0.45
+      },
+      {
+        "test_id": "P4.1",
+        "scene": 4,
+        "category": "Prop",
+        "passed": false,
+        "description": "Required prop 'wooden bird feeder' verification (score=0.004)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "P4.2",
+        "scene": 4,
+        "category": "Prop",
+        "passed": true,
+        "description": "Required prop 'bird outdoors' verification (score=0.832)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP4.1",
+        "scene": 4,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'indoor room' (score=0.012)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP4.2",
+        "scene": 4,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'office' (score=0.162)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "S5.1",
+        "scene": 5,
+        "category": "Spatial",
+        "passed": true,
+        "description": "Face count expected 2, detected 2",
+        "measured_value": 2,
+        "threshold": 2
+      },
+      {
+        "test_id": "S5.2",
+        "scene": 5,
+        "category": "Spatial",
+        "passed": true,
+        "description": "Multi-person spatial separation: Left x=0.32, Right x=0.65",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "B5.1",
+        "scene": 5,
+        "category": "Biometric",
+        "passed": true,
+        "description": "Richard Ebright (College) ArcFace identity similarity",
+        "measured_value": 0.5386,
+        "threshold": 0.45
+      },
+      {
+        "test_id": "B5.2",
+        "scene": 5,
+        "category": "Biometric",
+        "passed": true,
+        "description": "James R. Wong ArcFace identity similarity",
+        "measured_value": 0.6584,
+        "threshold": 0.45
+      },
+      {
+        "test_id": "P5.1",
+        "scene": 5,
+        "category": "Prop",
+        "passed": true,
+        "description": "Required prop 'plastic ball-and-stick molecular model' verification (score=0.787)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "P5.2",
+        "scene": 5,
+        "category": "Prop",
+        "passed": true,
+        "description": "Required prop 'colorful atom balls' verification (score=0.196)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP5.1",
+        "scene": 5,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'laptop' (score=0.171)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP5.2",
+        "scene": 5,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'computer' (score=0.194)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "S6.1",
+        "scene": 6,
+        "category": "Spatial",
+        "passed": true,
+        "description": "Face count expected 1, detected 1",
+        "measured_value": 1,
+        "threshold": 1
+      },
+      {
+        "test_id": "B6.1",
+        "scene": 6,
+        "category": "Biometric",
+        "passed": true,
+        "description": "Richard Ebright (College) ArcFace identity similarity",
+        "measured_value": 0.6002,
+        "threshold": 0.45
+      },
+      {
+        "test_id": "P6.1",
+        "scene": 6,
+        "category": "Prop",
+        "passed": true,
+        "description": "Required prop 'black graduation gown and mortarboard cap' verification (score=0.995)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "P6.2",
+        "scene": 6,
+        "category": "Prop",
+        "passed": true,
+        "description": "Required prop 'diploma portfolio' verification (score=0.005)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP6.1",
+        "scene": 6,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'casual clothes' (score=0.008)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP6.2",
+        "scene": 6,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'shorts' (score=0.001)",
+        "measured_value": null,
+        "threshold": null
+      }
+    ]
+  },
+  "benchmark_b": {
+    "story_id": "chrono_archivists_solarium",
+    "title": "The Chrono-Archivists: The Quest for the Solarium Astrolabe",
+    "timestamp": "2026-08-25 21:32:37",
+    "total_tests": 33,
+    "passed": 28,
+    "failed": 5,
+    "pass_rate_pct": 84.8,
+    "results": [
+      {
+        "test_id": "S1.1",
+        "scene": 1,
+        "category": "Spatial",
+        "passed": true,
+        "description": "Face count expected 2, detected 2",
+        "measured_value": 2,
+        "threshold": 2
+      },
+      {
+        "test_id": "S1.2",
+        "scene": 1,
+        "category": "Spatial",
+        "passed": true,
+        "description": "Multi-person spatial separation: Left x=0.30, Right x=0.65",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "B1.1",
+        "scene": 1,
+        "category": "Biometric",
+        "passed": true,
+        "description": "Elena Vance ArcFace identity similarity",
+        "measured_value": 0.8239,
+        "threshold": 0.45
+      },
+      {
+        "test_id": "B1.2",
+        "scene": 1,
+        "category": "Biometric",
+        "passed": true,
+        "description": "Marcus Thorne ArcFace identity similarity",
+        "measured_value": 0.8188,
+        "threshold": 0.45
+      },
+      {
+        "test_id": "P1.1",
+        "scene": 1,
+        "category": "Prop",
+        "passed": true,
+        "description": "Required prop 'brass armillary sphere' verification (score=0.998)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "P1.2",
+        "scene": 1,
+        "category": "Prop",
+        "passed": true,
+        "description": "Required prop 'mahogany workbench' verification (score=0.002)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP1.1",
+        "scene": 1,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'modern plastic' (score=0.017)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP1.2",
+        "scene": 1,
+        "category": "ForbiddenProp",
+        "passed": false,
+        "description": "Rejection of forbidden artifact 'computer' (score=0.812)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "S2.1",
+        "scene": 2,
+        "category": "Spatial",
+        "passed": true,
+        "description": "Face count expected 1, detected 1",
+        "measured_value": 1,
+        "threshold": 1
+      },
+      {
+        "test_id": "B2.1",
+        "scene": 2,
+        "category": "Biometric",
+        "passed": true,
+        "description": "Elena Vance ArcFace identity similarity",
+        "measured_value": 0.9576,
+        "threshold": 0.45
+      },
+      {
+        "test_id": "P2.1",
+        "scene": 2,
+        "category": "Prop",
+        "passed": true,
+        "description": "Required prop 'brass drafting compass' verification (score=0.271)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "P2.2",
+        "scene": 2,
+        "category": "Prop",
+        "passed": true,
+        "description": "Required prop 'star map parchment' verification (score=0.562)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP2.1",
+        "scene": 2,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'adult woman' (score=0.049)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP2.2",
+        "scene": 2,
+        "category": "ForbiddenProp",
+        "passed": false,
+        "description": "Rejection of forbidden artifact 'modern pen' (score=0.653)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "S3.1",
+        "scene": 3,
+        "category": "Spatial",
+        "passed": false,
+        "description": "Face count expected 2, detected 1",
+        "measured_value": 1,
+        "threshold": 2
+      },
+      {
+        "test_id": "B3.1",
+        "scene": 3,
+        "category": "Biometric",
+        "passed": true,
+        "description": "Elena Vance ArcFace identity similarity",
+        "measured_value": 0.6998,
+        "threshold": 0.45
+      },
+      {
+        "test_id": "B3.2",
+        "scene": 3,
+        "category": "Biometric",
+        "passed": true,
+        "description": "Kenji Sato ArcFace identity similarity",
+        "measured_value": 0.5808,
+        "threshold": 0.45
+      },
+      {
+        "test_id": "P3.1",
+        "scene": 3,
+        "category": "Prop",
+        "passed": true,
+        "description": "Required prop 'brass navigational sextant' verification (score=0.003)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "P3.2",
+        "scene": 3,
+        "category": "Prop",
+        "passed": true,
+        "description": "Required prop 'golden desert sand dunes' verification (score=0.996)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP3.1",
+        "scene": 3,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'child' (score=0.061)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP3.2",
+        "scene": 3,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'modern car' (score=0.011)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "S4.1",
+        "scene": 4,
+        "category": "Spatial",
+        "passed": true,
+        "description": "Face count expected 1, detected 1",
+        "measured_value": 1,
+        "threshold": 1
+      },
+      {
+        "test_id": "B4.1",
+        "scene": 4,
+        "category": "Biometric",
+        "passed": true,
+        "description": "Elena Vance ArcFace identity similarity",
+        "measured_value": 0.5196,
+        "threshold": 0.45
+      },
+      {
+        "test_id": "P4.1",
+        "scene": 4,
+        "category": "Prop",
+        "passed": false,
+        "description": "Required prop 'golden astrolabe with crystal gears' verification (score=0.046)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "P4.2",
+        "scene": 4,
+        "category": "Prop",
+        "passed": true,
+        "description": "Required prop 'sandstone temple pillars' verification (score=0.523)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP4.1",
+        "scene": 4,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'glowing magic wand' (score=0.183)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP4.2",
+        "scene": 4,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'modern weapons' (score=0.005)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "S5.1",
+        "scene": 5,
+        "category": "Spatial",
+        "passed": true,
+        "description": "Face count expected 1, detected 1",
+        "measured_value": 1,
+        "threshold": 1
+      },
+      {
+        "test_id": "B5.1",
+        "scene": 5,
+        "category": "Biometric",
+        "passed": true,
+        "description": "Elena Vance ArcFace identity similarity",
+        "measured_value": 0.5333,
+        "threshold": 0.45
+      },
+      {
+        "test_id": "P5.1",
+        "scene": 5,
+        "category": "Prop",
+        "passed": true,
+        "description": "Required prop 'ceremonial emerald silk robes' verification (score=1.000)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "P5.2",
+        "scene": 5,
+        "category": "Prop",
+        "passed": false,
+        "description": "Required prop 'golden astrolabe' verification (score=0.000)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP5.1",
+        "scene": 5,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'casual t-shirt' (score=0.003)",
+        "measured_value": null,
+        "threshold": null
+      },
+      {
+        "test_id": "FP5.2",
+        "scene": 5,
+        "category": "ForbiddenProp",
+        "passed": true,
+        "description": "Rejection of forbidden artifact 'jeans' (score=0.000)",
+        "measured_value": null,
+        "threshold": null
+      }
+    ]
+  }
+}

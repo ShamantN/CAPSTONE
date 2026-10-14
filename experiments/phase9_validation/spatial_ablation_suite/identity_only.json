@@ -1,0 +1,16 @@
+{
+  "config": "identity_only",
+  "openpose": false,
+  "depth": false,
+  "runtime_s": 147.02,
+  "image_file": "identity_only.png",
+  "metrics": {
+    "arcface": 0.505,
+    "clip_i": 0.8784,
+    "structural_ssim": 0.5985,
+    "composite": 0.6266,
+    "qa_passed": 4,
+    "qa_total": 6,
+    "qa_rate_pct": 66.7
+  }
+}

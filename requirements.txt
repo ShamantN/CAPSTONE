@@ -1,0 +1,35 @@
+# ==============================================================================
+# Multi-Modal Character Consistency Pipeline (MMCCP) - Requirements
+# Python 3.10+ recommended
+# ==============================================================================
+
+# Core Web Application & Frontend
+streamlit>=1.35.0
+
+# Computer Vision & Image Processing
+opencv-python>=4.8.0.76
+Pillow>=10.0.0
+scikit-image>=0.22.0
+numpy>=1.24.0,<2.3.0
+
+# Scientific Computing & Hungarian Bipartite Assignment
+scipy>=1.11.0
+
+# Deep Biometrics & Facial Feature Extraction (ArcFace)
+deepface>=0.0.90
+tf-keras>=2.16.0
+tensorflow>=2.16.0
+gdown>=5.0.0
+
+# Network, Serialization & Utilities
+requests>=2.31.0
+pydantic>=2.0.0
+tqdm>=4.66.0
+packaging>=23.0
+
+# ==============================================================================
+# PyTorch with CUDA Acceleration (Install via PyTorch index if not present):
+# pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+# ==============================================================================
+torch>=2.1.0
+torchvision>=0.16.0

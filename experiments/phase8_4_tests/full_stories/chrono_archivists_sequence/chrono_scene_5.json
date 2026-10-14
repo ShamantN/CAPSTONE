@@ -1,0 +1,31 @@
+{
+  "story_id": "chrono_archivists_solarium",
+  "scene_id": "scene_5",
+  "scene_number": 5,
+  "title": "The Council of Chronos",
+  "model_checkpoint": "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+  "identity_engine": "IP-Adapter-SDXL",
+  "sampler": "DPM++ 2M Karras",
+  "steps_pass1": 25,
+  "steps_pass2": 15,
+  "denoising_strength": 0.384,
+  "cfg_scale": 5.5,
+  "width": 1024,
+  "height": 1024,
+  "seed": 1837047578,
+  "positive_prompt": "(Cinematic Realistic:1.2), masterpiece, cinematic lighting, 8k resolution, highly detailed, 28-year-old Elena Vance standing proudly in the center of the grand council chamber wearing ceremonial emerald silk robes with gold embroidery, presenting the completed golden Solarium Astrolabe aloft before the assembled council. BREAK ((ElenaV_A8X1:1.4)), centered in frame, ((strictly Hispanic Latina:1.45)), (warm olive skin tone:1.35), (oval face:1.25), 28 years old high chronologist female, wearing (ceremonial emerald silk robes with gold navigational embroidery:1.30), (emerald green garment:1.30) and (amber brown garment:1.30), dark brown hair (wavy layered), clean face, detailed eyes BREAK Background: High Chrono-Council Hall, indoor grand brass and marble council chamber environment, Grand dramatic chandelier illumination and heroic rim light, Hero shot, Low angle.",
+  "negative_prompt": "blurry, deformed, bad anatomy, bad hands, missing fingers, extra fingers, ugly, watermark, text, signature, cartoon, 3d render, casual clothes, t-shirt, jeans, child, no casual t-shirt, no jeans",
+  "native_conditioning": {
+    "identity_adapter": "IP-Adapter-SDXL",
+    "openpose_active": false,
+    "depth_active": false,
+    "freeu_active": true,
+    "pag_active": true,
+    "cfg_fix_active": true,
+    "regional_isolation": {
+      "regional_active": false
+    }
+  },
+  "runtime_s": 40.46,
+  "peak_vram_mb": 591.8
+}

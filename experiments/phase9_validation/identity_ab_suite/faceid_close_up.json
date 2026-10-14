@@ -1,0 +1,16 @@
+{
+  "engine": "faceid",
+  "shot_type": "close_up",
+  "scene_number": 2,
+  "runtime_s": 163.19,
+  "image_file": "faceid_close_up.png",
+  "metrics": {
+    "arcface": 0.5326,
+    "clip_i": 0.8093,
+    "structural_ssim": 0.5037,
+    "composite": 0.6076,
+    "qa_passed": 5,
+    "qa_total": 6,
+    "qa_rate_pct": 83.3
+  }
+}

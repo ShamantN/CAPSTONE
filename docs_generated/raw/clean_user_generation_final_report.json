@@ -1,0 +1,263 @@
+{
+  "timestamp": "2026-10-14 12:05:34",
+  "total_evaluations": 8,
+  "mean_arcface": 0.5164,
+  "mean_clip_i": 0.8061,
+  "mean_structural_ssim": 0.5017,
+  "mean_palette": 0.4047,
+  "mean_composite": 0.5699,
+  "evaluations": [
+    {
+      "scene_number": 1,
+      "scene_id": "scene_1",
+      "scene_title": "The Spark of Curiosity",
+      "character_id": "young_ebright",
+      "character_name": "Young Richard Ebright",
+      "status": "SUCCESS",
+      "detected_faces_count": 2,
+      "matched_face_index": 1,
+      "arcface_score": 0.5248,
+      "clip_score": 0.7513,
+      "structural_score": 0.5016,
+      "palette_score": 0.4383,
+      "composite_score": 0.565,
+      "diagnostics": {
+        "bipartite_matching": true,
+        "assignment_matrix": [
+          [
+            0.5037269592285156,
+            0.5247766971588135
+          ],
+          [
+            0.5192371606826782,
+            0.5372362732887268
+          ]
+        ],
+        "assigned_face_idx": 1,
+        "weights": {
+          "arcface": 0.45,
+          "clip": 0.25,
+          "structural": 0.15,
+          "palette": 0.15
+        }
+      }
+    },
+    {
+      "scene_number": 1,
+      "scene_id": "scene_1",
+      "scene_title": "The Spark of Curiosity",
+      "character_id": "mother",
+      "character_name": "Ebright's Mother",
+      "status": "SUCCESS",
+      "detected_faces_count": 2,
+      "matched_face_index": 0,
+      "arcface_score": 0.5192,
+      "clip_score": 0.7857,
+      "structural_score": 0.5207,
+      "palette_score": 0.4099,
+      "composite_score": 0.5697,
+      "diagnostics": {
+        "bipartite_matching": true,
+        "assignment_matrix": [
+          [
+            0.5037269592285156,
+            0.5247766971588135
+          ],
+          [
+            0.5192371606826782,
+            0.5372362732887268
+          ]
+        ],
+        "assigned_face_idx": 0,
+        "weights": {
+          "arcface": 0.45,
+          "clip": 0.25,
+          "structural": 0.15,
+          "palette": 0.15
+        }
+      }
+    },
+    {
+      "scene_number": 2,
+      "scene_id": "scene_2",
+      "scene_title": "The Butterfly Basement",
+      "character_id": "young_ebright",
+      "character_name": "Young Richard Ebright",
+      "status": "SUCCESS",
+      "detected_faces_count": 1,
+      "matched_face_index": 0,
+      "arcface_score": 0.5279,
+      "clip_score": 0.8472,
+      "structural_score": 0.4875,
+      "palette_score": 0.3526,
+      "composite_score": 0.5754,
+      "diagnostics": {
+        "latency_ms": 995.29,
+        "weights": {
+          "arcface": 0.45,
+          "clip": 0.25,
+          "structural": 0.15,
+          "palette": 0.15
+        },
+        "zero_face_reweighted": false,
+        "deepface_available": true,
+        "skimage_available": true,
+        "torch_available": true
+      }
+    },
+    {
+      "scene_number": 3,
+      "scene_id": "scene_4",
+      "scene_title": "Failure at the Science Fair",
+      "character_id": "teen_ebright",
+      "character_name": "Teenage Richard Ebright",
+      "status": "SUCCESS",
+      "detected_faces_count": 1,
+      "matched_face_index": 0,
+      "arcface_score": 0.4842,
+      "clip_score": 0.8594,
+      "structural_score": 0.5012,
+      "palette_score": 0.4456,
+      "composite_score": 0.5748,
+      "diagnostics": {
+        "latency_ms": 1088.89,
+        "weights": {
+          "arcface": 0.45,
+          "clip": 0.25,
+          "structural": 0.15,
+          "palette": 0.15
+        },
+        "zero_face_reweighted": false,
+        "deepface_available": true,
+        "skimage_available": true,
+        "torch_available": true
+      }
+    },
+    {
+      "scene_number": 4,
+      "scene_id": "scene_5",
+      "scene_title": "The Starling Experiment",
+      "character_id": "teen_ebright",
+      "character_name": "Teenage Richard Ebright",
+      "status": "SUCCESS",
+      "detected_faces_count": 1,
+      "matched_face_index": 0,
+      "arcface_score": 0.5247,
+      "clip_score": 0.8572,
+      "structural_score": 0.5083,
+      "palette_score": 0.3997,
+      "composite_score": 0.5866,
+      "diagnostics": {
+        "latency_ms": 1013.85,
+        "weights": {
+          "arcface": 0.45,
+          "clip": 0.25,
+          "structural": 0.15,
+          "palette": 0.15
+        },
+        "zero_face_reweighted": false,
+        "deepface_available": true,
+        "skimage_available": true,
+        "torch_available": true
+      }
+    },
+    {
+      "scene_number": 5,
+      "scene_id": "scene_3",
+      "scene_title": "The Breakthrough at Harvard",
+      "character_id": "college_ebright",
+      "character_name": "Richard Ebright (College)",
+      "status": "SUCCESS",
+      "detected_faces_count": 2,
+      "matched_face_index": 0,
+      "arcface_score": 0.5002,
+      "clip_score": 0.7685,
+      "structural_score": 0.507,
+      "palette_score": 0.2925,
+      "composite_score": 0.5371,
+      "diagnostics": {
+        "bipartite_matching": true,
+        "assignment_matrix": [
+          [
+            0.5002133846282959,
+            0.5252711772918701
+          ],
+          [
+            0.5108797550201416,
+            0.5463147163391113
+          ]
+        ],
+        "assigned_face_idx": 0,
+        "weights": {
+          "arcface": 0.45,
+          "clip": 0.25,
+          "structural": 0.15,
+          "palette": 0.15
+        }
+      }
+    },
+    {
+      "scene_number": 5,
+      "scene_id": "scene_3",
+      "scene_title": "The Breakthrough at Harvard",
+      "character_id": "james_wong",
+      "character_name": "James R. Wong",
+      "status": "SUCCESS",
+      "detected_faces_count": 2,
+      "matched_face_index": 1,
+      "arcface_score": 0.5463,
+      "clip_score": 0.7699,
+      "structural_score": 0.4993,
+      "palette_score": 0.4836,
+      "composite_score": 0.5857,
+      "diagnostics": {
+        "bipartite_matching": true,
+        "assignment_matrix": [
+          [
+            0.5002133846282959,
+            0.5252711772918701
+          ],
+          [
+            0.5108797550201416,
+            0.5463147163391113
+          ]
+        ],
+        "assigned_face_idx": 1,
+        "weights": {
+          "arcface": 0.45,
+          "clip": 0.25,
+          "structural": 0.15,
+          "palette": 0.15
+        }
+      }
+    },
+    {
+      "scene_number": 6,
+      "scene_id": "scene_6",
+      "scene_title": "Graduation",
+      "character_id": "college_ebright",
+      "character_name": "Richard Ebright (College)",
+      "status": "SUCCESS",
+      "detected_faces_count": 1,
+      "matched_face_index": 0,
+      "arcface_score": 0.504,
+      "clip_score": 0.8095,
+      "structural_score": 0.4883,
+      "palette_score": 0.4154,
+      "composite_score": 0.5647,
+      "diagnostics": {
+        "latency_ms": 1013.42,
+        "weights": {
+          "arcface": 0.45,
+          "clip": 0.25,
+          "structural": 0.15,
+          "palette": 0.15
+        },
+        "zero_face_reweighted": false,
+        "deepface_available": true,
+        "skimage_available": true,
+        "torch_available": true
+      }
+    }
+  ]
+}

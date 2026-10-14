@@ -1,0 +1,35 @@
+{
+  "story_id": "ebright_monarch_expedition",
+  "scene_id": "scene_5",
+  "scene_number": 5,
+  "title": "The Breakthrough at Harvard",
+  "model_checkpoint": "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+  "identity_engine": "IP-Adapter-SDXL",
+  "sampler": "DPM++ 2M Karras",
+  "steps_pass1": 25,
+  "steps_pass2": 15,
+  "denoising_strength": 0.504,
+  "cfg_scale": 5.5,
+  "width": 1216,
+  "height": 832,
+  "seed": 2650800365,
+  "positive_prompt": "(Cinematic Realistic:1.2), masterpiece, cinematic lighting, 8k resolution, highly detailed, Two college students, Caucasian American Richard Ebright sitting on the left wearing a mustard yellow polo shirt and East Asian James Wong sitting on the right wearing a crimson red sweater, are sitting side by side at a dorm study desk constructing a large (plastic ball-and-stick DNA double helix molecular model:1.6) with (colorful plastic atom balls and white connecting rods:1.5) on the desk between them. BREAK ((CEbright_X9F2A:1.4)), sitting on the left, left column, ((strictly Caucasian:1.45)), (fair skin tone:1.35), (oval defined face:1.25), 21 years old young adult male, wearing (mustard yellow polo shirt:1.30), (mustard yellow garment:1.30), brown hair, clean face, detailed eyes BREAK ((Wong_J7P1L:1.4)), sitting on the right, right column, ((strictly East Asian:1.45)), (light tan skin tone:1.35), (square sharp face:1.25), 21 years old young adult student male, wearing (crimson red Harvard sweater:1.30), (crimson red garment:1.30), black hair, clean face, detailed eyes BREAK Background: Harvard Dormitory Study Room, indoor academic dorm environment, Moody desk lamp with cool window fill light, Wide two-shot, Eye level.",
+  "negative_prompt": "blurry, deformed, bad anatomy, bad hands, missing fingers, extra fingers, ugly, watermark, text, signature, solo, single person, 1person, close up portrait, headshot, laptop, computer, macbook, screen, monitor, glowing orb, glowing ball, crystal ball, magic sphere, yellow ball, orb, lamp, bare desk, Asian on left, Caucasian on right, identical faces, twin, clone, no laptop, no computer, no macbook, no glowing orb, no crystal ball, no magic sphere, solo, 1person, single person alone, identical faces, twin, clone, demographic bleed, merged bodies",
+  "native_conditioning": {
+    "identity_adapter": "IP-Adapter-SDXL",
+    "openpose_active": false,
+    "depth_active": false,
+    "freeu_active": true,
+    "pag_active": true,
+    "cfg_fix_active": true,
+    "regional_isolation": {
+      "regional_active": true,
+      "num_regions": 2,
+      "mode": "Columns",
+      "ratios": "1,1",
+      "base_ratio": 0.2
+    }
+  },
+  "runtime_s": 44.29,
+  "peak_vram_mb": 591.8
+}

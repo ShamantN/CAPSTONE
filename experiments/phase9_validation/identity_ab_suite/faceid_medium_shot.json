@@ -1,0 +1,16 @@
+{
+  "engine": "faceid",
+  "shot_type": "medium_shot",
+  "scene_number": 3,
+  "runtime_s": 164.23,
+  "image_file": "faceid_medium_shot.png",
+  "metrics": {
+    "arcface": 0.5048,
+    "clip_i": 0.771,
+    "structural_ssim": 0.4881,
+    "composite": 0.5831,
+    "qa_passed": 4,
+    "qa_total": 6,
+    "qa_rate_pct": 66.7
+  }
+}

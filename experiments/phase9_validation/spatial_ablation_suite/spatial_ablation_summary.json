@@ -1,0 +1,66 @@
+[
+  {
+    "config": "identity_only",
+    "openpose": false,
+    "depth": false,
+    "runtime_s": 147.02,
+    "image_file": "identity_only.png",
+    "metrics": {
+      "arcface": 0.505,
+      "clip_i": 0.8784,
+      "structural_ssim": 0.5985,
+      "composite": 0.6266,
+      "qa_passed": 4,
+      "qa_total": 6,
+      "qa_rate_pct": 66.7
+    }
+  },
+  {
+    "config": "identity_plus_openpose",
+    "openpose": true,
+    "depth": false,
+    "runtime_s": 151.48,
+    "image_file": "identity_plus_openpose.png",
+    "metrics": {
+      "arcface": 0.5048,
+      "clip_i": 0.8764,
+      "structural_ssim": 0.5976,
+      "composite": 0.6259,
+      "qa_passed": 4,
+      "qa_total": 6,
+      "qa_rate_pct": 66.7
+    }
+  },
+  {
+    "config": "identity_plus_depth",
+    "openpose": false,
+    "depth": true,
+    "runtime_s": 125.53,
+    "image_file": "identity_plus_depth.png",
+    "metrics": {
+      "arcface": 0.5085,
+      "clip_i": 0.9065,
+      "structural_ssim": 0.6066,
+      "composite": 0.6364,
+      "qa_passed": 5,
+      "qa_total": 6,
+      "qa_rate_pct": 83.3
+    }
+  },
+  {
+    "config": "identity_openpose_depth",
+    "openpose": true,
+    "depth": true,
+    "runtime_s": 84.36,
+    "image_file": "identity_openpose_depth.png",
+    "metrics": {
+      "arcface": 0.5037,
+      "clip_i": 0.8807,
+      "structural_ssim": 0.5987,
+      "composite": 0.6266,
+      "qa_passed": 4,
+      "qa_total": 6,
+      "qa_rate_pct": 66.7
+    }
+  }
+]

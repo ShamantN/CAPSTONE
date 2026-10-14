@@ -1,0 +1,166 @@
+{
+  "inventory": [
+    {
+      "category": "Entry Points & UI",
+      "features": [
+        {
+          "name": "Gradio Web UI",
+          "status": "Active",
+          "location": "app.py",
+          "description": "Main user interface for generation, auditing, and configuration."
+        },
+        {
+          "name": "Benchmark Runner",
+          "status": "Active",
+          "location": "app.py",
+          "description": "Executes batch generation for benchmarks."
+        }
+      ]
+    },
+    {
+      "category": "Story & Schema Management",
+      "features": [
+        {
+          "name": "Generalized Story Schema",
+          "status": "Active",
+          "location": "story_engine/schema.py",
+          "description": "Dataclasses for StorySpec, CharacterSpec, SceneSpec."
+        },
+        {
+          "name": "LLM Story Analyzer (Gemini)",
+          "status": "Active",
+          "location": "story_engine/story_analyzer.py",
+          "description": "Parses narrative into StorySpec using Gemini API."
+        },
+        {
+          "name": "Heuristic NLP Parser",
+          "status": "Active (Fallback)",
+          "location": "story_engine/story_analyzer.py",
+          "description": "Rule-based parser if LLM fails or API key is missing."
+        },
+        {
+          "name": "Character Registry",
+          "status": "Active",
+          "location": "story_engine/character_registry.py",
+          "description": "Stores canonical character images (base64) and biometric embeddings."
+        }
+      ]
+    },
+    {
+      "category": "Planning & Conditioning",
+      "features": [
+        {
+          "name": "Scene Planner",
+          "status": "Active",
+          "location": "story_engine/scene_planner.py",
+          "description": "Computes denoising schedule, resolves controlnet references."
+        },
+        {
+          "name": "Prompt Builder",
+          "status": "Active",
+          "location": "story_engine/prompt_builder.py",
+          "description": "Injects demographic traits and handles regional BREAK tokens."
+        },
+        {
+          "name": "ControlNet Conditioner",
+          "status": "Active",
+          "location": "conditioning/controlnet_conditioner.py",
+          "description": "Manages payload creation for OpenPose and Depth models."
+        },
+        {
+          "name": "LoRA Registry",
+          "status": "Active",
+          "location": "conditioning/lora_registry.py",
+          "description": "Scans local disk for LoRAs and injects them into prompts."
+        },
+        {
+          "name": "Refinement Controller",
+          "status": "Active",
+          "location": "conditioning/refinement.py",
+          "description": "Builds payload for ReActor + CodeFormer face restoration."
+        },
+        {
+          "name": "Regional Conditioner",
+          "status": "Active",
+          "location": "conditioning/regional_conditioner.py",
+          "description": "Handles column ratio metadata for regional prompting."
+        },
+        {
+          "name": "Cross-Frame Conditioner",
+          "status": "Inactive",
+          "location": "conditioning/crossframe_conditioner.py",
+          "description": "Implemented tracking but logic is mostly unused in current orchestrator flow."
+        }
+      ]
+    },
+    {
+      "category": "Identity Adapters",
+      "features": [
+        {
+          "name": "IP-Adapter SDXL",
+          "status": "Active",
+          "location": "identity/ipadapter.py",
+          "description": "Primary SOTA identity adapter using CLIP-ViT-bigG."
+        },
+        {
+          "name": "InstantID SDXL",
+          "status": "Inactive (Dependency Issue)",
+          "location": "identity/instantid.py",
+          "description": "Implementation exists, but suffers from Forge preprocessor dict unpack errors at runtime."
+        },
+        {
+          "name": "FaceID Plus v2",
+          "status": "Active",
+          "location": "identity/faceid.py",
+          "description": "Native FaceID Plus v2 SDXL adapter."
+        }
+      ]
+    },
+    {
+      "category": "Generation Engine",
+      "features": [
+        {
+          "name": "Forge API Client",
+          "status": "Active",
+          "location": "generation/forge_client.py",
+          "description": "Low-level API wrapper for interacting with SD Forge."
+        },
+        {
+          "name": "Generation Orchestrator",
+          "status": "Active",
+          "location": "generation/generation_orchestrator.py",
+          "description": "Executes the 2-pass deterministic generation pipeline."
+        },
+        {
+          "name": "VRAM Telemetry Guard",
+          "status": "Active",
+          "location": "experiments/memory_utils.py (via orchestrator)",
+          "description": "Monitors VRAM usage and cleans up memory between generations."
+        }
+      ]
+    },
+    {
+      "category": "Quality Assurance & Healing",
+      "features": [
+        {
+          "name": "Programmatic Auditor",
+          "status": "Active",
+          "location": "qa/programmatic_auditor.py",
+          "description": "Evaluates spatial (face count), biometric (ArcFace), and prop (CLIP zero-shot) constraints."
+        },
+        {
+          "name": "Healing Controller",
+          "status": "Active",
+          "location": "qa/healing_controller.py",
+          "description": "Diagnoses QA failures and triggers re-generation with adjusted parameters (e.g., enable OpenPose, increase CFG)."
+        },
+        {
+          "name": "Metrics Engine",
+          "status": "Active",
+          "location": "metrics.py",
+          "description": "Provides Core mathematical and CV operations (ArcFace, SSIM, CLIP wrapper)."
+        }
+      ]
+    }
+  ]
+}

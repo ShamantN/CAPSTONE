@@ -1,0 +1,96 @@
+[
+  {
+    "condition": "viewpoint_three_quarter",
+    "overrides": {
+      "shot_type": "Three-quarter view close-up portrait",
+      "camera_angle": "slight 45 degree angle"
+    },
+    "runtime_s": 193.19,
+    "image_file": "viewpoint_three_quarter.png",
+    "arcface": 0.5537,
+    "clip_i": 0.8295,
+    "confidence": 62,
+    "same_character": false,
+    "caption": "a boy with a yellow shirt"
+  },
+  {
+    "condition": "viewpoint_high_angle",
+    "overrides": {
+      "camera_angle": "high angle looking down"
+    },
+    "runtime_s": 61.8,
+    "image_file": "viewpoint_high_angle.png",
+    "arcface": 0.5448,
+    "clip_i": 0.8416,
+    "confidence": 62,
+    "same_character": false,
+    "caption": "a young boy with a yellow shirt and blue shirt"
+  },
+  {
+    "condition": "lighting_dramatic_sunset",
+    "overrides": {
+      "lighting": "dramatic golden hour sunset with warm rim lighting and deep shadows"
+    },
+    "runtime_s": 64.96,
+    "image_file": "lighting_dramatic_sunset.png",
+    "arcface": 0.5565,
+    "clip_i": 0.8768,
+    "confidence": 64,
+    "same_character": false,
+    "caption": "a young boy with a yellow shirt and blue tie"
+  },
+  {
+    "condition": "lighting_low_key",
+    "overrides": {
+      "lighting": "moody low-key chiaroscuro lighting with candle illumination"
+    },
+    "runtime_s": 77.09,
+    "image_file": "lighting_low_key.png",
+    "arcface": 0.5487,
+    "clip_i": 0.8456,
+    "confidence": 62,
+    "same_character": false,
+    "caption": "a boy with a yellow shirt"
+  },
+  {
+    "condition": "expression_laughing_happy",
+    "overrides": {
+      "action_description": "Young Richard Ebright is laughing happily with wide joyful smile holding a butterfly jar"
+    },
+    "runtime_s": 64.06,
+    "image_file": "expression_laughing_happy.png",
+    "arcface": 0.5626,
+    "clip_i": 0.9037,
+    "confidence": 65,
+    "same_character": false,
+    "caption": "a boy with a yellow sweater"
+  },
+  {
+    "condition": "expression_intense_focus",
+    "overrides": {
+      "action_description": "Young Richard Ebright has an intensely serious, focused, determined analytical expression"
+    },
+    "runtime_s": 70.5,
+    "image_file": "expression_intense_focus.png",
+    "arcface": 0.5591,
+    "clip_i": 0.8676,
+    "confidence": 64,
+    "same_character": false,
+    "caption": "a young boy with a yellow sweater"
+  },
+  {
+    "condition": "clothing_winter_parka",
+    "overrides": {
+      "character_outfits": {
+        "young_ebright": "heavy navy blue hooded winter parka coat"
+      }
+    },
+    "runtime_s": 183.13,
+    "image_file": "clothing_winter_parka.png",
+    "arcface": 0.5523,
+    "clip_i": 0.8307,
+    "confidence": 62,
+    "same_character": false,
+    "caption": "a boy with a yellow jacket"
+  }
+]

@@ -1,0 +1,225 @@
+{
+  "story_id": "chrono_archivists_solarium",
+  "title": "The Chrono-Archivists: The Quest for the Solarium Astrolabe",
+  "visual_style": "Cinematic Realistic",
+  "global_negative_prompt": "blurry, deformed, bad anatomy, bad hands, missing fingers, extra fingers, ugly, watermark, text, signature, cartoon, 3d render",
+  "characters": {
+    "elena_vance": {
+      "id": "elena_vance",
+      "name": "Elena Vance",
+      "unique_token": "ElenaV_A8X1",
+      "gender": "female",
+      "ethnicity": "Hispanic Latina",
+      "skin_tone": "warm olive",
+      "face_shape": "oval",
+      "hair_color": "dark brown",
+      "hair_style": "wavy layered",
+      "eye_color": "hazel",
+      "build": "slender athletic",
+      "distinctive_features": ["warm olive complexion", "determined expressive hazel eyes"],
+      "recurring_clothing": "emerald green explorer duster coat with brass buckles",
+      "clothing_colors": ["emerald green", "amber brown"],
+      "age_states": {
+        "apprentice": {
+          "age_years": "12",
+          "stage_name": "young apprentice",
+          "hairstyle": "shoulder-length wavy with leather hair tie",
+          "clothing_description": "amber brown leather apprentice tunic over cream shirt"
+        },
+        "master_navigator": {
+          "age_years": "28",
+          "stage_name": "master archivist",
+          "hairstyle": "long wavy hair tied in loose braid",
+          "clothing_description": "emerald green explorer duster coat with brass buckles"
+        },
+        "ceremonial": {
+          "age_years": "28",
+          "stage_name": "high chronologist",
+          "hairstyle": "elegant braided updo",
+          "clothing_description": "ceremonial emerald silk robes with gold navigational embroidery"
+        }
+      }
+    },
+    "marcus_thorne": {
+      "id": "marcus_thorne",
+      "name": "Marcus Thorne",
+      "unique_token": "MarcusT_M4B9",
+      "gender": "male",
+      "ethnicity": "Black African-American",
+      "skin_tone": "deep warm brown",
+      "face_shape": "strong square jaw",
+      "hair_color": "black",
+      "hair_style": "short fade with neatly trimmed beard",
+      "eye_color": "dark brown",
+      "build": "tall muscular",
+      "distinctive_features": ["neatly trimmed beard", "focused mentor gaze"],
+      "recurring_clothing": "leather artisan tool vest over charcoal rolled-sleeve shirt",
+      "clothing_colors": ["charcoal", "brown leather"],
+      "age_states": {
+        "primary": {
+          "age_years": "45",
+          "stage_name": "master engineer",
+          "hairstyle": "short fade with beard",
+          "clothing_description": "leather artisan tool vest over charcoal shirt"
+        }
+      }
+    },
+    "kenji_sato": {
+      "id": "kenji_sato",
+      "name": "Kenji Sato",
+      "unique_token": "KenjiS_K9Z2",
+      "gender": "male",
+      "ethnicity": "East Asian Japanese",
+      "skin_tone": "light tan",
+      "face_shape": "sharp angular",
+      "hair_color": "black",
+      "hair_style": "half-up ponytail with loose strands",
+      "eye_color": "dark brown",
+      "build": "lean athletic",
+      "distinctive_features": ["sharp cheekbones", "calm observant eyes"],
+      "recurring_clothing": "indigo blue hooded desert coat with silver compass trim",
+      "clothing_colors": ["indigo blue", "silver"],
+      "age_states": {
+        "primary": {
+          "age_years": "28",
+          "stage_name": "desert cartographer",
+          "hairstyle": "half-up ponytail",
+          "clothing_description": "indigo blue hooded desert coat with silver trim"
+        }
+      }
+    }
+  },
+  "scenes": [
+    {
+      "scene_id": "scene_1",
+      "scene_number": 1,
+      "title": "The Clockwork Observatory",
+      "location_name": "Imperial Clockwork Observatory Workshop",
+      "environment_type": "indoor Victorian steampunk workshop",
+      "lighting": "Warm golden lantern light and sunlight through high arched brass windows",
+      "shot_type": "Wide two-shot",
+      "camera_angle": "Eye level",
+      "action_description": "Young 12-year-old Elena Vance on the left in her amber apprentice tunic and her master engineer Marcus Thorne on the right in his charcoal leather vest, standing together in an ornate clocktower workshop examining a complex rotating brass armillary sphere on a heavy mahogany workbench.",
+      "characters_present": ["elena_vance", "marcus_thorne"],
+      "character_positions": {
+        "elena_vance": "standing on the left",
+        "marcus_thorne": "standing on the right"
+      },
+      "character_age_states": {
+        "elena_vance": "apprentice",
+        "marcus_thorne": "primary"
+      },
+      "required_props": ["brass armillary sphere", "mahogany workbench"],
+      "forbidden_props": ["modern plastic", "computer", "neon light"],
+      "negative_prompt_additions": "solo, 1person, single person alone, modern electronics, plastic",
+      "qa_requirements": {
+        "expected_faces": 2,
+        "primary_char": "elena_vance",
+        "secondary_char": "marcus_thorne"
+      }
+    },
+    {
+      "scene_id": "scene_2",
+      "scene_number": 2,
+      "title": "The Gearworks Archive",
+      "location_name": "Observatory Drafting Desk",
+      "environment_type": "indoor book-lined study alcove",
+      "lighting": "Soft candle glow and desk spotlight",
+      "shot_type": "Medium close-up",
+      "camera_angle": "Eye level",
+      "action_description": "Young 12-year-old Elena Vance in her amber tunic leaning over an ancient wooden drafting desk, carefully using a brass drafting compass and ink quill to draw celestial star maps on weathered parchment.",
+      "characters_present": ["elena_vance"],
+      "character_positions": {
+        "elena_vance": "center"
+      },
+      "character_age_states": {
+        "elena_vance": "apprentice"
+      },
+      "required_props": ["brass drafting compass", "star map parchment"],
+      "forbidden_props": ["adult woman", "modern pen", "laptop"],
+      "negative_prompt_additions": "adult woman, tall adult, modern electronics, ballpoint pen",
+      "qa_requirements": {
+        "expected_faces": 1,
+        "primary_char": "elena_vance"
+      }
+    },
+    {
+      "scene_id": "scene_3",
+      "scene_number": 3,
+      "title": "The Dunesea Outpost",
+      "location_name": "Desert Cliff Edge",
+      "environment_type": "outdoor sweeping desert landscape",
+      "lighting": "Vibrant late afternoon golden hour desert sunlight",
+      "shot_type": "Wide two-shot",
+      "camera_angle": "Eye level",
+      "action_description": "28-year-old Master Elena Vance on the left wearing an emerald green duster coat and 28-year-old cartographer Kenji Sato on the right wearing an indigo blue desert coat, standing side by side on a rocky cliff edge overlooking an endless golden sand dune sea, Elena holding up an ornate brass navigational sextant to the horizon.",
+      "characters_present": ["elena_vance", "kenji_sato"],
+      "character_positions": {
+        "elena_vance": "standing on the left",
+        "kenji_sato": "standing on the right"
+      },
+      "character_age_states": {
+        "elena_vance": "master_navigator",
+        "kenji_sato": "primary"
+      },
+      "required_props": ["brass navigational sextant", "golden desert sand dunes"],
+      "forbidden_props": ["child", "modern car", "city skyline"],
+      "negative_prompt_additions": "solo, child elena, modern buildings, modern vehicle",
+      "qa_requirements": {
+        "expected_faces": 2,
+        "primary_char": "elena_vance",
+        "secondary_char": "kenji_sato"
+      }
+    },
+    {
+      "scene_id": "scene_4",
+      "scene_number": 4,
+      "title": "The Solarium Vault",
+      "location_name": "Ancient Sun Temple Chamber",
+      "environment_type": "indoor ancient sandstone vault",
+      "lighting": "Brilliant concentrated sunbeams piercing through crystal roof prisms",
+      "shot_type": "Medium shot",
+      "camera_angle": "Eye level",
+      "action_description": "28-year-old Master Elena Vance in her emerald duster coat standing inside an ancient sandstone sun temple, carefully holding the glowing golden Solarium Astrolabe in both hands as brilliant light refracts through its crystalline gears.",
+      "characters_present": ["elena_vance"],
+      "character_positions": {
+        "elena_vance": "center"
+      },
+      "character_age_states": {
+        "elena_vance": "master_navigator"
+      },
+      "required_props": ["golden astrolabe with crystal gears", "sandstone temple pillars"],
+      "forbidden_props": ["glowing magic wand", "modern weapons"],
+      "negative_prompt_additions": "modern room, office, child, casual clothing",
+      "qa_requirements": {
+        "expected_faces": 1,
+        "primary_char": "elena_vance"
+      }
+    },
+    {
+      "scene_id": "scene_5",
+      "scene_number": 5,
+      "title": "The Council of Chronos",
+      "location_name": "High Chrono-Council Hall",
+      "environment_type": "indoor grand brass and marble council chamber",
+      "lighting": "Grand dramatic chandelier illumination and heroic rim light",
+      "shot_type": "Hero shot",
+      "camera_angle": "Low angle",
+      "action_description": "28-year-old Elena Vance standing proudly in the center of the grand council chamber wearing ceremonial emerald silk robes with gold embroidery, presenting the completed golden Solarium Astrolabe aloft before the assembled council.",
+      "characters_present": ["elena_vance"],
+      "character_positions": {
+        "elena_vance": "center"
+      },
+      "character_age_states": {
+        "elena_vance": "ceremonial"
+      },
+      "required_props": ["ceremonial emerald silk robes", "golden astrolabe"],
+      "forbidden_props": ["casual t-shirt", "jeans"],
+      "negative_prompt_additions": "casual clothes, t-shirt, jeans, child",
+      "qa_requirements": {
+        "expected_faces": 1,
+        "primary_char": "elena_vance"
+      }
+    }
+  ]
+}

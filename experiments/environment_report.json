@@ -1,0 +1,192 @@
+{
+  "timestamp": "2026-08-25 19:24:37",
+  "system": {
+    "os": "Windows-10-10.0.26200-SP0",
+    "python_version": "3.10.6 (tags/v3.10.6:9c7b4bd, Aug  1 2022, 21:53:49) [MSC v.1932 64 bit (AMD64)]",
+    "host_ram_total_gb": 31.71,
+    "host_ram_available_gb": 8.71,
+    "gpu": {
+      "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+      "vram_total_gb": 8.0,
+      "cuda_version": "12.1",
+      "pytorch_version": "2.3.1+cu121",
+      "fp16_supported": true,
+      "bf16_supported": true,
+      "tf32_supported": true
+    }
+  },
+  "forge_installation": {
+    "path": "C:\\Stable-Diffusion",
+    "webui_path": "C:\\Stable-Diffusion\\webui",
+    "active_checkpoint": "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+    "active_vae": "Automatic",
+    "installed_extensions": [
+      "sd-webui-controlnet",
+      "sd-webui-reactor"
+    ],
+    "integrated_forge_scripts": [
+      "prompt matrix",
+      "prompts from file or textbox",
+      "x/y/z plot",
+      "extra options",
+      "controlnet",
+      "dynamicthresholding (cfg-fix) integrated",
+      "freeu integrated (sd 1.x, sd 2.x, sdxl)",
+      "kohya hrfix integrated",
+      "latentmodifier integrated",
+      "multidiffusion integrated",
+      "never oom integrated",
+      "perturbedattentionguidance integrated",
+      "selfattentionguidance integrated (sd 1.x, sd 2.x, sdxl)",
+      "stylealign integrated",
+      "reactor",
+      "refiner",
+      "sampler",
+      "seed"
+    ],
+    "available_checkpoints": [
+      "animagine-xl-3.1.safetensors [e3c47aedb0]",
+      "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors [c9e3e68f89]"
+    ],
+    "controlnet_models_api": [
+      "None",
+      "ip-adapter_xl [af81326a]",
+      "openpose_xl [f4251cb4]"
+    ],
+    "controlnet_modules_count": 64,
+    "samplers_count": 25,
+    "disk_models": [
+      {
+        "relative_path": "Codeformer\\codeformer-v0.1.0.pth",
+        "size_mb": 359.19,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\Codeformer\\codeformer-v0.1.0.pth"
+      },
+      {
+        "relative_path": "ControlNet\\ip-adapter_xl.safetensors",
+        "size_mb": 670.04,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\ControlNet\\ip-adapter_xl.safetensors"
+      },
+      {
+        "relative_path": "ControlNet\\openpose_xl.safetensors",
+        "size_mb": 4772.35,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\ControlNet\\openpose_xl.safetensors"
+      },
+      {
+        "relative_path": "ControlNetPreprocessor\\CLIP-ViT-H-14.safetensors",
+        "size_mb": 2411.24,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\ControlNetPreprocessor\\CLIP-ViT-H-14.safetensors"
+      },
+      {
+        "relative_path": "ControlNetPreprocessor\\openpose\\body_pose_model.pth",
+        "size_mb": 199.57,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\ControlNetPreprocessor\\openpose\\body_pose_model.pth"
+      },
+      {
+        "relative_path": "ControlNetPreprocessor\\openpose\\dw-ll_ucoco_384.onnx",
+        "size_mb": 128.17,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\ControlNetPreprocessor\\openpose\\dw-ll_ucoco_384.onnx"
+      },
+      {
+        "relative_path": "ControlNetPreprocessor\\openpose\\facenet.pth",
+        "size_mb": 146.6,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\ControlNetPreprocessor\\openpose\\facenet.pth"
+      },
+      {
+        "relative_path": "ControlNetPreprocessor\\openpose\\hand_pose_model.pth",
+        "size_mb": 140.52,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\ControlNetPreprocessor\\openpose\\hand_pose_model.pth"
+      },
+      {
+        "relative_path": "ControlNetPreprocessor\\openpose\\yolox_l.onnx",
+        "size_mb": 206.71,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\ControlNetPreprocessor\\openpose\\yolox_l.onnx"
+      },
+      {
+        "relative_path": "GFPGAN\\detection_Resnet50_Final.pth",
+        "size_mb": 104.43,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\GFPGAN\\detection_Resnet50_Final.pth"
+      },
+      {
+        "relative_path": "GFPGAN\\parsing_bisenet.pth",
+        "size_mb": 50.82,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\GFPGAN\\parsing_bisenet.pth"
+      },
+      {
+        "relative_path": "GFPGAN\\parsing_parsenet.pth",
+        "size_mb": 81.38,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\GFPGAN\\parsing_parsenet.pth"
+      },
+      {
+        "relative_path": "insightface\\inswapper_128.onnx",
+        "size_mb": 528.58,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\inswapper_128.onnx"
+      },
+      {
+        "relative_path": "insightface\\models\\buffalo_l\\1k3d68.onnx",
+        "size_mb": 136.95,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\models\\buffalo_l\\1k3d68.onnx"
+      },
+      {
+        "relative_path": "insightface\\models\\buffalo_l\\2d106det.onnx",
+        "size_mb": 4.8,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\models\\buffalo_l\\2d106det.onnx"
+      },
+      {
+        "relative_path": "insightface\\models\\buffalo_l\\det_10g.onnx",
+        "size_mb": 16.14,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\models\\buffalo_l\\det_10g.onnx"
+      },
+      {
+        "relative_path": "insightface\\models\\buffalo_l\\genderage.onnx",
+        "size_mb": 1.26,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\models\\buffalo_l\\genderage.onnx"
+      },
+      {
+        "relative_path": "insightface\\models\\buffalo_l\\w600k_r50.onnx",
+        "size_mb": 166.31,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\models\\buffalo_l\\w600k_r50.onnx"
+      },
+      {
+        "relative_path": "nsfw_detector\\vit-base-nsfw-detector\\model.safetensors",
+        "size_mb": 328.44,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\nsfw_detector\\vit-base-nsfw-detector\\model.safetensors"
+      },
+      {
+        "relative_path": "Stable-diffusion\\animagine-xl-3.1.safetensors",
+        "size_mb": 6616.9,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\Stable-diffusion\\animagine-xl-3.1.safetensors"
+      },
+      {
+        "relative_path": "Stable-diffusion\\Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+        "size_mb": 6776.19,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\Stable-diffusion\\Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors"
+      },
+      {
+        "relative_path": "VAE-approx\\model.pt",
+        "size_mb": 0.2,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\VAE-approx\\model.pt"
+      },
+      {
+        "relative_path": "VAE-approx\\vaeapprox-sdxl.pt",
+        "size_mb": 0.2,
+        "absolute_path": "C:\\Stable-Diffusion\\webui\\models\\VAE-approx\\vaeapprox-sdxl.pt"
+      }
+    ]
+  },
+  "api_configuration": {
+    "base_url": "http://127.0.0.1:7860",
+    "status": {
+      "api_online": true
+    },
+    "endpoints_verified": [
+      "/sdapi/v1/options",
+      "/sdapi/v1/sd-models",
+      "/sdapi/v1/scripts",
+      "/sdapi/v1/samplers",
+      "/controlnet/model_list",
+      "/controlnet/module_list",
+      "/sdapi/v1/txt2img",
+      "/sdapi/v1/img2img"
+    ]
+  }
+}

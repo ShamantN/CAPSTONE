@@ -1,0 +1,16 @@
+{
+  "engine": "instantid",
+  "shot_type": "multi_char",
+  "scene_number": 1,
+  "runtime_s": 210.12,
+  "image_file": "instantid_multi_char.png",
+  "metrics": {
+    "arcface": 0.5192,
+    "clip_i": 0.6934,
+    "structural_ssim": 0.4744,
+    "composite": 0.5682,
+    "qa_passed": 7,
+    "qa_total": 7,
+    "qa_rate_pct": 100.0
+  }
+}

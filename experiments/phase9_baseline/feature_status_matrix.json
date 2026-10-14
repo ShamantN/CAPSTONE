@@ -1,0 +1,202 @@
+{
+  "phase": "Phase 1 - SOTA Feature Status Matrix",
+  "generated_at": "2026-09-19 19:24:00",
+  "methods": {
+    "generic_ip_adapter": {
+      "code": "identity/ipadapter.py",
+      "model": "ip-adapter_xl.safetensors",
+      "extension": "sd-webui-controlnet / built-in",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": true
+    },
+    "faceid_plus_v2": {
+      "code": "identity/faceid.py",
+      "model": "ip-adapter-faceid-plusv2_sdxl.bin",
+      "extension": "sd-webui-controlnet / built-in",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "fix_applied": "Patched missing numpy import in sd_forge_ipadapter/lib_ipadapter/IPAdapterPlus.py",
+      "production": false
+    },
+    "instantid": {
+      "code": "identity/instantid.py",
+      "model": "instantid_xl.safetensors",
+      "extension": "sd-webui-controlnet / built-in",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "fix_applied": "Switched module from InsightFace (InstantID) [dict output] to instant_id_face_keypoints [tensor output]",
+      "production": false
+    },
+    "openpose": {
+      "code": "conditioning/controlnet_conditioner.py",
+      "model": "openpose_xl.safetensors",
+      "extension": "sd-webui-controlnet",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": true
+    },
+    "depth": {
+      "code": "conditioning/controlnet_conditioner.py",
+      "model": "depth_xl.safetensors",
+      "extension": "sd-webui-controlnet",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": false
+    },
+    "dynamic_lora": {
+      "code": "conditioning/lora_registry.py",
+      "model": "sdxl_lightning_8step_lora.safetensors",
+      "extension": "Built-in extra networks",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": false
+    },
+    "regional_break": {
+      "code": "story_engine/prompt_builder.py",
+      "model": "SDXL U-Net Native",
+      "extension": "Built-in syntax",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": true
+    },
+    "regional_prompter": {
+      "code": "N/A",
+      "model": "None on disk",
+      "extension": "External (git clone unavailable in offline sandbox)",
+      "status": "ALTERNATIVE_USED",
+      "alternative": "Native BREAK spatial column isolation",
+      "runtime_executed": false,
+      "production": false
+    },
+    "adetailer": {
+      "code": "conditioning/refinement.py",
+      "model": "None on disk",
+      "extension": "External (not installed in Forge)",
+      "status": "ALTERNATIVE_USED",
+      "alternative": "ReActor (inswapper_128.onnx) + CodeFormer (0.80) & Localized Inpainting",
+      "runtime_executed": false,
+      "production": false
+    },
+    "reactor": {
+      "code": "conditioning/refinement.py",
+      "model": "inswapper_128.onnx",
+      "extension": "sd-webui-reactor",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": true
+    },
+    "codeformer": {
+      "code": "conditioning/refinement.py",
+      "model": "codeformer-v0.1.0.pth",
+      "extension": "sd-webui-reactor",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": true
+    },
+    "freeu": {
+      "code": "generation/generation_orchestrator.py",
+      "model": "SDXL U-Net Native",
+      "extension": "sd_forge_freeu",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": true
+    },
+    "pag": {
+      "code": "generation/generation_orchestrator.py",
+      "model": "SDXL U-Net Native",
+      "extension": "sd_forge_perturbed_attention",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": true
+    },
+    "cfg_fix": {
+      "code": "generation/generation_orchestrator.py",
+      "model": "SDXL U-Net Native",
+      "extension": "sd_forge_dynamic_thresholding",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": true
+    },
+    "adaptive_denoising": {
+      "code": "story_engine/scene_planner.py",
+      "model": "SDXL Img2Img",
+      "extension": "Native scheduler",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": true
+    },
+    "visual_dna": {
+      "code": "story_engine/character_registry.py",
+      "model": "Canonical JSON Cache",
+      "extension": "Native Python engine",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": true
+    },
+    "character_registry": {
+      "code": "story_engine/character_registry.py",
+      "model": "hardcoded_cache.json",
+      "extension": "Native Python engine",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": true
+    },
+    "crossframe_conditioner": {
+      "code": "conditioning/crossframe_conditioner.py",
+      "model": "Frame history tracking",
+      "extension": "Native Python engine",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": true
+    },
+    "storydiffusion_stylealign": {
+      "code": "conditioning/crossframe_conditioner.py",
+      "model": "SDXL U-Net Native",
+      "extension": "sd_forge_stylealign",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": false
+    },
+    "arcface": {
+      "code": "metrics.py",
+      "model": "buffalo_l/w600k_r50.onnx",
+      "extension": "InsightFace",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": true
+    },
+    "retinaface": {
+      "code": "metrics.py",
+      "model": "scrfd_10g_bnkps.onnx",
+      "extension": "InsightFace",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": true
+    },
+    "clip": {
+      "code": "qa/programmatic_auditor.py",
+      "model": "clip-vit-base-patch32",
+      "extension": "Transformers",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": true
+    },
+    "vlm_visual_qa": {
+      "code": "qa/vlm_visual_auditor.py",
+      "model": "Multi-Modal Visual Auditor",
+      "extension": "Python Vision QA",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": true
+    },
+    "healing_controller": {
+      "code": "qa/healing_controller.py",
+      "model": "Orchestrator + Auditor",
+      "extension": "Autonomous Loop",
+      "status": "COMPLETE_AND_VERIFIED",
+      "runtime_executed": true,
+      "production": true
+    }
+  }
+}

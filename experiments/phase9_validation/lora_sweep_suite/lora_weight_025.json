@@ -1,0 +1,14 @@
+{
+  "lora_weight": 0.25,
+  "runtime_s": 56.07,
+  "image_file": "lora_weight_025.png",
+  "metrics": {
+    "arcface": 0.5218,
+    "clip_i": 0.8833,
+    "structural_ssim": 0.5139,
+    "composite": 0.6227,
+    "qa_passed": 3,
+    "qa_total": 6,
+    "qa_rate_pct": 50.0
+  }
+}

@@ -1,0 +1,226 @@
+{
+  "audit_timestamp": "2026-08-25 20:05:00",
+  "audit_title": "PHASE 8 FORENSIC COMPLETION AUDIT",
+  "auditor_role": "Lead Systems Architect & Multimodal QA Auditor",
+  "overall_completion_percentage": 64.0,
+  "summary": {
+    "total_requirements": 21,
+    "complete": 10,
+    "partial": 4,
+    "substituted": 4,
+    "not_implemented": 3,
+    "claimed_but_unverified": 0
+  },
+  "requirements": [
+    {
+      "id": "REQ-01",
+      "category": "Stage 0: Reconnaissance",
+      "original_requirement": "Deep environment reconnaissance capturing GPU, VRAM, RAM, OS, Forge paths, installed extensions, model checkpoints, and ControlNet modules. Export to environment_report.json, environment_report.md, and compatibility_matrix.json.",
+      "status": "COMPLETE",
+      "evidence": "Generated experiments/environment_report.json, experiments/environment_report.md, and experiments/compatibility_matrix.json via run_reconnaissance.py. Confirmed RTX 3070 Ti (8GB), 32GB RAM, Python 3.10, PyTorch 2.3.1+cu121, Juggernaut-XL v9.",
+      "validation_performed": "Executed run_reconnaissance.py and inspected output JSON/MD artifacts on disk.",
+      "result": "PASS: Exact hardware, paths, extensions, and API endpoints verified.",
+      "remaining_work": "None"
+    },
+    {
+      "id": "REQ-02",
+      "category": "Stage 1: Asset Provisioning",
+      "original_requirement": "Automated asset discovery and provisioning with download_sota_models.py, SHA256 verification, load tests, and asset_manifest.json export.",
+      "status": "COMPLETE",
+      "evidence": "download_sota_models.py scanned and verified 10 model files on disk. Generated experiments/asset_manifest.json with exact byte sizes and SHA256 checksums.",
+      "validation_performed": "Executed download_sota_models.py; validated 10/10 models loaded without corruption.",
+      "result": "PASS: Local models validated.",
+      "remaining_work": "None"
+    },
+    {
+      "id": "REQ-03",
+      "category": "Stage 2: Memory Management",
+      "original_requirement": "Dynamic VRAM & RAM telemetry, vram_guard context manager, leak detection, and exception-safe memory cleanup.",
+      "status": "COMPLETE",
+      "evidence": "experiments/memory_utils.py implemented with vram_guard(threshold_mb=7400.0), get_vram_telemetry(), and cleanup_memory(). Actively used during generation.",
+      "validation_performed": "Verified execution logs in task-3050, task-3082, task-3124; peak allocated VRAM and host RAM tracked.",
+      "result": "PASS: Zero CUDA OOM errors encountered.",
+      "remaining_work": "None"
+    },
+    {
+      "id": "REQ-04",
+      "category": "Stage 3: Native U-Net Attention",
+      "original_requirement": "Integrate native U-Net attention and frequency filtering (FreeU, Perturbed Attention Guidance PAG, Dynamic Thresholding CFG-Fix) into diffusion passes.",
+      "status": "COMPLETE",
+      "evidence": "Injected into alwayson_scripts in txt2img and img2img payloads: 'freeu integrated', 'perturbedattentionguidance integrated', 'dynamicthresholding (cfg-fix) integrated'.",
+      "validation_performed": "Verified API acceptance and metadata logs in SOTA_scene_1.json through SOTA_scene_6.json.",
+      "result": "PASS: Sampling attention modifications active on all passes.",
+      "remaining_work": "None"
+    },
+    {
+      "id": "REQ-05",
+      "category": "Identity Conditioning: InstantID",
+      "original_requirement": "Integrate InstantID SDXL ControlNet and IP-Adapter for zero-shot keypoint-guided face identity.",
+      "status": "NOT IMPLEMENTED",
+      "evidence": "No instantid_xl.safetensors exists in webui/models/ControlNet. Neither sota_generator.py nor app.py builds InstantID payloads.",
+      "validation_performed": "Inspected ControlNet model directory and payload builders.",
+      "result": "FAIL: InstantID was not provisioned or called.",
+      "remaining_work": "Download instantid_xl.safetensors (approx 1.8GB) and configure InstantFace keypoint module in controlnet_adapter.py."
+    },
+    {
+      "id": "REQ-06",
+      "category": "Identity Conditioning: IP-Adapter FaceID Plus v2",
+      "original_requirement": "Integrate IP-Adapter FaceID Plus v2 SDXL model with InsightFace visual embedding extraction.",
+      "status": "SUBSTITUTED",
+      "evidence": "ip-adapter_xl.safetensors (670MB) was used via module 'InsightFace+CLIP-H (IPAdapter)' in ControlNet unit 0. Standard SDXL IP-Adapter was used instead of the specific ip-adapter-faceid-plusv2_sdxl.bin architecture.",
+      "validation_performed": "Inspected ControlSpec payload in sota_generator.py and asset_manifest.json.",
+      "result": "SUBSTITUTED: Standard IP-Adapter SDXL + InsightFace preprocessor substituted for FaceID Plus v2.",
+      "remaining_work": "Download ip-adapter-faceid-plusv2_sdxl.bin + companion LoRA if strict FaceID Plus v2 architecture is demanded."
+    },
+    {
+      "id": "REQ-07",
+      "category": "ControlNet: OpenPose",
+      "original_requirement": "Integrate ControlNet OpenPose SDXL for skeleton pose enforcement during scene generation.",
+      "status": "PARTIAL",
+      "evidence": "openpose_xl.safetensors (4.77GB) and DWPose preprocessor are installed on disk and validated in asset_manifest.json. However, sota_generator.py only added ip-adapter to control_specs during generation; OpenPose was not added to the generation payload.",
+      "validation_performed": "Inspected sota_generator.py lines 95-125 and SOTA_scene_*.json metadata.",
+      "result": "PARTIAL: Model installed and available, but omitted from runtime scene payload.",
+      "remaining_work": "Add OpenPose ControlSpec with pose reference skeletons into sota_generator.py."
+    },
+    {
+      "id": "REQ-08",
+      "category": "ControlNet: Depth",
+      "original_requirement": "Integrate ControlNet Depth SDXL for 3D spatial grounding and depth map conditioning.",
+      "status": "NOT IMPLEMENTED",
+      "evidence": "No depth_xl.safetensors exists in webui/models/ControlNet. Depth was omitted from control_specs.",
+      "validation_performed": "Inspected models/ControlNet on disk and controlnet_adapter.py.",
+      "result": "FAIL: Depth model was not downloaded or invoked.",
+      "remaining_work": "Download depth-anything SDXL or diffusers depth model and add to ControlNet pipeline."
+    },
+    {
+      "id": "REQ-09",
+      "category": "Regional Conditioning",
+      "original_requirement": "Integrate Regional Prompter extension for explicit 2D/column spatial matrix latent prompt isolation.",
+      "status": "SUBSTITUTED",
+      "evidence": "The dedicated sd-webui-regional-prompter extension is not installed in webui/extensions. Regional conditioning was substituted using native SD 75-token BREAK chunking with boosted column prompts in app.py.",
+      "validation_performed": "Inspected webui/extensions directory and build_regional_isolated_prompt() in app.py.",
+      "result": "SUBSTITUTED: Native BREAK tokenization chunking used in place of Regional Prompter extension.",
+      "remaining_work": "Install sd-webui-regional-prompter into webui/extensions if full 2D latent matrix masking is required."
+    },
+    {
+      "id": "REQ-10",
+      "category": "LoRA Conditioning",
+      "original_requirement": "Integrate character or style LoRA conditioning into the SDXL generation pipeline.",
+      "status": "NOT IMPLEMENTED",
+      "evidence": "Forge /sdapi/v1/loras endpoint returned an empty list []. No LoRAs were called in txt2img or img2img payloads.",
+      "validation_performed": "Checked /sdapi/v1/loras API and sota_generator.py.",
+      "result": "FAIL: LoRA conditioning was omitted.",
+      "remaining_work": "Place trained character/style LoRA .safetensors in webui/models/Lora and invoke via <lora:name:weight> syntax."
+    },
+    {
+      "id": "REQ-11",
+      "category": "High-Res Face Polish: ADetailer",
+      "original_requirement": "Integrate ADetailer extension for automated facial bounding box detection and high-res inpainting.",
+      "status": "SUBSTITUTED",
+      "evidence": "adetailer extension is not installed in webui/extensions. High-frequency face restoration was substituted using ReActor v0.7.1-b3 (inswapper_128.onnx + CodeFormer v0.1.0) in Pass 2.",
+      "validation_performed": "Inspected webui/extensions and alwayson_scripts payload in sota_generator.py.",
+      "result": "SUBSTITUTED: ReActor + CodeFormer face restoration pass substituted for ADetailer.",
+      "remaining_work": "Install adetailer into webui/extensions if YOLO-face bounding box inpainting is required."
+    },
+    {
+      "id": "REQ-12",
+      "category": "Cross-Frame Consistency: StoryDiffusion",
+      "original_requirement": "Implement StoryDiffusion or cross-frame self-attention sharing across the 6 storyboard frames.",
+      "status": "SUBSTITUTED",
+      "evidence": "True cross-frame attention key/value caching was not implemented. Consistency was achieved via fixed Visual DNA Anchors in hardcoded_cache.json + IP-Adapter cross-attention + ReActor secondary lock.",
+      "validation_performed": "Audited sota_generator.py and verified absence of shared self-attention tensor hooks across scenes.",
+      "result": "SUBSTITUTED: Reference-anchor conditioning pipeline substituted for cross-frame attention sharing.",
+      "remaining_work": "Implement ComfyUI / PyTorch custom pipeline for batch self-attention tensor sharing if true StoryDiffusion is required."
+    },
+    {
+      "id": "REQ-13",
+      "category": "Rule 4: One-Scene Proof Gate",
+      "original_requirement": "Implement and strictly validate Scene 1 proof prototype before scaling to all six scenes.",
+      "status": "COMPLETE",
+      "evidence": "Generated SOTA_scene_1.png and SOTA_scene_1.json; executed programmatic QA (100% pass) and multimodal visual inspection before rendering scenes 2-6.",
+      "validation_performed": "Inspected task-3050 log, SOTA_scene_1.png image, and task-3073 QA execution.",
+      "result": "PASS: Proof gate satisfied.",
+      "remaining_work": "None"
+    },
+    {
+      "id": "REQ-14",
+      "category": "Six-Scene Storyboard Generation",
+      "original_requirement": "Generate all six story scenes (SOTA_scene_1.png to SOTA_scene_6.png) with matching sidecar metadata JSONs.",
+      "status": "COMPLETE",
+      "evidence": "All 6 PNG images (SOTA_scene_1.png to SOTA_scene_6.png) and 6 JSON metadata files exist in edu_outputs/images/ with verified timestamps and resolutions (1216x832 and 1024x1024).",
+      "validation_performed": "Verified file existence, byte sizes (1.4MB - 1.8MB), resolutions, and metadata content via Python audit.",
+      "result": "PASS: All 6 scenes generated and logged.",
+      "remaining_work": "None"
+    },
+    {
+      "id": "REQ-15",
+      "category": "Programmatic QA Suite",
+      "original_requirement": "Multi-pillar automated QA auditor evaluating ArcFace 512-D cosine similarity, spatial coordinates, zero-shot CLIP prop scores, and Hungarian matching.",
+      "status": "COMPLETE",
+      "evidence": "experiments/sota_qa_auditor.py implemented and executed. Generated experiments/sota_qa_report.json with 20 automated tests.",
+      "validation_performed": "Executed sota_qa_auditor.py (19/20 tests passed, 95.0%). Verified ArcFace scores: S1=0.54/0.53, S2=0.65, S3=0.52, S4=0.52, S5=0.59/0.55, S6=0.90.",
+      "result": "PASS: Programmatic metrics executed and logged.",
+      "remaining_work": "None"
+    },
+    {
+      "id": "REQ-16",
+      "category": "Multimodal Visual QA",
+      "original_requirement": "Direct native multimodal visual inspection across all 6 scenes for phenotype, anatomy, props, and story adherence.",
+      "status": "COMPLETE",
+      "evidence": "Loaded and visually inspected all 6 generated images via view_file. Documented findings in experiments/visual_audit_report.md.",
+      "validation_performed": "Visual inspection verified: Scene 1 (Boy + Mother + Book), Scene 2 (Boy + Monarchs), Scene 3 (Teen + Microscopes), Scene 4 (Teen + Backyard), Scene 5 (Dual-ethnic students + Atom balls), Scene 6 (College Ebright + Regalia).",
+      "result": "PASS: All scenes visually verified.",
+      "remaining_work": "None"
+    },
+    {
+      "id": "REQ-17",
+      "category": "Autonomous Healing Loop",
+      "original_requirement": "Autonomous detection and re-generation of failed scenes with parameter tuning up to 3 retries.",
+      "status": "COMPLETE",
+      "evidence": "Scene 5 initial render showed East Asian phenotype collapse on Ebright. Injected explicit demographic prompt tokens, negative guards, and tuned IP-Adapter weight to 0.35. Re-rendered and achieved distinct Caucasian/East Asian separation.",
+      "validation_performed": "Inspected SOTA_scene_5.png before and after healing; verified ArcFace scores improved to 0.5932 (Ebright) and 0.5513 (Wong).",
+      "result": "PASS: Healing loop resolved Scene 5 defect.",
+      "remaining_work": "None"
+    },
+    {
+      "id": "REQ-18",
+      "category": "Production Merge",
+      "original_requirement": "Merge validated conditioning logic and helpers into app.py and metrics.py without breaking existing functionality.",
+      "status": "PARTIAL",
+      "evidence": "app.py and metrics.py were updated with boosted demographic prompts, dynamic aspect ratio logic, FreeU, PAG, and CFG-Fix payloads. However, app.py uses its internal render_phase3_scene() instead of importing the newly created experiments/sota_generator.py module.",
+      "validation_performed": "Tested module imports and Streamlit serving; verified clean imports with zero syntax errors.",
+      "result": "PARTIAL: Logic merged inline into app.py/metrics.py, but sota_generator.py exists as a parallel standalone module.",
+      "remaining_work": "Refactor app.py to directly import and call SOTAGenerator from a shared core module."
+    },
+    {
+      "id": "REQ-19",
+      "category": "Master Certification Report",
+      "original_requirement": "Comprehensive master certification report synthesizing architecture, assets, scorecards, and benchmarks.",
+      "status": "COMPLETE",
+      "evidence": "Generated experiments/MASTER_SOTA_CERTIFICATION_REPORT.md containing complete system architecture, asset manifest, scorecard, and benchmark summary.",
+      "validation_performed": "Inspected MASTER_SOTA_CERTIFICATION_REPORT.md.",
+      "result": "PASS: Document complete.",
+      "remaining_work": "None"
+    },
+    {
+      "id": "REQ-20",
+      "category": "Telemetry & Reproducibility",
+      "original_requirement": "Deterministic seed logging, parameter recording, sidecar JSON metadata, and memory telemetry.",
+      "status": "COMPLETE",
+      "evidence": "All generation runs logged exact seeds (e.g. S1=492981995, S6=3350962791), sampler names, steps, CFG, width, height, runtime, and peak VRAM in sidecar JSONs.",
+      "validation_performed": "Inspected all 6 SOTA_scene_*.json files and benchmark_results.json.",
+      "result": "PASS: Full reproducibility data captured.",
+      "remaining_work": "None"
+    },
+    {
+      "id": "REQ-21",
+      "category": "Generalized Architecture",
+      "original_requirement": "Clean separation of generic generation engine from story-specific configuration and benchmark QA.",
+      "status": "PARTIAL",
+      "evidence": "HARDCODED_CHARACTERS, HARDCODED_ENVIRONMENTS, and HARDCODED_SCENES are still embedded in metrics.py. Negative prompt overrides for Scene 3 ('microscope'), Scene 5 ('Harvard dorm', 'atom balls') contain story-specific strings inside app.py.",
+      "validation_performed": "Audited source code of app.py and metrics.py for hardcoded story literals.",
+      "result": "PARTIAL: Engine works well for Ebright story, but is coupled to hardcoded constants rather than a dynamic schema parser.",
+      "remaining_work": "Decouple story-specific prompt rules into external JSON configuration files (e.g. storyboards/ebright_story.json)."
+    }
+  ]
+}

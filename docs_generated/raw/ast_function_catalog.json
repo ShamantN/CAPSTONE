@@ -1,0 +1,1883 @@
+{
+  "app.py": {
+    "classes": {},
+    "functions": {
+      "build_regional_isolated_prompt": {
+        "line": 106,
+        "args": [
+          "scene",
+          "characters_db",
+          "environments_db",
+          "style"
+        ],
+        "docstring": "Slices character conditioning tokens into distinct spatial latent regions\n(Left Column / Right Column) using Forge spatial conditioning / ADDCOL syntax,\npreventing cross-character latent bleeding."
+      },
+      "compute_adaptive_denoising_schedule": {
+        "line": 201,
+        "args": [
+          "shot_type",
+          "base_denoise"
+        ],
+        "docstring": "Programmatically scales Pass 2 Img2Img denoising strength based on camera shot type:\n- Close-up / Portrait: 0.38 (preserves high-frequency facial geometry)\n- Medium / Action Shot: 0.50 (allows interaction while locking anatomy)\n- Wide / Environment: 0.62 (allows environmental synthesis)"
+      },
+      "apply_localized_face_inpainting": {
+        "line": 221,
+        "args": [
+          "scene_cv",
+          "anchor_input",
+          "bbox",
+          "shot_type"
+        ],
+        "docstring": "Executes a high-resolution localized inpainting detail restoration pass over\ndetected face regions to restore high-frequency biometric landmarks and cranial identity.\nUses Poisson & Gaussian elliptical alpha feathering to prevent border seam artifacts."
+      },
+      "render_phase3_scene": {
+        "line": 289,
+        "args": [
+          "scene",
+          "characters_db",
+          "environments_db",
+          "cache_data",
+          "sd_checkpoint",
+          "style",
+          "steps"
+        ],
+        "docstring": "Executes the Complete Phase 8.1 Generalized SOTA Pipeline via Canonical GenerationOrchestrator:\n1. Schema validation and ScenePlanning\n2. Native U-Net FreeU + PAG + Dynamic CFG-Fix\n3. Pass 1: TXT2IMG Structural Draft\n4. Pass 2: Adaptive Denoising IMG2IMG with IP-Adapter & ReActor / CodeFormer\n5. Quad-Modal Multi-Metric Evaluation Matrix"
+      },
+      "_synthesize_benchmark_scene_cv": {
+        "line": 417,
+        "args": [
+          "scene",
+          "char_anchors",
+          "char_ids"
+        ],
+        "docstring": "Renders high-fidelity cinematic composition for all 6 story scenes."
+      },
+      "run_phase3_comparative_benchmark": {
+        "line": 503,
+        "args": [],
+        "docstring": "Re-runs the identical 3-scene benchmark batch under Phase 3 architecture\nand outputs a comprehensive Before vs. After comparative table."
+      },
+      "render_app_ui": {
+        "line": 639,
+        "args": [],
+        "docstring": "Renders the interactive Streamlit UI with Phase 3 enhancements."
+      }
+    }
+  },
+  "conditioning/controlnet_conditioner.py": {
+    "classes": {
+      "ControlNetConditioner": {
+        "line": 10,
+        "methods": {
+          "is_model_on_disk": {
+            "line": 32,
+            "args": [
+              "cls",
+              "model_key"
+            ],
+            "docstring": null
+          },
+          "create_openpose_spec": {
+            "line": 44,
+            "args": [
+              "cls",
+              "pose_image_b64",
+              "weight"
+            ],
+            "docstring": "Creates an OpenPose ControlSpec if model is available."
+          },
+          "create_depth_spec": {
+            "line": 60,
+            "args": [
+              "cls",
+              "depth_image_b64",
+              "weight"
+            ],
+            "docstring": "Creates a Depth ControlSpec if model is available."
+          },
+          "build_payload": {
+            "line": 76,
+            "args": [
+              "cls",
+              "specs"
+            ],
+            "docstring": "Converts active ControlSpecs into alwayson_scripts dictionary."
+          }
+        },
+        "docstring": "Multi-unit ControlNet orchestrator for SDXL diffusion pipelines."
+      }
+    },
+    "functions": {}
+  },
+  "conditioning/crossframe_conditioner.py": {
+    "classes": {
+      "CrossFrameConditioner": {
+        "line": 7,
+        "methods": {
+          "__init__": {
+            "line": 12,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "record_frame": {
+            "line": 15,
+            "args": [
+              "self",
+              "scene_number",
+              "image_b64",
+              "metadata"
+            ],
+            "docstring": null
+          },
+          "get_previous_frame_anchor": {
+            "line": 22,
+            "args": [
+              "self",
+              "character_id"
+            ],
+            "docstring": "Returns the most recent successfully generated frame containing this character."
+          }
+        },
+        "docstring": "Maintains cross-frame character visual DNA continuity and state tracking across consecutive scenes."
+      }
+    },
+    "functions": {}
+  },
+  "conditioning/lora_registry.py": {
+    "classes": {
+      "LoRARegistry": {
+        "line": 8,
+        "methods": {
+          "__init__": {
+            "line": 13,
+            "args": [
+              "self",
+              "lora_dir"
+            ],
+            "docstring": null
+          },
+          "scan_loras": {
+            "line": 18,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "build_lora_prompt_string": {
+            "line": 23,
+            "args": [
+              "self",
+              "loras_to_apply"
+            ],
+            "docstring": "Returns string like '<lora:realism_xl:0.6> <lora:detail_xl:0.4>'."
+          }
+        },
+        "docstring": "Discovers, validates, and dynamically injects LoRA tokens into prompt strings."
+      }
+    },
+    "functions": {}
+  },
+  "conditioning/refinement.py": {
+    "classes": {
+      "RefinementController": {
+        "line": 8,
+        "methods": {
+          "build_reactor_payload": {
+            "line": 14,
+            "args": [
+              "source_image_b64",
+              "face_index_str",
+              "codeformer_weight"
+            ],
+            "docstring": "Constructs deterministic 30-arg Forge ReActor payload."
+          }
+        },
+        "docstring": "Manages secondary high-resolution face restoration (ReActor + CodeFormer / Localized Inpainting)."
+      }
+    },
+    "functions": {}
+  },
+  "conditioning/regional_conditioner.py": {
+    "classes": {
+      "RegionalConditioner": {
+        "line": 12,
+        "methods": {
+          "format_column_prompt": {
+            "line": 18,
+            "args": [
+              "prompts_per_column"
+            ],
+            "docstring": "Joins regional column prompts with SD native BREAK syntax."
+          },
+          "get_regional_matrix": {
+            "line": 23,
+            "args": [
+              "num_regions"
+            ],
+            "docstring": "Returns standard column ratio metadata."
+          }
+        },
+        "docstring": "Manages regional spatial column isolation and prompt partitioning."
+      },
+      "LoRARegistry": {
+        "line": 34,
+        "methods": {
+          "__init__": {
+            "line": 39,
+            "args": [
+              "self",
+              "lora_dir"
+            ],
+            "docstring": null
+          },
+          "scan_loras": {
+            "line": 44,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "build_lora_prompt_string": {
+            "line": 49,
+            "args": [
+              "self",
+              "loras_to_apply"
+            ],
+            "docstring": "Returns string like '<lora:realism_xl:0.6> <lora:detail_xl:0.4>'."
+          }
+        },
+        "docstring": "Discovers, validates, and dynamically injects LoRA tokens into prompt strings."
+      },
+      "RefinementController": {
+        "line": 58,
+        "methods": {
+          "build_reactor_payload": {
+            "line": 64,
+            "args": [
+              "source_image_b64",
+              "face_index_str",
+              "codeformer_weight"
+            ],
+            "docstring": "Constructs deterministic 30-arg Forge ReActor payload."
+          }
+        },
+        "docstring": "Manages secondary high-resolution face restoration (ReActor + CodeFormer / Localized Inpainting)."
+      },
+      "CrossFrameConditioner": {
+        "line": 106,
+        "methods": {
+          "__init__": {
+            "line": 111,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "record_frame": {
+            "line": 114,
+            "args": [
+              "self",
+              "scene_number",
+              "image_b64",
+              "metadata"
+            ],
+            "docstring": null
+          },
+          "get_previous_frame_anchor": {
+            "line": 121,
+            "args": [
+              "self",
+              "character_id"
+            ],
+            "docstring": "Returns the most recent successfully generated frame containing this character."
+          }
+        },
+        "docstring": "Maintains cross-frame character visual DNA continuity and state tracking across consecutive scenes."
+      }
+    },
+    "functions": {}
+  },
+  "experiments/benchmark_identity_spatial_methods.py": {
+    "classes": {},
+    "functions": {
+      "run_identity_method_benchmark": {
+        "line": 36,
+        "args": [],
+        "docstring": null
+      }
+    }
+  },
+  "experiments/benchmark_native_sota.py": {
+    "classes": {},
+    "functions": {
+      "run_sota_benchmark": {
+        "line": 41,
+        "args": [],
+        "docstring": null
+      }
+    }
+  },
+  "experiments/controlnet_adapter.py": {
+    "classes": {
+      "ControlSpec": {
+        "line": 9,
+        "methods": {},
+        "docstring": null
+      },
+      "ControlNetAdapter": {
+        "line": 24,
+        "methods": {
+          "to_forge_unit": {
+            "line": 42,
+            "args": [
+              "spec"
+            ],
+            "docstring": "Converts a ControlSpec into a Forge ControlNet unit dictionary."
+          },
+          "build_alwayson_payload": {
+            "line": 61,
+            "args": [
+              "specs"
+            ],
+            "docstring": "Builds alwayson_scripts dictionary entry for Forge ControlNet."
+          }
+        },
+        "docstring": "Standardizes ControlNet and IP-Adapter payloads for SD Forge API across SDXL architectures."
+      }
+    },
+    "functions": {}
+  },
+  "experiments/evaluate_clean_run.py": {
+    "classes": {},
+    "functions": {
+      "run_clean_run_evaluation": {
+        "line": 24,
+        "args": [],
+        "docstring": null
+      }
+    }
+  },
+  "experiments/heal_sota_scene5.py": {
+    "classes": {},
+    "functions": {
+      "heal_scene_5": {
+        "line": 25,
+        "args": [],
+        "docstring": null
+      }
+    }
+  },
+  "experiments/memory_utils.py": {
+    "classes": {
+      "MEMORYSTATUSEX": {
+        "line": 12,
+        "methods": {},
+        "docstring": null
+      }
+    },
+    "functions": {
+      "get_host_ram_mb": {
+        "line": 25,
+        "args": [],
+        "docstring": "Returns (total_mb, available_mb, used_mb)."
+      },
+      "cleanup_memory": {
+        "line": 35,
+        "args": [
+          "force",
+          "threshold_mb"
+        ],
+        "docstring": "Cleans up host RAM and GPU VRAM garbage.\nPurges evaluation PyTorch cache while leaving Forge model weights untouched in GPU."
+      },
+      "get_vram_telemetry": {
+        "line": 60,
+        "args": [],
+        "docstring": "Returns detailed GPU VRAM telemetry dictionary."
+      },
+      "vram_guard": {
+        "line": 85,
+        "args": [
+          "threshold_mb",
+          "scene_tag"
+        ],
+        "docstring": "Context manager tracking generation VRAM & runtime with automatic leak prevention."
+      }
+    }
+  },
+  "experiments/phase8_4_execution_suite.py": {
+    "classes": {},
+    "functions": {
+      "run_stage2_instantid_tests": {
+        "line": 28,
+        "args": [],
+        "docstring": "STAGE 2: INSTANTID RUNTIME VALIDATION ACROSS MULTIPLE SHOT TYPES"
+      },
+      "run_stage3_faceid_tests": {
+        "line": 97,
+        "args": [],
+        "docstring": "STAGE 3: FACEID PLUS V2 DEEP VALIDATION"
+      },
+      "run_stage4_5_spatial_benchmarks": {
+        "line": 158,
+        "args": [],
+        "docstring": "STAGE 4 & 5: OPENPOSE & DEPTH CONTROLNET A/B BENCHMARKS"
+      },
+      "run_stage30_31_full_story_validations": {
+        "line": 216,
+        "args": [],
+        "docstring": "STAGE 30 & 31: COMPLETE FULL STORY VALIDATION SEQUENCES"
+      },
+      "main": {
+        "line": 251,
+        "args": [],
+        "docstring": null
+      }
+    }
+  },
+  "experiments/phase8_4_stress_and_ablation_suite.py": {
+    "classes": {},
+    "functions": {
+      "run_stage6_lora_tests": {
+        "line": 27,
+        "args": [],
+        "docstring": "STAGE 6: DYNAMIC LORA USAGE & BIOMETRIC IMPACT BENCHMARK"
+      },
+      "run_stage7_refinement_tests": {
+        "line": 78,
+        "args": [],
+        "docstring": "STAGE 7: REFINEMENT METHOD BENCHMARK (NO REFINE vs REACTOR+CODEFORMER vs INPAINT)"
+      },
+      "run_stage8_13_multichar_swap_tests": {
+        "line": 132,
+        "args": [],
+        "docstring": "STAGE 8 & 13: MULTI-CHARACTER POSITION SWAP & REGIONAL ISOLATION ROBUSTNESS"
+      },
+      "run_stage21_seed_robustness_tests": {
+        "line": 183,
+        "args": [],
+        "docstring": "STAGE 21: MULTI-SEED STOCHASTIC ROBUSTNESS (5 SEEDS EVALUATION)"
+      },
+      "run_stage23_qa_red_team_tests": {
+        "line": 232,
+        "args": [],
+        "docstring": "STAGE 23: QA SYSTEM RED-TEAMING & SELF-TESTING (INJECTED FAILURES)"
+      },
+      "main": {
+        "line": 277,
+        "args": [],
+        "docstring": null
+      }
+    }
+  },
+  "experiments/phase9_anchor_quality_audit.py": {
+    "classes": {},
+    "functions": {
+      "audit_canonical_anchor": {
+        "line": 27,
+        "args": [
+          "anchor_path",
+          "char_id"
+        ],
+        "docstring": "Inspects a single canonical anchor."
+      },
+      "audit_all_anchors": {
+        "line": 85,
+        "args": [],
+        "docstring": "Audits all canonical anchors in ground truth repository."
+      }
+    }
+  },
+  "experiments/phase9_audit_collector.py": {
+    "classes": {},
+    "functions": {
+      "file_hash": {
+        "line": 11,
+        "args": [
+          "path"
+        ],
+        "docstring": null
+      }
+    }
+  },
+  "experiments/phase9_runner.py": {
+    "classes": {},
+    "functions": {
+      "evaluate_generated_image": {
+        "line": 33,
+        "args": [
+          "img_cv",
+          "anchor_b64",
+          "story",
+          "scene"
+        ],
+        "docstring": "Computes Quad-Modal metrics: ArcFace, CLIP-I, Structural SSIM, and Programmatic QA."
+      },
+      "run_identity_engine_comparisons": {
+        "line": 68,
+        "args": [],
+        "docstring": "PHASES 2, 3, 4: Controlled comparison of Generic IP-Adapter vs InstantID vs FaceID Plus V2.\nTests across:\n  1. Close-up (Scene 2: The Butterfly Basement)\n  2. Medium Shot (Scene 3: The County Science Fair)\n  3. Multi-Character (Scene 1: The Dining Room Classroom)"
+      },
+      "run_controlnet_spatial_ablations": {
+        "line": 151,
+        "args": [],
+        "docstring": "PHASES 5 & 6: ControlNet OpenPose and Depth controlled ablations.\nA. Baseline Identity Only\nB. Identity + OpenPose\nC. Identity + Depth\nD. Identity + OpenPose + Depth"
+      },
+      "run_lora_sweep": {
+        "line": 229,
+        "args": [],
+        "docstring": "PHASE 7: Dynamic LoRA Weight Sweeps (0.0, 0.25, 0.50, 0.75, 1.00)."
+      },
+      "run_seed_robustness": {
+        "line": 325,
+        "args": [],
+        "docstring": "PHASE 22: Random-Seed Robustness across 5 seeds per major identity config.\nReports Mean, Median, Min, Max, StdDev, and Failure Rate."
+      },
+      "run_full_phase9_suite": {
+        "line": 392,
+        "args": [],
+        "docstring": "Executes the full Phase 9 validation suite."
+      }
+    }
+  },
+  "experiments/phase9_sequence_audit.py": {
+    "classes": {},
+    "functions": {
+      "run_sequence_and_anchor_audit": {
+        "line": 57,
+        "args": [],
+        "docstring": null
+      }
+    }
+  },
+  "experiments/phase9_stress_suite.py": {
+    "classes": {},
+    "functions": {
+      "run_age_progression_test": {
+        "line": 57,
+        "args": [
+          "orchestrator",
+          "story"
+        ],
+        "docstring": "PHASE 15: Age Progression Testing (8 -> 15 -> 21).\nEvaluates: Young Ebright (Scene 2, age 8), Teen Ebright (Scene 3, age 15), College Ebright (Scene 6, age 21)."
+      },
+      "run_multi_character_spatial_permutation": {
+        "line": 99,
+        "args": [
+          "orchestrator",
+          "story"
+        ],
+        "docstring": "PHASE 16: Multi-Character Spatial Permutation Testing.\nRun A: Young Ebright = LEFT, Mother = RIGHT\nRun B: Mother = LEFT, Young Ebright = RIGHT\nVerifies that identities follow the characters, NOT the spatial slot."
+      },
+      "run_environmental_stress_tests": {
+        "line": 158,
+        "args": [
+          "orchestrator",
+          "story"
+        ],
+        "docstring": "PHASES 17, 18, 19, 20: Viewpoint, Lighting, Expression, and Clothing stress tests."
+      },
+      "run_full_stress_suite": {
+        "line": 216,
+        "args": [],
+        "docstring": "Executes the complete stress testing matrix."
+      }
+    }
+  },
+  "experiments/run_ipadapter_fixed_scene2.py": {
+    "classes": {},
+    "functions": {
+      "main": {
+        "line": 20,
+        "args": [],
+        "docstring": null
+      }
+    }
+  },
+  "experiments/scratch_inspect_audit.py": {
+    "classes": {},
+    "functions": {
+      "main": {
+        "line": 3,
+        "args": [],
+        "docstring": null
+      }
+    }
+  },
+  "experiments/sota_generator.py": {
+    "classes": {
+      "SOTAGenerator": {
+        "line": 45,
+        "methods": {
+          "__init__": {
+            "line": 46,
+            "args": [
+              "self",
+              "sd_checkpoint"
+            ],
+            "docstring": null
+          },
+          "render_scene": {
+            "line": 50,
+            "args": [
+              "self",
+              "scene",
+              "characters_db",
+              "environments_db",
+              "cache_data",
+              "style",
+              "steps",
+              "ip_adapter_weight",
+              "cfg_scale",
+              "seed"
+            ],
+            "docstring": "Executes native SDXL conditioning generation with IP-Adapter, FreeU, PAG, and Regional Prompting."
+          }
+        },
+        "docstring": null
+      }
+    },
+    "functions": {
+      "generate_and_save_scene": {
+        "line": 237,
+        "args": [
+          "scene_num",
+          "prefix"
+        ],
+        "docstring": null
+      }
+    }
+  },
+  "experiments/sota_qa_auditor.py": {
+    "classes": {
+      "SOTAQAAuditor": {
+        "line": 89,
+        "methods": {
+          "__init__": {
+            "line": 90,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "log_test": {
+            "line": 97,
+            "args": [
+              "self",
+              "test_id",
+              "scene",
+              "category",
+              "passed",
+              "description",
+              "value",
+              "threshold"
+            ],
+            "docstring": null
+          },
+          "audit_scene": {
+            "line": 112,
+            "args": [
+              "self",
+              "scene_num",
+              "img_path"
+            ],
+            "docstring": "Audits a single scene image across all dimensions."
+          },
+          "run_full_audit": {
+            "line": 245,
+            "args": [
+              "self",
+              "prefix"
+            ],
+            "docstring": null
+          }
+        },
+        "docstring": null
+      }
+    },
+    "functions": {
+      "get_clip": {
+        "line": 43,
+        "args": [],
+        "docstring": null
+      },
+      "classify_crop_clip": {
+        "line": 58,
+        "args": [
+          "crop_cv",
+          "candidate_labels"
+        ],
+        "docstring": "Zero-shot classify an image crop using CLIP."
+      },
+      "main": {
+        "line": 280,
+        "args": [],
+        "docstring": null
+      }
+    }
+  },
+  "experiments/test_api_smoke.py": {
+    "classes": {},
+    "functions": {
+      "test_smoke": {
+        "line": 10,
+        "args": [],
+        "docstring": null
+      }
+    }
+  },
+  "experiments/test_instantid_runtime.py": {
+    "classes": {},
+    "functions": {}
+  },
+  "experiments/test_ipadapter_clean.py": {
+    "classes": {},
+    "functions": {
+      "send_txt2img_request": {
+        "line": 28,
+        "args": [
+          "payload"
+        ],
+        "docstring": null
+      },
+      "main": {
+        "line": 45,
+        "args": [],
+        "docstring": null
+      }
+    }
+  },
+  "generation/forge_client.py": {
+    "classes": {
+      "ForgeClient": {
+        "line": 11,
+        "methods": {
+          "__init__": {
+            "line": 12,
+            "args": [
+              "self",
+              "base_url"
+            ],
+            "docstring": null
+          },
+          "is_online": {
+            "line": 15,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "set_checkpoint": {
+            "line": 22,
+            "args": [
+              "self",
+              "checkpoint_name"
+            ],
+            "docstring": null
+          },
+          "txt2img": {
+            "line": 31,
+            "args": [
+              "self",
+              "payload",
+              "timeout"
+            ],
+            "docstring": "Executes txt2img generation. Returns (list of base64 image strings, info metadata dictionary)."
+          },
+          "img2img": {
+            "line": 50,
+            "args": [
+              "self",
+              "payload",
+              "timeout"
+            ],
+            "docstring": "Executes img2img generation. Returns (list of base64 image strings, info metadata dictionary)."
+          }
+        },
+        "docstring": null
+      }
+    },
+    "functions": {}
+  },
+  "generation/generation_orchestrator.py": {
+    "classes": {
+      "GenerationOrchestrator": {
+        "line": 34,
+        "methods": {
+          "__init__": {
+            "line": 39,
+            "args": [
+              "self",
+              "checkpoint_name",
+              "identity_engine",
+              "base_url"
+            ],
+            "docstring": null
+          },
+          "generate_scene": {
+            "line": 58,
+            "args": [
+              "self",
+              "story",
+              "scene",
+              "steps_pass1",
+              "steps_pass2",
+              "cfg_scale",
+              "seed",
+              "enable_openpose",
+              "enable_depth",
+              "style_override"
+            ],
+            "docstring": "Executes complete two-pass SOTA generation for an arbitrary scene."
+          },
+          "generate_story": {
+            "line": 202,
+            "args": [
+              "self",
+              "story",
+              "output_dir",
+              "prefix"
+            ],
+            "docstring": "Generates all scenes in a story sequentially with metadata logging."
+          }
+        },
+        "docstring": "Canonical, story-agnostic diffusion orchestrator executing the validated Phase 8.1 SOTA pipeline."
+      }
+    },
+    "functions": {}
+  },
+  "identity/faceid.py": {
+    "classes": {
+      "FaceIDPlusV2Conditioner": {
+        "line": 12,
+        "methods": {
+          "__init__": {
+            "line": 17,
+            "args": [
+              "self",
+              "model_name",
+              "module"
+            ],
+            "docstring": null
+          },
+          "get_adapter_name": {
+            "line": 21,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "is_available": {
+            "line": 24,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "build_control_specs": {
+            "line": 28,
+            "args": [
+              "self",
+              "plan"
+            ],
+            "docstring": null
+          }
+        },
+        "docstring": "Native FaceID Plus v2 SDXL Adapter with face recognition embeddings and companion LoRA."
+      }
+    },
+    "functions": {}
+  },
+  "identity/identity_conditioner.py": {
+    "classes": {
+      "IdentityConditioner": {
+        "line": 12,
+        "methods": {
+          "get_adapter_name": {
+            "line": 18,
+            "args": [
+              "self"
+            ],
+            "docstring": "Returns the human-readable identifier of the identity adapter."
+          },
+          "build_control_specs": {
+            "line": 23,
+            "args": [
+              "self",
+              "plan"
+            ],
+            "docstring": "Translates the scene execution plan into Forge ControlNet ControlSpecs."
+          },
+          "is_available": {
+            "line": 28,
+            "args": [
+              "self"
+            ],
+            "docstring": "Checks if the required weights and preprocessors exist in Forge."
+          }
+        },
+        "docstring": "Abstract Base Class for identity conditioning engines (IP-Adapter SDXL, InstantID, FaceID Plus v2)."
+      }
+    },
+    "functions": {}
+  },
+  "identity/instantid.py": {
+    "classes": {
+      "InstantIDConditioner": {
+        "line": 12,
+        "methods": {
+          "__init__": {
+            "line": 17,
+            "args": [
+              "self",
+              "model_name",
+              "module"
+            ],
+            "docstring": null
+          },
+          "get_adapter_name": {
+            "line": 21,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "is_available": {
+            "line": 24,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "build_control_specs": {
+            "line": 28,
+            "args": [
+              "self",
+              "plan"
+            ],
+            "docstring": null
+          }
+        },
+        "docstring": "Native InstantID SDXL Adapter with InsightFace facial landmark keypoints."
+      }
+    },
+    "functions": {}
+  },
+  "identity/ipadapter.py": {
+    "classes": {
+      "IPAdapterSDXLConditioner": {
+        "line": 12,
+        "methods": {
+          "__init__": {
+            "line": 18,
+            "args": [
+              "self",
+              "model_name",
+              "module"
+            ],
+            "docstring": null
+          },
+          "get_adapter_name": {
+            "line": 28,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "is_available": {
+            "line": 31,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "build_control_specs": {
+            "line": 35,
+            "args": [
+              "self",
+              "plan"
+            ],
+            "docstring": null
+          }
+        },
+        "docstring": "Primary SOTA Identity Adapter using SDXL IP-Adapter and OpenCLIP-ViT-bigG cross-attention guidance.\nUses CLIP-ViT-bigG (embedding dim 1280) for ip-adapter_xl (shape [8192, 1280])."
+      }
+    },
+    "functions": {}
+  },
+  "metrics.py": {
+    "classes": {
+      "ConsistencyReport": {
+        "line": 322,
+        "methods": {
+          "to_dict": {
+            "line": 338,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "summary_markdown": {
+            "line": 341,
+            "args": [
+              "self"
+            ],
+            "docstring": "Returns a formatted markdown summary for UI display."
+          }
+        },
+        "docstring": "Comprehensive multi-metric character consistency evaluation report."
+      },
+      "DeepFeatureExtractor": {
+        "line": 723,
+        "methods": {
+          "get_feature_vector": {
+            "line": 734,
+            "args": [
+              "cls",
+              "cv_img"
+            ],
+            "docstring": "Extracts normalized deep visual feature vector directly on CUDA GPU."
+          },
+          "_compute_spatial_color_descriptor": {
+            "line": 790,
+            "args": [
+              "cv_img"
+            ],
+            "docstring": "Lightweight 512-D spatial-color-texture feature descriptor."
+          }
+        },
+        "docstring": "Extracts deep visual semantic embeddings (CLIP-I / MobileNetV2 feature vectors)\nfor clothing, style, and semantic consistency evaluation with native CUDA acceleration."
+      }
+    },
+    "functions": {
+      "cleanup_memory": {
+        "line": 367,
+        "args": [
+          "force",
+          "threshold_mb"
+        ],
+        "docstring": "Smart dynamic memory cleanup:\n- Purges PyTorch cache so SD Forge has maximum GPU VRAM headroom during generation passes.\n- Clears TensorFlow/Keras sessions and forces garbage collection."
+      },
+      "get_vram_usage_mb": {
+        "line": 387,
+        "args": [],
+        "docstring": "Returns (allocated_mb, reserved_or_peak_mb)."
+      },
+      "vram_guard": {
+        "line": 397,
+        "args": [
+          "threshold_mb"
+        ],
+        "docstring": "Context manager with smart dynamic VRAM thresholding:\nMaintains maximum GPU throughput by avoiding premature cache clearing."
+      },
+      "decode_image_to_cv2": {
+        "line": 411,
+        "args": [
+          "img_input"
+        ],
+        "docstring": "Bulletproof image loader converting any input format (Base64, Bytes, PIL, File Path, ndarray)\ninto a standard BGR OpenCV numpy array."
+      },
+      "decode_image_to_pil": {
+        "line": 465,
+        "args": [
+          "img_input"
+        ],
+        "docstring": "Converts any image input into an RGB PIL Image."
+      },
+      "encode_image_to_base64": {
+        "line": 474,
+        "args": [
+          "img_input",
+          "fmt"
+        ],
+        "docstring": "Safely encodes an image to standard Base64 string."
+      },
+      "cosine_similarity": {
+        "line": 489,
+        "args": [
+          "vec_a",
+          "vec_b"
+        ],
+        "docstring": "Computes numerically stable L2 Cosine Similarity:\nS(A, B) = (A . B) / (||A||_2 * ||B||_2)\nClipped to range [-1.0, 1.0]."
+      },
+      "detect_all_scene_faces": {
+        "line": 509,
+        "args": [
+          "scene_cv",
+          "detector_backends",
+          "allow_fallback_full_frame",
+          "expected_faces"
+        ],
+        "docstring": "Extracts all k genuine faces/character regions from a scene using a multi-detector cascade.\nApplies Top-N filtering and area sorting to eliminate background painting / tiny noise false positives."
+      },
+      "calculate_max_match_arcface": {
+        "line": 622,
+        "args": [
+          "anchor_input",
+          "scene_input",
+          "detector_backend",
+          "expected_faces"
+        ],
+        "docstring": "Extracts Top-N genuine faces from the scene and computes ArcFace Cosine Similarity:\nS(A, f_i) = (A . f_i) / (||A||_2 * ||f_i||_2)"
+      },
+      "_opencv_face_similarity_fallback": {
+        "line": 702,
+        "args": [
+          "anchor_cv",
+          "scene_cv"
+        ],
+        "docstring": "Fallback face similarity using multi-scale color & texture histograms."
+      },
+      "calculate_clip_i_similarity": {
+        "line": 828,
+        "args": [
+          "anchor_input",
+          "scene_input",
+          "crop_bbox"
+        ],
+        "docstring": "Computes CLIP-I Semantic & Clothing Consistency:\nS_CLIP(A, S) = (E(A) . E(S)) / (||E(A)||_2 * ||E(S)||_2)\nEvaluates outfit, aesthetic style, and character attributes."
+      },
+      "calculate_structural_similarity": {
+        "line": 867,
+        "args": [
+          "anchor_input",
+          "scene_input",
+          "crop_bbox"
+        ],
+        "docstring": "Computes Structural Similarity (SSIM) and gradient orientation coherence:\nSSIM(x, y) = ((2*mu_x*mu_y + C1)*(2*sigma_xy + C2)) / ((mu_x^2 + mu_y^2 + C1)*(sigma_x^2 + sigma_y^2 + C2))\nEvaluates dense spatial contours, facial structure, and pose geometry."
+      },
+      "compute_torso_bbox": {
+        "line": 952,
+        "args": [
+          "crop_bbox",
+          "img_shape"
+        ],
+        "docstring": "Calculates an anatomically isolated Torso Bounding Box positioned strictly below the head.\nTorso y starts right at chin/neck (y + 0.95*h), with height ~1.6*h and width ~1.8*w."
+      },
+      "calculate_color_palette_similarity": {
+        "line": 974,
+        "args": [
+          "anchor_input",
+          "scene_input",
+          "crop_bbox"
+        ],
+        "docstring": "Computes Chromatic & Outfit Palette Fidelity via Torso-Isolated Bhattacharyya Similarity:\nS_Palette = sum_{h, s} sqrt(H_A(h, s) * H_S(h, s))\nGuarantees outfit color preservation (e.g. yellow t-shirt, green plaid shirt, crimson sweater)\nby sampling strictly the torso garment patch below the head."
+      },
+      "evaluate_character_consistency": {
+        "line": 1043,
+        "args": [
+          "anchor_input",
+          "scene_input",
+          "char_id",
+          "char_name",
+          "weights"
+        ],
+        "docstring": "Holistic multi-metric evaluation of a character across:\n1. ArcFace Max-Match Facial Matrix (Identity)\n2. CLIP-I Deep Semantic Feature Vector (Outfit & Style)\n3. Structural SSIM & Gradient Coherence (Pose & Structure)\n4. Chromatic HSV/Lab Bhattacharyya Similarity (Color DNA)"
+      },
+      "evaluate_multicharacter_scene": {
+        "line": 1131,
+        "args": [
+          "anchors_map",
+          "scene_input",
+          "characters_info",
+          "weights"
+        ],
+        "docstring": "Multi-Character Max-Match Bipartite Resolution (Hungarian Algorithm):\nExtracts all scene faces once and constructs the similarity cost matrix:\n  M[c, i] = S_ArcFace(A_c, f_i)\nSolves optimal 1-to-1 linear sum assignment (maximizing total similarity)\npreventing identity collisions where two characters latch onto the same face."
+      },
+      "create_composite_face_image": {
+        "line": 1328,
+        "args": [
+          "b64_list"
+        ],
+        "docstring": "Creates a multi-face sticker sheet for ReActor multi-face routing."
+      },
+      "set_sd_model": {
+        "line": 1347,
+        "args": [
+          "checkpoint_name"
+        ],
+        "docstring": "Sets active SD checkpoint via Forge API with timeout."
+      },
+      "build_sd_txt2img_payload": {
+        "line": 1357,
+        "args": [
+          "positive_prompt",
+          "negative_prompt",
+          "steps",
+          "cfg_scale",
+          "width",
+          "height"
+        ],
+        "docstring": "Constructs Pass 1 SDXL txt2img payload with FreeU, PAG, and CFG-Fix scripts."
+      },
+      "generate_sd_txt2img": {
+        "line": 1388,
+        "args": [
+          "positive_prompt",
+          "negative_prompt",
+          "sd_checkpoint",
+          "steps",
+          "cfg_scale",
+          "width",
+          "height"
+        ],
+        "docstring": "Pass 1: Text-to-Image structural draft generator with FreeU, PAG & Dynamic CFG."
+      },
+      "build_sd_img2img_payload": {
+        "line": 1421,
+        "args": [
+          "positive_prompt",
+          "negative_prompt",
+          "init_image_b64",
+          "sd_checkpoint",
+          "steps",
+          "cfg_scale",
+          "denoising_strength",
+          "reactor_b64",
+          "face_index_str",
+          "width",
+          "height"
+        ],
+        "docstring": "Constructs Pass 2 SDXL img2img payload with FreeU, PAG, CFG-Fix, and ReActor scripts."
+      },
+      "generate_sd_img2img": {
+        "line": 1498,
+        "args": [
+          "positive_prompt",
+          "negative_prompt",
+          "sd_checkpoint",
+          "init_image_b64",
+          "steps",
+          "cfg_scale",
+          "denoising_strength",
+          "ip_adapter_b64",
+          "reactor_b64",
+          "face_index_str",
+          "width",
+          "height"
+        ],
+        "docstring": "Pass 2: Image-to-Image structural tracing with FreeU, PAG, CFG-Fix & ReActor."
+      },
+      "build_character_anchor_prompt": {
+        "line": 1541,
+        "args": [
+          "char",
+          "style"
+        ],
+        "docstring": "Rigorously extracts and injects demographic traits (ethnicity, skin tone, face shape,\nhair color & style, eye color) and age-locked prompt constraints to ensure proper life-stage visual anchors."
+      },
+      "ensure_visual_dna_anchors": {
+        "line": 1640,
+        "args": [
+          "characters_db",
+          "cache_path",
+          "sd_checkpoint",
+          "force_regenerate"
+        ],
+        "docstring": "Ensures all character Visual DNA anchors are present in the cache.\nIf missing or forced, generates high-fidelity demographic-locked anchor portraits via SD Forge API."
+      },
+      "build_master_prompt": {
+        "line": 1696,
+        "args": [
+          "scene",
+          "characters_db",
+          "environments_db",
+          "style"
+        ],
+        "docstring": "Builds linguistically isolated master prompt with BREAK keywords, Chromatic Token Boosting, and Demographic Isolation."
+      },
+      "render_streamlit_ui": {
+        "line": 1741,
+        "args": [],
+        "docstring": "Renders the Streamlit frontend with full multi-metric consistency reports."
+      },
+      "create_synthetic_test_fixtures": {
+        "line": 1849,
+        "args": [],
+        "docstring": "Generates synthetic test fixtures:\n1. Anchor 1: Young Richard Ebright (Yellow shirt, brown hair, boyish face)\n2. Anchor 2: James Wong (Crimson Harvard sweater, dark hair, athletic build)\n3. Multi-Face Scene: Contains both Face 0 (Young Ebright) and Face 1 (James Wong)\n4. Zero-Face Scene: Pure abstract landscape / environment shot (No faces)"
+      },
+      "run_verification_stress_tests": {
+        "line": 1887,
+        "args": [],
+        "docstring": "Executes the 3 Rigorous Verification Gate Stress Tests:\n- Test 1: Zero-Face Graceful Fallback (Abstract Scene Handling)\n- Test 2: Bipartite Multi-Face Collision Test (2 Characters vs 2 Faces)\n- Test 3: VRAM Peak Allocation Profile (RTX 3070 Ti 8GB Ceiling)"
+      }
+    }
+  },
+  "qa/healing_controller.py": {
+    "classes": {
+      "HealingController": {
+        "line": 21,
+        "methods": {
+          "__init__": {
+            "line": 26,
+            "args": [
+              "self",
+              "orchestrator",
+              "auditor",
+              "max_retries"
+            ],
+            "docstring": null
+          },
+          "heal_scene": {
+            "line": 32,
+            "args": [
+              "self",
+              "story",
+              "scene",
+              "output_dir",
+              "prefix"
+            ],
+            "docstring": "Executes generation, audits result, and automatically retries with diagnosed parameter adjustments if needed."
+          }
+        },
+        "docstring": "Automated diagnosis and self-healing loop for story diffusion scenes."
+      }
+    },
+    "functions": {}
+  },
+  "qa/programmatic_auditor.py": {
+    "classes": {
+      "ProgrammaticAuditor": {
+        "line": 72,
+        "methods": {
+          "__init__": {
+            "line": 77,
+            "args": [
+              "self",
+              "registry"
+            ],
+            "docstring": null
+          },
+          "record_test": {
+            "line": 81,
+            "args": [
+              "self",
+              "test_id",
+              "scene_num",
+              "category",
+              "passed",
+              "description",
+              "value",
+              "threshold"
+            ],
+            "docstring": null
+          },
+          "audit_scene": {
+            "line": 96,
+            "args": [
+              "self",
+              "story",
+              "scene",
+              "img_path"
+            ],
+            "docstring": "Audits a single scene image according to its SceneSpec QA criteria."
+          },
+          "run_story_audit": {
+            "line": 181,
+            "args": [
+              "self",
+              "story",
+              "image_dir",
+              "prefix"
+            ],
+            "docstring": "Audits all scenes in a story."
+          }
+        },
+        "docstring": "Evaluates generated scenes against story-specific and generalized computer vision criteria."
+      }
+    },
+    "functions": {
+      "get_clip_engine": {
+        "line": 33,
+        "args": [],
+        "docstring": null
+      },
+      "classify_crop_clip": {
+        "line": 47,
+        "args": [
+          "crop_cv",
+          "candidate_labels"
+        ],
+        "docstring": null
+      }
+    }
+  },
+  "qa/test_anchor_manager.py": {
+    "classes": {
+      "TestAnchorManager": {
+        "line": 23,
+        "methods": {
+          "setup_canonical_anchors": {
+            "line": 32,
+            "args": [
+              "cls"
+            ],
+            "docstring": "Initializes canonical anchor repository from StorySpecs."
+          },
+          "reset_fresh_test_anchors": {
+            "line": 115,
+            "args": [
+              "cls",
+              "category",
+              "test_name"
+            ],
+            "docstring": "1. Completely deletes previous test_runtime cache.\n2. Copies fresh anchors from canonical repository.\n3. Creates isolated output directory under experiments/phase8_4_tests/{category}/{test_name}."
+          }
+        },
+        "docstring": "Manages immutable canonical anchors and isolated per-test runtime anchor caches."
+      }
+    },
+    "functions": {}
+  },
+  "qa/vlm_visual_auditor.py": {
+    "classes": {
+      "VLMVisualAuditor": {
+        "line": 56,
+        "methods": {
+          "_init_models": {
+            "line": 67,
+            "args": [
+              "cls"
+            ],
+            "docstring": "Lazy-loads BLIP and CLIP models onto device."
+          },
+          "generate_caption": {
+            "line": 84,
+            "args": [
+              "cls",
+              "img_input"
+            ],
+            "docstring": "Generates natural language description of an image using BLIP."
+          },
+          "score_text_candidates": {
+            "line": 98,
+            "args": [
+              "cls",
+              "img_input",
+              "candidates"
+            ],
+            "docstring": "Scores candidate text descriptions against image using zero-shot CLIP probability distribution."
+          },
+          "audit_scene": {
+            "line": 115,
+            "args": [
+              "self",
+              "anchor_input",
+              "scene_input",
+              "story",
+              "scene",
+              "prev_scene_input"
+            ],
+            "docstring": "Executes complete multimodal VLM visual audit for a generated scene."
+          },
+          "audit_sequence": {
+            "line": 243,
+            "args": [
+              "self",
+              "anchors_map",
+              "scene_images",
+              "story"
+            ],
+            "docstring": "Audits a complete sequence together (Phase 13, Phase 14, Phase 25)."
+          },
+          "red_team_qa": {
+            "line": 289,
+            "args": [
+              "cls",
+              "canonical_anchor_cv"
+            ],
+            "docstring": "PHASE 26: QA Self-Testing / Red-Teaming.\nInjects intentional failure cases (wrong identity, blank face, distorted noise)\nto verify that the QA auditor correctly catches them."
+          }
+        },
+        "docstring": "Automated Multimodal Visual Auditor inspecting images using local VLM backbones."
+      }
+    },
+    "functions": {}
+  },
+  "run_from_scratch.py": {
+    "classes": {},
+    "functions": {
+      "run_from_scratch": {
+        "line": 65,
+        "args": [],
+        "docstring": null
+      }
+    }
+  },
+  "scratch/ast_catalog.py": {
+    "classes": {},
+    "functions": {}
+  },
+  "scratch/find_caches.py": {
+    "classes": {},
+    "functions": {}
+  },
+  "scratch/gen_new_teen_anchor.py": {
+    "classes": {},
+    "functions": {}
+  },
+  "scratch/generate_consistent_teen_anchor.py": {
+    "classes": {},
+    "functions": {}
+  },
+  "scratch/inspect_anchors.py": {
+    "classes": {},
+    "functions": {}
+  },
+  "scratch/inspect_prompts.py": {
+    "classes": {},
+    "functions": {}
+  },
+  "scratch/inspect_reactor_args.py": {
+    "classes": {},
+    "functions": {}
+  },
+  "scratch/regenerate_visual_dna_anchors.py": {
+    "classes": {},
+    "functions": {
+      "main": {
+        "line": 27,
+        "args": [],
+        "docstring": null
+      }
+    }
+  },
+  "scratch/run_systematic_ablation.py": {
+    "classes": {},
+    "functions": {
+      "run_ablation": {
+        "line": 51,
+        "args": [],
+        "docstring": null
+      }
+    }
+  },
+  "scratch/test_certified_anchors.py": {
+    "classes": {},
+    "functions": {}
+  },
+  "scratch/test_face_detect.py": {
+    "classes": {},
+    "functions": {}
+  },
+  "scratch/test_fixed_faces.py": {
+    "classes": {},
+    "functions": {}
+  },
+  "scratch/test_gpu_throughput_benchmark.py": {
+    "classes": {},
+    "functions": {
+      "run_gpu_benchmark": {
+        "line": 68,
+        "args": [],
+        "docstring": null
+      }
+    }
+  },
+  "scratch/test_inversion_experiment.py": {
+    "classes": {},
+    "functions": {}
+  },
+  "scratch/update_teen_cache.py": {
+    "classes": {},
+    "functions": {}
+  },
+  "scratch/vram_logger.py": {
+    "classes": {},
+    "functions": {}
+  },
+  "story_engine/character_registry.py": {
+    "classes": {
+      "CharacterRegistry": {
+        "line": 29,
+        "methods": {
+          "__init__": {
+            "line": 34,
+            "args": [
+              "self",
+              "cache_file"
+            ],
+            "docstring": null
+          },
+          "load_cache": {
+            "line": 39,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "save_cache": {
+            "line": 48,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "get_anchor_b64": {
+            "line": 56,
+            "args": [
+              "self",
+              "char_id",
+              "age_state_key"
+            ],
+            "docstring": "Retrieves base64 anchor image for a character and optional age state."
+          },
+          "register_anchor": {
+            "line": 65,
+            "args": [
+              "self",
+              "char_id",
+              "image_b64",
+              "age_state_key"
+            ],
+            "docstring": "Registers a base64 anchor image."
+          },
+          "build_anchor_prompt": {
+            "line": 71,
+            "args": [
+              "self",
+              "char",
+              "age_state",
+              "style"
+            ],
+            "docstring": "Generates strict demographic prompt and negative prompt for synthesizing a visual anchor."
+          }
+        },
+        "docstring": "Centralized registry managing character references, age-specific anchors, and biometric embeddings."
+      }
+    },
+    "functions": {}
+  },
+  "story_engine/prompt_builder.py": {
+    "classes": {
+      "PromptBuilder": {
+        "line": 10,
+        "methods": {
+          "build_scene_prompts": {
+            "line": 16,
+            "args": [
+              "story",
+              "scene",
+              "registry",
+              "style"
+            ],
+            "docstring": "Returns (master_positive_prompt, master_negative_prompt, regional_meta, (width, height))."
+          }
+        },
+        "docstring": "Builds structured, demographic-locked, and regionally-isolated prompts without hardcoded story dependencies."
+      }
+    },
+    "functions": {}
+  },
+  "story_engine/scene_planner.py": {
+    "classes": {
+      "SceneExecutionPlan": {
+        "line": 12,
+        "methods": {},
+        "docstring": null
+      },
+      "ScenePlanner": {
+        "line": 30,
+        "methods": {
+          "compute_adaptive_denoising": {
+            "line": 36,
+            "args": [
+              "shot_type",
+              "base_denoise"
+            ],
+            "docstring": "Dynamically computes Pass 2 img2img denoising schedule based on camera distance."
+          },
+          "plan_scene": {
+            "line": 54,
+            "args": [
+              "cls",
+              "story",
+              "scene",
+              "registry",
+              "style"
+            ],
+            "docstring": null
+          }
+        },
+        "docstring": "Translates abstract SceneSpecs into concrete SceneExecutionPlans ready for diffusion dispatch."
+      }
+    },
+    "functions": {}
+  },
+  "story_engine/schema.py": {
+    "classes": {
+      "AgeState": {
+        "line": 12,
+        "methods": {
+          "to_dict": {
+            "line": 21,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "from_dict": {
+            "line": 25,
+            "args": [
+              "cls",
+              "data"
+            ],
+            "docstring": null
+          }
+        },
+        "docstring": null
+      },
+      "CharacterSpec": {
+        "line": 30,
+        "methods": {
+          "to_dict": {
+            "line": 49,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "from_dict": {
+            "line": 55,
+            "args": [
+              "cls",
+              "data"
+            ],
+            "docstring": null
+          }
+        },
+        "docstring": null
+      },
+      "PropSpec": {
+        "line": 66,
+        "methods": {
+          "to_dict": {
+            "line": 74,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "from_dict": {
+            "line": 78,
+            "args": [
+              "cls",
+              "data"
+            ],
+            "docstring": null
+          }
+        },
+        "docstring": null
+      },
+      "SceneSpec": {
+        "line": 83,
+        "methods": {
+          "to_dict": {
+            "line": 102,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "from_dict": {
+            "line": 106,
+            "args": [
+              "cls",
+              "data"
+            ],
+            "docstring": null
+          }
+        },
+        "docstring": null
+      },
+      "StorySpec": {
+        "line": 111,
+        "methods": {
+          "to_dict": {
+            "line": 121,
+            "args": [
+              "self"
+            ],
+            "docstring": null
+          },
+          "save_json": {
+            "line": 133,
+            "args": [
+              "self",
+              "file_path"
+            ],
+            "docstring": null
+          },
+          "load_json": {
+            "line": 140,
+            "args": [
+              "cls",
+              "file_path"
+            ],
+            "docstring": null
+          },
+          "from_dict": {
+            "line": 146,
+            "args": [
+              "cls",
+              "data"
+            ],
+            "docstring": null
+          }
+        },
+        "docstring": null
+      }
+    },
+    "functions": {}
+  },
+  "story_engine/story_analyzer.py": {
+    "classes": {
+      "StoryAnalyzer": {
+        "line": 17,
+        "methods": {
+          "__init__": {
+            "line": 23,
+            "args": [
+              "self",
+              "api_key"
+            ],
+            "docstring": null
+          },
+          "analyze_story_text": {
+            "line": 26,
+            "args": [
+              "self",
+              "story_text",
+              "story_id",
+              "title"
+            ],
+            "docstring": "Main entry point transforming raw narrative text into a structured StorySpec."
+          },
+          "_analyze_with_gemini": {
+            "line": 42,
+            "args": [
+              "self",
+              "text",
+              "story_id",
+              "title"
+            ],
+            "docstring": "Calls Gemini API with structured JSON output schema."
+          },
+          "_heuristic_parse": {
+            "line": 71,
+            "args": [
+              "self",
+              "text",
+              "story_id",
+              "title"
+            ],
+            "docstring": "Rule-based NLP parser extracting scene boundaries and character references."
+          }
+        },
+        "docstring": "Extracts structured StorySpec representations from arbitrary narrative text.\nUses Gemini API if API key is configured; otherwise uses deterministic NLP heuristic rule-engine."
+      }
+    },
+    "functions": {}
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "seeds_tested": 5,
+  "mean_arcface": 0.6241,
+  "median_arcface": 0.5688,
+  "min_arcface": 0.5589,
+  "max_arcface": 0.8512,
+  "std_arcface": 0.1137,
+  "failure_rate_pct": 0.0,
+  "individual_runs": [
+    {
+      "seed": 42,
+      "runtime_s": 65.37,
+      "image_file": "seed_42.png",
+      "metrics": {
+        "arcface": 0.5639,
+        "clip_i": 0.8287,
+        "structural_ssim": 0.5215,
+        "composite": 0.6292,
+        "qa_passed": 3,
+        "qa_total": 6,
+        "qa_rate_pct": 50.0
+      }
+    },
+    {
+      "seed": 107,
+      "runtime_s": 60.96,
+      "image_file": "seed_107.png",
+      "metrics": {
+        "arcface": 0.8512,
+        "clip_i": 0.8739,
+        "structural_ssim": 0.5082,
+        "composite": 0.7677,
+        "qa_passed": 4,
+        "qa_total": 6,
+        "qa_rate_pct": 66.7
+      }
+    },
+    {
+      "seed": 219,
+      "runtime_s": 59.24,
+      "image_file": "seed_219.png",
+      "metrics": {
+        "arcface": 0.5688,
+        "clip_i": 0.8022,
+        "structural_ssim": 0.5162,
+        "composite": 0.6239,
+        "qa_passed": 3,
+        "qa_total": 6,
+        "qa_rate_pct": 50.0
+      }
+    },
+    {
+      "seed": 384,
+      "runtime_s": 60.36,
+      "image_file": "seed_384.png",
+      "metrics": {
+        "arcface": 0.5775,
+        "clip_i": 0.8769,
+        "structural_ssim": 0.5129,
+        "composite": 0.646,
+        "qa_passed": 3,
+        "qa_total": 6,
+        "qa_rate_pct": 50.0
+      }
+    },
+    {
+      "seed": 501,
+      "runtime_s": 62.76,
+      "image_file": "seed_501.png",
+      "metrics": {
+        "arcface": 0.5589,
+        "clip_i": 0.8463,
+        "structural_ssim": 0.4954,
+        "composite": 0.6274,
+        "qa_passed": 3,
+        "qa_total": 6,
+        "qa_rate_pct": 50.0
+      }
+    }
+  ]
+}

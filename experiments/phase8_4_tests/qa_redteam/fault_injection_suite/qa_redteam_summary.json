@@ -1,0 +1,5 @@
+{
+  "fault_wrong_character_detected": false,
+  "fault_missing_face_detected": true,
+  "qa_reliability_verdict": "FAIL"
+}
