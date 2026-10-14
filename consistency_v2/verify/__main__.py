@@ -1,8 +1,17 @@
 """
 Module entrypoint for `python -m consistency_v2.verify`
 """
+import sys
 import argparse
 from pathlib import Path
+
+if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 from consistency_v2.verify.cli import run_verification
 
 if __name__ == "__main__":
