@@ -1,0 +1,21 @@
+{
+  "freeze_timestamp": "2026-10-14",
+  "status": "FROZEN",
+  "combined_verification_sha256": "f7319db547dc445c2ec05722f4425d3844d6cd5a2e43a7842034b5dbabd82850",
+  "file_hashes": {
+    "consistency_v2/verify/__init__.py": "3b59657dfe90bcdc72e4d3d39ee16cfb0c45dac8f4aeb00fefa138aea8d94334",
+    "consistency_v2/verify/__main__.py": "7aec43438c64fb80940d8c1b77dd99434ecfc0952171f9a25a0f80f637f83dae",
+    "consistency_v2/verify/appearance_evaluator.py": "42d1ad69fdfe213a6b68f6e9bfd4898b2756a0aaebea74836874fb12c85773ae",
+    "consistency_v2/verify/binding_checker.py": "540aeb5b1a1acafebfe927f3442a7b7148d32d3006c1ecd0300274112da3e1f2",
+    "consistency_v2/verify/biometric_ensemble.py": "4297bc1c6a08857534f9ba1ed7ce79bf0922d87b16e5fa86705e3bd09cebd514",
+    "consistency_v2/verify/calibration.json": "109828f2fa940268762b422d8009d856f73164bf33a7f7519599f4852e4cb549",
+    "consistency_v2/verify/calibration.py": "33a8454a1c4e8cb50d07289154483435e95891d2ff30b60c5b92b33dc5a46491",
+    "consistency_v2/verify/cli.py": "9eae726aedfd5293648d7eb51c8e19dd23ddc4bafe063932a10210ec3770093f",
+    "consistency_v2/verify/scene_auditor.py": "73f605bb6a5919f3191caf4a2ec6d1387f0c978c05251675f2f6b288cdcfb81f",
+    "consistency_v2/verify/torch_bridge.py": "5e01fe3a9d54ebe85fc521413c1026502f705167f2c7210783c34375a69725c3",
+    "consistency_v2/verify/torch_vision_helper.py": "54bc9e34eac41e50c429c9e5e9157c03f98b4233a9512b8c05e424677bfabb82",
+    "consistency_v2/verify/visual_review/make_blind_sheet.py": "1a0c4e12cfe0822d72061eafcfc5e5f982e4cf92c26ec9c492b4ca30f792f546",
+    "consistency_v2/verify/visual_review/make_contact_sheet.py": "c3d6daebc2e504306c108128301b53bd59329d1ebcabd365757ab002889d1455",
+    "consistency_v2/verify/visual_review/rubric.py": "c432a8a73dafc3bc6044b50e287ebf96d7207039eaa1e1ea5bd6be2a70df1a10"
+  }
+}
