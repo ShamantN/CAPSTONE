@@ -1,8 +1,8 @@
 # MMCCP Consistency v2: Master Progress & Execution Log
 
-**Current Phase:** Phase 0 (Setup, Pre-flight & Baseline Execution)  
+**Current Phase:** Phase 3 (Implement Consistency Methods: M1 to M10)  
 **Active Integration Branch:** `consistency-v2`  
-**Last Pushed Commit SHA (`origin/consistency-v2`):** `cf12f7f585af60c82c179672fafe6ef9292efb26`  
+**Last Pushed Commit SHA (`origin/consistency-v2`):** `fcfaaf5`  
 **Target Architecture:** Multi-Modal Character Consistency Pipeline v2 (M1–M10)  
 **Hardware & Power:** RTX 3070 Ti Laptop GPU (8GB), AC Standby/Hibernate disabled (0s).  
 
@@ -14,7 +14,9 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `main` | - | Protected | `cf114dc110060baf28dc3edda5e381af7fcbc2d4` | - | Production stable branch |
 | `sync/local-baseline` | `main` | Open PR | `cf12f7f585af60c82c179672fafe6ef9292efb26` | [PR #1](https://github.com/ShamantN/CAPSTONE/pull/1) | Initial local baseline import & hygiene |
-| `consistency-v2` | `sync/local-baseline` | Active | `cf12f7f585af60c82c179672fafe6ef9292efb26` | - | Long-lived v2 integration branch |
+| `consistency-v2` | `sync/local-baseline` | Active | `fcfaaf5` | - | Long-lived v2 integration branch |
+| `feat/verifier` | `consistency-v2` | Merged (PR #3) | `96aa099` | [PR #3](https://github.com/ShamantN/CAPSTONE/pull/3) | Multi-modal verification suite |
+| `fix/verifier-encoding` | `consistency-v2` | Merged (PR #4) | `85257ee` | [PR #4](https://github.com/ShamantN/CAPSTONE/pull/4) | Verifier Windows UTF-8 stdout encoding |
 
 ---
 
@@ -30,7 +32,7 @@
 - [x] Environments documented in `ENVIRONMENTS.md`; freeze files saved.
 - [x] `hardcoded_cache.json` backed up outside the repository.
 - [x] Image-viewing canary check (verify agent visual ability on normal vs inverted canary).
-- [x] Run baseline v1 on DEV-FULL and TEST splits and cache in `results/baseline_v1/` (smoke verified, DEV-FULL active in background).
+- [x] Run baseline v1 on DEV-FULL and TEST splits and cache in `results/baseline_v1/` (DEV-FULL 18/18 renders verified, report.json generated: ensemble mean 0.6190, Rank-1 95.8%, binding/wardrobe 25.0%, mean defects 3.22).
 
 ### Phase 1: Build & Calibrate Frozen Verification Suite (`feat/verifier`)
 - [x] Implement Biometric Ensemble (DeepFace Facenet512, SFace, GhostFaceNet, ArcFace on CPU).
@@ -40,15 +42,16 @@
 - [x] Scene defect detector & taxonomy evaluator (hallucination, limbs, count).
 - [x] Visual Review tools (`make_contact_sheet.py`, `make_blind_sheet.py`, structured rubric JSON).
 - [x] Canary tests on planted failures (catch rate = 100% on inverted canary).
-- [x] Verifier freeze: record SHA256 in `verifier_freeze.json` (Combined SHA256: `f7319db547dc445c2ec05722f4425d3844d6cd5a2e43a7842034b5dbabd82850`), PR squash-merge, tag `verifier-frozen`.
+- [x] Verifier freeze: record SHA256 in `verifier_freeze.json`, PR #3 squash-merge, tag `verifier-frozen`.
+- [x] Verifier encoding fix for Windows CP1252 merged via PR #4 (`fcfaaf5`).
 
 ### Phase 2: Diagnose & Fix Existing Pipeline (`fix/d1-...` to `fix/d6-...`)
-- [ ] D1: ControlNet Depth/Pose in Pass 1 missing input image (hash & diff proof).
-- [ ] D2: ReActor payload argument array mismatch derived from `script-info` (prove ArcFace gain).
-- [ ] D3: Replace weak `BREAK` with true spatial conditioning (Forge Couple / regional).
-- [ ] D4: Download missing InstantID ControlNet weights; complete dual-unit configuration.
-- [ ] D5: Evaluator circularity and position-agnostic Hungarian matching resolved by Phase 1 verifier.
-- [ ] D6: Reconcile code vs documentation contradictions (`claims_corrected.md`).
+- [x] D1: ControlNet Depth/Pose in Pass 1 missing input image (hash & diff proof: A03 vs A04 byte-identical `32BED00C2766B2CB7988A174D2B080366CE0CE69BA9E892DF30EC1585A1F97C2`).
+- [x] D2: ReActor payload argument array mismatch derived from `script-info` (proved 30 vs 31 args mismatch, string dropdown collisions, and direct InsightFace/Inswapper loading on CPU).
+- [x] D3: Replace weak `BREAK` with true spatial conditioning (`sd-forge-couple` cloned and verified).
+- [x] D4: Download missing InstantID ControlNet weights (`ip-adapter_instant_id_sdxl.bin` 1.69GB downloaded to D: and symlinked to C: ControlNet models).
+- [x] D5: Evaluator circularity and position-agnostic Hungarian matching resolved by Phase 1 verifier.
+- [x] D6: Reconcile code vs documentation contradictions documented in `docs_generated/v2/claims_corrected.md` and `docs_generated/v2/diagnostics.md`.
 
 ### Phase 3: Implement Consistency Methods (M1 to M10 Only)
 - [ ] M1: Multi-reference Identity Bank with pose clustering (`consistency_v2/identity_bank.py`).
