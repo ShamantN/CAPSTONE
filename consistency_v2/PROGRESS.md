@@ -20,6 +20,7 @@
 | `feat/m1-identity-bank` | `consistency-v2` | Merged (PR #5) | `31afaf8` | [PR #5](https://github.com/ShamantN/CAPSTONE/pull/5) | M1: Multi-reference identity bank and centroid embeddings |
 | `feat/m2-layout-planner` | `consistency-v2` | Merged (PR #6) | `32eea5d` | [PR #6](https://github.com/ShamantN/CAPSTONE/pull/6) | M2: Programmatic layout planner, OpenPose skeleton & D1 fix |
 | `feat/m3-regional-couple` | `consistency-v2` | Merged (PR #7) | `18c5190` | [PR #7](https://github.com/ShamantN/CAPSTONE/pull/7) | M3: True regional conditioning via Forge Couple driver |
+| `feat/m4-identity-units` | `consistency-v2` | Merged (PR #9) | `96035a7` | [PR #9](https://github.com/ShamantN/CAPSTONE/pull/9) | M4: Dual-unit InstantID & IP-Adapter Plus-Face SDXL |
 
 ---
 
@@ -60,7 +61,7 @@
 - [x] M1: Multi-reference Identity Bank with pose clustering (`consistency_v2/identity_bank.py`).
 - [x] M2: Layout Planner with OpenPose skeleton & region masks (`consistency_v2/layout_planner.py`).
 - [x] M3: True Regional Conditioning via Forge Couple extension (`consistency_v2/regional.py`).
-- [ ] M4: Dual-Unit InstantID & IP-Adapter Plus-Face SDXL tuning (`consistency_v2/identity_units.py`).
+- [x] M4: Dual-Unit InstantID & IP-Adapter Plus-Face SDXL tuning (`consistency_v2/identity_units.py`).
 - [ ] M5: Reliable Identity Transplant (ReActor script-info + Direct InsightFace blended swap; `consistency_v2/face_swap.py`).
 - [ ] M6: Identity-Conditioned Face Detailer (`consistency_v2/face_detailer.py`).
 - [ ] M7: Wardrobe and Palette Lock via SegFormer (`consistency_v2/wardrobe.py`).
@@ -92,7 +93,9 @@
 ---
 
 ## 3. Next Immediate Steps
-1. Cut topic branch `feat/m4-identity-units` from `consistency-v2`.
-2. Implement M4: Dual-Unit InstantID & IP-Adapter Plus-Face SDXL (`consistency_v2/identity_units.py`).
-3. Tune unit weights and guidance schedules on DEV-FAST.
-4. Verify identity similarity gain with frozen verifier, open PR, and merge into `consistency-v2`.
+1. Cut topic branch `feat/m5-face-transplant` from `consistency-v2`.
+2. Implement M5: Reliable Identity Transplant (`consistency_v2/face_swap.py`):
+   - Schema-validated 31-arg ReActor payload builder.
+   - Direct InsightFace `inswapper_128.onnx` + CodeFormer running on CPU in Forge's python with layout-bound character centroid embeddings.
+3. Test on DEV-FAST, verify identity boost on frozen verifier.
+4. Open PR, squash-merge to `consistency-v2`.
