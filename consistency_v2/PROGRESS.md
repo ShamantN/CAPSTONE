@@ -22,6 +22,7 @@
 | `feat/m3-regional-couple` | `consistency-v2` | Merged (PR #7) | `18c5190` | [PR #7](https://github.com/ShamantN/CAPSTONE/pull/7) | M3: True regional conditioning via Forge Couple driver |
 | `feat/m4-identity-units` | `consistency-v2` | Merged (PR #9) | `96035a7` | [PR #9](https://github.com/ShamantN/CAPSTONE/pull/9) | M4: Dual-unit InstantID & IP-Adapter Plus-Face SDXL |
 | `feat/m5-face-transplant` | `consistency-v2` | Merged (PR #10) | `fe592e7` | [PR #10](https://github.com/ShamantN/CAPSTONE/pull/10) | M5: Reliable identity transplant & CodeFormer enhancement |
+| `feat/m6-face-detailer` | `consistency-v2` | Merged (PR #11) | `1bbe16b` | [PR #11](https://github.com/ShamantN/CAPSTONE/pull/11) | M6: Identity-conditioned face detailer & inpaint |
 
 ---
 
@@ -64,7 +65,7 @@
 - [x] M3: True Regional Conditioning via Forge Couple extension (`consistency_v2/regional.py`).
 - [x] M4: Dual-Unit InstantID & IP-Adapter Plus-Face SDXL tuning (`consistency_v2/identity_units.py`).
 - [x] M5: Reliable Identity Transplant (ReActor script-info + Direct InsightFace blended swap; `consistency_v2/face_swap.py`).
-- [ ] M6: Identity-Conditioned Face Detailer (`consistency_v2/face_detailer.py`).
+- [x] M6: Identity-Conditioned Face Detailer (`consistency_v2/face_detailer.py`).
 - [ ] M7: Wardrobe and Palette Lock via SegFormer (`consistency_v2/wardrobe.py`).
 - [ ] M8: Reference-Only Attention Injection (`consistency_v2/reference_unit.py`).
 - [ ] M9: Best-of-N Selection & Diagnostic-Driven Healing (`consistency_v2/candidates.py`, `healing_v2.py`).
@@ -94,11 +95,10 @@
 ---
 
 ## 3. Next Immediate Steps
-1. Cut topic branch `feat/m6-face-detailer` from `consistency-v2`.
-2. Implement M6: Identity-Conditioned Face Detailer (`consistency_v2/face_detailer.py`):
-   - Binding-aware face detection (LayoutPlanner regions first, bank similarity second).
-   - Inpaint mask generation with Gaussian blur (8-16px).
-   - Forge img2img inpaint (`inpaint_full_res=True`, padding 48, denoise 0.35, steps 20).
-   - Conditioning with character identity units + M5 swap/CodeFormer.
-3. Test on DEV-FAST, verify face sharpness and identity gain on small faces.
+1. Cut topic branch `feat/m7-wardrobe-lock` from `consistency-v2`.
+2. Implement M7: Wardrobe and Palette Lock via SegFormer (`consistency_v2/wardrobe.py`):
+   - SegFormer clothes/hair/skin segmentation per person.
+   - CIELAB color delta ($\Delta E$) measurement against character spec and bank wardrobe palette.
+   - Masked inpaint repair and bounded histogram matching preserving face identity.
+3. Test on DEV-FAST, verify wardrobe palette accuracy boost on frozen verifier.
 4. Open PR, squash-merge to `consistency-v2`.
