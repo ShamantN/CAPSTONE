@@ -50,8 +50,8 @@ class ControlNetConditioner:
         """Creates an OpenPose ControlSpec. Returns None if no valid input image is provided (fixing D1)."""
         if not cls.is_model_on_disk("openpose") or not pose_image_b64:
             return None
-        # If pre-rendered skeleton from LayoutPlanner, use module="none"
-        chosen_module = module if module is not None else ("none" if pose_image_b64 else cls.MODULE_MAP["openpose"])
+        # If pre-rendered skeleton from LayoutPlanner, use module="None" (capitalized in Forge)
+        chosen_module = module if module is not None else ("None" if pose_image_b64 else cls.MODULE_MAP["openpose"])
         return ControlSpec(
             name="openpose",
             model=cls.AVAILABLE_MODELS["openpose"],
@@ -73,7 +73,7 @@ class ControlNetConditioner:
         """Creates a Depth ControlSpec. Returns None if no valid input image is provided (fixing D1)."""
         if not cls.is_model_on_disk("depth") or not depth_image_b64:
             return None
-        chosen_module = module if module is not None else ("none" if depth_image_b64 else cls.MODULE_MAP["depth"])
+        chosen_module = module if module is not None else ("None" if depth_image_b64 else cls.MODULE_MAP["depth"])
         return ControlSpec(
             name="depth",
             model=cls.AVAILABLE_MODELS["depth"],

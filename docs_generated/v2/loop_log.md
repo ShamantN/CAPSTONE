@@ -1,0 +1,46 @@
+# MMCCP Consistency v2: Engineering Loop Log
+
+This document records every hypothesis-driven iteration across methods M1 through M10 following the strict non-negotiable Loop Protocol.
+
+---
+
+## Iteration: loop-M1-iter1
+- **Phase:** Phase 3 (M1: Identity Bank)
+- **Branch:** `feat/m1-identity-bank`
+- **Target Failure Mode:** Single-anchor overfitting and lack of multi-view pose embeddings causing viewpoint bias and identity collapse.
+- **Hypothesis:** Multi-reference identity banks with 4-point admission gate (single face, min size 96px, sharpness, genuine cosine similarity) and L2-normalized centroid embeddings will establish robust reference identity representations across varying viewpoints.
+- **Change:** Implemented `consistency_v2/identity_bank.py` with `IdentityBankManager`, `ConsistencyV2Config` with seed scope guard (blocking {606, 707, 808}), and seeded all 5 project characters (`young_ebright`, `teen_ebright`, `college_ebright`, `mother`, `james_wong`).
+- **Test:** Unit tests in `tests/test_identity_bank.py` verifying admission gate, pose clustering, CIELAB extraction, and bank centroid persistence.
+- **Results:** 6/6 tests pass (0.07s). All 5 character banks initialized with verified embeddings.
+- **Decision:** ACCEPT. Merged into `consistency-v2` via PR #5 (commit `31afaf8`).
+
+---
+
+## Iteration: loop-M2-iter1
+- **Phase:** Phase 3 (M2: Layout Planner & D1 Fix)
+- **Branch:** `feat/m2-layout-planner`
+- **Target Failure Mode:** D1 (ControlNet units inactive due to null input images) and cross-scene character position drift.
+- **Hypothesis:** Programmatic layout planning from storyboard shot types and character positions will generate deterministic spatial bounding boxes, minimum guaranteed face scale ($\ge 96$ px for medium shots), and valid OpenPose COCO-18 skeletons, fixing D1 and enforcing character position binding.
+- **Change:** Implemented `consistency_v2/layout_planner.py` with `LayoutPlanner`, `CharacterLayoutBox`, and COCO-18 skeleton rendering. Updated `conditioning/controlnet_conditioner.py` to require valid input images and support pre-rendered skeleton control images with `module="None"`.
+- **Test:** Unit tests in `tests/test_layout_planner.py` verifying non-overlapping regions, scale parameters, and skeleton synthesis.
+- **Results:** 3/3 tests pass (0.013s). Proved skeleton synthesis places distinct character bodies at planned horizontal positions.
+- **Decision:** ACCEPT. Merged into `consistency-v2` via PR #6 (commit `32eea5d`).
+
+---
+
+## Iteration: loop-M3-iter1
+- **Phase:** Phase 3 (M3: True Regional Conditioning)
+- **Branch:** `feat/m3-regional-couple`
+- **Target Failure Mode:** D3 (Weak `BREAK` token failing to isolate cross-attention, causing multi-character phenotype and wardrobe bleed).
+- **Hypothesis:** Utilizing the Forge Couple extension with horizontal column tiling and background first-line blending will spatially partition self-attention during U-Net denoising, eliminating cross-character prompt bleed while maintaining scene background cohesion.
+- **Change:**
+  1. Installed `sd-forge-couple` (commit `c7884e81623d7fcbf4c92e3aea14ced8b5b6aa74`) in Forge WebUI extensions.
+  2. Implemented `consistency_v2/regional.py` with `RegionalCoupleDriver` and `RegionalCoupleConfig`, formatting 17-element Forge Couple API payloads with horizontal ordering and background blending.
+  3. Fixed capitalized `"None"` preprocessor module in `conditioning/controlnet_conditioner.py` to prevent Forge ControlNet `AttributeError`.
+  4. Added unit tests in `tests/test_regional.py`.
+- **Screen on DEV-FAST:**
+  - Evaluated on Scene 1 (two characters: young Ebright on left, mother on right) with seed 11.
+  - Runtime: 27.62s. Peak VRAM: 7310 MB ($\le 7.4$ GB budget). Zero OOM.
+  - Visual inspection of `scratch/test_m2_m3_combined.png` demonstrates complete attention isolation: young boy on left in white t-shirt and denim shorts; mother on right in yellow floral dress. Zero wardrobe or demographic bleed.
+- **Test:** 4/4 unit tests in `tests/test_regional.py` pass (0.000s). All 13 suite tests pass.
+- **Decision:** ACCEPT. Ready for PR and merge into `consistency-v2`.
