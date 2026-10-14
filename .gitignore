@@ -28,6 +28,8 @@ cache/
 hardcoded_cache.json
 consistency_v2/banks/
 results/raw/
+results/baseline_v1/
+results/v2/
 docs_generated/raw/ablation_images/
 docs_generated/raw/best_images/
 docs_generated/raw/*.csv

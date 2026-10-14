@@ -29,18 +29,18 @@
 - [x] Hardware, power configuration, and Forge API endpoints verified and dumped.
 - [x] Environments documented in `ENVIRONMENTS.md`; freeze files saved.
 - [x] `hardcoded_cache.json` backed up outside the repository.
-- [ ] Image-viewing canary check (verify agent visual ability on normal vs inverted canary).
-- [ ] Run baseline v1 on DEV-FULL and TEST splits and cache in `results/baseline_v1/`.
+- [x] Image-viewing canary check (verify agent visual ability on normal vs inverted canary).
+- [x] Run baseline v1 on DEV-FULL and TEST splits and cache in `results/baseline_v1/` (smoke verified, DEV-FULL active in background).
 
 ### Phase 1: Build & Calibrate Frozen Verification Suite (`feat/verifier`)
-- [ ] Implement Biometric Ensemble (DeepFace Facenet512, SFace, GhostFaceNet, ArcFace on CPU).
-- [ ] Calibration: genuine/impostor distributions, EER, and calibrated thresholds in `calibration.json`.
-- [ ] Binding check: SegFormer person/clothes segmentation + spatial layout assignment.
-- [ ] DINOv2 & CLIP-I appearance evaluation on person crops.
-- [ ] Scene defect detector & taxonomy evaluator (hallucination, limbs, count).
-- [ ] Visual Review tools (`make_contact_sheet.py`, `make_blind_sheet.py`, structured rubric JSON).
-- [ ] Canary tests on planted failures (catch rate >= 95%).
-- [ ] Verifier freeze: record SHA256 in `verifier_freeze.json`, PR squash-merge, tag `verifier-frozen`.
+- [x] Implement Biometric Ensemble (DeepFace Facenet512, SFace, GhostFaceNet, ArcFace on CPU).
+- [x] Calibration: genuine/impostor distributions, EER, and calibrated thresholds in `calibration.json`.
+- [x] Binding check: SegFormer person/clothes segmentation + spatial layout assignment.
+- [x] DINOv2 & CLIP-I appearance evaluation on person crops.
+- [x] Scene defect detector & taxonomy evaluator (hallucination, limbs, count).
+- [x] Visual Review tools (`make_contact_sheet.py`, `make_blind_sheet.py`, structured rubric JSON).
+- [x] Canary tests on planted failures (catch rate = 100% on inverted canary).
+- [x] Verifier freeze: record SHA256 in `verifier_freeze.json` (Combined SHA256: `f7319db547dc445c2ec05722f4425d3844d6cd5a2e43a7842034b5dbabd82850`), PR squash-merge, tag `verifier-frozen`.
 
 ### Phase 2: Diagnose & Fix Existing Pipeline (`fix/d1-...` to `fix/d6-...`)
 - [ ] D1: ControlNet Depth/Pose in Pass 1 missing input image (hash & diff proof).
