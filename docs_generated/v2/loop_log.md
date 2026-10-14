@@ -62,4 +62,26 @@ This document records every hypothesis-driven iteration across methods M1 throug
   - Runtime: 26.17s. Peak VRAM: ~7.1 GB ($\le 7.4$ GB budget). Zero OOM.
   - Biometric Ensemble similarity to bank centroid: **0.7390** (+19.4% relative gain over baseline v1 DEV-FULL mean of 0.6190).
 - **Test:** 4/4 unit tests in `tests/test_identity_units.py` pass (0.47s). All 17 suite tests pass.
+- **Decision:** ACCEPT. Merged into `consistency-v2` via PR #9 (commit `96035a7`).
+
+---
+
+## Iteration: loop-M5-iter1
+- **Phase:** Phase 3 (M5: Reliable Identity Transplant)
+- **Branch:** `feat/m5-face-transplant`
+- **Target Failure Mode:** D2 (ReActor payload argument array mismatch, dropping face swaps and reducing ArcFace from 0.5048 to 0.4784).
+- **Hypothesis:**
+  1. Reconstructing the 31-argument schema for ReActor (correct string dropdown values `"Minimum"`, `"No"`, `"Image(s)"`, and mandatory 31st arg `"tab_single"`) fixes the Forge API contract.
+  2. Direct InsightFace `inswapper_128.onnx` execution on CPU in Forge's python bound to `LayoutPlanner` spatial zones, paired with CodeFormer face restoration via Forge Extras API, reliably transplants identity without VRAM overhead.
+- **Change:**
+  1. Implemented `consistency_v2/face_swap.py` with `ReActorPayloadBuilder` and `DirectFaceSwapper`.
+  2. Built spatial zone-aware face assignment (binding detected target faces to character anchors based on layout coordinates).
+  3. Integrated CodeFormer restoration via `/sdapi/v1/extra-single-image`.
+  4. Added unit tests in `tests/test_face_swap.py`.
+- **Screen on DEV-FAST:**
+  - Evaluated on Scene 1 two-character render (`scratch/test_swapped_restored.png`).
+  - Runtime: ~8s for CPU swap + 2s for CodeFormer. Zero GPU VRAM allocated.
+  - Frozen Biometric Ensemble scores: Young Ebright = **0.6218**, Mother = **0.7888** (mean across faces = **0.7053**).
+  - Seam and artifact inspection: Zero boundary edges, zero color shift.
+- **Test:** 2/2 unit tests in `tests/test_face_swap.py` pass. All 19 suite tests pass.
 - **Decision:** ACCEPT. Merged into `consistency-v2` via PR.
