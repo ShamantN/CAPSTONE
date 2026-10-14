@@ -43,7 +43,27 @@ This document records the Python environments, hardware allocation, and runtime 
 
 ---
 
-## 2. Hardware and Isolation Policy
+## 2. Stable Diffusion WebUI Forge Extensions
+
+- **Extensions Root:** `C:\Stable-Diffusion\webui\extensions\`
+- **Installed Extensions & Commit SHAs:**
+  - `sd-webui-controlnet`: Native ControlNet / IP-Adapter integration.
+  - `sd-webui-reactor`: ReActor face restoration extension.
+  - `sd-forge-couple`: Commit `c7884e81623d7fcbf4c92e3aea14ced8b5b6aa74` (Regional spatial column/box prompt conditioning).
+  - `adetailer`: Commit `3a599f5d4607d8f9d8b9fc5a15526197418dae1a` (Automated high-resolution face detection & inpaint detailing).
+
+---
+
+## 3. HuggingFace Cache & Storage Routing
+
+- **System Policy:** Windows Drive C: has restricted capacity (~7.4 GB free). Primary model caches are routed to Drive D: (>195 GB free).
+- **HuggingFace Home Directory:** `D:\.cache\huggingface`
+- **Transparent NTFS Junction:** `C:\Users\shama\.cache\huggingface <<===>> D:\.cache\huggingface`
+- **Environment Variable:** `HF_HOME=D:\.cache\huggingface` configured system-wide.
+
+---
+
+## 4. Hardware and Isolation Policy
 
 - **GPU:** NVIDIA GeForce RTX 3070 Ti Laptop GPU (8192 MB VRAM).
 - **VRAM Ceiling:** Strict $\le 7.4$ GB peak usage during all generation passes.
