@@ -84,4 +84,25 @@ This document records every hypothesis-driven iteration across methods M1 throug
   - Frozen Biometric Ensemble scores: Young Ebright = **0.6218**, Mother = **0.7888** (mean across faces = **0.7053**).
   - Seam and artifact inspection: Zero boundary edges, zero color shift.
 - **Test:** 2/2 unit tests in `tests/test_face_swap.py` pass. All 19 suite tests pass.
+- **Decision:** ACCEPT. Merged into `consistency-v2` via PR #10 (commit `fe592e7`).
+
+---
+
+## Iteration: loop-M6-iter1
+- **Phase:** Phase 3 (M6: Identity-Conditioned Face Detailer)
+- **Branch:** `feat/m6-face-detailer`
+- **Target Failure Mode:** Small faces (<120 px across) in medium and wide shots suffer from latent resolution starvation in SDXL's 128x128 latent space, degrading facial feature fidelity.
+- **Hypothesis:** Localized high-resolution inpainting with Gaussian-blurred boundary masks (`inpaint_full_res=True`, padding 48px, denoise 0.35, 20 steps) conditioned on character identity units (IP-Adapter Plus-Face) upscales and refines the facial region, with post-detail M5 identity transplant and CodeFormer restoration providing high-fidelity facial locking without edge seams.
+- **Change:**
+  1. Implemented `consistency_v2/face_detailer.py` with `FaceDetailer` and `FaceDetailerConfig`.
+  2. Integrated spatial layout matching (`match_face_to_layout_box`) to bind detected faces to intended characters.
+  3. Built elliptical face and hair mask generator with configurable Gaussian blur (radius 21).
+  4. Coupled post-detail identity transplant via `DirectFaceSwapper`.
+  5. Added unit tests in `tests/test_face_detailer.py`.
+- **Screen on DEV-FAST:**
+  - Evaluated on Scene 1 Young Ebright face crop (106 px width).
+  - Runtime: 20.95s for inpainting pass.
+  - Face sharpness: 368.73 Laplacian variance (sharp, no blurriness).
+  - Seamless boundary blending verified visually (`scratch/test_detailed_output.png`).
+- **Test:** 3/3 unit tests in `tests/test_face_detailer.py` pass (0.014s). All 22 suite tests pass.
 - **Decision:** ACCEPT. Merged into `consistency-v2` via PR.
