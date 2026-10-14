@@ -43,4 +43,23 @@ This document records every hypothesis-driven iteration across methods M1 throug
   - Runtime: 27.62s. Peak VRAM: 7310 MB ($\le 7.4$ GB budget). Zero OOM.
   - Visual inspection of `scratch/test_m2_m3_combined.png` demonstrates complete attention isolation: young boy on left in white t-shirt and denim shorts; mother on right in yellow floral dress. Zero wardrobe or demographic bleed.
 - **Test:** 4/4 unit tests in `tests/test_regional.py` pass (0.000s). All 13 suite tests pass.
-- **Decision:** ACCEPT. Ready for PR and merge into `consistency-v2`.
+- **Decision:** ACCEPT. Merged into `consistency-v2` via PR #7 (commit `18c5190`).
+
+---
+
+## Iteration: loop-M4-iter1
+- **Phase:** Phase 3 (M4: Identity Units Done Right)
+- **Branch:** `feat/m4-identity-units`
+- **Target Failure Mode:** D4 (Incomplete InstantID dual-unit architecture) and weak facial identity transfer under single-anchor setups.
+- **Hypothesis:** Employing IP-Adapter Plus-Face SDXL (`ip-adapter-plus-face_sdxl_vit-h [368cf551]`) driven by Identity Bank reference images, combined with calibrated dual-unit InstantID (`InsightFace (InstantID)` + `instant_id_face_keypoints`), will significantly elevate facial biometric similarity without background copying or pose deformation.
+- **Change:**
+  1. Implemented `consistency_v2/identity_units.py` with `IdentityUnitManager` and `IdentityUnitConfig`.
+  2. Supported automatic viewpoint-aligned reference image selection from `IdentityBankManager`.
+  3. Built dual-unit InstantID configuration fixing D4 (`ip-adapter_instant_id_sdxl.bin` + `control_instant_id_sdxl.safetensors`).
+  4. Added unit tests in `tests/test_identity_units.py`.
+- **Screen on DEV-FAST:**
+  - Evaluated on Young Ebright reading scene portrait (`scratch/test_plus_face_output.png`).
+  - Runtime: 26.17s. Peak VRAM: ~7.1 GB ($\le 7.4$ GB budget). Zero OOM.
+  - Biometric Ensemble similarity to bank centroid: **0.7390** (+19.4% relative gain over baseline v1 DEV-FULL mean of 0.6190).
+- **Test:** 4/4 unit tests in `tests/test_identity_units.py` pass (0.47s). All 17 suite tests pass.
+- **Decision:** ACCEPT. Merged into `consistency-v2` via PR.
