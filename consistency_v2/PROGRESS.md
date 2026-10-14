@@ -68,15 +68,15 @@
 - [x] M6: Identity-Conditioned Face Detailer (`consistency_v2/face_detailer.py`).
 - [x] M7: Wardrobe and Palette Lock via SegFormer (`consistency_v2/wardrobe.py`).
 - [x] M8: Reference-Only Attention Injection (`consistency_v2/reference_unit.py`).
-- [ ] M9: Best-of-N Selection & Diagnostic-Driven Healing (`consistency_v2/candidates.py`, `healing_v2.py`).
-- [ ] M10: Identity Memory Across Scenes with Drift Guard (`consistency_v2/identity_memory.py`).
+- [x] M9: Best-of-N Selection & Diagnostic-Driven Healing (`consistency_v2/candidates.py`, `healing_v2.py`).
+- [x] M10: Identity Memory Across Scenes with Drift Guard (`consistency_v2/identity_memory.py`).
 - [x] Scope Guard: M11 (LoRA) OUT OF SCOPE (`use_character_lora=False` flag); seeds {606, 707, 808} reserved.
 
 ### Phase 4: Integration, UI v2 & Tuning
-- [ ] Integrate into `pipeline_v2.py` and `best_config.json`.
-- [ ] Wire v2 into `app.py` (Consistency v2 sidebar, Verifier tab with contact sheets).
-- [ ] Update `run_from_scratch.py` (`--pipeline v2`, `--mode fast|default|quality`).
-- [ ] Lightweight regression test suite in `tests/`.
+- [x] Integrate into `pipeline_v2.py` and `best_config.json`.
+- [x] Wire v2 into `app.py` (Consistency v2 sidebar, Verifier tab with contact sheets).
+- [x] Update `run_from_scratch.py` (`--pipeline v2`, `--mode fast|default|quality`).
+- [x] Lightweight regression test suite in `tests/` (44/44 tests passing).
 
 ### Phase 5: Final Held-Out Evaluation (TEST Set)
 - [ ] Freeze code, verify git status is clean.
@@ -95,9 +95,9 @@
 ---
 
 ## 3. Next Immediate Steps
-1. Cut topic branch `feat/m9-best-of-n-healing` from `consistency-v2`.
-2. Implement M9: Best-of-N Selection & Diagnostic-Driven Healing (`consistency_v2/candidates.py`, `healing_v2.py`):
-   - Fast screening of Pass 1 candidates (face count, size, spatial position, defect filters).
-   - Refine best candidate through Pass 2, Face Detailer, and Wardrobe Lock.
-   - Diagnostic table mapping failure mode to targeted remedy.
-3. Open PR, squash-merge to `consistency-v2`.
+1. Execute Phase 5: Final Held-Out Evaluation on TEST Set:
+   - Freeze code on `consistency-v2`, record commit SHA and config hash.
+   - Run evaluation on TEST set (Ebright seeds {101, 202, 303, 404, 505} + generalization benchmark seeds {101, 202, 303}).
+   - Execute Leave-One-Out ablation on TEST subset.
+   - Run frozen verifier on CPU, compute bootstrap 95% CIs and Wilcoxon paired tests.
+   - Generate high-resolution contact sheets and perform Visual Review Rubrics (VR-1 to VR-5).
