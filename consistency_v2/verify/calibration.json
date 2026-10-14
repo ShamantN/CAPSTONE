@@ -1,0 +1,75 @@
+{
+  "calibrated_timestamp": "2026-10-14",
+  "models_evaluated": [
+    "Facenet512",
+    "SFace",
+    "GhostFaceNet",
+    "ArcFace"
+  ],
+  "thresholds": {
+    "Facenet512": 0.32,
+    "SFace": 0.525,
+    "GhostFaceNet": 0.38,
+    "ArcFace": 0.305
+  },
+  "eer_metrics": {
+    "Facenet512": {
+      "eer": 0.0,
+      "threshold_at_eer": 0.32,
+      "genuine_samples": 7,
+      "impostor_samples": 32
+    },
+    "SFace": {
+      "eer": 0.0,
+      "threshold_at_eer": 0.525,
+      "genuine_samples": 7,
+      "impostor_samples": 32
+    },
+    "GhostFaceNet": {
+      "eer": 0.0,
+      "threshold_at_eer": 0.38,
+      "genuine_samples": 7,
+      "impostor_samples": 32
+    },
+    "ArcFace": {
+      "eer": 0.0,
+      "threshold_at_eer": 0.305,
+      "genuine_samples": 7,
+      "impostor_samples": 32
+    }
+  },
+  "distributions": {
+    "Facenet512": {
+      "genuine_mean": 0.7879,
+      "genuine_std": 0.087,
+      "impostor_mean": 0.1725,
+      "impostor_std": 0.109,
+      "cross_age_mean": 0.4455
+    },
+    "SFace": {
+      "genuine_mean": 0.7152,
+      "genuine_std": 0.0746,
+      "impostor_mean": 0.2589,
+      "impostor_std": 0.1195,
+      "cross_age_mean": 0.3695
+    },
+    "GhostFaceNet": {
+      "genuine_mean": 0.6744,
+      "genuine_std": 0.0621,
+      "impostor_mean": 0.2216,
+      "impostor_std": 0.081,
+      "cross_age_mean": 0.3494
+    },
+    "ArcFace": {
+      "genuine_mean": 0.6907,
+      "genuine_std": 0.1154,
+      "impostor_mean": 0.1252,
+      "impostor_std": 0.0966,
+      "cross_age_mean": 0.292
+    }
+  },
+  "known_limitations": {
+    "child_face_weakness": "Children under 10 exhibit softer cranial contours and higher intra-class variance; thresholds adjusted with 0.05 tolerance margin.",
+    "age_progression_gap": "Cross-age comparisons between young (8yo) and college (21yo) Ebright show expected lower biometric similarity (approx 0.35-0.45) reflecting biological maturation."
+  }
+}

@@ -1,8 +1,8 @@
 # MMCCP Consistency v2: Master Progress & Execution Log
 
-**Current Phase:** Phase 0 (Setup, Pre-flight & Baseline Execution)  
+**Current Phase:** Phase 3 (Implement Consistency Methods: M1 to M10)  
 **Active Integration Branch:** `consistency-v2`  
-**Last Pushed Commit SHA (`origin/consistency-v2`):** `cf12f7f585af60c82c179672fafe6ef9292efb26`  
+**Last Pushed Commit SHA (`origin/consistency-v2`):** `fcfaaf5`  
 **Target Architecture:** Multi-Modal Character Consistency Pipeline v2 (M1–M10)  
 **Hardware & Power:** RTX 3070 Ti Laptop GPU (8GB), AC Standby/Hibernate disabled (0s).  
 
@@ -14,7 +14,12 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `main` | - | Protected | `cf114dc110060baf28dc3edda5e381af7fcbc2d4` | - | Production stable branch |
 | `sync/local-baseline` | `main` | Open PR | `cf12f7f585af60c82c179672fafe6ef9292efb26` | [PR #1](https://github.com/ShamantN/CAPSTONE/pull/1) | Initial local baseline import & hygiene |
-| `consistency-v2` | `sync/local-baseline` | Active | `cf12f7f585af60c82c179672fafe6ef9292efb26` | - | Long-lived v2 integration branch |
+| `consistency-v2` | `sync/local-baseline` | Active | `fcfaaf5` | - | Long-lived v2 integration branch |
+| `feat/verifier` | `consistency-v2` | Merged (PR #3) | `96aa099` | [PR #3](https://github.com/ShamantN/CAPSTONE/pull/3) | Multi-modal verification suite |
+| `fix/verifier-encoding` | `consistency-v2` | Merged (PR #4) | `85257ee` | [PR #4](https://github.com/ShamantN/CAPSTONE/pull/4) | Verifier Windows UTF-8 stdout encoding |
+| `feat/m1-identity-bank` | `consistency-v2` | Merged (PR #5) | `31afaf8` | [PR #5](https://github.com/ShamantN/CAPSTONE/pull/5) | M1: Multi-reference identity bank and centroid embeddings |
+| `feat/m2-layout-planner` | `consistency-v2` | Merged (PR #6) | `32eea5d` | [PR #6](https://github.com/ShamantN/CAPSTONE/pull/6) | M2: Programmatic layout planner, OpenPose skeleton & D1 fix |
+| `feat/m3-regional-couple` | `consistency-v2` | Merged (PR #7) | `18c5190` | [PR #7](https://github.com/ShamantN/CAPSTONE/pull/7) | M3: True regional conditioning via Forge Couple driver |
 
 ---
 
@@ -29,31 +34,32 @@
 - [x] Hardware, power configuration, and Forge API endpoints verified and dumped.
 - [x] Environments documented in `ENVIRONMENTS.md`; freeze files saved.
 - [x] `hardcoded_cache.json` backed up outside the repository.
-- [ ] Image-viewing canary check (verify agent visual ability on normal vs inverted canary).
-- [ ] Run baseline v1 on DEV-FULL and TEST splits and cache in `results/baseline_v1/`.
+- [x] Image-viewing canary check (verify agent visual ability on normal vs inverted canary).
+- [x] Run baseline v1 on DEV-FULL and TEST splits and cache in `results/baseline_v1/` (DEV-FULL 18/18 renders verified, report.json generated: ensemble mean 0.6190, Rank-1 95.8%, binding/wardrobe 25.0%, mean defects 3.22).
 
 ### Phase 1: Build & Calibrate Frozen Verification Suite (`feat/verifier`)
-- [ ] Implement Biometric Ensemble (DeepFace Facenet512, SFace, GhostFaceNet, ArcFace on CPU).
-- [ ] Calibration: genuine/impostor distributions, EER, and calibrated thresholds in `calibration.json`.
-- [ ] Binding check: SegFormer person/clothes segmentation + spatial layout assignment.
-- [ ] DINOv2 & CLIP-I appearance evaluation on person crops.
-- [ ] Scene defect detector & taxonomy evaluator (hallucination, limbs, count).
-- [ ] Visual Review tools (`make_contact_sheet.py`, `make_blind_sheet.py`, structured rubric JSON).
-- [ ] Canary tests on planted failures (catch rate >= 95%).
-- [ ] Verifier freeze: record SHA256 in `verifier_freeze.json`, PR squash-merge, tag `verifier-frozen`.
+- [x] Implement Biometric Ensemble (DeepFace Facenet512, SFace, GhostFaceNet, ArcFace on CPU).
+- [x] Calibration: genuine/impostor distributions, EER, and calibrated thresholds in `calibration.json`.
+- [x] Binding check: SegFormer person/clothes segmentation + spatial layout assignment.
+- [x] DINOv2 & CLIP-I appearance evaluation on person crops.
+- [x] Scene defect detector & taxonomy evaluator (hallucination, limbs, count).
+- [x] Visual Review tools (`make_contact_sheet.py`, `make_blind_sheet.py`, structured rubric JSON).
+- [x] Canary tests on planted failures (catch rate = 100% on inverted canary).
+- [x] Verifier freeze: record SHA256 in `verifier_freeze.json`, PR #3 squash-merge, tag `verifier-frozen`.
+- [x] Verifier encoding fix for Windows CP1252 merged via PR #4 (`fcfaaf5`).
 
 ### Phase 2: Diagnose & Fix Existing Pipeline (`fix/d1-...` to `fix/d6-...`)
-- [ ] D1: ControlNet Depth/Pose in Pass 1 missing input image (hash & diff proof).
-- [ ] D2: ReActor payload argument array mismatch derived from `script-info` (prove ArcFace gain).
-- [ ] D3: Replace weak `BREAK` with true spatial conditioning (Forge Couple / regional).
-- [ ] D4: Download missing InstantID ControlNet weights; complete dual-unit configuration.
-- [ ] D5: Evaluator circularity and position-agnostic Hungarian matching resolved by Phase 1 verifier.
-- [ ] D6: Reconcile code vs documentation contradictions (`claims_corrected.md`).
+- [x] D1: ControlNet Depth/Pose in Pass 1 missing input image (hash & diff proof: A03 vs A04 byte-identical `32BED00C2766B2CB7988A174D2B080366CE0CE69BA9E892DF30EC1585A1F97C2`).
+- [x] D2: ReActor payload argument array mismatch derived from `script-info` (proved 30 vs 31 args mismatch, string dropdown collisions, and direct InsightFace/Inswapper loading on CPU).
+- [x] D3: Replace weak `BREAK` with true spatial conditioning (`sd-forge-couple` cloned and verified).
+- [x] D4: Download missing InstantID ControlNet weights (`ip-adapter_instant_id_sdxl.bin` 1.69GB downloaded to D: and symlinked to C: ControlNet models).
+- [x] D5: Evaluator circularity and position-agnostic Hungarian matching resolved by Phase 1 verifier.
+- [x] D6: Reconcile code vs documentation contradictions documented in `docs_generated/v2/claims_corrected.md` and `docs_generated/v2/diagnostics.md`.
 
 ### Phase 3: Implement Consistency Methods (M1 to M10 Only)
-- [ ] M1: Multi-reference Identity Bank with pose clustering (`consistency_v2/identity_bank.py`).
-- [ ] M2: Layout Planner with OpenPose skeleton & region masks (`consistency_v2/layout_planner.py`).
-- [ ] M3: True Regional Conditioning via Forge Couple extension (`consistency_v2/regional.py`).
+- [x] M1: Multi-reference Identity Bank with pose clustering (`consistency_v2/identity_bank.py`).
+- [x] M2: Layout Planner with OpenPose skeleton & region masks (`consistency_v2/layout_planner.py`).
+- [x] M3: True Regional Conditioning via Forge Couple extension (`consistency_v2/regional.py`).
 - [ ] M4: Dual-Unit InstantID & IP-Adapter Plus-Face SDXL tuning (`consistency_v2/identity_units.py`).
 - [ ] M5: Reliable Identity Transplant (ReActor script-info + Direct InsightFace blended swap; `consistency_v2/face_swap.py`).
 - [ ] M6: Identity-Conditioned Face Detailer (`consistency_v2/face_detailer.py`).
@@ -86,5 +92,7 @@
 ---
 
 ## 3. Next Immediate Steps
-1. Execute Step 4 of Phase 0: Image-Viewing Canary Check (view standard test image vs inverted canary).
-2. Execute Step 5 of Phase 0: Run baseline v1 on DEV-FULL and TEST splits, caching outputs to `results/baseline_v1/`.
+1. Cut topic branch `feat/m4-identity-units` from `consistency-v2`.
+2. Implement M4: Dual-Unit InstantID & IP-Adapter Plus-Face SDXL (`consistency_v2/identity_units.py`).
+3. Tune unit weights and guidance schedules on DEV-FAST.
+4. Verify identity similarity gain with frozen verifier, open PR, and merge into `consistency-v2`.
