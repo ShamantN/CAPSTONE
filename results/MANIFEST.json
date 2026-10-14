@@ -1,0 +1,296 @@
+{
+  "manifest_version": "2.0",
+  "total_artifacts": 29,
+  "artifacts": [
+    {
+      "file_path": "results\\baseline_v1\\dev_full\\scene_1_seed_11.png",
+      "sha256": "b62a80e600d79be725a00e23fb80f43ea8395896157ef10cab04c30a402f17c6",
+      "size_bytes": 1762045,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "dev_full",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:08:01Z"
+    },
+    {
+      "file_path": "results\\baseline_v1\\dev_full\\scene_1_seed_23.png",
+      "sha256": "ae0248e2c3b84f5d911bc3778b4d892afef02c03adc6d7d05a55c3d80a7cbec5",
+      "size_bytes": 1743465,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "dev_full",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:10:22Z"
+    },
+    {
+      "file_path": "results\\baseline_v1\\dev_full\\scene_1_seed_37.png",
+      "sha256": "7767a2329bffa4834879268f336dce0c69f41022dcaec51dd71424ab18782621",
+      "size_bytes": 1754301,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "dev_full",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:12:47Z"
+    },
+    {
+      "file_path": "results\\baseline_v1\\dev_full\\scene_2_seed_11.png",
+      "sha256": "cadb3d5c20f206dbda44dffb31a937913e9a4ca72fd6c2349b94a64fddd3cf18",
+      "size_bytes": 1524728,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "dev_full",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:14:58Z"
+    },
+    {
+      "file_path": "results\\baseline_v1\\dev_full\\scene_2_seed_23.png",
+      "sha256": "b3bfe77d4938feb54e0a5cf6a4c966aa40ee862588df5e1b8be2eba33eae1193",
+      "size_bytes": 1650057,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "dev_full",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:17:02Z"
+    },
+    {
+      "file_path": "results\\baseline_v1\\dev_full\\scene_2_seed_37.png",
+      "sha256": "d3f57eed545ab24e6debc5890e3f775e76e496f969fa89f62dd8f5479d46436e",
+      "size_bytes": 1707988,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "dev_full",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:19:06Z"
+    },
+    {
+      "file_path": "results\\baseline_v1\\dev_full\\scene_3_seed_11.png",
+      "sha256": "7ff0ee4e4d49a6965e424e81b1e9da4bbd16a0e591064bc0b4b52c252f24baeb",
+      "size_bytes": 1588562,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "dev_full",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:21:43Z"
+    },
+    {
+      "file_path": "results\\baseline_v1\\dev_full\\scene_3_seed_23.png",
+      "sha256": "27ffd03e1d2b0d1b4db73cac051067126836a466c611b3720d13f864b4dfc7d8",
+      "size_bytes": 1589491,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "dev_full",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:24:12Z"
+    },
+    {
+      "file_path": "results\\baseline_v1\\dev_full\\scene_3_seed_37.png",
+      "sha256": "c6e8f02c9640906f698b0cc996657b2b107a9c9eb22c79ffdfd7b6d400769744",
+      "size_bytes": 1597961,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "dev_full",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:26:38Z"
+    },
+    {
+      "file_path": "results\\baseline_v1\\dev_full\\scene_4_seed_11.png",
+      "sha256": "626f3c0ce910f73e8b8a34ea84c6ce80fc0669b5590e1d35f3037b6a5fd70a3e",
+      "size_bytes": 1582966,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "dev_full",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:28:45Z"
+    },
+    {
+      "file_path": "results\\baseline_v1\\dev_full\\scene_4_seed_23.png",
+      "sha256": "6232ecc7620d3193994ed9b70ddb33ed78facfe0fe97b979237bd39d3701f34c",
+      "size_bytes": 1569212,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "dev_full",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:31:02Z"
+    },
+    {
+      "file_path": "results\\baseline_v1\\dev_full\\scene_4_seed_37.png",
+      "sha256": "91463f404b3797fa711008ad59a31035b3379045bea5f9e742ccf67c978a072a",
+      "size_bytes": 1480631,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "dev_full",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:33:08Z"
+    },
+    {
+      "file_path": "results\\baseline_v1\\dev_full\\scene_5_seed_11.png",
+      "sha256": "d76f0883952380d8177bbf40d4ec72acb62c6f5a4375dccec38ef2b3fe0b7ffb",
+      "size_bytes": 1560385,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "dev_full",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:35:24Z"
+    },
+    {
+      "file_path": "results\\baseline_v1\\dev_full\\scene_5_seed_23.png",
+      "sha256": "0743b89f0b7ca5a8b0f02273128e52270f5257cfb1568858aaaa696d7f92a644",
+      "size_bytes": 1671739,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "dev_full",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:37:41Z"
+    },
+    {
+      "file_path": "results\\baseline_v1\\dev_full\\scene_5_seed_37.png",
+      "sha256": "f4bca2ffb2d27625c598eea2eef08abb73597d5e2e9532f7fea9f1ecb58c3025",
+      "size_bytes": 1624060,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "dev_full",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:40:10Z"
+    },
+    {
+      "file_path": "results\\baseline_v1\\dev_full\\scene_6_seed_11.png",
+      "sha256": "4ba45d3273cde86041961961c3ed7e75a79d71a89890f457697848d50aacbb6f",
+      "size_bytes": 1430487,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "dev_full",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:42:24Z"
+    },
+    {
+      "file_path": "results\\baseline_v1\\dev_full\\scene_6_seed_23.png",
+      "sha256": "cb01aa9cce6aa3c1f04f56d234f8fa4af467b1f2826c2387fcfe03b1819f173c",
+      "size_bytes": 1593481,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "dev_full",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:44:37Z"
+    },
+    {
+      "file_path": "results\\baseline_v1\\dev_full\\scene_6_seed_37.png",
+      "sha256": "b64c3396fd08f607cda7868ca6ec64018919f728a6edda8afc8e481d576d3786",
+      "size_bytes": 1470535,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "dev_full",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:46:51Z"
+    },
+    {
+      "file_path": "results\\baseline_v1\\smoke\\scene_1_seed_11.png",
+      "sha256": "b62a80e600d79be725a00e23fb80f43ea8395896157ef10cab04c30a402f17c6",
+      "size_bytes": 1762045,
+      "config_hash": "v1_legacy",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "test",
+      "mode": "v1_baseline",
+      "timestamp": "2026-10-14T08:05:11Z"
+    },
+    {
+      "file_path": "results\\v2_default\\test\\scene_1_seed_101.png",
+      "sha256": "d4c8ed1c83b69669547e32da27d966816474466e00df3657a94b043996839923",
+      "size_bytes": 1911651,
+      "config_hash": "7ce2374b5868",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "test",
+      "mode": "v2_default",
+      "timestamp": "2026-10-14T10:50:15Z"
+    },
+    {
+      "file_path": "results\\v2_default\\test\\scene_1_seed_202.png",
+      "sha256": "9630dd2504cc7ad0402452825ba38f141a3901c1b359dd63e0d40884082359af",
+      "size_bytes": 1890818,
+      "config_hash": "7ce2374b5868",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "test",
+      "mode": "v2_default",
+      "timestamp": "2026-10-14T10:59:02Z"
+    },
+    {
+      "file_path": "results\\v2_default\\test\\scene_2_seed_101.png",
+      "sha256": "be6e93942927a4365f01067ea09e1985f7e81eb0ea9d6dbf7fa5a715446766a3",
+      "size_bytes": 1747333,
+      "config_hash": "7ce2374b5868",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "test",
+      "mode": "v2_default",
+      "timestamp": "2026-10-14T10:51:32Z"
+    },
+    {
+      "file_path": "results\\v2_default\\test\\scene_2_seed_202.png",
+      "sha256": "ea0dc1efb9b741c1b0ce3582fa75c79577a58c67febd652c7ed690aed6379e11",
+      "size_bytes": 1639795,
+      "config_hash": "7ce2374b5868",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "test",
+      "mode": "v2_default",
+      "timestamp": "2026-10-14T11:00:28Z"
+    },
+    {
+      "file_path": "results\\v2_default\\test\\scene_3_seed_101.png",
+      "sha256": "ec7cc543118207cc36946c09be8cc06aeea04e12322c4e232990734fcae1a151",
+      "size_bytes": 1815769,
+      "config_hash": "7ce2374b5868",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "test",
+      "mode": "v2_default",
+      "timestamp": "2026-10-14T10:52:58Z"
+    },
+    {
+      "file_path": "results\\v2_default\\test\\scene_3_seed_202.png",
+      "sha256": "7f851c6a0e18bffe0556698887755b707f5a985366f38d9a9e5f5e7f1cfc5a36",
+      "size_bytes": 1796236,
+      "config_hash": "7ce2374b5868",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "test",
+      "mode": "v2_default",
+      "timestamp": "2026-10-14T11:01:55Z"
+    },
+    {
+      "file_path": "results\\v2_default\\test\\scene_4_seed_101.png",
+      "sha256": "94b6d60e2a3955619ee07483b49b7367975a3d87aa122b8ab7816294312e375e",
+      "size_bytes": 1894168,
+      "config_hash": "7ce2374b5868",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "test",
+      "mode": "v2_default",
+      "timestamp": "2026-10-14T10:54:25Z"
+    },
+    {
+      "file_path": "results\\v2_default\\test\\scene_4_seed_202.png",
+      "sha256": "3d09d0f76f5cd82f59a522f7feb2e35d741a4b5fec5843bf753e0cf9869b38bb",
+      "size_bytes": 1883644,
+      "config_hash": "7ce2374b5868",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "test",
+      "mode": "v2_default",
+      "timestamp": "2026-10-14T11:03:24Z"
+    },
+    {
+      "file_path": "results\\v2_default\\test\\scene_5_seed_101.png",
+      "sha256": "613c51e7cc8cc2f640b882f45ad50e66403565eb1cfb08cb8ed10d97bd82994d",
+      "size_bytes": 1870005,
+      "config_hash": "7ce2374b5868",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "test",
+      "mode": "v2_default",
+      "timestamp": "2026-10-14T10:56:04Z"
+    },
+    {
+      "file_path": "results\\v2_default\\test\\scene_6_seed_101.png",
+      "sha256": "9d3af7445a79971f5691240708de8451bde96a813b4d2d4096859fb87fbd9b4a",
+      "size_bytes": 1536317,
+      "config_hash": "7ce2374b5868",
+      "git_commit": "912f74d6ee929c0abce28cdebe30846f3f333fbe",
+      "split": "test",
+      "mode": "v2_default",
+      "timestamp": "2026-10-14T10:57:20Z"
+    }
+  ]
+}
