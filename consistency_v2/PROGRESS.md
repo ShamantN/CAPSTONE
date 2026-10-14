@@ -102,5 +102,5 @@
 - [x] `07_PPT_UPDATE.md` (slide-by-slide text, tables, latency-vs-accuracy trade-off chart, M11 listed as optional future tier)
 - [x] `README_V2.md` (one-command demo, modes, rollback, and "How to add M11 next" section)
 - [x] `blockers.md`, `claims_corrected.md`, `git_setup.md`, `ENVIRONMENTS.md`, `CHANGELOG.md`
-- [ ] Tag `v2.0.0-rc1` and push tag to origin.
-- [ ] Open final PR from `consistency-v2` into `main` (leave open for user review).
+- [x] Tag `v2.0.0-rc1` and push tag to origin.
+- [x] Open final PR from `consistency-v2` into `main`: [PR #19](https://github.com/ShamantN/CAPSTONE/pull/19) (left OPEN for user review).
