@@ -1,0 +1,90 @@
+# MMCCP Consistency v2: Master Progress & Execution Log
+
+**Current Phase:** Phase 0 (Setup, Pre-flight & Baseline Execution)  
+**Active Integration Branch:** `consistency-v2`  
+**Last Pushed Commit SHA (`origin/consistency-v2`):** `cf12f7f585af60c82c179672fafe6ef9292efb26`  
+**Target Architecture:** Multi-Modal Character Consistency Pipeline v2 (M1–M10)  
+**Hardware & Power:** RTX 3070 Ti Laptop GPU (8GB), AC Standby/Hibernate disabled (0s).  
+
+---
+
+## 1. Branch and Commit Registry
+
+| Branch | Base | Status | Last Pushed SHA | PR Link | Purpose |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `main` | - | Protected | `cf114dc110060baf28dc3edda5e381af7fcbc2d4` | - | Production stable branch |
+| `sync/local-baseline` | `main` | Open PR | `cf12f7f585af60c82c179672fafe6ef9292efb26` | [PR #1](https://github.com/ShamantN/CAPSTONE/pull/1) | Initial local baseline import & hygiene |
+| `consistency-v2` | `sync/local-baseline` | Active | `cf12f7f585af60c82c179672fafe6ef9292efb26` | - | Long-lived v2 integration branch |
+
+---
+
+## 2. Phase Execution Checklist
+
+### Phase 0: Setup, Repository Pre-Flight & Baseline
+- [x] G1: Tooling check (`git`, `git-lfs`, `gh`), identity configuration, GitHub authentication.
+- [x] G1: Case C repo initialization, baseline commit on `sync/local-baseline`, tagged `baseline-v1`.
+- [x] G1: PR #1 opened to `main`, integration branch `consistency-v2` created and pushed.
+- [x] G2: `.gitignore` and `.gitattributes` (LFS tracking for curated images) established.
+- [x] G2: Secret scan clean, `.github/pull_request_template.md` & `.github/workflows/ci.yml` installed.
+- [x] Hardware, power configuration, and Forge API endpoints verified and dumped.
+- [x] Environments documented in `ENVIRONMENTS.md`; freeze files saved.
+- [x] `hardcoded_cache.json` backed up outside the repository.
+- [ ] Image-viewing canary check (verify agent visual ability on normal vs inverted canary).
+- [ ] Run baseline v1 on DEV-FULL and TEST splits and cache in `results/baseline_v1/`.
+
+### Phase 1: Build & Calibrate Frozen Verification Suite (`feat/verifier`)
+- [ ] Implement Biometric Ensemble (DeepFace Facenet512, SFace, GhostFaceNet, ArcFace on CPU).
+- [ ] Calibration: genuine/impostor distributions, EER, and calibrated thresholds in `calibration.json`.
+- [ ] Binding check: SegFormer person/clothes segmentation + spatial layout assignment.
+- [ ] DINOv2 & CLIP-I appearance evaluation on person crops.
+- [ ] Scene defect detector & taxonomy evaluator (hallucination, limbs, count).
+- [ ] Visual Review tools (`make_contact_sheet.py`, `make_blind_sheet.py`, structured rubric JSON).
+- [ ] Canary tests on planted failures (catch rate >= 95%).
+- [ ] Verifier freeze: record SHA256 in `verifier_freeze.json`, PR squash-merge, tag `verifier-frozen`.
+
+### Phase 2: Diagnose & Fix Existing Pipeline (`fix/d1-...` to `fix/d6-...`)
+- [ ] D1: ControlNet Depth/Pose in Pass 1 missing input image (hash & diff proof).
+- [ ] D2: ReActor payload argument array mismatch derived from `script-info` (prove ArcFace gain).
+- [ ] D3: Replace weak `BREAK` with true spatial conditioning (Forge Couple / regional).
+- [ ] D4: Download missing InstantID ControlNet weights; complete dual-unit configuration.
+- [ ] D5: Evaluator circularity and position-agnostic Hungarian matching resolved by Phase 1 verifier.
+- [ ] D6: Reconcile code vs documentation contradictions (`claims_corrected.md`).
+
+### Phase 3: Implement Consistency Methods (M1 to M10 Only)
+- [ ] M1: Multi-reference Identity Bank with pose clustering (`consistency_v2/identity_bank.py`).
+- [ ] M2: Layout Planner with OpenPose skeleton & region masks (`consistency_v2/layout_planner.py`).
+- [ ] M3: True Regional Conditioning via Forge Couple extension (`consistency_v2/regional.py`).
+- [ ] M4: Dual-Unit InstantID & IP-Adapter Plus-Face SDXL tuning (`consistency_v2/identity_units.py`).
+- [ ] M5: Reliable Identity Transplant (ReActor script-info + Direct InsightFace blended swap; `consistency_v2/face_swap.py`).
+- [ ] M6: Identity-Conditioned Face Detailer (`consistency_v2/face_detailer.py`).
+- [ ] M7: Wardrobe and Palette Lock via SegFormer (`consistency_v2/wardrobe.py`).
+- [ ] M8: Reference-Only Attention Injection (`consistency_v2/reference_unit.py`).
+- [ ] M9: Best-of-N Selection & Diagnostic-Driven Healing (`consistency_v2/candidates.py`, `healing_v2.py`).
+- [ ] M10: Identity Memory Across Scenes with Drift Guard (`consistency_v2/identity_memory.py`).
+- [x] Scope Guard: M11 (LoRA) OUT OF SCOPE (`use_character_lora=False` flag); seeds {606, 707, 808} reserved.
+
+### Phase 4: Integration, UI v2 & Tuning
+- [ ] Integrate into `pipeline_v2.py` and `best_config.json`.
+- [ ] Wire v2 into `app.py` (Consistency v2 sidebar, Verifier tab with contact sheets).
+- [ ] Update `run_from_scratch.py` (`--pipeline v2`, `--mode fast|default|quality`).
+- [ ] Lightweight regression test suite in `tests/`.
+
+### Phase 5: Final Held-Out Evaluation (TEST Set)
+- [ ] Freeze code, verify git status is clean.
+- [ ] Run baseline v1 vs v2 default vs v2 quality on TEST split.
+- [ ] Run ablation study on TEST subset (leave-one-out).
+- [ ] Compute statistics (bootstrap 95% CIs, paired Wilcoxon tests).
+- [ ] Visual reviews, blind re-ID test, and full image manifest.
+
+### Phase 6: Documentation and Final PR
+- [ ] Write all reports in `docs_generated/v2/` (`00_progress_log.md` through `07_PPT_UPDATE.md`).
+- [ ] Update `README_V2.md`, `README.md`, `CHANGELOG.md`.
+- [ ] Restore Windows power settings.
+- [ ] Tag `v2.0.0-rc1` and push tag to origin.
+- [ ] Open final PR from `consistency-v2` into `main` (leave open for user review).
+
+---
+
+## 3. Next Immediate Steps
+1. Execute Step 4 of Phase 0: Image-Viewing Canary Check (view standard test image vs inverted canary).
+2. Execute Step 5 of Phase 0: Run baseline v1 on DEV-FULL and TEST splits, caching outputs to `results/baseline_v1/`.
