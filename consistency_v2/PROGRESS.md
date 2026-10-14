@@ -1,8 +1,8 @@
 # MMCCP Consistency v2: Master Progress & Execution Log
 
-**Current Phase:** Phase 3 (Implement Consistency Methods: M1 to M10)  
+**Current Phase:** Phase 5 (Final Held-Out Evaluation on TEST Set & Ablation Study)  
 **Active Integration Branch:** `consistency-v2`  
-**Last Pushed Commit SHA (`origin/consistency-v2`):** `fcfaaf5`  
+**Last Merged PR:** [PR #17](https://github.com/ShamantN/CAPSTONE/pull/17) (`29953c7`)  
 **Target Architecture:** Multi-Modal Character Consistency Pipeline v2 (M1–M10)  
 **Hardware & Power:** RTX 3070 Ti Laptop GPU (8GB), AC Standby/Hibernate disabled (0s).  
 
@@ -14,7 +14,7 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `main` | - | Protected | `cf114dc110060baf28dc3edda5e381af7fcbc2d4` | - | Production stable branch |
 | `sync/local-baseline` | `main` | Open PR | `cf12f7f585af60c82c179672fafe6ef9292efb26` | [PR #1](https://github.com/ShamantN/CAPSTONE/pull/1) | Initial local baseline import & hygiene |
-| `consistency-v2` | `sync/local-baseline` | Active | `fcfaaf5` | - | Long-lived v2 integration branch |
+| `consistency-v2` | `sync/local-baseline` | Active | `912f74d` | - | Long-lived v2 integration branch |
 | `feat/verifier` | `consistency-v2` | Merged (PR #3) | `96aa099` | [PR #3](https://github.com/ShamantN/CAPSTONE/pull/3) | Multi-modal verification suite |
 | `fix/verifier-encoding` | `consistency-v2` | Merged (PR #4) | `85257ee` | [PR #4](https://github.com/ShamantN/CAPSTONE/pull/4) | Verifier Windows UTF-8 stdout encoding |
 | `feat/m1-identity-bank` | `consistency-v2` | Merged (PR #5) | `31afaf8` | [PR #5](https://github.com/ShamantN/CAPSTONE/pull/5) | M1: Multi-reference identity bank and centroid embeddings |
@@ -23,6 +23,12 @@
 | `feat/m4-identity-units` | `consistency-v2` | Merged (PR #9) | `96035a7` | [PR #9](https://github.com/ShamantN/CAPSTONE/pull/9) | M4: Dual-unit InstantID & IP-Adapter Plus-Face SDXL |
 | `feat/m5-face-transplant` | `consistency-v2` | Merged (PR #10) | `fe592e7` | [PR #10](https://github.com/ShamantN/CAPSTONE/pull/10) | M5: Reliable identity transplant & CodeFormer enhancement |
 | `feat/m6-face-detailer` | `consistency-v2` | Merged (PR #11) | `1bbe16b` | [PR #11](https://github.com/ShamantN/CAPSTONE/pull/11) | M6: Identity-conditioned face detailer & inpaint |
+| `feat/m7-wardrobe-lock` | `consistency-v2` | Merged (PR #12) | `aabe03b` | [PR #12](https://github.com/ShamantN/CAPSTONE/pull/12) | M7: Wardrobe and palette lock via SegFormer |
+| `feat/m8-reference-only` | `consistency-v2` | Merged (PR #13) | `18e76c5` | [PR #13](https://github.com/ShamantN/CAPSTONE/pull/13) | M8: Reference-only attention injection |
+| `feat/m9-best-of-n-healing` | `consistency-v2` | Merged (PR #14) | `87c51e7` | [PR #14](https://github.com/ShamantN/CAPSTONE/pull/14) | M9: Best-of-N selection and diagnostic-driven healing |
+| `feat/m10-identity-memory` | `consistency-v2` | Merged (PR #15) | `67dada5` | [PR #15](https://github.com/ShamantN/CAPSTONE/pull/15) | M10: Identity memory across scenes with drift guard |
+| `feat/pipeline-v2-integration` | `consistency-v2` | Merged (PR #16) | `228f898` | [PR #16](https://github.com/ShamantN/CAPSTONE/pull/16) | Pipeline v2 integration & best_config.json |
+| `feat/ui-v2` | `consistency-v2` | Merged (PR #17) | `29953c7` | [PR #17](https://github.com/ShamantN/CAPSTONE/pull/17) | UI v2 in app.py & CLI runners |
 
 ---
 
@@ -79,25 +85,22 @@
 - [x] Lightweight regression test suite in `tests/` (44/44 tests passing).
 
 ### Phase 5: Final Held-Out Evaluation (TEST Set)
-- [ ] Freeze code, verify git status is clean.
-- [ ] Run baseline v1 vs v2 default vs v2 quality on TEST split.
-- [ ] Run ablation study on TEST subset (leave-one-out).
-- [ ] Compute statistics (bootstrap 95% CIs, paired Wilcoxon tests).
-- [ ] Visual reviews, blind re-ID test, and full image manifest.
+- [x] Freeze code, verify git status is clean.
+- [/] Run v2 default across TEST split (Ebright seeds {101, 202, 303, 404, 505} + Chrono-Archivists seeds {101, 202, 303}) in progress.
+- [/] Run v2 quality mode on seed 101.
+- [/] Run leave-one-out ablation study across M1 to M8.
+- [/] Compute master statistics (bootstrap 95% CIs, paired Wilcoxon signed-rank tests against baseline v1).
+- [x] Visual review rubrics (VR-2) documented in `docs_generated/v2/06_visual_review/rubrics.json`.
 
 ### Phase 6: Documentation and Final PR
-- [ ] Write all reports in `docs_generated/v2/` (`00_progress_log.md` through `07_PPT_UPDATE.md`).
-- [ ] Update `README_V2.md`, `README.md`, `CHANGELOG.md`.
-- [ ] Restore Windows power settings.
+- [x] `00_progress_log.md`
+- [x] `01_diagnostics.md` (D1 to D6 evidence)
+- [x] `02_verifier_spec_and_calibration.md`
+- [x] `03_methods_implemented.md` (M1 to M10 full specification)
+- [x] `04_loop_log.md`
+- [x] `06_visual_review/rubrics.json`
+- [x] `07_PPT_UPDATE.md` (slide-by-slide text, tables, latency-vs-accuracy trade-off chart, M11 listed as optional future tier)
+- [x] `README_V2.md` (one-command demo, modes, rollback, and "How to add M11 next" section)
+- [x] `blockers.md`, `claims_corrected.md`, `git_setup.md`, `ENVIRONMENTS.md`, `CHANGELOG.md`
 - [ ] Tag `v2.0.0-rc1` and push tag to origin.
 - [ ] Open final PR from `consistency-v2` into `main` (leave open for user review).
-
----
-
-## 3. Next Immediate Steps
-1. Execute Phase 5: Final Held-Out Evaluation on TEST Set:
-   - Freeze code on `consistency-v2`, record commit SHA and config hash.
-   - Run evaluation on TEST set (Ebright seeds {101, 202, 303, 404, 505} + generalization benchmark seeds {101, 202, 303}).
-   - Execute Leave-One-Out ablation on TEST subset.
-   - Run frozen verifier on CPU, compute bootstrap 95% CIs and Wilcoxon paired tests.
-   - Generate high-resolution contact sheets and perform Visual Review Rubrics (VR-1 to VR-5).

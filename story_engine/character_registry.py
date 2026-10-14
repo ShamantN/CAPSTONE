@@ -68,6 +68,25 @@ class CharacterRegistry:
         self.cache_data[key] = image_b64
         self.save_cache()
 
+    def get_character(self, char_id: str) -> Optional[CharacterSpec]:
+        """Retrieves CharacterSpec for a given character ID from storyboards."""
+        if not hasattr(self, "_char_specs"):
+            self._char_specs: Dict[str, CharacterSpec] = {}
+            for s_file in [
+                Path(r"D:\5TH SEM\HACKATHON\storyboards\ebright.json"),
+                Path(r"D:\5TH SEM\HACKATHON\storyboards\generalization_benchmark.json")
+            ]:
+                if s_file.exists():
+                    try:
+                        with open(s_file, "r", encoding="utf-8") as f:
+                            d = json.load(f)
+                        for cid, cdata in d.get("characters", {}).items():
+                            if isinstance(cdata, dict):
+                                self._char_specs[cid] = CharacterSpec.from_dict(cdata)
+                    except Exception:
+                        pass
+        return self._char_specs.get(char_id)
+
     def build_anchor_prompt(self, char: CharacterSpec, age_state: Optional[AgeState] = None, style: str = "Cinematic Realistic") -> Tuple[str, str]:
         """
         Generates strict demographic prompt and negative prompt for synthesizing a visual anchor.

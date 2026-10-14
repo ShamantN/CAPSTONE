@@ -112,24 +112,41 @@ class ConsistencyPipelineV2:
             registry=self.registry
         )
 
-        char_positions = [cp.dict() if hasattr(cp, "dict") else cp for cp in scene.character_positions]
-        characters_present = [cp.get("character_id") for cp in char_positions if cp.get("character_id")]
+        # Determine character positions as Dict[str, str] and characters_present as List[str]
+        char_pos_dict: Dict[str, str] = {}
+        if isinstance(scene.character_positions, dict):
+            char_pos_dict = scene.character_positions
+        elif isinstance(scene.character_positions, list):
+            for cp in scene.character_positions:
+                if isinstance(cp, dict):
+                    cid = cp.get("character_id")
+                    pos = cp.get("position", "center")
+                    if cid:
+                        char_pos_dict[cid] = pos
+
+        characters_present = scene.characters_present if scene.characters_present else list(char_pos_dict.keys())
 
         # 2. M2: Layout Planner (Spatial regions & OpenPose skeleton)
         layout_masks = {}
         skeleton_b64 = None
         openpose_unit = None
+        layout_boxes = []
 
-        if self.config.enable_layout_planner and char_positions:
-            scene_layout = self.layout_planner.plan_scene_layout(
-                character_positions=char_positions,
+        if self.config.enable_layout_planner and char_pos_dict:
+            layout_boxes = self.layout_planner.plan_scene_layout(
+                character_positions=char_pos_dict,
                 shot_type=scene.shot_type,
-                camera_angle=scene.camera_angle,
-                width=plan.width,
-                height=plan.height
+                canvas_w=plan.width,
+                canvas_h=plan.height
             )
-            layout_masks = scene_layout.region_masks
-            skeleton_b64 = scene_layout.openpose_control_image_b64
+            layout_masks = {b.character_id: b.normalized_region for b in layout_boxes}
+            skeleton_cv = self.layout_planner.render_openpose_canvas(
+                layout_boxes=layout_boxes,
+                pose_type="standing_front",
+                canvas_w=plan.width,
+                canvas_h=plan.height
+            )
+            skeleton_b64 = self.layout_planner.image_to_base64(skeleton_cv)
             openpose_unit = {
                 "enabled": True,
                 "module": "None",
@@ -182,16 +199,20 @@ class ConsistencyPipelineV2:
             alwayson_scripts["controlnet"] = {"args": cnet_units}
 
         # M3: Regional Conditioning (Forge Couple)
-        if self.config.enable_regional_couple and len(characters_present) >= 2 and 'scene_layout' in locals():
+        if self.config.enable_regional_couple and len(characters_present) >= 2 and layout_boxes:
             char_prompts = {}
             for cid in characters_present:
                 c_spec = self.registry.get_character(cid)
-                char_prompts[cid] = c_spec.visual_summary if c_spec else cid
+                if c_spec:
+                    char_prompts[cid] = f"({c_spec.unique_token}:1.3), {c_spec.name}, {c_spec.ethnicity}, {c_spec.hair_color} hair {c_spec.hair_style}, wearing {c_spec.recurring_clothing}"
+                else:
+                    char_prompts[cid] = cid
 
+            bg_prompt = f"{scene.location_name}, {scene.environment_type}" if getattr(scene, "location_name", None) else plan.positive_prompt
             full_prompt, couple_payload = RegionalCoupleDriver.build_prompt_and_payload(
-                background_prompt=scene.environment or plan.positive_prompt,
+                background_prompt=bg_prompt,
                 character_prompts=char_prompts,
-                layout_boxes=scene_layout.layout_boxes,
+                layout_boxes=layout_boxes,
                 config=self.regional_config
             )
             if couple_payload.get("forge couple"):
