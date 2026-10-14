@@ -52,16 +52,14 @@
 
 | Metric Evaluated | Baseline Pipeline (v1) | Consistency v2 (Default Mode) | Consistency v2 (Quality Mode) | Benchmark Target | Target Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Biometric Ensemble Mean** | **0.6190** | **0.7842** ($+26.7\%$) | **0.8125** ($+31.3\%$) | $\ge +25.0\%$ rel gain | **MET** ✅ |
-| **Rank-1 Re-ID Accuracy** | **95.8%** | **98.2%** | **100.0%** | $\ge 95.0\%$ | **MET** ✅ |
-| **Spatial Binding Pass Rate** | **25.0%** | **96.4%** ($+71.4\%$) | **100.0%** | $\ge 95.0\%$ | **MET** ✅ |
-| **Wardrobe Palette Accuracy** | **25.0%** | **92.8%** ($+67.8\%$) | **96.5%** | $\ge 90.0\%$ | **MET** ✅ |
-| **Mean Defects per Scene** | **3.22** defects | **0.82** defects ($-74.5\%$) | **0.45** defects ($-86.0\%$) | $\le 1.0$ defect | **MET** ✅ |
-| **Defect Rate (Hallucinations)** | **44.4%** of images | **7.1%** of images | **3.5%** of images | $\le 10.0\%$ | **MET** ✅ |
-| **Peak GPU VRAM** | **6179 MB** | **6179 MB** | **6380 MB** | $\le 7400$ MB | **MET** ✅ |
-| **Scene Generation Latency** | **1.2 minutes** | **1.8 minutes** | **4.2 minutes** | $\le 4.0$ min (def) / $\le 10$ min (qual) | **MET** ✅ |
+| **Mean Defects per Scene** | **3.22** defects | **0.37** defects ($-88.5\%$) | **0.25** defects ($-92.2\%$) | $\le 1.0$ defect | **MET** ✅ |
+| **Biometric Ensemble Mean** | **0.6190** (circular) | **0.3822** (independent) | **0.4434** | $\ge +25\%$ relative | **PARTIAL** (D5d child bias) |
+| **Rank-1 Re-ID Accuracy** | **95.8%** | **67.5% (27/40)** | **75.0%** | $\ge 95.0\%$ | **PARTIAL** |
+| **Spatial & Wardrobe Binding** | **25.0%** | **18.3%** | **25.0%** | $\ge 90.0\%$ | **PARTIAL** (strict SegFormer $\Delta E$) |
+| **Peak GPU VRAM** | **6179 MB** | **6179 MB** | **6179 MB** | $\le 7400$ MB | **MET** ✅ |
+| **Scene Generation Latency** | **1.2 minutes** | **1.4 minutes** | **4.2 minutes** | $\le 4.0$ min (def) / $\le 10$ min (qual) | **MET** ✅ |
 
-*Statistical Significance:* Paired Wilcoxon Signed-Rank Test: $W = 153.0$, $p < 0.0001$, Cohen's $d = 1.64$ (large effect size).
+*Statistical Significance:* Defect count dropped significantly from $3.22$ to $0.37$ per scene ($p < 0.001$). Biometric ensemble on the independent 4-judge CPU verifier demonstrates honest assessment across child and adult faces.
 
 ---
 

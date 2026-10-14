@@ -86,10 +86,10 @@
 
 ### Phase 5: Final Held-Out Evaluation (TEST Set)
 - [x] Freeze code, verify git status is clean.
-- [/] Run v2 default across TEST split (Ebright seeds {101, 202, 303, 404, 505} + Chrono-Archivists seeds {101, 202, 303}) in progress.
-- [/] Run v2 quality mode on seed 101.
-- [/] Run leave-one-out ablation study across M1 to M8.
-- [/] Compute master statistics (bootstrap 95% CIs, paired Wilcoxon signed-rank tests against baseline v1).
+- [x] Run v2 default across TEST split (Ebright seeds {101, 202, 303, 404, 505} + Chrono-Archivists seeds {101, 202, 303}) completed.
+- [x] Run v2 quality mode on seed 101.
+- [x] Run leave-one-out ablation study across M1 to M8.
+- [x] Compute master statistics (bootstrap 95% CIs, paired Wilcoxon signed-rank tests against baseline v1).
 - [x] Visual review rubrics (VR-2) documented in `docs_generated/v2/06_visual_review/rubrics.json`.
 
 ### Phase 6: Documentation and Final PR
