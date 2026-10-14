@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "StorySpec",
+  "type": "object",
+  "required": ["story_id", "title", "characters", "scenes"],
+  "properties": {
+    "story_id": {"type": "string"},
+    "title": {"type": "string"},
+    "visual_style": {"type": "string", "default": "Cinematic Realistic"},
+    "global_negative_prompt": {"type": "string"},
+    "characters": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["id", "name", "gender", "ethnicity", "hair_color"],
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"},
+          "unique_token": {"type": "string"},
+          "gender": {"type": "string"},
+          "ethnicity": {"type": "string"},
+          "skin_tone": {"type": "string"},
+          "face_shape": {"type": "string"},
+          "hair_color": {"type": "string"},
+          "hair_style": {"type": "string"},
+          "eye_color": {"type": "string"},
+          "build": {"type": "string"},
+          "distinctive_features": {"type": "array", "items": {"type": "string"}},
+          "recurring_clothing": {"type": "string"},
+          "clothing_colors": {"type": "array", "items": {"type": "string"}},
+          "age_states": {"type": "object"}
+        }
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["scene_id", "scene_number", "title", "location_name", "environment_type", "action_description", "characters_present"],
+        "properties": {
+          "scene_id": {"type": "string"},
+          "scene_number": {"type": "integer"},
+          "title": {"type": "string"},
+          "location_name": {"type": "string"},
+          "environment_type": {"type": "string"},
+          "lighting": {"type": "string"},
+          "shot_type": {"type": "string"},
+          "camera_angle": {"type": "string"},
+          "action_description": {"type": "string"},
+          "characters_present": {"type": "array", "items": {"type": "string"}},
+          "character_positions": {"type": "object"},
+          "character_age_states": {"type": "object"},
+          "character_outfits": {"type": "object"},
+          "required_props": {"type": "array", "items": {"type": "string"}},
+          "forbidden_props": {"type": "array", "items": {"type": "string"}},
+          "negative_prompt_additions": {"type": "string"},
+          "qa_requirements": {"type": "object"}
+        }
+      }
+    },
+    "props": {
+      "type": "object"
+    }
+  }
+}

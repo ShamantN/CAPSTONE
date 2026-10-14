@@ -1,0 +1,35 @@
+{
+  "story_id": "ebright_monarch_expedition",
+  "scene_id": "scene_1",
+  "scene_number": 1,
+  "title": "The Spark of Curiosity",
+  "model_checkpoint": "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+  "identity_engine": "InstantID-SDXL",
+  "sampler": "DPM++ 2M Karras",
+  "steps_pass1": 25,
+  "steps_pass2": 15,
+  "denoising_strength": 0.504,
+  "cfg_scale": 5.5,
+  "width": 1216,
+  "height": 832,
+  "seed": 42,
+  "positive_prompt": "(Cinematic Realistic:1.2), masterpiece, cinematic lighting, 8k resolution, highly detailed, Young 8-year-old Richard Ebright sitting on the left in a yellow shirt and his mother sitting on the right in a blue floral blouse, sitting together at a wooden dining room table looking attentively at an open illustrated children's science book with pictures of butterflies. BREAK ((YEbright_K4M9Z:1.4)), sitting on the left, left column, ((strictly Caucasian:1.45)), (fair skin tone:1.35), (round boyish face:1.25), 8 years old child male, wearing (yellow long-sleeve shirt:1.30), (yellow garment:1.30) and (navy blue garment:1.30), light brown hair, clean face, detailed eyes BREAK ((Mother_M2B4Q:1.4)), sitting on the right, right column, ((strictly Caucasian:1.45)), (fair skin tone:1.35), (round mature face:1.25), 40 years old adult mother female, wearing (pale blue floral blouse:1.30), (pale blue garment:1.30) and (yellow garment:1.30), dark brown with grey streaks hair, clean face, detailed eyes BREAK Background: Dining Room Table, indoor warm residential environment, Warm sunlight streaming through sheer curtains, Wide two-shot, Eye level.",
+  "negative_prompt": "blurry, deformed, bad anatomy, bad hands, missing fingers, extra fingers, ugly, watermark, text, signature, solo, 1person, single person alone, beard on child, adult boy, no laptop, no computer, no smartphone, no beard on child, solo, 1person, single person alone, identical faces, twin, clone, demographic bleed, merged bodies",
+  "native_conditioning": {
+    "identity_adapter": "InstantID-SDXL",
+    "openpose_active": false,
+    "depth_active": false,
+    "freeu_active": true,
+    "pag_active": true,
+    "cfg_fix_active": true,
+    "regional_isolation": {
+      "regional_active": true,
+      "num_regions": 2,
+      "mode": "Columns",
+      "ratios": "1,1",
+      "base_ratio": 0.2
+    }
+  },
+  "runtime_s": 40.27,
+  "peak_vram_mb": 591.8
+}

@@ -1,0 +1,16 @@
+{
+  "engine": "ip_adapter",
+  "shot_type": "close_up",
+  "scene_number": 2,
+  "runtime_s": 95.31,
+  "image_file": "ip_adapter_close_up.png",
+  "metrics": {
+    "arcface": 0.5603,
+    "clip_i": 0.8292,
+    "structural_ssim": 0.5215,
+    "composite": 0.6277,
+    "qa_passed": 3,
+    "qa_total": 6,
+    "qa_rate_pct": 50.0
+  }
+}

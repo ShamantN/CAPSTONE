@@ -1,0 +1,31 @@
+{
+  "story_id": "ebright_monarch_expedition",
+  "scene_id": "scene_2",
+  "scene_number": 2,
+  "title": "The Butterfly Basement",
+  "model_checkpoint": "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+  "identity_engine": "IP-Adapter-SDXL",
+  "sampler": "DPM++ 2M Karras",
+  "steps_pass1": 25,
+  "steps_pass2": 15,
+  "denoising_strength": 0.384,
+  "cfg_scale": 5.5,
+  "width": 1024,
+  "height": 1024,
+  "seed": 286763716,
+  "positive_prompt": "(Cinematic Realistic:1.2), masterpiece, cinematic lighting, 8k resolution, highly detailed, Young 8-year-old Richard Ebright in his yellow shirt is standing in his basement laboratory, gently holding and tagging monarch butterflies resting on vertical wire mesh cages filled with fluttery orange butterflies. BREAK ((YEbright_K4M9Z:1.4)), centered in frame, ((strictly Caucasian:1.45)), (fair skin tone:1.35), (round boyish face:1.25), 8 years old child male, wearing (yellow long-sleeve shirt:1.30), (yellow garment:1.30) and (navy blue garment:1.30), light brown hair (short side-parted), clean face, detailed eyes BREAK Background: Basement Rearing Laboratory, indoor rustic basement environment, Soft overhead workshop bulb with dramatic rim light, Medium close-up, Eye level.",
+  "negative_prompt": "blurry, deformed, bad anatomy, bad hands, missing fingers, extra fingers, ugly, watermark, text, signature, teenager, adult man, tall adult, mature face, beard, stubble, no teenager, no adult man, no beard, no stubble",
+  "native_conditioning": {
+    "identity_adapter": "IP-Adapter-SDXL",
+    "openpose_active": false,
+    "depth_active": false,
+    "freeu_active": true,
+    "pag_active": true,
+    "cfg_fix_active": true,
+    "regional_isolation": {
+      "regional_active": false
+    }
+  },
+  "runtime_s": 40.98,
+  "peak_vram_mb": 591.8
+}

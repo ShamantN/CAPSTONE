@@ -1,0 +1,122 @@
+[
+  {
+    "name": "SDXL Juggernaut v9 Base Checkpoint",
+    "repository": "RunDiffusion/Juggernaut-XL",
+    "source_file": "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+    "local_path": "C:\\Stable-Diffusion\\webui\\models\\Stable-diffusion\\Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+    "size_bytes": 7105348188,
+    "size_mb": 6776.19,
+    "sha256": "0f88353ac00fa2e47aac6f78efb7bbc3c53fe09dab875f5a55599f5671f585be",
+    "format": "safetensors",
+    "validated": true,
+    "load_test": true
+  },
+  {
+    "name": "SDXL IP-Adapter Visual Conditioning",
+    "repository": "h94/IP-Adapter",
+    "source_file": "ip-adapter_xl.safetensors",
+    "local_path": "C:\\Stable-Diffusion\\webui\\models\\ControlNet\\ip-adapter_xl.safetensors",
+    "size_bytes": 702585376,
+    "size_mb": 670.04,
+    "sha256": "5f20c6131591d8853fd95617e501b56dc4b508e92ab9d961e9544ed779f00c45",
+    "format": "safetensors",
+    "validated": true,
+    "load_test": true
+  },
+  {
+    "name": "SDXL OpenPose ControlNet Model",
+    "repository": "thibaud/controlnet-openpose-sdxl-1.0",
+    "source_file": "openpose_xl.safetensors",
+    "local_path": "C:\\Stable-Diffusion\\webui\\models\\ControlNet\\openpose_xl.safetensors",
+    "size_bytes": 5004167829,
+    "size_mb": 4772.35,
+    "sha256": "7881b5168dd481f0b894faa9479a554e6dbaf5f9f2d027ab37faf3c92de6458b",
+    "format": "safetensors",
+    "validated": true,
+    "load_test": true
+  },
+  {
+    "name": "CLIP-ViT-H-14 Image Encoder (IP-Adapter SDXL)",
+    "repository": "laion/CLIP-ViT-H-14-laion2B-s32B-b79K",
+    "source_file": "CLIP-ViT-H-14.safetensors",
+    "local_path": "C:\\Stable-Diffusion\\webui\\models\\ControlNetPreprocessor\\CLIP-ViT-H-14.safetensors",
+    "size_bytes": 2528373448,
+    "size_mb": 2411.24,
+    "sha256": "b97f6b1827a45cc0c9dd5ae05e6a92a6551fb0707edafc9b6b0c805e47267beb",
+    "format": "safetensors",
+    "validated": true,
+    "load_test": true
+  },
+  {
+    "name": "InsightFace Buffalo_L Landmark / Recognition Backbone",
+    "repository": "deepinsight/insightface",
+    "source_file": "w600k_r50.onnx",
+    "local_path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\models\\buffalo_l\\w600k_r50.onnx",
+    "size_bytes": 174383860,
+    "size_mb": 166.31,
+    "sha256": "8f74e053ad38656713fdef715f7a5e4d45f883fdd0fb5bc80625108da78966e9",
+    "format": "onnx",
+    "validated": true,
+    "load_test": true
+  },
+  {
+    "name": "InsightFace Buffalo_L Face Detector (det_10g)",
+    "repository": "deepinsight/insightface",
+    "source_file": "det_10g.onnx",
+    "local_path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\models\\buffalo_l\\det_10g.onnx",
+    "size_bytes": 16923827,
+    "size_mb": 16.14,
+    "sha256": "5838f7fe053675b1c7a08b633df49e7af5495cee0493c7dcf6697200b85b5b91",
+    "format": "onnx",
+    "validated": true,
+    "load_test": true
+  },
+  {
+    "name": "InsightFace InSwapper 128 (Local Biometric Detailer)",
+    "repository": "deepinsight/insightface",
+    "source_file": "inswapper_128.onnx",
+    "local_path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\inswapper_128.onnx",
+    "size_bytes": 554253681,
+    "size_mb": 528.58,
+    "sha256": "38bddcbde64dc5d4de3d73cf7acd1c5527f964339a037dad3bd917843a7e7e32",
+    "format": "onnx",
+    "validated": true,
+    "load_test": true
+  },
+  {
+    "name": "CodeFormer Facial Landmark Restoration",
+    "repository": "sczhou/CodeFormer",
+    "source_file": "codeformer-v0.1.0.pth",
+    "local_path": "C:\\Stable-Diffusion\\webui\\models\\Codeformer\\codeformer-v0.1.0.pth",
+    "size_bytes": 376637898,
+    "size_mb": 359.19,
+    "sha256": "ac273b99f789b0ff7071248d5e8cb7c551d5c82e815590406ad03962bff6378b",
+    "format": "pth",
+    "validated": true,
+    "load_test": true
+  },
+  {
+    "name": "DWPose 2D Body Pose ONNX Model",
+    "repository": "IDEA-Research/DWPose",
+    "source_file": "dw-ll_ucoco_384.onnx",
+    "local_path": "C:\\Stable-Diffusion\\webui\\models\\ControlNetPreprocessor\\openpose\\dw-ll_ucoco_384.onnx",
+    "size_bytes": 134399116,
+    "size_mb": 128.17,
+    "sha256": "65e0b828937090efffd379c9a7c0ef9efcbbcc4b7c470d7d4d20872896e440db",
+    "format": "onnx",
+    "validated": true,
+    "load_test": true
+  },
+  {
+    "name": "YOLOX-L Person Detection ONNX Model",
+    "repository": "Megvii-BaseDetection/YOLOX",
+    "source_file": "yolox_l.onnx",
+    "local_path": "C:\\Stable-Diffusion\\webui\\models\\ControlNetPreprocessor\\openpose\\yolox_l.onnx",
+    "size_bytes": 216746733,
+    "size_mb": 206.71,
+    "sha256": "06c512b6a7b82d4e894ed555214b1fe8572e5cd27beb73a445c0d591cfcad499",
+    "format": "onnx",
+    "validated": true,
+    "load_test": true
+  }
+]

@@ -1,0 +1,110 @@
+{
+  "audit_phase": "Phase 8.4 Baseline Freeze",
+  "timestamp": "2026-08-27T18:11:30",
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 3070 Ti Laptop GPU (8 GB VRAM)",
+    "host_ram_mb": 32472
+  },
+  "models": {
+    "controlnet": [
+      "depth_xl.safetensors",
+      "instantid_xl.safetensors",
+      "ip-adapter-faceid-plusv2_sdxl.bin",
+      "ip-adapter-plus-face_sdxl_vit-h.safetensors",
+      "ip-adapter_sdxl_vit-h.safetensors",
+      "ip-adapter_xl.safetensors",
+      "openpose_xl.safetensors"
+    ],
+    "lora": [
+      "ip-adapter-faceid-plusv2_sdxl_lora.safetensors",
+      "sdxl_lightning_8step_lora.safetensors"
+    ],
+    "sd_checkpoints": [
+      "animagine-xl-3.1.safetensors",
+      "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+      "Put Stable Diffusion checkpoints here.txt"
+    ],
+    "preprocessors": [
+      "CLIP-ViT-bigG.safetensors",
+      "CLIP-ViT-H-14.safetensors"
+    ]
+  },
+  "extensions": {
+    "builtin": [
+      "extra-options-section",
+      "forge_legacy_preprocessors",
+      "forge_preprocessor_inpaint",
+      "forge_preprocessor_marigold",
+      "forge_preprocessor_normalbae",
+      "forge_preprocessor_recolor",
+      "forge_preprocessor_reference",
+      "forge_preprocessor_revision",
+      "forge_preprocessor_tile",
+      "forge_space_animagine_xl_31",
+      "forge_space_birefnet",
+      "forge_space_example",
+      "forge_space_florence_2",
+      "forge_space_geowizard",
+      "forge_space_iclight",
+      "forge_space_idm_vton",
+      "forge_space_illusion_diffusion",
+      "forge_space_photo_maker_v2",
+      "forge_space_sapiens_normal",
+      "mobile",
+      "prompt-bracket-checker",
+      "ScuNET",
+      "sd_forge_controlllite",
+      "sd_forge_controlnet",
+      "sd_forge_dynamic_thresholding",
+      "sd_forge_fooocus_inpaint",
+      "sd_forge_freeu",
+      "sd_forge_ipadapter",
+      "sd_forge_kohya_hrfix",
+      "sd_forge_latent_modifier",
+      "sd_forge_lora",
+      "sd_forge_multidiffusion",
+      "sd_forge_neveroom",
+      "sd_forge_perturbed_attention",
+      "sd_forge_sag",
+      "sd_forge_stylealign",
+      "soft-inpainting",
+      "SwinIR"
+    ],
+    "custom": [
+      "sd-webui-controlnet",
+      "sd-webui-reactor"
+    ]
+  },
+  "source_file_hashes": {
+    "story_engine\\character_registry.py": "084a41ce70ec27481f977bb9e46e686424af2d41bf4de5fb1556fb3abaa18f88",
+    "story_engine\\prompt_builder.py": "11cdd50dc401b9cc02b9eeeca708231b66e327a9007bdacd5f4dae23b99799d8",
+    "story_engine\\scene_planner.py": "460169f7c6e7076b8f4d7708a0d360f3b11e4642d45830b04b9c8ddcf230da1b",
+    "story_engine\\schema.py": "ed4002497cf1e8ae34e65a788911518f179df49135389e5de38d15ac4799859d",
+    "story_engine\\story_analyzer.py": "fc545717cd6064ba1a6e310ca3bcd4a832fe329d2a4b5df70b7cee54ead1c2c5",
+    "identity\\faceid.py": "15254fe6a0cffea357dfdc50c7bcda9ff16f9ffff75926430c0b9f8e63e6dd27",
+    "identity\\identity_conditioner.py": "0701327f90f9f2aabad0b7ff1504447f5a85437d26f1dacf44a934a3c8de03e2",
+    "identity\\instantid.py": "b2e9921d94d0bdde2ab69de1a3ce6c1373c178d9d2c2439345b7788946e0acad",
+    "identity\\ipadapter.py": "0ff1013a82fc3592c3fb13bb2a587747a5620a6c5dde0a8ce1ac37530c02a00d",
+    "conditioning\\controlnet_conditioner.py": "ab3583857944708500dd7ef2c2104e2c4f53c787601409e692ffd0ffdcd5367c",
+    "conditioning\\crossframe_conditioner.py": "6f40d3af34f4ebb012e7ea5ea8ca0ca71a510b877f70ce3e4f7699184c8b17c1",
+    "conditioning\\lora_registry.py": "a1abae9e2ac0c3f912da087caa7a383ad35e3302f622c13671aecc013971793a",
+    "conditioning\\refinement.py": "2f6144a1b82ea592bdce1edc181b895488e9e0f094423e362b7af4a608a9f757",
+    "conditioning\\regional_conditioner.py": "1b754165e5955488a1518edd25c6923c165734d7cf8bac056a0186a0271c9e0a",
+    "generation\\forge_client.py": "67e40abaf5cd642f951a21fe15a25eda8f14059b11662ae400610664310a79cf",
+    "generation\\generation_orchestrator.py": "f6d24983abc90fe594b98afa2dc17da0b9b3e2e2252552fafb0f4ad350c297c2",
+    "qa\\healing_controller.py": "0812eafa65e3d848c83ed25b2b11ad4a93b7b37c804bf11990c2b5d4f5f1db49",
+    "qa\\programmatic_auditor.py": "e1501edc17f247b601c1c281961e76ae3b36881e31c0a160803cb7abf86933d2",
+    "app.py": "9528aeeb45e347d8563d9cb463b562a4fb27188308e1346a686c4ab11ba53290",
+    "metrics.py": "b0eb9aee54b644a30f26e8a8ecae15623f97459bd08eaaff5e9531be443a90c0"
+  },
+  "storyboards": [
+    "ebright.json",
+    "generalization_benchmark.json"
+  ],
+  "best_known_baseline": {
+    "identity_engine": "IP-Adapter-SDXL (ip-adapter_xl + CLIP-ViT-bigG)",
+    "mean_arcface_ebright": 0.5861,
+    "programmatic_qa_pass_rate": "92.3%",
+    "multimodal_visual_qa_pass_rate": "100%"
+  }
+}

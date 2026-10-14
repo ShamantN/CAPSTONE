@@ -1,0 +1,438 @@
+{
+  "timestamp": "2026-09-19",
+  "total_scene_audits": 8,
+  "scorecards": [
+    {
+      "character_id": "young_ebright",
+      "scenes_present": [
+        1,
+        2
+      ],
+      "anchor_match_mean": 0.5434,
+      "anchor_match_min": 0.533,
+      "anchor_match_max": 0.5539,
+      "scene_to_scene_transition_mean": 0.0209,
+      "worst_transition_delta": 0.0209,
+      "visual_sequence_score": "PASS",
+      "age_continuity": "PASS",
+      "individual_scene_evaluations": [
+        {
+          "scene_number": 1,
+          "arcface": 0.5539,
+          "clip_i": 0.7245,
+          "ssim": 0.5184,
+          "confidence": 59,
+          "same_character": false,
+          "caption": "a woman and two children are reading a book"
+        },
+        {
+          "scene_number": 2,
+          "arcface": 0.533,
+          "clip_i": 0.8688,
+          "ssim": 0.5124,
+          "confidence": 63,
+          "same_character": false,
+          "caption": "a boy with a yellow shirt"
+        }
+      ]
+    },
+    {
+      "character_id": "teen_ebright",
+      "scenes_present": [
+        3,
+        4
+      ],
+      "anchor_match_mean": 0.4951,
+      "anchor_match_min": 0.4738,
+      "anchor_match_max": 0.5164,
+      "scene_to_scene_transition_mean": 0.0426,
+      "worst_transition_delta": 0.0426,
+      "visual_sequence_score": "PASS",
+      "age_continuity": "PASS",
+      "individual_scene_evaluations": [
+        {
+          "scene_number": 3,
+          "arcface": 0.4738,
+          "clip_i": 0.8867,
+          "ssim": 0.4907,
+          "confidence": 60,
+          "same_character": false,
+          "caption": "a man with a long hair"
+        },
+        {
+          "scene_number": 4,
+          "arcface": 0.5164,
+          "clip_i": 0.8482,
+          "ssim": 0.4903,
+          "confidence": 61,
+          "same_character": false,
+          "caption": "a man with a green shirt"
+        }
+      ]
+    },
+    {
+      "character_id": "college_ebright",
+      "scenes_present": [
+        5,
+        6
+      ],
+      "anchor_match_mean": 0.518,
+      "anchor_match_min": 0.4945,
+      "anchor_match_max": 0.5414,
+      "scene_to_scene_transition_mean": 0.0469,
+      "worst_transition_delta": 0.0469,
+      "visual_sequence_score": "PASS",
+      "age_continuity": "PASS",
+      "individual_scene_evaluations": [
+        {
+          "scene_number": 5,
+          "arcface": 0.5414,
+          "clip_i": 0.7353,
+          "ssim": 0.5449,
+          "confidence": 60,
+          "same_character": false,
+          "caption": "two boys sitting at a table"
+        },
+        {
+          "scene_number": 6,
+          "arcface": 0.4945,
+          "clip_i": 0.8604,
+          "ssim": 0.5288,
+          "confidence": 60,
+          "same_character": false,
+          "caption": "a man in a yellow shirt is posing for a picture"
+        }
+      ]
+    },
+    {
+      "character_id": "mother",
+      "scenes_present": [
+        1
+      ],
+      "anchor_match_mean": 0.5111,
+      "anchor_match_min": 0.5111,
+      "anchor_match_max": 0.5111,
+      "scene_to_scene_transition_mean": 0.0,
+      "worst_transition_delta": 0.0,
+      "visual_sequence_score": "PASS",
+      "age_continuity": "PASS",
+      "individual_scene_evaluations": [
+        {
+          "scene_number": 1,
+          "arcface": 0.5111,
+          "clip_i": 0.818,
+          "ssim": 0.4736,
+          "confidence": 59,
+          "same_character": false,
+          "caption": "a woman and two children are reading a book"
+        }
+      ]
+    },
+    {
+      "character_id": "james_wong",
+      "scenes_present": [
+        5
+      ],
+      "anchor_match_mean": 0.5474,
+      "anchor_match_min": 0.5474,
+      "anchor_match_max": 0.5474,
+      "scene_to_scene_transition_mean": 0.0,
+      "worst_transition_delta": 0.0,
+      "visual_sequence_score": "PASS",
+      "age_continuity": "PASS",
+      "individual_scene_evaluations": [
+        {
+          "scene_number": 5,
+          "arcface": 0.5474,
+          "clip_i": 0.6877,
+          "ssim": 0.5431,
+          "confidence": 58,
+          "same_character": false,
+          "caption": "two boys sitting at a table"
+        }
+      ]
+    }
+  ],
+  "detailed_scene_breakdown": [
+    {
+      "scene_number": 1,
+      "scene_title": "The Spark of Curiosity",
+      "same_character": false,
+      "identity_confidence": 59,
+      "facial_continuity": "WARN",
+      "age_continuity": "PASS",
+      "anatomy": "PASS",
+      "multi_character_separation": "PASS",
+      "story_adherence": "PASS",
+      "major_failure": null,
+      "detected_faces_count": 2,
+      "arcface_score": 0.5539,
+      "clip_i_score": 0.7245,
+      "ssim_score": 0.5184,
+      "scene_visual_caption": "a woman and two children are reading a book",
+      "anchor_visual_caption": "a young boy with a short haircut",
+      "clip_attribute_breakdown": {
+        "anatomy_probabilities": {
+          "a photo with clean realistic human anatomy and clear face": 0.7568,
+          "a distorted image with deformed anatomy, melted face, or extra limbs": 0.2432
+        },
+        "age_probabilities": {
+          "a photo of an 8-year-old young child boy": 0.4841,
+          "a photo of a 15-year-old adolescent teenage boy": 0.0291,
+          "a photo of a 21-year-old young adult man": 0.0166,
+          "a photo of an adult woman": 0.4702
+        },
+        "environment_probabilities": {
+          "a photo set in a Dining Room Table": 0.9839,
+          "a photo set in an unrelated outdoor or studio background": 0.0161
+        }
+      },
+      "character_id": "young_ebright"
+    },
+    {
+      "scene_number": 1,
+      "scene_title": "The Spark of Curiosity",
+      "same_character": false,
+      "identity_confidence": 59,
+      "facial_continuity": "WARN",
+      "age_continuity": "PASS",
+      "anatomy": "PASS",
+      "multi_character_separation": "PASS",
+      "story_adherence": "PASS",
+      "major_failure": null,
+      "detected_faces_count": 2,
+      "arcface_score": 0.5111,
+      "clip_i_score": 0.818,
+      "ssim_score": 0.4736,
+      "scene_visual_caption": "a woman and two children are reading a book",
+      "anchor_visual_caption": "a woman with long hair and blue eyes",
+      "clip_attribute_breakdown": {
+        "anatomy_probabilities": {
+          "a photo with clean realistic human anatomy and clear face": 0.7568,
+          "a distorted image with deformed anatomy, melted face, or extra limbs": 0.2432
+        },
+        "age_probabilities": {
+          "a photo of an 8-year-old young child boy": 0.4841,
+          "a photo of a 15-year-old adolescent teenage boy": 0.0291,
+          "a photo of a 21-year-old young adult man": 0.0166,
+          "a photo of an adult woman": 0.4702
+        },
+        "environment_probabilities": {
+          "a photo set in a Dining Room Table": 0.9839,
+          "a photo set in an unrelated outdoor or studio background": 0.0161
+        }
+      },
+      "character_id": "mother"
+    },
+    {
+      "scene_number": 2,
+      "scene_title": "The Butterfly Basement",
+      "same_character": false,
+      "identity_confidence": 63,
+      "facial_continuity": "WARN",
+      "age_continuity": "PASS",
+      "anatomy": "PASS",
+      "multi_character_separation": "PASS",
+      "story_adherence": "WARN",
+      "major_failure": null,
+      "detected_faces_count": 1,
+      "arcface_score": 0.533,
+      "clip_i_score": 0.8688,
+      "ssim_score": 0.5124,
+      "scene_visual_caption": "a boy with a yellow shirt",
+      "anchor_visual_caption": "a young boy with a short haircut",
+      "clip_attribute_breakdown": {
+        "anatomy_probabilities": {
+          "a photo with clean realistic human anatomy and clear face": 0.5237,
+          "a distorted image with deformed anatomy, melted face, or extra limbs": 0.4763
+        },
+        "age_probabilities": {
+          "a photo of an 8-year-old young child boy": 0.9922,
+          "a photo of a 15-year-old adolescent teenage boy": 0.0063,
+          "a photo of a 21-year-old young adult man": 0.0014,
+          "a photo of an adult woman": 0.0001
+        },
+        "environment_probabilities": {
+          "a photo set in a Basement Rearing Laboratory": 0.11,
+          "a photo set in an unrelated outdoor or studio background": 0.89
+        }
+      },
+      "character_id": "young_ebright"
+    },
+    {
+      "scene_number": 3,
+      "scene_title": "Failure at the Science Fair",
+      "same_character": false,
+      "identity_confidence": 60,
+      "facial_continuity": "FAIL",
+      "age_continuity": "PASS",
+      "anatomy": "PASS",
+      "multi_character_separation": "PASS",
+      "story_adherence": "WARN",
+      "major_failure": null,
+      "detected_faces_count": 1,
+      "arcface_score": 0.4738,
+      "clip_i_score": 0.8867,
+      "ssim_score": 0.4907,
+      "scene_visual_caption": "a man with a long hair",
+      "anchor_visual_caption": "a young man with a tie around his neck",
+      "clip_attribute_breakdown": {
+        "anatomy_probabilities": {
+          "a photo with clean realistic human anatomy and clear face": 0.8888,
+          "a distorted image with deformed anatomy, melted face, or extra limbs": 0.1112
+        },
+        "age_probabilities": {
+          "a photo of an 8-year-old young child boy": 0.0222,
+          "a photo of a 15-year-old adolescent teenage boy": 0.5503,
+          "a photo of a 21-year-old young adult man": 0.4272,
+          "a photo of an adult woman": 0.0003
+        },
+        "environment_probabilities": {
+          "a photo set in a County Science Fair Gymnasium": 0.0092,
+          "a photo set in an unrelated outdoor or studio background": 0.9908
+        }
+      },
+      "character_id": "teen_ebright"
+    },
+    {
+      "scene_number": 4,
+      "scene_title": "The Starling Experiment",
+      "same_character": false,
+      "identity_confidence": 61,
+      "facial_continuity": "WARN",
+      "age_continuity": "PASS",
+      "anatomy": "PASS",
+      "multi_character_separation": "PASS",
+      "story_adherence": "WARN",
+      "major_failure": null,
+      "detected_faces_count": 1,
+      "arcface_score": 0.5164,
+      "clip_i_score": 0.8482,
+      "ssim_score": 0.4903,
+      "scene_visual_caption": "a man with a green shirt",
+      "anchor_visual_caption": "a young man with a tie around his neck",
+      "clip_attribute_breakdown": {
+        "anatomy_probabilities": {
+          "a photo with clean realistic human anatomy and clear face": 0.8957,
+          "a distorted image with deformed anatomy, melted face, or extra limbs": 0.1043
+        },
+        "age_probabilities": {
+          "a photo of an 8-year-old young child boy": 0.0127,
+          "a photo of a 15-year-old adolescent teenage boy": 0.7177,
+          "a photo of a 21-year-old young adult man": 0.2695,
+          "a photo of an adult woman": 0.0001
+        },
+        "environment_probabilities": {
+          "a photo set in a Backyard Garden": 0.0613,
+          "a photo set in an unrelated outdoor or studio background": 0.9387
+        }
+      },
+      "character_id": "teen_ebright"
+    },
+    {
+      "scene_number": 5,
+      "scene_title": "The Breakthrough at Harvard",
+      "same_character": false,
+      "identity_confidence": 60,
+      "facial_continuity": "WARN",
+      "age_continuity": "PASS",
+      "anatomy": "PASS",
+      "multi_character_separation": "PASS",
+      "story_adherence": "PASS",
+      "major_failure": null,
+      "detected_faces_count": 2,
+      "arcface_score": 0.5414,
+      "clip_i_score": 0.7353,
+      "ssim_score": 0.5449,
+      "scene_visual_caption": "two boys sitting at a table",
+      "anchor_visual_caption": "a man with a yellow shirt and a tie",
+      "clip_attribute_breakdown": {
+        "anatomy_probabilities": {
+          "a photo with clean realistic human anatomy and clear face": 0.9947,
+          "a distorted image with deformed anatomy, melted face, or extra limbs": 0.0053
+        },
+        "age_probabilities": {
+          "a photo of an 8-year-old young child boy": 0.0064,
+          "a photo of a 15-year-old adolescent teenage boy": 0.8211,
+          "a photo of a 21-year-old young adult man": 0.1715,
+          "a photo of an adult woman": 0.0009
+        },
+        "environment_probabilities": {
+          "a photo set in a Harvard Dormitory Study Room": 0.9997,
+          "a photo set in an unrelated outdoor or studio background": 0.0003
+        }
+      },
+      "character_id": "college_ebright"
+    },
+    {
+      "scene_number": 5,
+      "scene_title": "The Breakthrough at Harvard",
+      "same_character": false,
+      "identity_confidence": 58,
+      "facial_continuity": "WARN",
+      "age_continuity": "PASS",
+      "anatomy": "PASS",
+      "multi_character_separation": "PASS",
+      "story_adherence": "PASS",
+      "major_failure": null,
+      "detected_faces_count": 2,
+      "arcface_score": 0.5474,
+      "clip_i_score": 0.6877,
+      "ssim_score": 0.5431,
+      "scene_visual_caption": "two boys sitting at a table",
+      "anchor_visual_caption": "a man with a red sweater and a red sweater",
+      "clip_attribute_breakdown": {
+        "anatomy_probabilities": {
+          "a photo with clean realistic human anatomy and clear face": 0.9947,
+          "a distorted image with deformed anatomy, melted face, or extra limbs": 0.0053
+        },
+        "age_probabilities": {
+          "a photo of an 8-year-old young child boy": 0.0064,
+          "a photo of a 15-year-old adolescent teenage boy": 0.8211,
+          "a photo of a 21-year-old young adult man": 0.1715,
+          "a photo of an adult woman": 0.0009
+        },
+        "environment_probabilities": {
+          "a photo set in a Harvard Dormitory Study Room": 0.9997,
+          "a photo set in an unrelated outdoor or studio background": 0.0003
+        }
+      },
+      "character_id": "james_wong"
+    },
+    {
+      "scene_number": 6,
+      "scene_title": "Graduation",
+      "same_character": false,
+      "identity_confidence": 60,
+      "facial_continuity": "FAIL",
+      "age_continuity": "PASS",
+      "anatomy": "PASS",
+      "multi_character_separation": "PASS",
+      "story_adherence": "WARN",
+      "major_failure": null,
+      "detected_faces_count": 1,
+      "arcface_score": 0.4945,
+      "clip_i_score": 0.8604,
+      "ssim_score": 0.5288,
+      "scene_visual_caption": "a man in a yellow shirt is posing for a picture",
+      "anchor_visual_caption": "a man with a yellow shirt and a tie",
+      "clip_attribute_breakdown": {
+        "anatomy_probabilities": {
+          "a photo with clean realistic human anatomy and clear face": 0.7766,
+          "a distorted image with deformed anatomy, melted face, or extra limbs": 0.2234
+        },
+        "age_probabilities": {
+          "a photo of an 8-year-old young child boy": 0.0006,
+          "a photo of a 15-year-old adolescent teenage boy": 0.0179,
+          "a photo of a 21-year-old young adult man": 0.9807,
+          "a photo of an adult woman": 0.0008
+        },
+        "environment_probabilities": {
+          "a photo set in a Harvard Commencement Hall": 0.01,
+          "a photo set in an unrelated outdoor or studio background": 0.99
+        }
+      },
+      "character_id": "college_ebright"
+    }
+  ]
+}

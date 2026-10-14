@@ -1,0 +1,30 @@
+[
+  {
+    "config": "no_lora",
+    "lora_token": "",
+    "arcface_similarity": 0.5529,
+    "runtime_s": 31.74,
+    "image_path": "experiments\\phase8_4_tests\\lora\\dynamic_lora_benchmark\\lora_no_lora.png"
+  },
+  {
+    "config": "sdxl_lightning_0.5",
+    "lora_token": "<lora:sdxl_lightning_8step_lora:0.5>",
+    "arcface_similarity": 0.5818,
+    "runtime_s": 49.68,
+    "image_path": "experiments\\phase8_4_tests\\lora\\dynamic_lora_benchmark\\lora_sdxl_lightning_0.5.png"
+  },
+  {
+    "config": "sdxl_lightning_0.8",
+    "lora_token": "<lora:sdxl_lightning_8step_lora:0.8>",
+    "arcface_similarity": 0.553,
+    "runtime_s": 42.22,
+    "image_path": "experiments\\phase8_4_tests\\lora\\dynamic_lora_benchmark\\lora_sdxl_lightning_0.8.png"
+  },
+  {
+    "config": "faceid_lora_0.6",
+    "lora_token": "<lora:ip-adapter-faceid-plusv2_sdxl_lora:0.6>",
+    "arcface_similarity": 0.5581,
+    "runtime_s": 36.51,
+    "image_path": "experiments\\phase8_4_tests\\lora\\dynamic_lora_benchmark\\lora_faceid_lora_0.6.png"
+  }
+]

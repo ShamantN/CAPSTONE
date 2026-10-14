@@ -1,0 +1,30 @@
+{
+  "pos_A_left_B_right": {
+    "permutation": "pos_A_left_B_right",
+    "positions": {
+      "young_ebright": "left",
+      "mother": "right"
+    },
+    "runtime_s": 198.27,
+    "image_file": "pos_A_left_B_right.png",
+    "ebright_arcface": 0.5244,
+    "mother_arcface": 0.5283,
+    "detected_faces": 2,
+    "vlm_caption": "two girls sitting at a table with a book",
+    "separation_status": "PASS"
+  },
+  "pos_B_left_A_right": {
+    "permutation": "pos_B_left_A_right",
+    "positions": {
+      "mother": "left",
+      "young_ebright": "right"
+    },
+    "runtime_s": 109.16,
+    "image_file": "pos_B_left_A_right.png",
+    "ebright_arcface": 0.5235,
+    "mother_arcface": 0.5322,
+    "detected_faces": 2,
+    "vlm_caption": "two girls sitting at a table",
+    "separation_status": "PASS"
+  }
+}

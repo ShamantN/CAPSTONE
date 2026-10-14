@@ -1,0 +1,13 @@
+{
+  "test": "chromatic_inversion_reproduction",
+  "character": "young_ebright",
+  "arcface_score": 0.9346,
+  "clip_i_score": 0.9539,
+  "ssim_score": 0.5742,
+  "palette_score": 0.1696,
+  "clip_anomaly_probs": {
+    "a natural photo with normal skin tones and realistic colors": 0.0019,
+    "a photo with color inversion, negative photo, blue skin, or solarized colors": 0.9981
+  },
+  "blip_caption": "a young boy with blue eyes and a blue shirt"
+}

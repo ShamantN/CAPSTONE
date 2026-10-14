@@ -1,0 +1,35 @@
+{
+  "story_id": "chrono_archivists_solarium",
+  "scene_id": "scene_3",
+  "scene_number": 3,
+  "title": "The Dunesea Outpost",
+  "model_checkpoint": "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+  "identity_engine": "IP-Adapter-SDXL",
+  "sampler": "DPM++ 2M Karras",
+  "steps_pass1": 25,
+  "steps_pass2": 15,
+  "denoising_strength": 0.504,
+  "cfg_scale": 5.5,
+  "width": 1216,
+  "height": 832,
+  "seed": 715727868,
+  "positive_prompt": "(Cinematic Realistic:1.2), masterpiece, cinematic lighting, 8k resolution, highly detailed, 28-year-old Master Elena Vance on the left wearing an emerald green duster coat and 28-year-old cartographer Kenji Sato on the right wearing an indigo blue desert coat, standing side by side on a rocky cliff edge overlooking an endless golden sand dune sea, Elena holding up an ornate brass navigational sextant to the horizon. BREAK ((ElenaV_A8X1:1.4)), standing on the left, left column, ((strictly Hispanic Latina:1.45)), (warm olive skin tone:1.35), (oval face:1.25), 28 years old master archivist female, wearing (emerald green explorer duster coat with brass buckles:1.30), (emerald green garment:1.30) and (amber brown garment:1.30), dark brown hair, clean face, detailed eyes BREAK ((KenjiS_K9Z2:1.4)), standing on the right, right column, ((strictly East Asian Japanese:1.45)), (light tan skin tone:1.35), (sharp angular face:1.25), 28 years old desert cartographer male, wearing (indigo blue hooded desert coat with silver trim:1.30), (indigo blue garment:1.30) and (silver garment:1.30), black hair, clean face, detailed eyes BREAK Background: Desert Cliff Edge, outdoor sweeping desert landscape environment, Vibrant late afternoon golden hour desert sunlight, Wide two-shot, Eye level.",
+  "negative_prompt": "blurry, deformed, bad anatomy, bad hands, missing fingers, extra fingers, ugly, watermark, text, signature, cartoon, 3d render, solo, child elena, modern buildings, modern vehicle, no child, no modern car, no city skyline, solo, 1person, single person alone, identical faces, twin, clone, demographic bleed, merged bodies",
+  "native_conditioning": {
+    "identity_adapter": "IP-Adapter-SDXL",
+    "openpose_active": false,
+    "depth_active": false,
+    "freeu_active": true,
+    "pag_active": true,
+    "cfg_fix_active": true,
+    "regional_isolation": {
+      "regional_active": true,
+      "num_regions": 2,
+      "mode": "Columns",
+      "ratios": "1,1",
+      "base_ratio": 0.2
+    }
+  },
+  "runtime_s": 43.36,
+  "peak_vram_mb": 591.8
+}

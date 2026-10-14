@@ -1,0 +1,29 @@
+[
+  {
+    "test": "close_up",
+    "scene_number": 2,
+    "status": "PASS",
+    "runtime_s": 40.5,
+    "arcface_similarity": 0.5562,
+    "qa_pass_rate": "5/5",
+    "image_path": "experiments\\phase8_4_tests\\instantid\\shot_types_suite\\instantid_close_up.png"
+  },
+  {
+    "test": "medium_shot",
+    "scene_number": 3,
+    "status": "PARTIAL",
+    "runtime_s": 38.71,
+    "arcface_similarity": 0.5262,
+    "qa_pass_rate": "3/5",
+    "image_path": "experiments\\phase8_4_tests\\instantid\\shot_types_suite\\instantid_medium_shot.png"
+  },
+  {
+    "test": "multi_char",
+    "scene_number": 1,
+    "status": "PASS",
+    "runtime_s": 40.27,
+    "arcface_similarity": 0.4625,
+    "qa_pass_rate": "5/5",
+    "image_path": "experiments\\phase8_4_tests\\instantid\\shot_types_suite\\instantid_multi_char.png"
+  }
+]

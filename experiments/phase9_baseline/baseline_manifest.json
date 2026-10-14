@@ -1,0 +1,249 @@
+{
+  "python_version": "3.10.6 (tags/v3.10.6:9c7b4bd, Aug  1 2022, 21:53:49) [MSC v.1932 64 bit (AMD64)]",
+  "source_files": {
+    "app.py": {
+      "size": 37795,
+      "sha256": "180f652536295297"
+    },
+    "metrics.py": {
+      "size": 91433,
+      "sha256": "b0eb9aee54b644a3"
+    },
+    "identity/ipadapter.py": {
+      "size": 2273,
+      "sha256": "0ff1013a82fc3592"
+    },
+    "identity/instantid.py": {
+      "size": 1639,
+      "sha256": "b2e9921d94d0bdde"
+    },
+    "identity/faceid.py": {
+      "size": 1567,
+      "sha256": "15254fe6a0cffea3"
+    },
+    "identity/identity_conditioner.py": {
+      "size": 1017,
+      "sha256": "0701327f90f9f2aa"
+    },
+    "conditioning/controlnet_conditioner.py": {
+      "size": 3098,
+      "sha256": "ab35838579447085"
+    },
+    "conditioning/regional_conditioner.py": {
+      "size": 4905,
+      "sha256": "1b754165e5955488"
+    },
+    "conditioning/lora_registry.py": {
+      "size": 944,
+      "sha256": "a1abae9e2ac0c3f9"
+    },
+    "conditioning/refinement.py": {
+      "size": 2406,
+      "sha256": "2f6144a1b82ea592"
+    },
+    "conditioning/crossframe_conditioner.py": {
+      "size": 948,
+      "sha256": "6f40d3af34f4ebb0"
+    },
+    "generation/forge_client.py": {
+      "size": 2720,
+      "sha256": "3dd18196a5b3966f"
+    },
+    "generation/generation_orchestrator.py": {
+      "size": 8894,
+      "sha256": "f6d24983abc90fe5"
+    },
+    "story_engine/schema.py": {
+      "size": 6255,
+      "sha256": "ed4002497cf1e8ae"
+    },
+    "story_engine/character_registry.py": {
+      "size": 4719,
+      "sha256": "084a41ce70ec2748"
+    },
+    "story_engine/prompt_builder.py": {
+      "size": 6620,
+      "sha256": "11cdd50dc401b9cc"
+    },
+    "story_engine/scene_planner.py": {
+      "size": 4009,
+      "sha256": "460169f7c6e7076b"
+    },
+    "qa/healing_controller.py": {
+      "size": 4296,
+      "sha256": "0812eafa65e3d848"
+    },
+    "qa/programmatic_auditor.py": {
+      "size": 9112,
+      "sha256": "e1501edc17f247b6"
+    },
+    "qa/test_anchor_manager.py": {
+      "size": 6625,
+      "sha256": "4f1141b6621fe80b"
+    }
+  },
+  "forge_extensions": {
+    "sd-webui-controlnet": "installed",
+    "sd-webui-reactor": "installed"
+  },
+  "forge_builtin_extensions": [
+    "extra-options-section",
+    "forge_legacy_preprocessors",
+    "forge_preprocessor_inpaint",
+    "forge_preprocessor_marigold",
+    "forge_preprocessor_normalbae",
+    "forge_preprocessor_recolor",
+    "forge_preprocessor_reference",
+    "forge_preprocessor_revision",
+    "forge_preprocessor_tile",
+    "forge_space_animagine_xl_31",
+    "forge_space_birefnet",
+    "forge_space_example",
+    "forge_space_florence_2",
+    "forge_space_geowizard",
+    "forge_space_iclight",
+    "forge_space_idm_vton",
+    "forge_space_illusion_diffusion",
+    "forge_space_photo_maker_v2",
+    "forge_space_sapiens_normal",
+    "mobile",
+    "prompt-bracket-checker",
+    "ScuNET",
+    "sd_forge_controlllite",
+    "sd_forge_controlnet",
+    "sd_forge_dynamic_thresholding",
+    "sd_forge_fooocus_inpaint",
+    "sd_forge_freeu",
+    "sd_forge_ipadapter",
+    "sd_forge_kohya_hrfix",
+    "sd_forge_latent_modifier",
+    "sd_forge_lora",
+    "sd_forge_multidiffusion",
+    "sd_forge_neveroom",
+    "sd_forge_perturbed_attention",
+    "sd_forge_sag",
+    "sd_forge_stylealign",
+    "soft-inpainting",
+    "SwinIR"
+  ],
+  "models": {
+    "ControlNet/depth_xl.safetensors": {
+      "size": 5004167860,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\ControlNet\\depth_xl.safetensors"
+    },
+    "ControlNet/instantid_xl.safetensors": {
+      "size": 2502139136,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\ControlNet\\instantid_xl.safetensors"
+    },
+    "ControlNet/ip-adapter-faceid-plusv2_sdxl.bin": {
+      "size": 1487555181,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\ControlNet\\ip-adapter-faceid-plusv2_sdxl.bin"
+    },
+    "ControlNet/ip-adapter-plus-face_sdxl_vit-h.safetensors": {
+      "size": 847517512,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\ControlNet\\ip-adapter-plus-face_sdxl_vit-h.safetensors"
+    },
+    "ControlNet/ip-adapter_sdxl_vit-h.safetensors": {
+      "size": 698391064,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\ControlNet\\ip-adapter_sdxl_vit-h.safetensors"
+    },
+    "ControlNet/ip-adapter_xl.safetensors": {
+      "size": 702585376,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\ControlNet\\ip-adapter_xl.safetensors"
+    },
+    "ControlNet/openpose_xl.safetensors": {
+      "size": 5004167829,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\ControlNet\\openpose_xl.safetensors"
+    },
+    "Lora/ip-adapter-faceid-plusv2_sdxl_lora.safetensors": {
+      "size": 371842896,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\Lora\\ip-adapter-faceid-plusv2_sdxl_lora.safetensors"
+    },
+    "Lora/sdxl_lightning_8step_lora.safetensors": {
+      "size": 393854592,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\Lora\\sdxl_lightning_8step_lora.safetensors"
+    },
+    "Stable-diffusion/animagine-xl-3.1.safetensors": {
+      "size": 6938325776,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\Stable-diffusion\\animagine-xl-3.1.safetensors"
+    },
+    "Stable-diffusion/Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors": {
+      "size": 7105348188,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\Stable-diffusion\\Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors"
+    },
+    "insightface/inswapper_128.onnx": {
+      "size": 554253681,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\inswapper_128.onnx"
+    },
+    "insightface/models\\antelopev2\\1k3d68.onnx": {
+      "size": 143607619,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\models\\antelopev2\\1k3d68.onnx"
+    },
+    "insightface/models\\antelopev2\\2d106det.onnx": {
+      "size": 5030888,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\models\\antelopev2\\2d106det.onnx"
+    },
+    "insightface/models\\antelopev2\\genderage.onnx": {
+      "size": 1322532,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\models\\antelopev2\\genderage.onnx"
+    },
+    "insightface/models\\antelopev2\\glintr100.onnx": {
+      "size": 260665334,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\models\\antelopev2\\glintr100.onnx"
+    },
+    "insightface/models\\antelopev2\\scrfd_10g_bnkps.onnx": {
+      "size": 16923827,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\models\\antelopev2\\scrfd_10g_bnkps.onnx"
+    },
+    "insightface/models\\buffalo_l\\1k3d68.onnx": {
+      "size": 143607619,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\models\\buffalo_l\\1k3d68.onnx"
+    },
+    "insightface/models\\buffalo_l\\2d106det.onnx": {
+      "size": 5030888,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\models\\buffalo_l\\2d106det.onnx"
+    },
+    "insightface/models\\buffalo_l\\det_10g.onnx": {
+      "size": 16923827,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\models\\buffalo_l\\det_10g.onnx"
+    },
+    "insightface/models\\buffalo_l\\genderage.onnx": {
+      "size": 1322532,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\models\\buffalo_l\\genderage.onnx"
+    },
+    "insightface/models\\buffalo_l\\w600k_r50.onnx": {
+      "size": 174383860,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\insightface\\models\\buffalo_l\\w600k_r50.onnx"
+    },
+    "Codeformer/codeformer-v0.1.0.pth": {
+      "size": 376637898,
+      "path": "C:\\Stable-Diffusion\\webui\\models\\Codeformer\\codeformer-v0.1.0.pth"
+    }
+  },
+  "production_stack": {
+    "base_model": "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+    "primary_sampler": "DPM++ 2M Karras",
+    "steps": {
+      "pass1": 25,
+      "pass2": 15
+    },
+    "resolution": {
+      "solo": "1024x1024",
+      "multi": "1216x832"
+    },
+    "cfg_scale": 5.5,
+    "attention_mods": [
+      "FreeU",
+      "PAG",
+      "DynamicThresholding (CFG-Fix)"
+    ],
+    "refinement": "ReActor (inswapper_128.onnx) + CodeFormer (0.80)"
+  },
+  "qa_thresholds": {
+    "arcface_min": 0.45,
+    "clip_semantic_min": 0.2,
+    "forbidden_prop_max": 0.25,
+    "spatial_left_max": 0.5,
+    "spatial_right_min": 0.5
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "Run_A_Normal": {
+    "ebright_left_arcface": 0.9697,
+    "wong_right_arcface": 0.9803,
+    "isolation_verdict": "PASS"
+  },
+  "Run_B_Swapped": {
+    "wong_left_arcface": 0.7153,
+    "ebright_right_arcface": 0.7205,
+    "isolation_verdict": "PASS"
+  }
+}

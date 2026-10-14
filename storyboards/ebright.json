@@ -1,0 +1,295 @@
+{
+  "story_id": "ebright_monarch_expedition",
+  "title": "The Making of a Scientist: Richard Ebright",
+  "visual_style": "Cinematic Realistic",
+  "global_negative_prompt": "blurry, deformed, bad anatomy, bad hands, missing fingers, extra fingers, ugly, watermark, text, signature",
+  "characters": {
+    "young_ebright": {
+      "id": "young_ebright",
+      "name": "Young Richard Ebright",
+      "unique_token": "YEbright_K4M9Z",
+      "gender": "male",
+      "ethnicity": "Caucasian",
+      "skin_tone": "fair",
+      "face_shape": "round boyish",
+      "hair_color": "light brown",
+      "hair_style": "short side-parted",
+      "eye_color": "hazel",
+      "build": "slender child",
+      "distinctive_features": ["boyish face", "curious bright eyes"],
+      "recurring_clothing": "yellow long-sleeve t-shirt",
+      "clothing_colors": ["yellow", "navy blue"],
+      "age_states": {
+        "primary": {
+          "age_years": "8",
+          "stage_name": "child",
+          "hairstyle": "short side-parted",
+          "clothing_description": "yellow long-sleeve shirt"
+        }
+      }
+    },
+    "teen_ebright": {
+      "id": "teen_ebright",
+      "name": "Teenage Richard Ebright",
+      "unique_token": "TEbright_W3R8K",
+      "gender": "male",
+      "ethnicity": "Caucasian",
+      "skin_tone": "fair",
+      "face_shape": "oval adolescent",
+      "hair_color": "brown",
+      "hair_style": "textured side-part",
+      "eye_color": "hazel",
+      "build": "slim adolescent",
+      "distinctive_features": ["adolescent facial bone structure", "inquisitive gaze"],
+      "recurring_clothing": "dark green plaid button-up shirt",
+      "clothing_colors": ["green", "brown"],
+      "age_states": {
+        "primary": {
+          "age_years": "15",
+          "stage_name": "teenager",
+          "hairstyle": "textured side-part",
+          "clothing_description": "dark green plaid button-up shirt"
+        }
+      }
+    },
+    "college_ebright": {
+      "id": "college_ebright",
+      "name": "Richard Ebright (College)",
+      "unique_token": "CEbright_X9F2A",
+      "gender": "male",
+      "ethnicity": "Caucasian",
+      "skin_tone": "fair",
+      "face_shape": "oval defined",
+      "hair_color": "brown",
+      "hair_style": "neatly combed back",
+      "eye_color": "hazel",
+      "build": "athletic slim",
+      "distinctive_features": ["mature defined jawline", "clean-shaven"],
+      "recurring_clothing": "mustard yellow polo shirt",
+      "clothing_colors": ["mustard yellow"],
+      "age_states": {
+        "primary": {
+          "age_years": "21",
+          "stage_name": "young adult",
+          "hairstyle": "neatly combed back",
+          "clothing_description": "mustard yellow polo shirt"
+        },
+        "graduation": {
+          "age_years": "21",
+          "stage_name": "graduating scholar",
+          "hairstyle": "neatly combed back",
+          "clothing_description": "black graduation gown and mortarboard cap"
+        }
+      }
+    },
+    "mother": {
+      "id": "mother",
+      "name": "Ebright's Mother",
+      "unique_token": "Mother_M2B4Q",
+      "gender": "female",
+      "ethnicity": "Caucasian",
+      "skin_tone": "fair",
+      "face_shape": "round mature",
+      "hair_color": "dark brown with grey streaks",
+      "hair_style": "shoulder-length wavy",
+      "eye_color": "hazel",
+      "build": "average",
+      "distinctive_features": ["warm maternal smile"],
+      "recurring_clothing": "pale blue floral blouse",
+      "clothing_colors": ["pale blue", "yellow"],
+      "age_states": {
+        "primary": {
+          "age_years": "40",
+          "stage_name": "adult mother",
+          "hairstyle": "shoulder-length wavy",
+          "clothing_description": "pale blue floral blouse"
+        }
+      }
+    },
+    "james_wong": {
+      "id": "james_wong",
+      "name": "James R. Wong",
+      "unique_token": "Wong_J7P1L",
+      "gender": "male",
+      "ethnicity": "East Asian",
+      "skin_tone": "light tan",
+      "face_shape": "square sharp",
+      "hair_color": "black",
+      "hair_style": "short parted",
+      "eye_color": "dark brown",
+      "build": "athletic",
+      "distinctive_features": ["sharp jawline", "clean-shaven"],
+      "recurring_clothing": "crimson red Harvard sweater",
+      "clothing_colors": ["crimson red"],
+      "age_states": {
+        "primary": {
+          "age_years": "21",
+          "stage_name": "young adult student",
+          "hairstyle": "short parted",
+          "clothing_description": "crimson red Harvard sweater"
+        }
+      }
+    }
+  },
+  "scenes": [
+    {
+      "scene_id": "scene_1",
+      "scene_number": 1,
+      "title": "The Spark of Curiosity",
+      "location_name": "Dining Room Table",
+      "environment_type": "indoor warm residential",
+      "lighting": "Warm sunlight streaming through sheer curtains",
+      "shot_type": "Wide two-shot",
+      "camera_angle": "Eye level",
+      "action_description": "Young 8-year-old Richard Ebright sitting on the left in a yellow shirt and his mother sitting on the right in a blue floral blouse, sitting together at a wooden dining room table looking attentively at an open illustrated children's science book with pictures of butterflies.",
+      "characters_present": ["young_ebright", "mother"],
+      "character_positions": {
+        "young_ebright": "sitting on the left",
+        "mother": "sitting on the right"
+      },
+      "character_age_states": {
+        "young_ebright": "primary",
+        "mother": "primary"
+      },
+      "required_props": ["an open illustrated book on the table"],
+      "forbidden_props": ["laptop", "computer", "smartphone", "beard on child"],
+      "negative_prompt_additions": "solo, 1person, single person alone, beard on child, adult boy",
+      "qa_requirements": {
+        "expected_faces": 2,
+        "primary_char": "young_ebright",
+        "secondary_char": "mother"
+      }
+    },
+    {
+      "scene_id": "scene_2",
+      "scene_number": 2,
+      "title": "The Butterfly Basement",
+      "location_name": "Basement Rearing Laboratory",
+      "environment_type": "indoor rustic basement",
+      "lighting": "Soft overhead workshop bulb with dramatic rim light",
+      "shot_type": "Medium close-up",
+      "camera_angle": "Eye level",
+      "action_description": "Young 8-year-old Richard Ebright in his yellow shirt is standing in his basement laboratory, gently holding and tagging monarch butterflies resting on vertical wire mesh cages filled with fluttery orange butterflies.",
+      "characters_present": ["young_ebright"],
+      "character_positions": {
+        "young_ebright": "center"
+      },
+      "character_age_states": {
+        "young_ebright": "primary"
+      },
+      "required_props": ["wire mesh butterfly cages", "monarch butterflies"],
+      "forbidden_props": ["teenager", "adult man", "beard", "stubble"],
+      "negative_prompt_additions": "teenager, adult man, tall adult, mature face, beard, stubble",
+      "qa_requirements": {
+        "expected_faces": 1,
+        "primary_char": "young_ebright"
+      }
+    },
+    {
+      "scene_id": "scene_3",
+      "scene_number": 3,
+      "title": "Failure at the Science Fair",
+      "location_name": "County Science Fair Gymnasium",
+      "environment_type": "indoor gymnasium hall",
+      "lighting": "Fluorescent gymnasium overhead lighting",
+      "shot_type": "Medium shot",
+      "camera_angle": "Eye level",
+      "action_description": "Teenage 15-year-old Richard Ebright sitting behind a science fair display table wearing a dark green plaid button-up shirt over a green t-shirt, resting his hands near an authentic optical laboratory compound microscope and glass specimen slides.",
+      "characters_present": ["teen_ebright"],
+      "character_positions": {
+        "teen_ebright": "center"
+      },
+      "character_age_states": {
+        "teen_ebright": "primary"
+      },
+      "required_props": ["a microscope on a table", "glass slides"],
+      "forbidden_props": ["empty desk", "laptop", "computer", "glowing orb"],
+      "negative_prompt_additions": "empty desk, empty table, bare table, hands alone on desk, laptop, computer, classroom without microscope, glowing box",
+      "qa_requirements": {
+        "expected_faces": 1,
+        "primary_char": "teen_ebright",
+        "prop_checks": ["microscope"]
+      }
+    },
+    {
+      "scene_id": "scene_4",
+      "scene_number": 4,
+      "title": "The Starling Experiment",
+      "location_name": "Backyard Garden",
+      "environment_type": "outdoor residential lawn",
+      "lighting": "Bright natural afternoon daylight",
+      "shot_type": "Over-the-shoulder shot",
+      "camera_angle": "Eye level",
+      "action_description": "Teenage 15-year-old Richard Ebright wearing a green plaid shirt is outdoors in his sunny backyard, carefully observing a dark starling bird eating monarch butterflies from a wooden bird feeder.",
+      "characters_present": ["teen_ebright"],
+      "character_positions": {
+        "teen_ebright": "center"
+      },
+      "character_age_states": {
+        "teen_ebright": "primary"
+      },
+      "required_props": ["wooden bird feeder", "bird outdoors"],
+      "forbidden_props": ["indoor room", "office", "laptop"],
+      "negative_prompt_additions": "indoor room, bedroom, office, city street",
+      "qa_requirements": {
+        "expected_faces": 1,
+        "primary_char": "teen_ebright"
+      }
+    },
+    {
+      "scene_id": "scene_5",
+      "scene_number": 5,
+      "title": "The Breakthrough at Harvard",
+      "location_name": "Harvard Dormitory Study Room",
+      "environment_type": "indoor academic dorm",
+      "lighting": "Moody desk lamp with cool window fill light",
+      "shot_type": "Wide two-shot",
+      "camera_angle": "Eye level",
+      "action_description": "Two college students, Caucasian American Richard Ebright sitting on the left wearing a mustard yellow polo shirt and East Asian James Wong sitting on the right wearing a crimson red sweater, are sitting side by side at a dorm study desk constructing a large (plastic ball-and-stick DNA double helix molecular model:1.6) with (colorful plastic atom balls and white connecting rods:1.5) on the desk between them.",
+      "characters_present": ["college_ebright", "james_wong"],
+      "character_positions": {
+        "college_ebright": "sitting on the left",
+        "james_wong": "sitting on the right"
+      },
+      "character_age_states": {
+        "college_ebright": "primary",
+        "james_wong": "primary"
+      },
+      "required_props": ["plastic ball-and-stick molecular model", "colorful atom balls"],
+      "forbidden_props": ["laptop", "computer", "macbook", "glowing orb", "crystal ball", "magic sphere"],
+      "negative_prompt_additions": "solo, single person, 1person, close up portrait, headshot, laptop, computer, macbook, screen, monitor, glowing orb, glowing ball, crystal ball, magic sphere, yellow ball, orb, lamp, bare desk, Asian on left, Caucasian on right, identical faces, twin, clone",
+      "qa_requirements": {
+        "expected_faces": 2,
+        "primary_char": "college_ebright",
+        "secondary_char": "james_wong",
+        "forbidden_prop_checks": ["glowing orb"]
+      }
+    },
+    {
+      "scene_id": "scene_6",
+      "scene_number": 6,
+      "title": "Graduation",
+      "location_name": "Harvard Commencement Hall",
+      "environment_type": "indoor grand auditorium stage",
+      "lighting": "Dramatic stage spotlights with haze",
+      "shot_type": "Hero shot",
+      "camera_angle": "Low angle",
+      "action_description": "College Richard Ebright is standing proudly on a grand stage wearing a black graduation gown and cap with gold accents, holding a red diploma portfolio under his arm.",
+      "characters_present": ["college_ebright"],
+      "character_positions": {
+        "college_ebright": "center"
+      },
+      "character_age_states": {
+        "college_ebright": "graduation"
+      },
+      "required_props": ["black graduation gown and mortarboard cap", "diploma portfolio"],
+      "forbidden_props": ["casual clothes", "shorts", "t-shirt"],
+      "negative_prompt_additions": "casual clothes, t-shirt, shorts, jeans, empty hall",
+      "qa_requirements": {
+        "expected_faces": 1,
+        "primary_char": "college_ebright",
+        "prop_checks": ["graduation gown"]
+      }
+    }
+  ]
+}

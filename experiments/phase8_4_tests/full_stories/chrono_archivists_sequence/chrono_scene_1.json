@@ -1,0 +1,35 @@
+{
+  "story_id": "chrono_archivists_solarium",
+  "scene_id": "scene_1",
+  "scene_number": 1,
+  "title": "The Clockwork Observatory",
+  "model_checkpoint": "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+  "identity_engine": "IP-Adapter-SDXL",
+  "sampler": "DPM++ 2M Karras",
+  "steps_pass1": 25,
+  "steps_pass2": 15,
+  "denoising_strength": 0.504,
+  "cfg_scale": 5.5,
+  "width": 1216,
+  "height": 832,
+  "seed": 2676252049,
+  "positive_prompt": "(Cinematic Realistic:1.2), masterpiece, cinematic lighting, 8k resolution, highly detailed, Young 12-year-old Elena Vance on the left in her amber apprentice tunic and her master engineer Marcus Thorne on the right in his charcoal leather vest, standing together in an ornate clocktower workshop examining a complex rotating brass armillary sphere on a heavy mahogany workbench. BREAK ((ElenaV_A8X1:1.4)), standing on the left, left column, ((strictly Hispanic Latina:1.45)), (warm olive skin tone:1.35), (oval face:1.25), 12 years old young apprentice female, wearing (amber brown leather apprentice tunic over cream shirt:1.30), (emerald green garment:1.30) and (amber brown garment:1.30), dark brown hair, clean face, detailed eyes BREAK ((MarcusT_M4B9:1.4)), standing on the right, right column, ((strictly Black African-American:1.45)), (deep warm brown skin tone:1.35), (strong square jaw face:1.25), 45 years old master engineer male, wearing (leather artisan tool vest over charcoal shirt:1.30), (charcoal garment:1.30) and (brown leather garment:1.30), black hair, clean face, detailed eyes BREAK Background: Imperial Clockwork Observatory Workshop, indoor Victorian steampunk workshop environment, Warm golden lantern light and sunlight through high arched brass windows, Wide two-shot, Eye level.",
+  "negative_prompt": "blurry, deformed, bad anatomy, bad hands, missing fingers, extra fingers, ugly, watermark, text, signature, cartoon, 3d render, solo, 1person, single person alone, modern electronics, plastic, no modern plastic, no computer, no neon light, solo, 1person, single person alone, identical faces, twin, clone, demographic bleed, merged bodies",
+  "native_conditioning": {
+    "identity_adapter": "IP-Adapter-SDXL",
+    "openpose_active": false,
+    "depth_active": false,
+    "freeu_active": true,
+    "pag_active": true,
+    "cfg_fix_active": true,
+    "regional_isolation": {
+      "regional_active": true,
+      "num_regions": 2,
+      "mode": "Columns",
+      "ratios": "1,1",
+      "base_ratio": 0.2
+    }
+  },
+  "runtime_s": 42.28,
+  "peak_vram_mb": 591.8
+}

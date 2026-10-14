@@ -1,0 +1,12 @@
+[
+  {
+    "method": "ReActor_CodeFormer_Pass2",
+    "arcface_similarity": 0.5298,
+    "runtime_s": 44.33
+  },
+  {
+    "method": "No_Refinement_Pass1_Only",
+    "arcface_similarity": 0.4957,
+    "runtime_s": 34.76
+  }
+]

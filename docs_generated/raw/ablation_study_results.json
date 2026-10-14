@@ -1,0 +1,122 @@
+[
+  {
+    "config_id": "A01_plain_sdxl_baseline",
+    "name": "1. Plain SDXL txt2img Baseline (No consistency)",
+    "arcface_score": 0.6065,
+    "clip_i_score": 0.7283,
+    "structural_ssim": 0.523,
+    "palette_score": 0.3188,
+    "composite_score": 0.5813,
+    "faces_detected": 1,
+    "matched_face_idx": 0,
+    "runtime_s": 36.6
+  },
+  {
+    "config_id": "A02_demographic_locking",
+    "name": "2. + Demographic Phenotype & Token Locking",
+    "arcface_score": 0.4984,
+    "clip_i_score": 0.8552,
+    "structural_ssim": 0.5201,
+    "palette_score": 0.2058,
+    "composite_score": 0.547,
+    "faces_detected": 1,
+    "matched_face_idx": 0,
+    "runtime_s": 33.0
+  },
+  {
+    "config_id": "A03_latent_enhancers",
+    "name": "3. + Latent Enhancers (FreeU + PAG + CFG-Fix)",
+    "arcface_score": 0.4989,
+    "clip_i_score": 0.8807,
+    "structural_ssim": 0.5124,
+    "palette_score": 0.3234,
+    "composite_score": 0.5701,
+    "faces_detected": 1,
+    "matched_face_idx": 0,
+    "runtime_s": 46.9
+  },
+  {
+    "config_id": "A04_controlnet_depth",
+    "name": "4. + ControlNet Depth (Pass 1)",
+    "arcface_score": 0.4989,
+    "clip_i_score": 0.8807,
+    "structural_ssim": 0.5124,
+    "palette_score": 0.3234,
+    "composite_score": 0.5701,
+    "faces_detected": 1,
+    "matched_face_idx": 0,
+    "runtime_s": 46.4
+  },
+  {
+    "config_id": "A05_pass2_adaptive_img2img",
+    "name": "5. + Pass 2 Adaptive Img2Img (Without ReActor)",
+    "arcface_score": 0.5048,
+    "clip_i_score": 0.8682,
+    "structural_ssim": 0.5,
+    "palette_score": 0.3729,
+    "composite_score": 0.5751,
+    "faces_detected": 1,
+    "matched_face_idx": 0,
+    "runtime_s": 88.4
+  },
+  {
+    "config_id": "A06_reactor_codeformer",
+    "name": "6. + ReActor + CodeFormer Restoration",
+    "arcface_score": 0.4784,
+    "clip_i_score": 0.8693,
+    "structural_ssim": 0.4994,
+    "palette_score": 0.3743,
+    "composite_score": 0.5637,
+    "faces_detected": 1,
+    "matched_face_idx": 0,
+    "runtime_s": 76.3
+  },
+  {
+    "config_id": "A07_ip_adapter",
+    "name": "7. + Generic IP-Adapter SDXL (Decoupled Cross-Attention)",
+    "arcface_score": 0.5454,
+    "clip_i_score": 0.8987,
+    "structural_ssim": 0.4858,
+    "palette_score": 0.4486,
+    "composite_score": 0.6103,
+    "faces_detected": 1,
+    "matched_face_idx": 0,
+    "runtime_s": 95.72
+  },
+  {
+    "config_id": "A08_instantid",
+    "name": "8. + InstantID SDXL (Facial Landmarks)",
+    "arcface_score": 0.521,
+    "clip_i_score": 0.8502,
+    "structural_ssim": 0.4635,
+    "palette_score": 0.3911,
+    "composite_score": 0.5752,
+    "faces_detected": 1,
+    "matched_face_idx": 0,
+    "runtime_s": 120.5
+  },
+  {
+    "config_id": "A09_faceid_plus_v2",
+    "name": "9. + FaceID Plus v2 SDXL (Biometric Recognition + LoRA)",
+    "arcface_score": 0.5474,
+    "clip_i_score": 0.8688,
+    "structural_ssim": 0.5086,
+    "palette_score": 0.3872,
+    "composite_score": 0.5979,
+    "faces_detected": 1,
+    "matched_face_idx": 0,
+    "runtime_s": 365.81
+  },
+  {
+    "config_id": "A10_full_pipeline_sota",
+    "name": "10. Full Pipeline (Tokens + IP-Adapter + Depth + Pass 2 ReActor + FreeU/PAG)",
+    "arcface_score": 0.5289,
+    "clip_i_score": 0.9032,
+    "structural_ssim": 0.4866,
+    "palette_score": 0.4512,
+    "composite_score": 0.6045,
+    "faces_detected": 1,
+    "matched_face_idx": 0,
+    "runtime_s": 185.57
+  }
+]

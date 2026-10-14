@@ -1,0 +1,16 @@
+{
+  "engine": "instantid",
+  "shot_type": "close_up",
+  "scene_number": 2,
+  "runtime_s": 166.83,
+  "image_file": "instantid_close_up.png",
+  "metrics": {
+    "arcface": 0.0,
+    "clip_i": 0.5781,
+    "structural_ssim": 0.5057,
+    "composite": 0.3104,
+    "qa_passed": 3,
+    "qa_total": 6,
+    "qa_rate_pct": 50.0
+  }
+}

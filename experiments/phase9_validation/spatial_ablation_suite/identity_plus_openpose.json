@@ -1,0 +1,16 @@
+{
+  "config": "identity_plus_openpose",
+  "openpose": true,
+  "depth": false,
+  "runtime_s": 151.48,
+  "image_file": "identity_plus_openpose.png",
+  "metrics": {
+    "arcface": 0.5048,
+    "clip_i": 0.8764,
+    "structural_ssim": 0.5976,
+    "composite": 0.6259,
+    "qa_passed": 4,
+    "qa_total": 6,
+    "qa_rate_pct": 66.7
+  }
+}

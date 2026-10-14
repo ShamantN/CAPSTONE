@@ -1,0 +1,31 @@
+{
+  "story_id": "ebright_monarch_expedition",
+  "scene_id": "scene_6",
+  "scene_number": 6,
+  "title": "Graduation",
+  "model_checkpoint": "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+  "identity_engine": "IP-Adapter-SDXL",
+  "sampler": "DPM++ 2M Karras",
+  "steps_pass1": 25,
+  "steps_pass2": 15,
+  "denoising_strength": 0.384,
+  "cfg_scale": 5.5,
+  "width": 1024,
+  "height": 1024,
+  "seed": 3192696171,
+  "positive_prompt": "(Cinematic Realistic:1.2), masterpiece, cinematic lighting, 8k resolution, highly detailed, College Richard Ebright is standing proudly on a grand stage wearing a black graduation gown and cap with gold accents, holding a red diploma portfolio under his arm. BREAK ((CEbright_X9F2A:1.4)), centered in frame, ((strictly Caucasian:1.45)), (fair skin tone:1.35), (oval defined face:1.25), 21 years old graduating scholar male, wearing (black graduation gown and mortarboard cap:1.30), (mustard yellow garment:1.30), brown hair (neatly combed back), clean face, detailed eyes BREAK Background: Harvard Commencement Hall, indoor grand auditorium stage environment, Dramatic stage spotlights with haze, Hero shot, Low angle.",
+  "negative_prompt": "blurry, deformed, bad anatomy, bad hands, missing fingers, extra fingers, ugly, watermark, text, signature, casual clothes, t-shirt, shorts, jeans, empty hall, no casual clothes, no shorts, no t-shirt",
+  "native_conditioning": {
+    "identity_adapter": "IP-Adapter-SDXL",
+    "openpose_active": false,
+    "depth_active": false,
+    "freeu_active": true,
+    "pag_active": true,
+    "cfg_fix_active": true,
+    "regional_isolation": {
+      "regional_active": false
+    }
+  },
+  "runtime_s": 39.85,
+  "peak_vram_mb": 591.8
+}
