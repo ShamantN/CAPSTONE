@@ -115,3 +115,6 @@ class ConsistencyV2Config:
     def compute_hash(self) -> str:
         s = json.dumps(self.to_dict(), sort_keys=True)
         return hashlib.sha256(s.encode("utf-8")).hexdigest()[:16]
+
+    def to_hash(self) -> str:
+        return self.compute_hash()[:12]
