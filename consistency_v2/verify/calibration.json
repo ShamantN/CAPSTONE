@@ -1,75 +1,127 @@
 {
-  "calibrated_timestamp": "2026-10-14",
+  "verifier_version": "1.1",
+  "calibrated_timestamp": "2026-10-15T11:15:00Z",
   "models_evaluated": [
     "Facenet512",
     "SFace",
     "GhostFaceNet",
     "ArcFace"
   ],
-  "thresholds": {
-    "Facenet512": 0.32,
-    "SFace": 0.525,
-    "GhostFaceNet": 0.38,
-    "ArcFace": 0.305
+  "thresholds_adult": {
+    "Facenet512": 0.1563,
+    "SFace": 0.1603,
+    "GhostFaceNet": 0.1082,
+    "ArcFace": 0.1202
+  },
+  "thresholds_child": {
+    "Facenet512": 0.1463,
+    "SFace": 0.1623,
+    "GhostFaceNet": 0.1022,
+    "ArcFace": 0.1303
+  },
+  "thresholds_general": {
+    "Facenet512": 0.1563,
+    "SFace": 0.1603,
+    "GhostFaceNet": 0.1082,
+    "ArcFace": 0.1202
+  },
+  "wardrobe_calibration": {
+    "max_delta_e_threshold": 10.0,
+    "holdout_samples": 30,
+    "holdout_balanced_accuracy": 0.95,
+    "holdout_sensitivity": 0.9,
+    "holdout_specificity": 1.0
   },
   "eer_metrics": {
     "Facenet512": {
-      "eer": 0.0,
-      "threshold_at_eer": 0.32,
-      "genuine_samples": 7,
-      "impostor_samples": 32
+      "eer_overall": 0.4677,
+      "eer_95ci": [
+        0.4445,
+        0.489
+      ],
+      "eer_adult": 0.4513,
+      "eer_child": 0.4744,
+      "threshold_at_eer": 0.1483,
+      "genuine_samples": 859,
+      "impostor_samples": 1850
     },
     "SFace": {
-      "eer": 0.0,
-      "threshold_at_eer": 0.525,
-      "genuine_samples": 7,
-      "impostor_samples": 32
+      "eer_overall": 0.4773,
+      "eer_95ci": [
+        0.4562,
+        0.4979
+      ],
+      "eer_adult": 0.4857,
+      "eer_child": 0.4748,
+      "threshold_at_eer": 0.1623,
+      "genuine_samples": 859,
+      "impostor_samples": 1850
     },
     "GhostFaceNet": {
-      "eer": 0.0,
-      "threshold_at_eer": 0.38,
-      "genuine_samples": 7,
-      "impostor_samples": 32
+      "eer_overall": 0.4618,
+      "eer_95ci": [
+        0.4439,
+        0.4815
+      ],
+      "eer_adult": 0.4481,
+      "eer_child": 0.4663,
+      "threshold_at_eer": 0.1022,
+      "genuine_samples": 859,
+      "impostor_samples": 1850
     },
     "ArcFace": {
-      "eer": 0.0,
-      "threshold_at_eer": 0.305,
-      "genuine_samples": 7,
-      "impostor_samples": 32
+      "eer_overall": 0.4597,
+      "eer_95ci": [
+        0.4443,
+        0.4823
+      ],
+      "eer_adult": 0.483,
+      "eer_child": 0.4559,
+      "threshold_at_eer": 0.1283,
+      "genuine_samples": 859,
+      "impostor_samples": 1850
     }
   },
   "distributions": {
     "Facenet512": {
-      "genuine_mean": 0.7879,
-      "genuine_std": 0.087,
-      "impostor_mean": 0.1725,
-      "impostor_std": 0.109,
-      "cross_age_mean": 0.4455
+      "genuine_adult_mean": 0.2485,
+      "genuine_adult_std": 0.2885,
+      "genuine_child_mean": 0.1889,
+      "genuine_child_std": 0.2447,
+      "impostor_mean": 0.1606,
+      "impostor_std": 0.2123,
+      "hard_impostor_mean": 0.1898
     },
     "SFace": {
-      "genuine_mean": 0.7152,
-      "genuine_std": 0.0746,
-      "impostor_mean": 0.2589,
-      "impostor_std": 0.1195,
-      "cross_age_mean": 0.3695
+      "genuine_adult_mean": 0.23,
+      "genuine_adult_std": 0.2222,
+      "genuine_child_mean": 0.193,
+      "genuine_child_std": 0.1693,
+      "impostor_mean": 0.1745,
+      "impostor_std": 0.1564,
+      "hard_impostor_mean": 0.1863
     },
     "GhostFaceNet": {
-      "genuine_mean": 0.6744,
-      "genuine_std": 0.0621,
-      "impostor_mean": 0.2216,
-      "impostor_std": 0.081,
-      "cross_age_mean": 0.3494
+      "genuine_adult_mean": 0.1853,
+      "genuine_adult_std": 0.2222,
+      "genuine_child_mean": 0.14,
+      "genuine_child_std": 0.1573,
+      "impostor_mean": 0.1177,
+      "impostor_std": 0.148,
+      "hard_impostor_mean": 0.1256
     },
     "ArcFace": {
-      "genuine_mean": 0.6907,
-      "genuine_std": 0.1154,
-      "impostor_mean": 0.1252,
-      "impostor_std": 0.0966,
-      "cross_age_mean": 0.292
+      "genuine_adult_mean": 0.2324,
+      "genuine_adult_std": 0.2601,
+      "genuine_child_mean": 0.1758,
+      "genuine_child_std": 0.1632,
+      "impostor_mean": 0.1497,
+      "impostor_std": 0.1632,
+      "hard_impostor_mean": 0.1668
     }
   },
   "known_limitations": {
-    "child_face_weakness": "Children under 10 exhibit softer cranial contours and higher intra-class variance; thresholds adjusted with 0.05 tolerance margin.",
+    "child_face_weakness": "Children under 10 exhibit softer cranial contours and higher intra-class variance; calibrated with dedicated child-specific threshold.",
     "age_progression_gap": "Cross-age comparisons between young (8yo) and college (21yo) Ebright show expected lower biometric similarity (approx 0.35-0.45) reflecting biological maturation."
   }
 }

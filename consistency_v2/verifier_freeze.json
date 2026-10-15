@@ -1,19 +1,20 @@
 {
-  "combined_sha256": "ebb3ebc341bf5402caefe72ab8174a022c669613c2b272089af047b2cd4185cf",
+  "verifier_version": "1.1",
+  "combined_sha256": "ee3b29d5a3511f1bad0efed114b079d4c4478beeeafd6c13b9053ebb99c9b8ac",
   "files": {
-    "__init__.py": "e45736073679d2b584f11f9b840674ce57e086f841fe95a036f89189eba4b373",
-    "__main__.py": "90c802660ba74e43d83035a4ba6ec9ff593f21b6258bec20c94b1779702b7b63",
-    "appearance_evaluator.py": "56069935c0d6fad6922f34f29dfc037281576dd00e1c9fba49372cd96d9b59f4",
-    "binding_checker.py": "6175833c0c46454b5fa827c7c96b034c3a5384b3e79c9273d77330f6ea5bf776",
-    "biometric_ensemble.py": "d373982ee5841382089e4b331ea2f304e991ade6076dcbddb0900a129111aac6",
-    "calibration.py": "65849b6f3c9574aecb9adc6a82fdb7e4778e9ac1cd5d10d5bd27b5dca5648c69",
-    "cli.py": "276cbe1551d8d6e9ca033ac6401cb4bcf783a4a8609084555fe6a178f4370971",
-    "scene_auditor.py": "bf731af6b398d798d019c40493a280633a50ff5bf2653001399eec7f8f802c77",
-    "torch_bridge.py": "42d82178984eea50dc8fa51643182f7e24d71f616903b08987daeda4c40e40fb",
-    "torch_vision_helper.py": "988c79bc1532f4eb9a1d6df56774990f40f2852a019255275f1d92ff5e8c5dca",
-    "make_blind_sheet.py": "83384d0fe56a11b7d869c2a14fa6e772f3e34c385dd4b5772d3ba6060bf751bc",
-    "make_contact_sheet.py": "66ebbe2aae654712f304dfbf389589d4993b9400e8aa3d0f74034a12ee19004c",
-    "rubric.py": "9cc9ba80421067eba0f33a913402f65d758e8bcf161c50a4eab6832ee1ad3871",
-    "calibration.json": "109828f2fa940268762b422d8009d856f73164bf33a7f7519599f4852e4cb549"
+    "__init__.py": "3b59657dfe90bcdc72e4d3d39ee16cfb0c45dac8f4aeb00fefa138aea8d94334",
+    "__main__.py": "d8a58bc354041bbe9e53518a1a612938cc26e2aecc06adf52f7825bb9385cf14",
+    "appearance_evaluator.py": "42d1ad69fdfe213a6b68f6e9bfd4898b2756a0aaebea74836874fb12c85773ae",
+    "binding_checker.py": "4cf2eda80cce7dcf7828a649e46f827b5974bc7d9fce03e9b71f229970c27748",
+    "biometric_ensemble.py": "7ebef4dc8fe032bcb8e8329dee5ed88226eeb0b2439cedd0cb3e15f856531c1c",
+    "calibration.json": "d54bcc380e0f4d34bde9eecb749cd866cd87132873ccef1ed3b03490c7b9cfa7",
+    "calibration.py": "33a8454a1c4e8cb50d07289154483435e95891d2ff30b60c5b92b33dc5a46491",
+    "cli.py": "b392144d2f22f62a2af6197ebbf1ab6a1a5f3f7e50a4f2fba6f6075d6173f6d5",
+    "scene_auditor.py": "73f605bb6a5919f3191caf4a2ec6d1387f0c978c05251675f2f6b288cdcfb81f",
+    "torch_bridge.py": "5e01fe3a9d54ebe85fc521413c1026502f705167f2c7210783c34375a69725c3",
+    "torch_vision_helper.py": "0f6c9a70fb3d4a64fc4f54334ff630f704f11d18188a618de7296aa7585656a5",
+    "visual_review/make_blind_sheet.py": "1a0c4e12cfe0822d72061eafcfc5e5f982e4cf92c26ec9c492b4ca30f792f546",
+    "visual_review/make_contact_sheet.py": "c3d6daebc2e504306c108128301b53bd59329d1ebcabd365757ab002889d1455",
+    "visual_review/rubric.py": "c432a8a73dafc3bc6044b50e287ebf96d7207039eaa1e1ea5bd6be2a70df1a10"
   }
 }

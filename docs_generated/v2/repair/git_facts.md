@@ -1,8 +1,8 @@
 # Git Facts & PR Audit Register
 
-> Generated on: 2026-10-15T10:56:15.466924
+> Generated on: 2026-10-15T11:07:09.259597
 > Current Active Branch: `consistency-v2`
-> Current Commit SHA (HEAD): `bf05162ced82ef0867f617eb08aeb19932e5a489`
+> Current Commit SHA (HEAD): `a4cbac3d0a6217d8b678331701363db9d83eda1a`
 
 ## 1. Complete Pull Request Register
 
@@ -28,6 +28,7 @@
 | #18 | feat(v2): complete held-out evaluation runner, documentation suite, and results manifest | `MERGED` | `consistency-v2` | `feat/v2-evaluation-and-docs` | `6c13f28645` | 2026-10-14T11:06:55Z | [PR #18](https://github.com/ShamantN/CAPSTONE/pull/18) |
 | #19 | feat(v2): Multi-Modal Character Consistency Pipeline (MMCCP) v2.0 | `OPEN` | `main` | `consistency-v2` | `N/A` | N/A | [PR #19](https://github.com/ShamantN/CAPSTONE/pull/19) |
 | #20 | chore(setup): Phase R0 safety, environment audit, and telemetry | `MERGED` | `consistency-v2` | `chore/r0-safety-setup` | `bf05162ced` | 2026-10-15T05:25:45Z | [PR #20](https://github.com/ShamantN/CAPSTONE/pull/20) |
+| #21 | docs(audit): Phase R1 audit, retractions, and problem register | `MERGED` | `consistency-v2` | `docs/audit-retractions` | `a4cbac3d0a` | 2026-10-15T05:36:36Z | [PR #21](https://github.com/ShamantN/CAPSTONE/pull/21) |
 
 ## 2. Git Tags Register
 

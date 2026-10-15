@@ -1,6 +1,6 @@
 {
   "manifest_version": "2.0",
-  "total_artifacts": 86,
+  "total_artifacts": 95,
   "artifacts": [
     {
       "file_path": "results\\ablation\\m8_reference_only_scene_1_seed_101.png",
@@ -861,6 +861,96 @@
       "split": "test",
       "mode": "v2_quality",
       "timestamp": "2026-10-14T12:03:27Z"
+    },
+    {
+      "file_path": "results\\rescored_v1.1\\baseline_v1_dev_full\\report.json",
+      "sha256": "e91fdc0b017645a6f4e718077ae8a65707d929b6eaa6ccd1841f3e53fd7a8f25",
+      "size_bytes": 79330,
+      "config_hash": "verifier_v1.1",
+      "git_commit": "fix/verifier-v1.1",
+      "split": "rescored_v1.1",
+      "mode": "verifier_v1.1",
+      "timestamp": "2026-10-15T12:12:00Z"
+    },
+    {
+      "file_path": "results\\rescored_v1.1\\baseline_v1_dev_full\\summary.csv",
+      "sha256": "4cdf9aa9a71fa958dd3bfc63ae2df8e7c51beea160d378645f20df7e22d58f19",
+      "size_bytes": 3706,
+      "config_hash": "verifier_v1.1",
+      "git_commit": "fix/verifier-v1.1",
+      "split": "rescored_v1.1",
+      "mode": "verifier_v1.1",
+      "timestamp": "2026-10-15T12:12:00Z"
+    },
+    {
+      "file_path": "results\\rescored_v1.1\\rescored_summary.json",
+      "sha256": "3570b652c684a203834451760e63667921ccd0bad2f24680d97110e316b3ec1a",
+      "size_bytes": 1981,
+      "config_hash": "verifier_v1.1",
+      "git_commit": "fix/verifier-v1.1",
+      "split": "rescored_v1.1",
+      "mode": "verifier_v1.1",
+      "timestamp": "2026-10-15T12:12:00Z"
+    },
+    {
+      "file_path": "results\\rescored_v1.1\\v2_rc1_ablation\\report.json",
+      "sha256": "f0b12fac55431a5e0f68203aed171146cfbe20f9da718998e0e161b9e5a3c464",
+      "size_bytes": 65695,
+      "config_hash": "verifier_v1.1",
+      "git_commit": "fix/verifier-v1.1",
+      "split": "rescored_v1.1",
+      "mode": "verifier_v1.1",
+      "timestamp": "2026-10-15T12:12:00Z"
+    },
+    {
+      "file_path": "results\\rescored_v1.1\\v2_rc1_ablation\\summary.csv",
+      "sha256": "347f1e3eb2b57d05f1c3ae1f510fdfe552f1596330c2c6edd9f0e1db748ba278",
+      "size_bytes": 4039,
+      "config_hash": "verifier_v1.1",
+      "git_commit": "fix/verifier-v1.1",
+      "split": "rescored_v1.1",
+      "mode": "verifier_v1.1",
+      "timestamp": "2026-10-15T12:12:00Z"
+    },
+    {
+      "file_path": "results\\rescored_v1.1\\v2_rc1_dev2\\report.json",
+      "sha256": "887573d5b2b4f3bab71f12a44c50eb6cced54711ff4d1b5bee54ca80bfa52688",
+      "size_bytes": 140556,
+      "config_hash": "verifier_v1.1",
+      "git_commit": "fix/verifier-v1.1",
+      "split": "rescored_v1.1",
+      "mode": "verifier_v1.1",
+      "timestamp": "2026-10-15T12:12:00Z"
+    },
+    {
+      "file_path": "results\\rescored_v1.1\\v2_rc1_dev2\\summary.csv",
+      "sha256": "478b9822be90625dbc24f4e1ffb5d32aa4a34feba2425c4b925371acb7caba7f",
+      "size_bytes": 6076,
+      "config_hash": "verifier_v1.1",
+      "git_commit": "fix/verifier-v1.1",
+      "split": "rescored_v1.1",
+      "mode": "verifier_v1.1",
+      "timestamp": "2026-10-15T12:12:00Z"
+    },
+    {
+      "file_path": "results\\rescored_v1.1\\v2_rc1_generalization\\report.json",
+      "sha256": "a0ce1e64463801527842c9699d668b25087b1331d984a153aa9565ad20c926f8",
+      "size_bytes": 61527,
+      "config_hash": "verifier_v1.1",
+      "git_commit": "fix/verifier-v1.1",
+      "split": "rescored_v1.1",
+      "mode": "verifier_v1.1",
+      "timestamp": "2026-10-15T12:12:00Z"
+    },
+    {
+      "file_path": "results\\rescored_v1.1\\v2_rc1_generalization\\summary.csv",
+      "sha256": "b2103209b0c17f11cec0885fcecafa2540333e989f749dc8a801ee0a8d76eb4f",
+      "size_bytes": 3403,
+      "config_hash": "verifier_v1.1",
+      "git_commit": "fix/verifier-v1.1",
+      "split": "rescored_v1.1",
+      "mode": "verifier_v1.1",
+      "timestamp": "2026-10-15T12:12:00Z"
     }
   ]
 }

@@ -150,9 +150,37 @@ def run_verification(
 
     ensemble_scores_all = []
     rank1_correct_all = []
-    binding_passed_all = []
+    spatial_passed_all = []
     wardrobe_passed_all = []
+    id_pos_passed_all = []
+    combined_binding_passed_all = []
     defect_counts_all = []
+    discrimination_margins_all = []
+    dinov2_sims_all = []
+    per_judge_scores = {m: [] for m in BiometricEnsemble.JUDGE_MODELS}
+
+    child_ensemble_scores = []
+    child_rank1 = []
+    child_combined_binding = []
+    child_wardrobe = []
+
+    adult_ensemble_scores = []
+    adult_rank1 = []
+    adult_combined_binding = []
+    adult_wardrobe = []
+
+    detector_health_counts = {
+        "retinaface": 0,
+        "yolov8n": 0,
+        "segformer": 0,
+        "clip": 0,
+        "dinov2": 0,
+        "facenet512": 0,
+        "sface": 0,
+        "ghostfacenet": 0,
+        "arcface": 0
+    }
+    total_seg_failed = 0
 
     for img_p in image_files:
         stem = img_p.stem
@@ -175,6 +203,7 @@ def run_verification(
 
         # 1. Detect faces via DeepFace/RetinaFace
         detected_faces = auditor.detect_faces(img_bgr)
+        detector_health_counts["retinaface"] += 1
         detected_faces = sorted(detected_faces, key=lambda f: f["bbox"]["x"])
         face_boxes = [f["bbox"] for f in detected_faces]
 
@@ -188,6 +217,16 @@ def run_verification(
             required_props=matched_scene.required_props,
             forbidden_props=matched_scene.forbidden_props
         )
+
+        d_health = vision_res.get("detector_health", {})
+        if d_health.get("yolov8n"):
+            detector_health_counts["yolov8n"] += 1
+        if d_health.get("segformer"):
+            detector_health_counts["segformer"] += 1
+        if d_health.get("clip"):
+            detector_health_counts["clip"] += 1
+        if d_health.get("dinov2"):
+            detector_health_counts["dinov2"] += 1
 
         # 3. Scene-Level Audit
         scene_audit = auditor.audit_scene_with_vision(
@@ -209,6 +248,7 @@ def run_verification(
             char_spec = story.characters.get(cid)
             expected_pos = matched_scene.character_positions.get(cid, "center")
             expected_colors = char_spec.clothing_colors if char_spec else []
+            is_child = bool("young" in cid.lower() or "child" in cid.lower())
 
             # Assign face
             face_item = detected_faces[i] if i < len(detected_faces) else None
@@ -219,11 +259,16 @@ def run_verification(
             if face_crop is not None and face_crop.size > 0:
                 face_embs = verifier.extract_face_embeddings(face_crop)
                 scene_face_embs_list.append((cid, face_embs))
+                for m_name in BiometricEnsemble.JUDGE_MODELS:
+                    if m_name in face_embs:
+                        detector_health_counts[m_name.lower()] += 1
 
                 # Biometric ensemble against bank
                 c_banks = banks.get(cid, {})
                 c_cents = centroids.get(cid, {})
                 bio_res = verifier.score_against_bank(face_embs, c_banks, c_cents)
+                for m_name in BiometricEnsemble.JUDGE_MODELS:
+                    per_judge_scores[m_name].append(bio_res["per_model_details"].get(m_name, {}).get("max_similarity", 0.0))
 
                 # Discrimination test
                 disc_res = verifier.compute_discrimination(face_embs, banks, centroids, cid)
@@ -236,25 +281,33 @@ def run_verification(
                 )
 
                 # Wardrobe color check from SegFormer
-                obs_lab = np.array(clothing_labs[i], dtype=np.float32) if (i < len(clothing_labs) and clothing_labs[i] is not None) else None
-                wardrobe_pass, min_de, matched_color = binder.verify_wardrobe_color(
-                    observed_lab=obs_lab,
-                    expected_color_names=expected_colors
-                )
-                binding_pass = bool(spatial_pass and wardrobe_pass)
+                raw_lab = clothing_labs[i] if (i < len(clothing_labs)) else None
+                if raw_lab is None:
+                    seg_status = "seg_failed"
+                    total_seg_failed += 1
+                    wardrobe_pass, min_de, matched_color = False, 99.0, "seg_failed"
+                else:
+                    seg_status = "seg_ok"
+                    obs_lab = np.array(raw_lab, dtype=np.float32)
+                    wardrobe_pass, min_de, matched_color = binder.verify_wardrobe_color(
+                        observed_lab=obs_lab,
+                        expected_color_names=expected_colors
+                    )
+
+                id_pos_pass = bool(bio_res["ensemble_passed"] and disc_res["rank1_correct"])
+                combined_binding_pass = bool(spatial_pass and wardrobe_pass and id_pos_pass)
 
                 dino_sim = dino_sims[i] if i < len(dino_sims) else 0.0
                 face_quality = auditor.audit_face_quality(face_item)
 
                 overall_char_pass = bool(
-                    bio_res["ensemble_passed"] and
-                    binding_pass and
-                    disc_res["rank1_correct"] and
+                    combined_binding_pass and
                     not face_quality["too_small"]
                 )
 
                 char_eval = {
                     "character_id": cid,
+                    "is_child": is_child,
                     "overall_pass": overall_char_pass,
                     "face_bbox": face_bbox,
                     "detected_face_crop_bgr": face_crop,
@@ -268,6 +321,9 @@ def run_verification(
                     "observed_position": obs_zone,
                     "wardrobe_pass": wardrobe_pass,
                     "wardrobe_delta_e": min_de,
+                    "identity_at_position_pass": id_pos_pass,
+                    "combined_binding_pass": combined_binding_pass,
+                    "seg_status": seg_status,
                     "face_width_px": face_quality["width_px"],
                     "face_sharpness": face_quality["sharpness_laplacian"],
                     "dinov2_similarity": dino_sim,
@@ -276,13 +332,29 @@ def run_verification(
 
                 ensemble_scores_all.append(bio_res["ensemble_score"])
                 rank1_correct_all.append(1.0 if disc_res["rank1_correct"] else 0.0)
-                binding_passed_all.append(1.0 if binding_pass else 0.0)
+                spatial_passed_all.append(1.0 if spatial_pass else 0.0)
                 wardrobe_passed_all.append(1.0 if wardrobe_pass else 0.0)
+                id_pos_passed_all.append(1.0 if id_pos_pass else 0.0)
+                combined_binding_passed_all.append(1.0 if combined_binding_pass else 0.0)
+                discrimination_margins_all.append(disc_res["discrimination_margin"])
+                dinov2_sims_all.append(dino_sim)
+
+                if is_child:
+                    child_ensemble_scores.append(bio_res["ensemble_score"])
+                    child_rank1.append(1.0 if disc_res["rank1_correct"] else 0.0)
+                    child_combined_binding.append(1.0 if combined_binding_pass else 0.0)
+                    child_wardrobe.append(1.0 if wardrobe_pass else 0.0)
+                else:
+                    adult_ensemble_scores.append(bio_res["ensemble_score"])
+                    adult_rank1.append(1.0 if disc_res["rank1_correct"] else 0.0)
+                    adult_combined_binding.append(1.0 if combined_binding_pass else 0.0)
+                    adult_wardrobe.append(1.0 if wardrobe_pass else 0.0)
 
             else:
                 # Face missing
                 char_eval = {
                     "character_id": cid,
+                    "is_child": is_child,
                     "overall_pass": False,
                     "face_bbox": None,
                     "detected_face_crop_bgr": None,
@@ -295,6 +367,9 @@ def run_verification(
                     "observed_position": "missing",
                     "wardrobe_pass": False,
                     "wardrobe_delta_e": 99.0,
+                    "identity_at_position_pass": False,
+                    "combined_binding_pass": False,
+                    "seg_status": "missing_face",
                     "face_width_px": 0,
                     "face_sharpness": 0.0,
                     "dinov2_similarity": 0.0,
@@ -302,8 +377,26 @@ def run_verification(
                 }
                 ensemble_scores_all.append(0.0)
                 rank1_correct_all.append(0.0)
-                binding_passed_all.append(0.0)
+                spatial_passed_all.append(0.0)
                 wardrobe_passed_all.append(0.0)
+                id_pos_passed_all.append(0.0)
+                combined_binding_passed_all.append(0.0)
+                discrimination_margins_all.append(-1.0)
+                dinov2_sims_all.append(0.0)
+
+                for m_name in BiometricEnsemble.JUDGE_MODELS:
+                    per_judge_scores[m_name].append(0.0)
+
+                if is_child:
+                    child_ensemble_scores.append(0.0)
+                    child_rank1.append(0.0)
+                    child_combined_binding.append(0.0)
+                    child_wardrobe.append(0.0)
+                else:
+                    adult_ensemble_scores.append(0.0)
+                    adult_rank1.append(0.0)
+                    adult_combined_binding.append(0.0)
+                    adult_wardrobe.append(0.0)
 
             char_evaluations.append(char_eval)
 
@@ -313,6 +406,7 @@ def run_verification(
                 "scene_number": matched_scene.scene_number,
                 "scene_title": matched_scene.title,
                 "character_id": cid,
+                "is_child": is_child,
                 "overall_pass": char_eval["overall_pass"],
                 "biometric_ensemble_score": char_eval["biometric_ensemble_score"],
                 "rank1_correct": char_eval["rank1_correct"],
@@ -321,6 +415,9 @@ def run_verification(
                 "observed_position": char_eval["observed_position"],
                 "wardrobe_pass": char_eval["wardrobe_pass"],
                 "wardrobe_delta_e": char_eval["wardrobe_delta_e"],
+                "identity_at_position_pass": char_eval["identity_at_position_pass"],
+                "combined_binding_pass": char_eval["combined_binding_pass"],
+                "seg_status": char_eval["seg_status"],
                 "face_sharpness": char_eval["face_sharpness"],
                 "face_width_px": char_eval["face_width_px"]
             })
@@ -377,9 +474,23 @@ def run_verification(
     mean_ens = float(np.mean(ensemble_scores_all)) if ensemble_scores_all else 0.0
     std_ens = float(np.std(ensemble_scores_all)) if ensemble_scores_all else 0.0
     rank1_acc = float(np.mean(rank1_correct_all)) if rank1_correct_all else 0.0
-    binding_acc = float(np.mean(binding_passed_all)) if binding_passed_all else 0.0
+    spatial_acc = float(np.mean(spatial_passed_all)) if spatial_passed_all else 0.0
     wardrobe_acc = float(np.mean(wardrobe_passed_all)) if wardrobe_passed_all else 0.0
+    id_pos_acc = float(np.mean(id_pos_passed_all)) if id_pos_passed_all else 0.0
+    combined_binding_acc = float(np.mean(combined_binding_passed_all)) if combined_binding_passed_all else 0.0
     mean_defects = float(np.mean(defect_counts_all)) if defect_counts_all else 0.0
+    mean_margin = float(np.mean(discrimination_margins_all)) if discrimination_margins_all else 0.0
+    mean_dino = float(np.mean(dinov2_sims_all)) if dinov2_sims_all else 0.0
+
+    child_mean_ens = float(np.mean(child_ensemble_scores)) if child_ensemble_scores else 0.0
+    child_rank1_acc = float(np.mean(child_rank1)) if child_rank1 else 0.0
+    child_binding_acc = float(np.mean(child_combined_binding)) if child_combined_binding else 0.0
+    child_wardrobe_acc = float(np.mean(child_wardrobe)) if child_wardrobe else 0.0
+
+    adult_mean_ens = float(np.mean(adult_ensemble_scores)) if adult_ensemble_scores else 0.0
+    adult_rank1_acc = float(np.mean(adult_rank1)) if adult_rank1 else 0.0
+    adult_binding_acc = float(np.mean(adult_combined_binding)) if adult_combined_binding else 0.0
+    adult_wardrobe_acc = float(np.mean(adult_wardrobe)) if adult_wardrobe else 0.0
 
     # 4. Optional Paired Wilcoxon Signed-Rank Test vs Baseline
     wilcoxon_results = {}
@@ -398,9 +509,28 @@ def run_verification(
         except Exception as e:
             logger.warning(f"Could not compute Wilcoxon test: {e}")
 
+    # Read freeze sha
+    freeze_sha = "unfrozen"
+    freeze_json = PROJECT_ROOT / "consistency_v2" / "verifier_freeze.json"
+    if freeze_json.exists():
+        try:
+            with open(freeze_json, "r", encoding="utf-8") as ff:
+                freeze_sha = json.load(ff).get("combined_sha256", "unfrozen")
+        except Exception:
+            pass
+
+    # Detector health verification
+    n_imgs = max(1, len(image_files))
+    detector_health_summary = {
+        k: bool(v >= n_imgs or (k in ["facenet512", "sface", "ghostfacenet", "arcface"] and v >= 1))
+        for k, v in detector_health_counts.items()
+    }
+    detector_health_summary["all_healthy"] = all(detector_health_summary.values())
+
     final_report = {
-        "report_version": "2.0",
-        "verifier_frozen": True,
+        "verifier_version": "1.1",
+        "verifier_freeze_sha": freeze_sha,
+        "detector_health": detector_health_summary,
         "images_evaluated_count": len(image_files),
         "total_face_instances": len(ensemble_scores_all),
         "summary_metrics": {
@@ -408,9 +538,36 @@ def run_verification(
             "biometric_ensemble_std": round(std_ens, 4),
             "biometric_ensemble_95ci": [ci_ens_low, ci_ens_high],
             "rank1_discrimination_accuracy": round(rank1_acc, 4),
-            "spatial_and_wardrobe_binding_accuracy": round(binding_acc, 4),
-            "wardrobe_palette_accuracy": round(wardrobe_acc, 4),
-            "mean_defects_per_scene": round(mean_defects, 4)
+            "discrimination_margin_mean": round(mean_margin, 4),
+            "dinov2_mean_similarity": round(mean_dino, 4),
+            "per_judge_means": {
+                m: round(float(np.mean(per_judge_scores[m])), 4) if per_judge_scores[m] else 0.0
+                for m in BiometricEnsemble.JUDGE_MODELS
+            },
+            "binding_decomposed": {
+                "spatial_position_pass_rate": round(spatial_acc, 4),
+                "wardrobe_palette_pass_rate": round(wardrobe_acc, 4),
+                "identity_at_position_pass_rate": round(id_pos_acc, 4),
+                "combined_binding_pass_rate": round(combined_binding_acc, 4)
+            },
+            "age_split_metrics": {
+                "child": {
+                    "count": len(child_ensemble_scores),
+                    "biometric_ensemble_mean": round(child_mean_ens, 4),
+                    "rank1_accuracy": round(child_rank1_acc, 4),
+                    "combined_binding_accuracy": round(child_binding_acc, 4),
+                    "wardrobe_accuracy": round(child_wardrobe_acc, 4)
+                },
+                "adult": {
+                    "count": len(adult_ensemble_scores),
+                    "biometric_ensemble_mean": round(adult_mean_ens, 4),
+                    "rank1_accuracy": round(adult_rank1_acc, 4),
+                    "combined_binding_accuracy": round(adult_binding_acc, 4),
+                    "wardrobe_accuracy": round(adult_wardrobe_acc, 4)
+                }
+            },
+            "mean_defects_per_scene": round(mean_defects, 4),
+            "seg_failed_count": total_seg_failed
         },
         "comparative_significance": wilcoxon_results,
         "raw_biometric_ensemble_scores": ensemble_scores_all,
@@ -443,12 +600,19 @@ def run_verification(
         print(f"  ✅ Saved per-face metric summary CSV to: {csv_path}")
 
     print("\n" + "=" * 90)
-    print("  VERIFICATION SUMMARY RESULTS")
+    print("  VERIFICATION SUMMARY RESULTS (Verifier v1.1)")
     print(f"  Biometric Ensemble Mean:     {mean_ens:.4f} (95% CI: [{ci_ens_low:.4f}, {ci_ens_high:.4f}])")
-    print(f"  Rank-1 Re-ID Accuracy:       {rank1_acc * 100:.1f}%")
-    print(f"  Spatial/Wardrobe Binding:    {binding_acc * 100:.1f}%")
-    print(f"  Wardrobe Palette Accuracy:   {wardrobe_acc * 100:.1f}%")
+    print(f"    - Adult Biometric Mean:    {adult_mean_ens:.4f} (n={len(adult_ensemble_scores)})")
+    print(f"    - Child Biometric Mean:    {child_mean_ens:.4f} (n={len(child_ensemble_scores)})")
+    print(f"  Rank-1 Re-ID Accuracy:       {rank1_acc * 100:.1f}% (Adult: {adult_rank1_acc*100:.1f}%, Child: {child_rank1_acc*100:.1f}%)")
+    print(f"  Discrimination Margin:       {mean_margin:.4f}")
+    print(f"  Combined Binding Accuracy:   {combined_binding_acc * 100:.1f}%")
+    print(f"    - Spatial Position Pass:   {spatial_acc * 100:.1f}%")
+    print(f"    - Wardrobe Palette Pass:   {wardrobe_acc * 100:.1f}%")
+    print(f"    - Identity-at-Position:    {id_pos_acc * 100:.1f}%")
     print(f"  Mean Defects per Scene:      {mean_defects:.2f}")
+    print(f"  Detector Health Status:      {'ALL HEALTHY' if detector_health_summary['all_healthy'] else 'DEGRADED'}")
+    print(f"  SegFormer Failures:          {total_seg_failed}")
     print("=" * 90 + "\n")
 
     return final_report

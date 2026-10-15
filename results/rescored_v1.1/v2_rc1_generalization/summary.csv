@@ -1,0 +1,22 @@
+image_filename,scene_number,scene_title,character_id,is_child,overall_pass,biometric_ensemble_score,rank1_correct,discrimination_margin,spatial_pass,observed_position,wardrobe_pass,wardrobe_delta_e,identity_at_position_pass,combined_binding_pass,seg_status,face_sharpness,face_width_px
+chrono_scene_1_seed_101.png,1,The Clockwork Observatory,elena_vance,False,False,0.0,False,-0.2331,False,center,False,43.45,False,False,seg_ok,1030.38,196
+chrono_scene_1_seed_101.png,1,The Clockwork Observatory,marcus_thorne,False,False,0.0,False,-1.0,False,missing,False,99.0,False,False,missing_face,0.0,0
+chrono_scene_1_seed_202.png,1,The Clockwork Observatory,elena_vance,False,False,0.0,False,-0.1179,True,left,True,18.25,False,False,seg_ok,482.71,106
+chrono_scene_1_seed_202.png,1,The Clockwork Observatory,marcus_thorne,False,False,0.0,False,-0.1379,True,center,True,13.83,False,False,seg_ok,1131.8,115
+chrono_scene_1_seed_303.png,1,The Clockwork Observatory,elena_vance,False,False,0.0,False,-0.119,False,center,True,33.97,False,False,seg_ok,518.43,156
+chrono_scene_1_seed_303.png,1,The Clockwork Observatory,marcus_thorne,False,False,0.0,False,-1.0,False,missing,False,99.0,False,False,missing_face,0.0,0
+chrono_scene_2_seed_101.png,2,The Gearworks Archive,elena_vance,False,False,0.0,False,-0.2034,True,center,False,46.11,False,False,seg_ok,170.21,262
+chrono_scene_2_seed_202.png,2,The Gearworks Archive,elena_vance,False,False,0.0,False,-0.2367,True,center,True,6.34,False,False,seg_ok,252.82,169
+chrono_scene_2_seed_303.png,2,The Gearworks Archive,elena_vance,False,False,0.0,False,-0.1653,True,center,False,40.46,False,False,seg_ok,93.35,215
+chrono_scene_3_seed_101.png,3,The Dunesea Outpost,elena_vance,False,False,0.0,False,-0.191,True,left,True,32.48,False,False,seg_ok,351.24,268
+chrono_scene_3_seed_101.png,3,The Dunesea Outpost,kenji_sato,False,False,0.0,False,-1.0,False,missing,False,99.0,False,False,missing_face,0.0,0
+chrono_scene_3_seed_202.png,3,The Dunesea Outpost,elena_vance,False,False,0.0,False,-0.3657,False,center,False,71.24,False,False,seg_ok,1859.78,67
+chrono_scene_3_seed_202.png,3,The Dunesea Outpost,kenji_sato,False,False,0.0,False,-1.0,False,missing,False,99.0,False,False,missing_face,0.0,0
+chrono_scene_3_seed_303.png,3,The Dunesea Outpost,elena_vance,False,False,0.0,False,-0.1776,False,center,False,38.76,False,False,seg_ok,822.36,130
+chrono_scene_3_seed_303.png,3,The Dunesea Outpost,kenji_sato,False,False,0.0,False,-0.3443,True,right,True,30.05,False,False,seg_ok,76.69,39
+chrono_scene_4_seed_101.png,4,The Solarium Vault,elena_vance,False,False,0.0,False,-0.1614,True,center,True,32.79,False,False,seg_ok,257.65,132
+chrono_scene_4_seed_202.png,4,The Solarium Vault,elena_vance,False,False,0.0,False,-0.1623,True,center,False,45.78,False,False,seg_ok,1122.24,58
+chrono_scene_4_seed_303.png,4,The Solarium Vault,elena_vance,False,False,0.0,False,-0.103,True,center,True,24.98,False,False,seg_ok,393.16,118
+chrono_scene_5_seed_101.png,5,The Council of Chronos,elena_vance,False,False,0.0,False,-0.0905,True,center,True,18.88,False,False,seg_ok,1130.52,104
+chrono_scene_5_seed_202.png,5,The Council of Chronos,elena_vance,False,False,0.0,False,-0.0395,True,center,True,25.64,False,False,seg_ok,1484.71,60
+chrono_scene_5_seed_303.png,5,The Council of Chronos,elena_vance,False,False,0.0,False,-0.0724,True,center,True,23.7,False,False,seg_ok,1058.04,87

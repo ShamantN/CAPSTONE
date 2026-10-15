@@ -34,15 +34,15 @@
   - [x] PR and squash-merge `docs/audit-retractions` into `consistency-v2`
 
 - [ ] **R2: Repair the Measuring Tools** (Branch: `fix/verifier-v1.1`)
-  - [ ] Root-cause fix for SegFormer / transformers / torch / numpy bridge
-  - [ ] Remove central-torso fallback; raise explicit `seg_failed` on failure
-  - [ ] Detector health monitoring (`ran=True/False` recorded per image across all 6 sub-detectors)
-  - [ ] Implement control test suite (`tests/verifier_controls/`) covering flip, inversion, wrong face, clone face, JPEG resave
-  - [ ] Rebuild calibration curves with challenging genuine/impostor pairs and child-specific genuine/impostor splits
-  - [ ] Calibrate wardrobe tolerance ($\Delta E$) on >=60 labeled clothing crops with holdout balanced accuracy
-  - [ ] Deterministic freeze script `tools/freeze_verifier.py` and `tools/check_freeze.py` updating `verifier_freeze.json` (v1.1)
-  - [ ] Write `docs_generated/v2/verifier_changelog.md`
-  - [ ] Re-score all historical renders (v1 baseline, v2 rc1, ablation) via `tools/rescore_all.py` into `results/rescored_v1.1/`
+  - [x] Root-cause fix for SegFormer / transformers / torch / numpy bridge
+  - [x] Remove central-torso fallback; raise explicit `seg_failed` on failure
+  - [x] Detector health monitoring (`ran=True/False` recorded per image across all 6 sub-detectors)
+  - [x] Implement control test suite (`tests/verifier_controls/`) covering flip, inversion, wrong face, clone face, JPEG resave
+  - [x] Rebuild calibration curves with challenging genuine/impostor pairs and child-specific genuine/impostor splits
+  - [x] Calibrate wardrobe tolerance ($\Delta E$) on >=60 labeled clothing crops with holdout balanced accuracy
+  - [x] Deterministic freeze script `tools/freeze_verifier.py` and `tools/check_freeze.py` updating `verifier_freeze.json` (v1.1)
+  - [x] Write `docs_generated/v2/verifier_changelog.md`
+  - [x] Re-score all historical renders (v1 baseline, v2 rc1, ablation) via `tools/rescore_all.py` into `results/rescored_v1.1/`
   - [ ] PR, merge into `consistency-v2`, tag `verifier-v1.1-frozen`, push tag
 
 - [ ] **R3: Splits, Seal and Baselines** (Branch: `feat/splits-and-seal`)
