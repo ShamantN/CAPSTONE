@@ -1,8 +1,8 @@
 # MMCCP Consistency v2: Master Progress & Execution Log
 
 **Current Campaign:** REPAIR AND REAL-IMPROVEMENT PASS  
-**Current Phase:** Phase R2 (Repair the Measuring Tools)  
-**Previous Phase:** Phase R1 (Audit and Retract - COMPLETE)  
+**Current Phase:** Phase R2 (Complete - Merging) / Phase R3 (Splits, Seal, Baselines)  
+**Previous Phase:** Phase R2 (Repair the Measuring Tools - COMPLETE)  
 **Active Integration Branch:** `consistency-v2`  
 **Open PR:** [PR #19](https://github.com/ShamantN/CAPSTONE/pull/19) (`consistency-v2` into `main` - MUST STAY OPEN)  
 **Last Tag Pushed:** `pre-repair-snapshot` (`80d3369`)  
@@ -32,6 +32,9 @@
 | `feat/m10-identity-memory` | `consistency-v2` | Merged (PR #15) | `67dada5` | [PR #15](https://github.com/ShamantN/CAPSTONE/pull/15) | M10: Identity memory across scenes with drift guard |
 | `feat/pipeline-v2-integration` | `consistency-v2` | Merged (PR #16) | `228f898` | [PR #16](https://github.com/ShamantN/CAPSTONE/pull/16) | Pipeline v2 integration & best_config.json |
 | `feat/ui-v2` | `consistency-v2` | Merged (PR #17) | `29953c7` | [PR #17](https://github.com/ShamantN/CAPSTONE/pull/17) | UI v2 in app.py & CLI runners |
+| `chore/r0-safety-setup` | `consistency-v2` | Merged (PR #20) | `33b497d` | [PR #20](https://github.com/ShamantN/CAPSTONE/pull/20) | R0 safety setup, telemetry, canary, seeds audit |
+| `docs/audit-retractions` | `consistency-v2` | Merged (PR #21) | `a4cbac3` | [PR #21](https://github.com/ShamantN/CAPSTONE/pull/21) | R1 audit, quarantine unsupported docs, RETRACTIONS.md |
+| `fix/verifier-v1.1` | `consistency-v2` | Active | Pending | [PR #22](https://github.com/ShamantN/CAPSTONE/pull/22) | R2 Verifier v1.1 freeze, controls, recalibration, rescore |
 
 ---
 

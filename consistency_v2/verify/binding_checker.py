@@ -135,13 +135,13 @@ class BindingChecker:
         pil_torso = Image.fromarray(torso_rgb)
 
         clothing_pixels = None
+        seg_status = "seg_failed"
         try:
             inputs = self._segformer_proc(images=pil_torso, return_tensors="pt")
             with torch.no_grad():
                 outputs = self._segformer_model(**inputs)
 
             logits = outputs.logits
-            # Upsample logits to torso size
             upsampled = torch.nn.functional.interpolate(
                 logits,
                 size=(torso_rgb.shape[0], torso_rgb.shape[1]),
@@ -150,18 +150,24 @@ class BindingChecker:
             )
             pred_mask = upsampled.argmax(dim=1)[0].cpu().numpy()
 
-            # Class 4: Upper-clothes, Class 7: Dress, Class 8: Coat/Suit
-            cloth_candidates = (pred_mask == 4) | (pred_mask == 7)
-            if np.sum(cloth_candidates) >= 50:
+            # SegFormer classes: 4: Upper-clothes, 5: Skirt, 6: Pants, 7: Dress, 17: Scarf
+            cloth_candidates = (
+                (pred_mask == 4) | (pred_mask == 5) | (pred_mask == 6) |
+                (pred_mask == 7) | (pred_mask == 17)
+            )
+            seg_pixels = int(np.sum(cloth_candidates))
+            if seg_pixels >= 50:
                 clothing_pixels = cloth_candidates
+                seg_status = "ok"
+            else:
+                seg_status = "seg_failed"
         except Exception as e:
-            logger.warning(f"SegFormer clothing segmentation fallback: {e}")
+            logger.warning(f"SegFormer clothing segmentation failed: {e}")
+            seg_status = "seg_failed"
 
-        if clothing_pixels is None:
-            # Fallback: take central patch of torso
-            th, tw = torso_rgb.shape[:2]
-            clothing_pixels = np.zeros((th, tw), dtype=bool)
-            clothing_pixels[int(th * 0.2):int(th * 0.8), int(tw * 0.2):int(tw * 0.8)] = True
+        # STRICT: Zero central-torso fallback! On failure, return (None, 'seg_failed')
+        if clothing_pixels is None or seg_status == "seg_failed":
+            return None, "seg_failed"
 
         torso_lab = cv2.cvtColor(torso_bgr, cv2.COLOR_BGR2LAB).astype(np.float32)
         # Standardize OpenCV LAB to standard CIELAB (L*: 0-100, a*: -128..127, b*: -128..127)
@@ -174,7 +180,7 @@ class BindingChecker:
         selected_b = b_std[clothing_pixels]
 
         if len(selected_l) == 0:
-            return None
+            return None, "seg_failed"
 
         median_lab = np.array([
             float(np.median(selected_l)),
@@ -182,7 +188,7 @@ class BindingChecker:
             float(np.median(selected_b))
         ], dtype=np.float32)
 
-        return median_lab
+        return median_lab, "ok"
 
     def verify_wardrobe_color(
         self,
@@ -237,17 +243,24 @@ class BindingChecker:
             expected_position_str=expected_position_str
         )
 
-        obs_lab = self.extract_clothing_color_lab(image_bgr, face_bbox)
-        wardrobe_pass, min_de, matched_color = self.verify_wardrobe_color(
-            observed_lab=obs_lab,
-            expected_color_names=expected_clothing_colors
-        )
+        obs_lab, seg_status = self.extract_clothing_color_lab(image_bgr, face_bbox)
+        if seg_status == "seg_failed" or obs_lab is None:
+            wardrobe_pass = False
+            min_de = 999.0
+            matched_color = "seg_failed"
+        else:
+            wardrobe_pass, min_de, matched_color = self.verify_wardrobe_color(
+                observed_lab=obs_lab,
+                expected_color_names=expected_clothing_colors
+            )
 
         overall_binding_pass = bool(spatial_pass and wardrobe_pass)
         reasons = []
         if not spatial_pass:
             reasons.append(f"Spatial mismatch: expected '{expected_position_str}', observed in {obs_zone} (x={r_x})")
-        if not wardrobe_pass:
+        if seg_status == "seg_failed":
+            reasons.append("Wardrobe segmentation failed: fewer than 50 clothing pixels detected (zero-fallback protocol)")
+        elif not wardrobe_pass:
             reasons.append(f"Wardrobe color mismatch: Delta E {min_de} exceeds tolerance for {expected_clothing_colors}")
 
         return {
@@ -257,6 +270,7 @@ class BindingChecker:
             "spatial_passed": spatial_pass,
             "wardrobe_passed": wardrobe_pass,
             "clothing_delta_e": min_de,
+            "seg_status": seg_status,
             "spatial_check": {
                 "passed": spatial_pass,
                 "expected": expected_position_str,
@@ -268,6 +282,7 @@ class BindingChecker:
                 "expected_colors": expected_clothing_colors,
                 "matched_reference": matched_color,
                 "delta_e": min_de,
+                "seg_status": seg_status,
                 "observed_lab": obs_lab.tolist() if obs_lab is not None else None
             },
             "failure_reasons": reasons

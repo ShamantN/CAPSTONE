@@ -86,6 +86,7 @@ class BiometricEnsemble:
                 res = DeepFace.represent(
                     img_path=img_bgr,
                     model_name=model_name,
+                    detector_backend="skip",
                     enforce_detection=False
                 )
                 if res and len(res) > 0 and "embedding" in res[0]:
