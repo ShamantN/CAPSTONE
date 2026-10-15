@@ -23,15 +23,15 @@
   - [x] Verify reserved seeds {606, 707, 808} are completely untouched (verified in `reserved_seeds_verification.md`)
   - [x] Update `consistency_v2/PROGRESS.md` and `REPAIR_PLAN.md`
 
-- [ ] **R1: Audit and Retract** (Branch: `docs/audit-retractions`)
-  - [ ] Write and run `tools/claims_audit.py` to produce `docs_generated/v2/repair/claims_ledger.csv`
-  - [ ] Verify and record verdicts for Problem Register items A1–A13 and B1–B13 in `problem_register.md`
-  - [ ] Find all dead/non-existent markdown path references
-  - [ ] Quarantine ungrounded docs into `docs_generated/v2/retracted/` with RETRACTED banner
-  - [ ] Add "UNDER REPAIR" banners to `README_V2.md` and top-level `README.md`
-  - [ ] Write `docs_generated/v2/RETRACTIONS.md`
-  - [ ] Post status comment on PR #19 and update body with audit notice
-  - [ ] PR and squash-merge `docs/audit-retractions` into `consistency-v2`
+- [x] **R1: Audit and Retract** (Branch: `docs/audit-retractions`)
+  - [x] Write and run `tools/claims_audit.py` to produce `docs_generated/v2/repair/claims_ledger.csv`
+  - [x] Verify and record verdicts for Problem Register items A1–A13 and B1–B13 in `problem_register.md`
+  - [x] Find all dead/non-existent markdown path references (`broken_links.md`)
+  - [x] Quarantine ungrounded docs into `docs_generated/v2/retracted/` with RETRACTED banner
+  - [x] Add "UNDER REPAIR" banners to `README_V2.md` and top-level `README.md`
+  - [x] Write `docs_generated/v2/RETRACTIONS.md`
+  - [x] Post status comment on PR #19 and update body with audit notice
+  - [x] PR and squash-merge `docs/audit-retractions` into `consistency-v2`
 
 - [ ] **R2: Repair the Measuring Tools** (Branch: `fix/verifier-v1.1`)
   - [ ] Root-cause fix for SegFormer / transformers / torch / numpy bridge

@@ -1,3 +1,9 @@
+# > [!CAUTION]
+# > **RETRACTED: DO NOT CITE; SEE RETRACTIONS.MD**
+# > This document contains unverified, contradicted, or unsourced claims from the previous pass.
+# > It has been formally retracted and moved to the quarantine area pending replacement with machine-verified numbers.
+# -------------------------------------------------------------------------------------------------------------------
+
 # MMCCP Consistency v2: Engineering Loop Log
 
 This document records every hypothesis-driven iteration across methods M1 through M10 following the strict non-negotiable Loop Protocol.

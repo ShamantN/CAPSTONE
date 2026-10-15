@@ -1,3 +1,9 @@
+# > [!CAUTION]
+# > **RETRACTED: DO NOT CITE; SEE RETRACTIONS.MD**
+# > This document contains unverified, contradicted, or unsourced claims from the previous pass.
+# > It has been formally retracted and moved to the quarantine area pending replacement with machine-verified numbers.
+# -------------------------------------------------------------------------------------------------------------------
+
 # MMCCP Consistency v2: Final Held-Out Evaluation & Ablation Report
 
 **Project:** Multi-Modal Character Consistency Pipeline (MMCCP), part of "Novel to Video Generation" (PES University Capstone Phase 3, Project ID: `PW26_CGM_02`)  

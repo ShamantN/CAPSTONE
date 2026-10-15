@@ -1,9 +1,15 @@
 # Multi-Modal Character Consistency Pipeline (MMCCP) v2
 
+> [!WARNING]
+> **PIPELINE & DOCUMENTATION CURRENTLY UNDER REPAIR**
+> Previous documentation associated with tag `v2.0.0-rc1` contained contradicted and unverified claims.
+> A formal audit has been completed and ungrounded claims have been retracted. See [`docs_generated/v2/RETRACTIONS.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/RETRACTIONS.md) for details.
+> The verifier is being frozen as v1.1 and the pipeline is undergoing systematic loop repair. Do not cite rc1 figures.
+
 **PES University Capstone Phase 3 — Project ID:** `PW26_CGM_02`  
 **GitHub Repository:** [https://github.com/ShamantN/CAPSTONE.git](https://github.com/ShamantN/CAPSTONE.git)  
 **Integration Branch:** `consistency-v2`  
-**Tags:** `baseline-v1`, `verifier-frozen`, `v2.0.0-rc1`  
+**Tags:** `baseline-v1`, `verifier-frozen`, `v2.0.0-rc1` (superseded), `pre-repair-snapshot`  
 
 ---
 

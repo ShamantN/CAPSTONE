@@ -1,8 +1,8 @@
 # MMCCP Consistency v2: Master Progress & Execution Log
 
 **Current Campaign:** REPAIR AND REAL-IMPROVEMENT PASS  
-**Current Phase:** Phase R1 (Audit and Retract)  
-**Previous Phase:** Phase R0 (Orientation and Safety - COMPLETE)  
+**Current Phase:** Phase R2 (Repair the Measuring Tools)  
+**Previous Phase:** Phase R1 (Audit and Retract - COMPLETE)  
 **Active Integration Branch:** `consistency-v2`  
 **Open PR:** [PR #19](https://github.com/ShamantN/CAPSTONE/pull/19) (`consistency-v2` into `main` - MUST STAY OPEN)  
 **Last Tag Pushed:** `pre-repair-snapshot` (`80d3369`)  

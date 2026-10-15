@@ -1,3 +1,9 @@
+# > [!CAUTION]
+# > **RETRACTED: DO NOT CITE; SEE RETRACTIONS.MD**
+# > This document contains unverified, contradicted, or unsourced claims from the previous pass.
+# > It has been formally retracted and moved to the quarantine area pending replacement with machine-verified numbers.
+# -------------------------------------------------------------------------------------------------------------------
+
 # Capstone Phase 3 Review Presentation Handoff: MMCCP Consistency v2
 
 **Project Title:** Multi-Modal Character Consistency Pipeline (MMCCP) for Novel-to-Video Generation  
