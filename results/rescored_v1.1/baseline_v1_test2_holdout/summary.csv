@@ -1,0 +1,25 @@
+image_filename,scene_number,scene_title,character_id,is_child,overall_pass,biometric_ensemble_score,rank1_correct,discrimination_margin,spatial_pass,observed_position,wardrobe_pass,wardrobe_delta_e,identity_at_position_pass,combined_binding_pass,seg_status,face_sharpness,face_width_px
+scene_1_relic_seed_1101.png,1,The Obsidian Relic,elena_child,True,False,0.2516,True,0.1566,True,center,False,72.11,False,False,seg_ok,41.51,451
+scene_1_relic_seed_1202.png,1,The Obsidian Relic,elena_child,True,False,0.2513,True,0.1611,True,center,False,63.84,False,False,seg_ok,31.68,479
+scene_1_relic_seed_1303.png,1,The Obsidian Relic,elena_child,True,False,0.2396,True,0.1347,True,center,False,71.31,False,False,seg_ok,51.31,429
+scene_2_mentorship_seed_1101.png,2,Mentorship in the Archive,dr_marcus_vance,False,False,0.2428,True,0.1455,True,left,True,23.28,False,False,seg_ok,190.39,323
+scene_2_mentorship_seed_1101.png,2,Mentorship in the Archive,elena_child,True,False,0.2972,True,0.2048,True,right,False,74.52,False,False,seg_ok,223.67,242
+scene_2_mentorship_seed_1202.png,2,Mentorship in the Archive,dr_marcus_vance,False,False,0.2272,True,0.1746,True,left,True,7.75,False,False,seg_ok,317.85,259
+scene_2_mentorship_seed_1202.png,2,Mentorship in the Archive,elena_child,True,False,0.2677,True,0.2304,True,right,True,22.84,False,False,seg_ok,242.93,259
+scene_2_mentorship_seed_1303.png,2,Mentorship in the Archive,dr_marcus_vance,False,False,0.2307,True,0.1314,True,left,True,18.38,False,False,seg_ok,176.61,331
+scene_2_mentorship_seed_1303.png,2,Mentorship in the Archive,elena_child,True,False,0.2959,True,0.1561,True,right,False,64.62,False,False,seg_ok,72.01,322
+scene_3_conservatory_seed_1101.png,3,The Botanical Conservatory,clara_thorn,False,False,0.1046,False,-0.0483,True,left,False,46.69,False,False,seg_ok,333.25,197
+scene_3_conservatory_seed_1101.png,3,The Botanical Conservatory,dr_marcus_vance,False,False,0.2215,True,0.1453,True,right,True,24.9,False,False,seg_ok,522.46,196
+scene_3_conservatory_seed_1202.png,3,The Botanical Conservatory,clara_thorn,False,False,0.126,False,-0.0414,False,center,True,36.73,False,False,seg_ok,153.6,275
+scene_3_conservatory_seed_1202.png,3,The Botanical Conservatory,dr_marcus_vance,False,False,0.2106,True,0.1558,True,right,True,10.54,False,False,seg_ok,754.95,190
+scene_3_conservatory_seed_1303.png,3,The Botanical Conservatory,clara_thorn,False,False,0.1509,False,-0.0892,True,left,True,37.77,False,False,seg_ok,149.53,290
+scene_3_conservatory_seed_1303.png,3,The Botanical Conservatory,dr_marcus_vance,False,False,0.2817,True,0.1578,True,right,True,15.16,False,False,seg_ok,254.98,216
+scene_4_expedition_seed_1101.png,4,The Expedition Assembled,clara_thorn,False,False,0.1264,False,-0.0285,True,left,False,44.99,False,False,seg_ok,269.96,261
+scene_4_expedition_seed_1101.png,4,The Expedition Assembled,elena_child,True,False,0.2836,True,0.1504,False,right,False,59.8,False,False,seg_ok,727.66,159
+scene_4_expedition_seed_1101.png,4,The Expedition Assembled,dr_marcus_vance,False,False,0.0,False,-1.0,False,missing,False,99.0,False,False,missing_face,0.0,0
+scene_4_expedition_seed_1202.png,4,The Expedition Assembled,clara_thorn,False,False,0.1281,False,-0.0243,True,left,False,38.37,False,False,seg_ok,344.09,195
+scene_4_expedition_seed_1202.png,4,The Expedition Assembled,elena_child,True,False,0.2486,True,0.1754,True,right,True,24.46,False,False,seg_ok,381.97,205
+scene_4_expedition_seed_1202.png,4,The Expedition Assembled,dr_marcus_vance,False,False,0.0,False,-1.0,False,missing,False,99.0,False,False,missing_face,0.0,0
+scene_4_expedition_seed_1303.png,4,The Expedition Assembled,clara_thorn,False,False,0.1241,False,-0.0417,True,left,False,46.48,False,False,seg_ok,116.0,329
+scene_4_expedition_seed_1303.png,4,The Expedition Assembled,elena_child,True,False,0.2717,True,0.1812,True,right,False,62.32,False,False,seg_ok,144.57,241
+scene_4_expedition_seed_1303.png,4,The Expedition Assembled,dr_marcus_vance,False,False,0.0,False,-1.0,False,missing,False,99.0,False,False,missing_face,0.0,0

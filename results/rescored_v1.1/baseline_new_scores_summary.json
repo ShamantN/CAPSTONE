@@ -1,0 +1,53 @@
+{
+  "baseline_v1_dev2": {
+    "images_count": 30,
+    "faces_count": 40,
+    "biometric_ensemble_mean": 0.2238,
+    "biometric_ensemble_95ci": [
+      0.2168,
+      0.2316
+    ],
+    "rank1_discrimination_accuracy": 0.725,
+    "combined_binding_pass_rate": 0.0,
+    "spatial_position_pass_rate": 0.975,
+    "wardrobe_palette_pass_rate": 0.35,
+    "mean_defects_per_scene": 3.2,
+    "adult_biometric_mean": 0.2298,
+    "child_biometric_mean": 0.2059,
+    "seg_failed_count": 0
+  },
+  "baseline_v1_test2_ebright": {
+    "images_count": 30,
+    "faces_count": 40,
+    "biometric_ensemble_mean": 0.2279,
+    "biometric_ensemble_95ci": [
+      0.2199,
+      0.236
+    ],
+    "rank1_discrimination_accuracy": 0.725,
+    "combined_binding_pass_rate": 0.0,
+    "spatial_position_pass_rate": 1.0,
+    "wardrobe_palette_pass_rate": 0.45,
+    "mean_defects_per_scene": 3.3,
+    "adult_biometric_mean": 0.2305,
+    "child_biometric_mean": 0.22,
+    "seg_failed_count": 0
+  },
+  "baseline_v1_test2_holdout": {
+    "images_count": 12,
+    "faces_count": 24,
+    "biometric_ensemble_mean": 0.1909,
+    "biometric_ensemble_95ci": [
+      0.1526,
+      0.2258
+    ],
+    "rank1_discrimination_accuracy": 0.625,
+    "combined_binding_pass_rate": 0.0,
+    "spatial_position_pass_rate": 0.7917,
+    "wardrobe_palette_pass_rate": 0.4167,
+    "mean_defects_per_scene": 1.5,
+    "adult_biometric_mean": 0.145,
+    "child_biometric_mean": 0.2675,
+    "seg_failed_count": 0
+  }
+}
