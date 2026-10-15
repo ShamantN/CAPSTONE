@@ -10,10 +10,18 @@ Supports:
 """
 import os
 import sys
+import io
 import json
 import time
 import base64
 import argparse
+
+if sys.platform == "win32":
+    try:
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
+    except Exception:
+        pass
 from pathlib import Path
 import cv2
 import numpy as np
@@ -131,9 +139,7 @@ def run_v2_scratch(mode: str = "default"):
 
     # Load canonical storyboard
     story_file = PROJECT_ROOT / "storyboards" / "ebright.json"
-    with open(story_file, "r", encoding="utf-8") as f:
-        story_dict = json.load(f)
-    story = StorySpec(**story_dict)
+    story = StorySpec.load_json(str(story_file))
 
     output_dir = PROJECT_ROOT / "edu_outputs" / "v2"
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -151,6 +157,58 @@ def run_v2_scratch(mode: str = "default"):
     print(f"  🎉 MMCCP v2 RENDERING COMPLETE IN {total_time/60:.2f} MINUTES!")
     print(f"  Outputs saved in: {output_dir}")
     print("=" * 90)
+
+    # Sync to EDU_IMAGES_DIR for Streamlit UI and evaluate consistency against fresh visual DNA
+    EDU_IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+    cache_data = {}
+    if CACHE_FILE.exists():
+        with open(CACHE_FILE, "r", encoding="utf-8") as f:
+            cache_data = json.load(f)
+
+    print("\n" + "=" * 90)
+    print("  📊 EVALUATING CONSISTENCY ON FRESHLY GENERATED VISUAL DNA")
+    print("=" * 90)
+    print(f"{'Scene':<10} | {'Character':<20} | {'ArcFace':<10} | {'CLIP-I':<10} | {'SSIM':<10} | {'Palette':<10} | {'Composite':<10}")
+    print("-" * 90)
+
+    all_scores = []
+    for s_idx, (img_cv, meta) in enumerate(results, start=1):
+        if img_cv is not None:
+            save_p = EDU_IMAGES_DIR / f"scene_{s_idx}.png"
+            cv2.imwrite(str(save_p), img_cv)
+
+            scene_hardcoded = next((s for s in HARDCODED_SCENES if s["scene_number"] == s_idx), None)
+            if scene_hardcoded and cache_data:
+                chars = scene_hardcoded.get("characters", [])
+                char_profiles = [c for c in HARDCODED_CHARACTERS if c["id"] in chars]
+                reports = []
+                if len(chars) > 1:
+                    reports, _ = evaluate_multicharacter_scene(
+                        anchors_map=cache_data,
+                        scene_input=img_cv,
+                        characters_info=char_profiles
+                    )
+                elif len(chars) == 1 and char_profiles:
+                    cid = chars[0]
+                    a_b64 = cache_data.get(cid)
+                    if a_b64:
+                        rep = evaluate_character_consistency(
+                            anchor_input=a_b64,
+                            scene_input=img_cv,
+                            char_id=cid,
+                            char_name=char_profiles[0]["name"]
+                        )
+                        reports = [rep]
+
+                for rep in reports:
+                    all_scores.append(rep.composite_score)
+                    print(f"{s_idx:<10} | {rep.character_name[:20]:<20} | {rep.arcface_score:<10.4f} | {rep.clip_score:<10.4f} | {rep.structural_score:<10.4f} | {rep.palette_score:<10.4f} | {rep.composite_score:<10.4f}")
+
+    if all_scores:
+        avg_comp = sum(all_scores) / len(all_scores)
+        print("=" * 90)
+        print(f"  🏆 OVERALL COMPOSITE CONSISTENCY SCORE: {avg_comp:.4f} ({avg_comp*100:.1f}%)")
+        print("=" * 90 + "\n")
 
 
 def main():

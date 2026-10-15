@@ -26,7 +26,9 @@ scratch/
 edu_outputs/
 cache/
 hardcoded_cache.json
-consistency_v2/banks/
+consistency_v2/banks*/
+results/telemetry/
+results/traces/
 results/raw/
 results/baseline_v1/
 results/v2/
