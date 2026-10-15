@@ -58,11 +58,11 @@
   - [x] Fix ablation runner (`tools/ablate.py`) with flag propagation and diff assertions
   - [x] Measure and document Forge diffusion nondeterminism across identical seeds
 
-- [ ] **R5: Diagnose the Real Pipeline**
-  - [ ] Execute v2 default on DEV-FAST with full stage tracing
-  - [ ] Analyze per-stage identity scores, swap targeting, face detailer overwrites, and binding failures
-  - [ ] Analyze adult vs child disparity
-  - [ ] Write `docs_generated/v2/repair/diagnosis.md` with empirical evidence to direct R7 work streams
+- [x] **R5: Diagnose the Real Pipeline** (Branch: `chore/diagnosis-r5`)
+  - [x] Execute v2 default on DEV-FAST with full stage tracing
+  - [x] Analyze per-stage identity scores, swap targeting, face detailer overwrites, and binding failures
+  - [x] Analyze adult vs child disparity
+  - [x] Write `docs_generated/v2/repair/diagnosis.md` with empirical evidence to direct R7 work streams
 
 - [ ] **R6: Rebuild the Identity Bank & M12 Prep** (Branch: `feat/bank-views`)
   - [ ] Generate and gate 5 to 8 multi-pose/expression views per character into local identity bank

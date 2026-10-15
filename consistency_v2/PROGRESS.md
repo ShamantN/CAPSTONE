@@ -1,8 +1,8 @@
 # MMCCP Consistency v2: Master Progress & Execution Log
 
 **Current Campaign:** REPAIR AND REAL-IMPROVEMENT PASS  
-**Current Phase:** Phase R4 (Instrument the Pipeline - COMPLETE) -> Phase R5 (Diagnose the Real Pipeline)  
-**Previous Phase:** Phase R3 (Splits, Seal, Baselines - MERGED & SEALED)  
+**Current Phase:** Phase R5 (Diagnose the Real Pipeline - COMPLETE) -> Phase R6 (Rebuild Identity Bank & M12 Prep)  
+**Previous Phase:** Phase R4 (Instrument the Pipeline - MERGED)  
 **Active Integration Branch:** `consistency-v2`  
 **Open PR:** [PR #19](https://github.com/ShamantN/CAPSTONE/pull/19) (`consistency-v2` into `main` - MUST STAY OPEN)  
 **Last Tag Pushed:** `test2-sealed` (`eed746f`)  
@@ -22,7 +22,10 @@
 | `docs/audit-retractions` | `consistency-v2` | Merged (PR #21) | `a4cbac3` | [PR #21](https://github.com/ShamantN/CAPSTONE/pull/21) | R1 audit, quarantine unsupported docs, RETRACTIONS.md |
 | `fix/verifier-v1.1` | `consistency-v2` | Merged (PR #22) | `d601b0f` | [PR #22](https://github.com/ShamantN/CAPSTONE/pull/22) | R2 Verifier v1.1 freeze, controls, recalibration, rescore |
 | `feat/splits-and-seal` | `consistency-v2` | Merged (PR #23) | `eed746f` | [PR #23](https://github.com/ShamantN/CAPSTONE/pull/23) | R3 splits guard, holdout story, certified anchors, seal, baseline DEV2/TEST2 |
-| `feat/stage-trace` | `consistency-v2` | Active | In Progress | Pending | R4 StageTracer instrumentation, StageNoOp assertions, bugfixes |
+| `feat/stage-trace` | `consistency-v2` | Merged (PR #24) | `ad3f8bd` | [PR #24](https://github.com/ShamantN/CAPSTONE/pull/24) | R4 StageTracer instrumentation, StageNoOp assertions, bugfixes |
+| `chore/diagnosis-r5` | `consistency-v2` | Active | In Progress | Pending | R5 pipeline stage-trace diagnosis on DEV-FAST, biometric trajectory |
+
+> **Pause Gap:** Server restart & context compaction pause from 2026-10-15 16:13 IST to 2026-10-15 19:30 IST (~3h 17m). Resumed autonomously: Forge restarted, 1 Hz telemetry sampler active (`results/telemetry/vram_resume_20261015.csv`), Windows AC sleep/hibernate disabled (0s), verifier freeze confirmed passing (`tools/check_freeze.py`), split access log audited (TEST-2/RESERVED clean).
 
 ---
 
