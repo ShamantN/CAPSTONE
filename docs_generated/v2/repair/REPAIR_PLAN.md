@@ -33,7 +33,7 @@
   - [x] Post status comment on PR #19 and update body with audit notice
   - [x] PR and squash-merge `docs/audit-retractions` into `consistency-v2`
 
-- [ ] **R2: Repair the Measuring Tools** (Branch: `fix/verifier-v1.1`)
+- [x] **R2: Repair the Measuring Tools** (Branch: `fix/verifier-v1.1`)
   - [x] Root-cause fix for SegFormer / transformers / torch / numpy bridge
   - [x] Remove central-torso fallback; raise explicit `seg_failed` on failure
   - [x] Detector health monitoring (`ran=True/False` recorded per image across all 6 sub-detectors)
@@ -43,14 +43,14 @@
   - [x] Deterministic freeze script `tools/freeze_verifier.py` and `tools/check_freeze.py` updating `verifier_freeze.json` (v1.1)
   - [x] Write `docs_generated/v2/verifier_changelog.md`
   - [x] Re-score all historical renders (v1 baseline, v2 rc1, ablation) via `tools/rescore_all.py` into `results/rescored_v1.1/`
-  - [ ] PR, merge into `consistency-v2`, tag `verifier-v1.1-frozen`, push tag
+  - [x] PR, merge into `consistency-v2`, tag `verifier-v1.1-frozen`, push tag
 
-- [ ] **R3: Splits, Seal and Baselines** (Branch: `feat/splits-and-seal`)
-  - [ ] Define splits in `consistency_v2/splits.py` (DEV-FAST, DEV-FULL, DEV-2, TEST-2, RESERVED) with access guard logging
-  - [ ] Author `storyboards/holdout_v2.json` with 3 brand-new characters and 4 scenes (never rendered by v2)
-  - [ ] Generate holdout anchors via standard certified anchor process
-  - [ ] Write `consistency_v2/test2_seal.json` and tag `test2-sealed`
-  - [ ] Run baseline v1 from git worktree at tag `baseline-v1` on DEV-2 and TEST-2, scored with Verifier v1.1
+- [x] **R3: Splits, Seal and Baselines** (Branch: `feat/splits-and-seal`)
+  - [x] Define splits in `consistency_v2/splits.py` (DEV-FAST, DEV-FULL, DEV-2, TEST-2, RESERVED) with access guard logging
+  - [x] Author `storyboards/holdout_v2.json` with 3 brand-new characters and 4 scenes (never rendered by v2)
+  - [x] Generate holdout anchors via standard certified anchor process (audited for single face & sharpness)
+  - [x] Write `consistency_v2/test2_seal.json` and tag `test2-sealed`
+  - [x] Run baseline v1 from git worktree at tag `baseline-v1` on DEV-2 and TEST-2, scored with Verifier v1.1 (72 renders scored and recorded)
 
 - [ ] **R4: Instrument the Pipeline** (Branches: `feat/stage-trace`, `fix/ablation-toggles`)
   - [ ] Add `trace=True` intermediate image/embedding saving with SHA256 and pixel-diff metrics

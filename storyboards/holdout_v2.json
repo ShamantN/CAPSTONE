@@ -1,0 +1,215 @@
+{
+  "story_id": "holdout_expedition_aurora",
+  "title": "Project Aurora: The Polar Discovery",
+  "visual_style": "Cinematic Realistic",
+  "global_negative_prompt": "blurry, deformed, bad anatomy, bad hands, missing fingers, extra fingers, ugly, watermark, text, signature",
+  "characters": {
+    "elena_child": {
+      "id": "elena_child",
+      "name": "Elena Rostova (Child)",
+      "unique_token": "Elena_C9R2M",
+      "gender": "female",
+      "ethnicity": "Eastern European",
+      "skin_tone": "fair",
+      "face_shape": "heart-shaped child",
+      "hair_color": "strawberry blonde",
+      "hair_style": "twin braids",
+      "eye_color": "green",
+      "build": "petite child",
+      "distinctive_features": ["freckles across nose", "bright green eyes"],
+      "recurring_clothing": "crimson red knitted cardigan and white collared shirt",
+      "clothing_colors": ["crimson red", "solid white"],
+      "age_states": {
+        "primary": {
+          "age_years": "9",
+          "stage_name": "child",
+          "hairstyle": "twin braids",
+          "clothing_description": "crimson red knitted cardigan over white shirt"
+        }
+      }
+    },
+    "dr_marcus_vance": {
+      "id": "dr_marcus_vance",
+      "name": "Dr. Marcus Vance",
+      "unique_token": "Marcus_V8K4P",
+      "gender": "male",
+      "ethnicity": "African American",
+      "skin_tone": "deep brown",
+      "face_shape": "chiseled square jaw",
+      "hair_color": "black with silver temples",
+      "hair_style": "short faded buzzcut",
+      "eye_color": "dark brown",
+      "build": "tall athletic build",
+      "distinctive_features": ["silver temples", "trimmed salt-and-pepper goatee", "wire-rim glasses"],
+      "recurring_clothing": "charcoal grey turtleneck sweater and dark trousers",
+      "clothing_colors": ["charcoal grey", "black"],
+      "age_states": {
+        "primary": {
+          "age_years": "45",
+          "stage_name": "adult",
+          "hairstyle": "short buzzcut with silver temples",
+          "clothing_description": "charcoal grey turtleneck"
+        }
+      }
+    },
+    "clara_thorn": {
+      "id": "clara_thorn",
+      "name": "Clara Thorn",
+      "unique_token": "Clara_T3N7L",
+      "gender": "female",
+      "ethnicity": "East Asian",
+      "skin_tone": "warm ivory",
+      "face_shape": "oval elegant",
+      "hair_color": "jet black",
+      "hair_style": "sleek high ponytail",
+      "eye_color": "amber brown",
+      "build": "slender graceful",
+      "distinctive_features": ["high cheekbones", "sleek ponytail", "silver leaf lapel pin"],
+      "recurring_clothing": "emerald green silk tailored blazer and cream blouse",
+      "clothing_colors": ["emerald green", "cream white"],
+      "age_states": {
+        "primary": {
+          "age_years": "32",
+          "stage_name": "adult",
+          "hairstyle": "sleek high ponytail",
+          "clothing_description": "emerald green tailored blazer over cream blouse"
+        }
+      }
+    }
+  },
+  "scenes": [
+    {
+      "scene_id": "scene_1_relic",
+      "scene_number": 1,
+      "title": "The Obsidian Relic",
+      "location_name": "Private Study",
+      "environment_type": "indoor study room",
+      "lighting": "warm desk lamp lighting",
+      "shot_type": "close-up",
+      "camera_angle": "eye level",
+      "action_description": "Elena, a 9-year-old girl with strawberry blonde twin braids and crimson red cardigan, closely examines an ancient obsidian compass resting on a wooden study desk.",
+      "characters_present": ["elena_child"],
+      "character_positions": {
+        "elena_child": "center"
+      },
+      "character_age_states": {
+        "elena_child": "primary"
+      },
+      "character_outfits": {
+        "elena_child": "crimson red knitted cardigan and white collared shirt"
+      },
+      "required_props": ["obsidian compass", "wooden desk"],
+      "forbidden_props": ["modern smartphones", "laptops"],
+      "qa_requirements": {
+        "expected_character_count": 1,
+        "primary_focus": "elena_child",
+        "clothing_check": "crimson red cardigan"
+      }
+    },
+    {
+      "scene_id": "scene_2_mentorship",
+      "scene_number": 2,
+      "title": "Mentorship in the Archive",
+      "location_name": "Grand Historical Archive",
+      "environment_type": "indoor library archive with tall bookshelves",
+      "lighting": "soft diffused atmospheric library light",
+      "shot_type": "medium shot",
+      "camera_angle": "eye level two-shot",
+      "action_description": "Dr. Marcus Vance in a charcoal grey turtleneck stands on the left gesturing at an astronomical star map, while young Elena in her crimson red cardigan listens attentively on the right.",
+      "characters_present": ["dr_marcus_vance", "elena_child"],
+      "character_positions": {
+        "dr_marcus_vance": "left",
+        "elena_child": "right"
+      },
+      "character_age_states": {
+        "dr_marcus_vance": "primary",
+        "elena_child": "primary"
+      },
+      "character_outfits": {
+        "dr_marcus_vance": "charcoal grey turtleneck sweater",
+        "elena_child": "crimson red knitted cardigan and white collared shirt"
+      },
+      "required_props": ["astronomical star map"],
+      "forbidden_props": ["modern electronics"],
+      "qa_requirements": {
+        "expected_character_count": 2,
+        "spatial_layout": "marcus_left_elena_right"
+      }
+    },
+    {
+      "scene_id": "scene_3_conservatory",
+      "scene_number": 3,
+      "title": "The Botanical Conservatory",
+      "location_name": "Victorian Glass Conservatory",
+      "environment_type": "sunlit greenhouse conservatory with ferns and exotic plants",
+      "lighting": "bright natural daylight through glass panes",
+      "shot_type": "wide shot",
+      "camera_angle": "wide cinematic view",
+      "action_description": "Clara Thorn in an emerald green blazer stands on the left conferring with Dr. Marcus Vance in charcoal grey on the right inside a sunlit glass conservatory surrounded by exotic ferns.",
+      "characters_present": ["clara_thorn", "dr_marcus_vance"],
+      "character_positions": {
+        "clara_thorn": "left",
+        "dr_marcus_vance": "right"
+      },
+      "character_age_states": {
+        "clara_thorn": "primary",
+        "dr_marcus_vance": "primary"
+      },
+      "character_outfits": {
+        "clara_thorn": "emerald green tailored blazer over cream blouse",
+        "dr_marcus_vance": "charcoal grey turtleneck sweater"
+      },
+      "required_props": ["botanical foliage"],
+      "forbidden_props": ["vehicles"],
+      "qa_requirements": {
+        "expected_character_count": 2,
+        "spatial_layout": "clara_left_marcus_right"
+      }
+    },
+    {
+      "scene_id": "scene_4_expedition",
+      "scene_number": 4,
+      "title": "The Expedition Assembled",
+      "location_name": "Observatory Planning Chamber",
+      "environment_type": "grand domed brass observatory chamber",
+      "lighting": "dramatic golden hour shafts of light through dome slit",
+      "shot_type": "medium group shot",
+      "camera_angle": "wide three-shot",
+      "action_description": "Clara Thorn in her emerald green blazer on the left, young Elena in her crimson red cardigan in the center, and Dr. Marcus Vance in his charcoal grey turtleneck on the right gather around the grand bronze observatory table.",
+      "characters_present": ["clara_thorn", "elena_child", "dr_marcus_vance"],
+      "character_positions": {
+        "clara_thorn": "left",
+        "elena_child": "center",
+        "dr_marcus_vance": "right"
+      },
+      "character_age_states": {
+        "clara_thorn": "primary",
+        "elena_child": "primary",
+        "dr_marcus_vance": "primary"
+      },
+      "character_outfits": {
+        "clara_thorn": "emerald green tailored blazer over cream blouse",
+        "elena_child": "crimson red knitted cardigan and white collared shirt",
+        "dr_marcus_vance": "charcoal grey turtleneck sweater"
+      },
+      "required_props": ["bronze observatory table"],
+      "forbidden_props": ["weapons"],
+      "qa_requirements": {
+        "expected_character_count": 3,
+        "spatial_layout": "clara_left_elena_center_marcus_right"
+      }
+    }
+  ],
+  "props": {
+    "obsidian_compass": {
+      "id": "obsidian_compass",
+      "name": "Obsidian Compass",
+      "description": "Polished black obsidian casing with luminous etched markings"
+    },
+    "star_map": {
+      "id": "star_map",
+      "name": "Astronomical Star Map",
+      "description": "Aged parchment celestial cartography with brass constellation rings"
+    }
+  }
+}

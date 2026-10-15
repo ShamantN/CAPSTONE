@@ -21,6 +21,7 @@ htmlcov/
 *.tmp
 *.temp
 scratch/
+worktrees/
 
 # Local Caches & Generated Outputs
 edu_outputs/
@@ -40,6 +41,7 @@ docs_generated/raw/ablation_images/
 docs_generated/raw/best_images/
 docs_generated/raw/*.csv
 docs_generated/raw/vram_telemetry.csv
+docs_generated/v2/visual_review/contact_sheets/
 experiments/**/*.png
 
 # Model Weights & Binary Checkpoints

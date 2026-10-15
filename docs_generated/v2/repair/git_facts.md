@@ -1,8 +1,8 @@
 # Git Facts & PR Audit Register
 
-> Generated on: 2026-10-15T11:07:09.259597
+> Generated on: 2026-10-15T12:18:53.470462
 > Current Active Branch: `consistency-v2`
-> Current Commit SHA (HEAD): `a4cbac3d0a6217d8b678331701363db9d83eda1a`
+> Current Commit SHA (HEAD): `ed0aac9d3ba54f11e93ed4c1e53b659dace6f510`
 
 ## 1. Complete Pull Request Register
 
@@ -29,6 +29,7 @@
 | #19 | feat(v2): Multi-Modal Character Consistency Pipeline (MMCCP) v2.0 | `OPEN` | `main` | `consistency-v2` | `N/A` | N/A | [PR #19](https://github.com/ShamantN/CAPSTONE/pull/19) |
 | #20 | chore(setup): Phase R0 safety, environment audit, and telemetry | `MERGED` | `consistency-v2` | `chore/r0-safety-setup` | `bf05162ced` | 2026-10-15T05:25:45Z | [PR #20](https://github.com/ShamantN/CAPSTONE/pull/20) |
 | #21 | docs(audit): Phase R1 audit, retractions, and problem register | `MERGED` | `consistency-v2` | `docs/audit-retractions` | `a4cbac3d0a` | 2026-10-15T05:36:36Z | [PR #21](https://github.com/ShamantN/CAPSTONE/pull/21) |
+| #22 | fix(verifier): freeze verifier v1.1, add controls and rescore historical runs | `MERGED` | `consistency-v2` | `fix/verifier-v1.1` | `ed0aac9d3b` | 2026-10-15T06:47:46Z | [PR #22](https://github.com/ShamantN/CAPSTONE/pull/22) |
 
 ## 2. Git Tags Register
 
@@ -38,6 +39,7 @@
 | `pre-repair-snapshot` | 2026-10-15 10:30:35 +0530 | Snapshot of consistency-v2 at commit 80d3369 before repair and real-improvement pass |
 | `v2.0.0-rc1` | 2026-10-14 18:32:46 +0530 | Release Candidate 2.0.0: Full MMCCP Character Consistency Pipeline (Methods M1-M10, frozen verifier evaluation on held-out test set, 86 registered artifacts in MANIFEST.json) |
 | `verifier-frozen` | 2026-10-14 14:02:18 +0530 | verifier-frozen: multi-modal verification suite frozen with SHA256 f7319db547dc445c2ec05722f4425d3844d6cd5a2e43a7842034b5dbabd82850 |
+| `verifier-v1.1-frozen` | 2026-10-15 12:18:15 +0530 | Verifier v1.1 frozen with canonical SHA ee3b29d5a3511f1bad0efed114b079d4c4478beeeafd6c13b9053ebb99c9b8ac |
 
 ## 3. PR #1 & PR #2 & PR #8 Truth Verification
 

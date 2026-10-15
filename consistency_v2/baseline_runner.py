@@ -168,16 +168,24 @@ def run_baseline_split(
                 print(f"      [ERROR] Failed to generate Scene {scene.scene_number} (Seed {seed})")
 
 
+from consistency_v2.splits import (
+    assert_split_allowed,
+    DEV_2_EBRIGHT_SEEDS,
+    TEST_2_EBRIGHT_SEEDS,
+    TEST_2_HOLDOUT_SEEDS
+)
+
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description="Baseline v1 Split Runner")
-    parser.add_argument("--split", choices=["dev_fast", "dev_full", "test", "smoke"], default="smoke")
+    parser.add_argument("--split", choices=["dev_fast", "dev_full", "dev2", "test2", "smoke"], default="smoke")
     args = parser.parse_args()
 
     ebright_path = PROJECT_ROOT / "storyboards" / "ebright.json"
-    gen_path = PROJECT_ROOT / "storyboards" / "generalization_benchmark.json"
+    holdout_path = PROJECT_ROOT / "storyboards" / "holdout_v2.json"
 
     if args.split == "smoke":
+        assert_split_allowed("DEV-FAST", caller_info="baseline_runner.py smoke")
         run_baseline_split(
             story_path=ebright_path,
             split_name="smoke",
@@ -185,25 +193,45 @@ if __name__ == "__main__":
             output_dir=PROJECT_ROOT / "results" / "baseline_v1" / "smoke",
             max_scenes=1
         )
+    elif args.split == "dev_fast":
+        assert_split_allowed("DEV-FAST", caller_info="baseline_runner.py dev_fast")
+        run_baseline_split(
+            story_path=ebright_path,
+            split_name="dev_fast",
+            seeds=[11, 23, 37],
+            output_dir=PROJECT_ROOT / "results" / "baseline_v1" / "dev_fast",
+            max_scenes=4
+        )
     elif args.split == "dev_full":
+        assert_split_allowed("DEV-FULL", caller_info="baseline_runner.py dev_full")
         run_baseline_split(
             story_path=ebright_path,
             split_name="dev_full",
             seeds=[11, 23, 37],
             output_dir=PROJECT_ROOT / "results" / "baseline_v1" / "dev_full"
         )
-    elif args.split == "test":
-        # 1. Ebright on seeds 101, 202, 303, 404, 505
+    elif args.split == "dev2":
+        assert_split_allowed("DEV-2", caller_info="baseline_runner.py dev2")
         run_baseline_split(
             story_path=ebright_path,
-            split_name="test_ebright",
-            seeds=[101, 202, 303, 404, 505],
-            output_dir=PROJECT_ROOT / "results" / "baseline_v1" / "test_ebright"
+            split_name="dev2",
+            seeds=DEV_2_EBRIGHT_SEEDS,
+            output_dir=PROJECT_ROOT / "results" / "baseline_v1" / "dev2"
         )
-        # 2. Generalization benchmark on seeds 101, 202, 303
+    elif args.split == "test2":
+        assert_split_allowed("TEST-2", caller_info="baseline_runner.py test2")
+        # 1. Ebright on TEST-2 seeds
         run_baseline_split(
-            story_path=gen_path,
-            split_name="test_generalization",
-            seeds=[101, 202, 303],
-            output_dir=PROJECT_ROOT / "results" / "baseline_v1" / "test_generalization"
+            story_path=ebright_path,
+            split_name="test2_ebright",
+            seeds=TEST_2_EBRIGHT_SEEDS,
+            output_dir=PROJECT_ROOT / "results" / "baseline_v1" / "test2" / "ebright"
         )
+        # 2. Holdout storyboard on TEST-2 holdout seeds
+        run_baseline_split(
+            story_path=holdout_path,
+            split_name="test2_holdout",
+            seeds=TEST_2_HOLDOUT_SEEDS,
+            output_dir=PROJECT_ROOT / "results" / "baseline_v1" / "test2" / "holdout"
+        )
+

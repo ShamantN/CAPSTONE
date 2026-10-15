@@ -1,11 +1,11 @@
 # MMCCP Consistency v2: Master Progress & Execution Log
 
 **Current Campaign:** REPAIR AND REAL-IMPROVEMENT PASS  
-**Current Phase:** Phase R2 (Complete - Merging) / Phase R3 (Splits, Seal, Baselines)  
-**Previous Phase:** Phase R2 (Repair the Measuring Tools - COMPLETE)  
+**Current Phase:** Phase R3 (Splits, Seal, Baselines - COMPLETE) -> Phase R4 (Instrument the Pipeline)  
+**Previous Phase:** Phase R2 (Repair the Measuring Tools - MERGED & FROZEN)  
 **Active Integration Branch:** `consistency-v2`  
 **Open PR:** [PR #19](https://github.com/ShamantN/CAPSTONE/pull/19) (`consistency-v2` into `main` - MUST STAY OPEN)  
-**Last Tag Pushed:** `pre-repair-snapshot` (`80d3369`)  
+**Last Tag Pushed:** `verifier-v1.1-frozen` (`e3cb397`)  
 **Hardware & Power:** Intel i7-12650H, 32GB RAM, RTX 3070 Ti Laptop GPU (8GB), AC Standby/Hibernate disabled (0s).  
 **Telemetry:** 1 Hz `nvidia-smi` background sampler running in `results/telemetry/`.  
 
@@ -17,24 +17,11 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `main` | - | Protected | `cf114dc110060baf28dc3edda5e381af7fcbc2d4` | - | Production stable branch |
 | `sync/local-baseline` | `main` | Open PR | `cf12f7f585af60c82c179672fafe6ef9292efb26` | [PR #1](https://github.com/ShamantN/CAPSTONE/pull/1) | Initial local baseline import & hygiene |
-| `consistency-v2` | `sync/local-baseline` | Active | `912f74d` | - | Long-lived v2 integration branch |
-| `feat/verifier` | `consistency-v2` | Merged (PR #3) | `96aa099` | [PR #3](https://github.com/ShamantN/CAPSTONE/pull/3) | Multi-modal verification suite |
-| `fix/verifier-encoding` | `consistency-v2` | Merged (PR #4) | `85257ee` | [PR #4](https://github.com/ShamantN/CAPSTONE/pull/4) | Verifier Windows UTF-8 stdout encoding |
-| `feat/m1-identity-bank` | `consistency-v2` | Merged (PR #5) | `31afaf8` | [PR #5](https://github.com/ShamantN/CAPSTONE/pull/5) | M1: Multi-reference identity bank and centroid embeddings |
-| `feat/m2-layout-planner` | `consistency-v2` | Merged (PR #6) | `32eea5d` | [PR #6](https://github.com/ShamantN/CAPSTONE/pull/6) | M2: Programmatic layout planner, OpenPose skeleton & D1 fix |
-| `feat/m3-regional-couple` | `consistency-v2` | Merged (PR #7) | `18c5190` | [PR #7](https://github.com/ShamantN/CAPSTONE/pull/7) | M3: True regional conditioning via Forge Couple driver |
-| `feat/m4-identity-units` | `consistency-v2` | Merged (PR #9) | `96035a7` | [PR #9](https://github.com/ShamantN/CAPSTONE/pull/9) | M4: Dual-unit InstantID & IP-Adapter Plus-Face SDXL |
-| `feat/m5-face-transplant` | `consistency-v2` | Merged (PR #10) | `fe592e7` | [PR #10](https://github.com/ShamantN/CAPSTONE/pull/10) | M5: Reliable identity transplant & CodeFormer enhancement |
-| `feat/m6-face-detailer` | `consistency-v2` | Merged (PR #11) | `1bbe16b` | [PR #11](https://github.com/ShamantN/CAPSTONE/pull/11) | M6: Identity-conditioned face detailer & inpaint |
-| `feat/m7-wardrobe-lock` | `consistency-v2` | Merged (PR #12) | `aabe03b` | [PR #12](https://github.com/ShamantN/CAPSTONE/pull/12) | M7: Wardrobe and palette lock via SegFormer |
-| `feat/m8-reference-only` | `consistency-v2` | Merged (PR #13) | `18e76c5` | [PR #13](https://github.com/ShamantN/CAPSTONE/pull/13) | M8: Reference-only attention injection |
-| `feat/m9-best-of-n-healing` | `consistency-v2` | Merged (PR #14) | `87c51e7` | [PR #14](https://github.com/ShamantN/CAPSTONE/pull/14) | M9: Best-of-N selection and diagnostic-driven healing |
-| `feat/m10-identity-memory` | `consistency-v2` | Merged (PR #15) | `67dada5` | [PR #15](https://github.com/ShamantN/CAPSTONE/pull/15) | M10: Identity memory across scenes with drift guard |
-| `feat/pipeline-v2-integration` | `consistency-v2` | Merged (PR #16) | `228f898` | [PR #16](https://github.com/ShamantN/CAPSTONE/pull/16) | Pipeline v2 integration & best_config.json |
-| `feat/ui-v2` | `consistency-v2` | Merged (PR #17) | `29953c7` | [PR #17](https://github.com/ShamantN/CAPSTONE/pull/17) | UI v2 in app.py & CLI runners |
+| `consistency-v2` | `sync/local-baseline` | Active | `ed0aac9` | - | Long-lived v2 integration branch |
 | `chore/r0-safety-setup` | `consistency-v2` | Merged (PR #20) | `33b497d` | [PR #20](https://github.com/ShamantN/CAPSTONE/pull/20) | R0 safety setup, telemetry, canary, seeds audit |
 | `docs/audit-retractions` | `consistency-v2` | Merged (PR #21) | `a4cbac3` | [PR #21](https://github.com/ShamantN/CAPSTONE/pull/21) | R1 audit, quarantine unsupported docs, RETRACTIONS.md |
-| `fix/verifier-v1.1` | `consistency-v2` | Active | Pending | [PR #22](https://github.com/ShamantN/CAPSTONE/pull/22) | R2 Verifier v1.1 freeze, controls, recalibration, rescore |
+| `fix/verifier-v1.1` | `consistency-v2` | Merged (PR #22) | `d601b0f` | [PR #22](https://github.com/ShamantN/CAPSTONE/pull/22) | R2 Verifier v1.1 freeze, controls, recalibration, rescore |
+| `feat/splits-and-seal` | `consistency-v2` | Active | In Progress | Pending | R3 splits guard, holdout story, certified anchors, seal, baseline DEV2/TEST2 |
 
 ---
 
