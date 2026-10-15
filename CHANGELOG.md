@@ -4,7 +4,15 @@ All notable changes to this project are documented in this file in accordance wi
 
 ---
 
-## [2.0.0-rc1] - 2026-10-14
+## [2.0.0-audit] - 2026-10-15
+
+### Audited & Retracted
+- **Retraction of Ungrounded Claims:** Formally audited documentation associated with `2.0.0-rc1`. Moved contradicted and unverified claims to `docs_generated/v2/retracted/` and published `docs_generated/v2/RETRACTIONS.md`.
+- **Identified Pipeline v2 Bottlenecks:** Verified and documented Problem Register A1–A13 and B1–B13 in `docs_generated/v2/repair/problem_register.md`.
+- **Pre-Repair Baseline:** Confirmed baseline v1 operational and established safety pre-flight with tag `pre-repair-snapshot`.
+
+## [2.0.0-rc1] - 2026-10-14 (Superseded & Under Repair)
+
 
 ### Added
 - **M1 Multi-Reference Identity Bank (`consistency_v2/identity_bank.py`):**

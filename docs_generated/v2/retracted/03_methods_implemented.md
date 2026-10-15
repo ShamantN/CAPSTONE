@@ -1,3 +1,9 @@
+# > [!CAUTION]
+# > **RETRACTED: DO NOT CITE; SEE RETRACTIONS.MD**
+# > This document contains unverified, contradicted, or unsourced claims from the previous pass.
+# > It has been formally retracted and moved to the quarantine area pending replacement with machine-verified numbers.
+# -------------------------------------------------------------------------------------------------------------------
+
 # MMCCP Consistency v2: Methods Implemented (M1 to M10)
 
 This document provides the definitive technical specification, theoretical foundation, mathematical formulations, architectural diagrams, implementation locations, final hyperparameters, measured empirical gains, and cost profiles for all ten character consistency methods (M1 through M10) implemented in the Multi-Modal Character Consistency Pipeline v2 (MMCCP).

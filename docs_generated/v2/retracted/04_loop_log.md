@@ -1,3 +1,9 @@
+# > [!CAUTION]
+# > **RETRACTED: DO NOT CITE; SEE RETRACTIONS.MD**
+# > This document contains unverified, contradicted, or unsourced claims from the previous pass.
+# > It has been formally retracted and moved to the quarantine area pending replacement with machine-verified numbers.
+# -------------------------------------------------------------------------------------------------------------------
+
 # MMCCP Consistency v2: Master Loop Engineering Log
 
 This log documents every engineering iteration conducted during the development, debugging, and tuning of the Multi-Modal Character Consistency Pipeline v2 (MMCCP). Each iteration adheres to the non-negotiable Loop Protocol:
