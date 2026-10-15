@@ -633,6 +633,27 @@ def run_phase3_comparative_benchmark():
     return phase3_results
 
 
+def sync_anchors_to_v2_banks(cache_data: Dict[str, str]):
+    """Syncs base64 encoded Visual DNA anchors into consistency_v2 identity banks."""
+    try:
+        from consistency_v2.identity_bank import IdentityBankManager
+        bank_mgr = IdentityBankManager()
+        for char in HARDCODED_CHARACTERS:
+            cid = char["id"]
+            if cid in cache_data and cache_data[cid]:
+                buf = base64.b64decode(cache_data[cid])
+                img_np = np.frombuffer(buf, dtype=np.uint8)
+                img_bgr = cv2.imdecode(img_np, cv2.IMREAD_COLOR)
+                if img_bgr is not None:
+                    cdir = bank_mgr.get_bank_dir(cid)
+                    p = cdir / f"ref_00_{cid}_anchor.png"
+                    cv2.imwrite(str(p), img_bgr)
+                    bank_mgr.initialize_character_bank(cid, [p])
+        logger.info("Successfully synced fresh Visual DNA anchors into consistency_v2 banks.")
+    except Exception as e:
+        logger.warning(f"Could not sync anchors to v2 banks: {e}")
+
+
 # ==============================================================================
 # 6. STREAMLIT UI INTERFACE (app.py)
 # ==============================================================================
@@ -757,8 +778,9 @@ def render_app_ui():
                 if st.button("📸 Generate 5 Fresh Anchors from StorySpec Prompts (Demographic Phenotype Lock)", type="primary", use_container_width=True):
                     with st.spinner("Generating 5 fresh Visual DNA anchors via SDXL txt2img..."):
                         cache_data = ensure_visual_dna_anchors(HARDCODED_CHARACTERS, CACHE_FILE, SD_MODELS[sd_model_key], force_regenerate=True)
+                        sync_anchors_to_v2_banks(cache_data)
                         st.session_state["rendered_storyboard"] = None
-                        st.success("All 5 Visual DNA character anchors generated and cached!")
+                        st.success("All 5 Visual DNA character anchors generated and synced to identity banks!")
                         st.rerun()
             with col_b:
                 st.caption("Generates Young Ebright, Teen Ebright, College Ebright, Mother, and James Wong using pure prompt specifications.")
@@ -768,8 +790,9 @@ def render_app_ui():
                 if st.button("🔄 Force Regenerate All Visual DNA Anchors", use_container_width=True):
                     with st.spinner("Regenerating all 5 Visual DNA anchors with demographic phenotype locking..."):
                         cache_data = ensure_visual_dna_anchors(HARDCODED_CHARACTERS, CACHE_FILE, SD_MODELS[sd_model_key], force_regenerate=True)
+                        sync_anchors_to_v2_banks(cache_data)
                         st.session_state["rendered_storyboard"] = None
-                        st.success("All 5 Visual DNA character anchors regenerated and cached!")
+                        st.success("All 5 Visual DNA character anchors regenerated and synced to identity banks!")
                         st.rerun()
             with col_r2:
                 if st.button("🗑️ Clear to 0 Anchors", use_container_width=True):
@@ -865,9 +888,7 @@ def render_app_ui():
                     )
                     v2_pipe = ConsistencyPipelineV2(config=v2_cfg)
                     story_file = PROJECT_ROOT / "storyboards" / "ebright.json"
-                    with open(story_file, "r", encoding="utf-8") as f:
-                        story_dict = json.load(f)
-                    story_obj = StorySpec(**story_dict)
+                    story_obj = StorySpec.load_json(str(story_file))
 
                     rendered_panels = []
                     for scene_spec in story_obj.scenes:
@@ -878,18 +899,41 @@ def render_app_ui():
                             s_num = scene_spec.scene_number
                             save_p = EDU_IMAGES_DIR / f"scene_{s_num}.png"
                             cv2.imwrite(str(save_p), scene_cv)
+                            v2_reports = []
+                            scene_hardcoded = next((s for s in HARDCODED_SCENES if s["scene_number"] == s_num), None)
+                            if scene_hardcoded and cache_data:
+                                chars = scene_hardcoded.get("characters", [])
+                                char_profiles = [c for c in HARDCODED_CHARACTERS if c["id"] in chars]
+                                if len(chars) > 1:
+                                    reports, _ = evaluate_multicharacter_scene(
+                                        anchors_map=cache_data,
+                                        scene_input=scene_cv,
+                                        characters_info=char_profiles
+                                    )
+                                    v2_reports = reports
+                                elif len(chars) == 1 and char_profiles:
+                                    cid = chars[0]
+                                    a_b64 = cache_data.get(cid)
+                                    if a_b64:
+                                        rep = evaluate_character_consistency(
+                                            anchor_input=a_b64,
+                                            scene_input=scene_cv,
+                                            char_id=cid,
+                                            char_name=char_profiles[0]["name"]
+                                        )
+                                        v2_reports = [rep]
                             rendered_panels.append({
                                 "scene": {
                                     "scene_number": s_num,
                                     "title": scene_spec.title,
-                                    "action_description": scene_spec.action,
+                                    "action_description": getattr(scene_spec, "action_description", getattr(scene_spec, "action", "")),
                                     "cinematic_prompt": {
                                         "shot_type": scene_spec.shot_type,
                                         "camera_angle": scene_spec.camera_angle
                                     }
                                 },
                                 "image": img_pil,
-                                "reports": []
+                                "reports": v2_reports
                             })
                     st.session_state["rendered_storyboard"] = rendered_panels
                     st.success("All 6 scenes generated with Consistency v2!")

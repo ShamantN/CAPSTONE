@@ -1,10 +1,13 @@
 # MMCCP Consistency v2: Master Progress & Execution Log
 
-**Current Phase:** Phase 5 (Final Held-Out Evaluation on TEST Set & Ablation Study)  
+**Current Campaign:** REPAIR AND REAL-IMPROVEMENT PASS  
+**Current Phase:** Phase R1 (Audit and Retract)  
+**Previous Phase:** Phase R0 (Orientation and Safety - COMPLETE)  
 **Active Integration Branch:** `consistency-v2`  
-**Last Merged PR:** [PR #17](https://github.com/ShamantN/CAPSTONE/pull/17) (`29953c7`)  
-**Target Architecture:** Multi-Modal Character Consistency Pipeline v2 (M1–M10)  
-**Hardware & Power:** RTX 3070 Ti Laptop GPU (8GB), AC Standby/Hibernate disabled (0s).  
+**Open PR:** [PR #19](https://github.com/ShamantN/CAPSTONE/pull/19) (`consistency-v2` into `main` - MUST STAY OPEN)  
+**Last Tag Pushed:** `pre-repair-snapshot` (`80d3369`)  
+**Hardware & Power:** Intel i7-12650H, 32GB RAM, RTX 3070 Ti Laptop GPU (8GB), AC Standby/Hibernate disabled (0s).  
+**Telemetry:** 1 Hz `nvidia-smi` background sampler running in `results/telemetry/`.  
 
 ---
 
