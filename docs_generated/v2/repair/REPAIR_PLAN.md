@@ -52,11 +52,11 @@
   - [x] Write `consistency_v2/test2_seal.json` and tag `test2-sealed`
   - [x] Run baseline v1 from git worktree at tag `baseline-v1` on DEV-2 and TEST-2, scored with Verifier v1.1 (72 renders scored and recorded)
 
-- [ ] **R4: Instrument the Pipeline** (Branches: `feat/stage-trace`, `fix/ablation-toggles`)
-  - [ ] Add `trace=True` intermediate image/embedding saving with SHA256 and pixel-diff metrics
-  - [ ] Add `StageNoOpError` assertion for any enabled stage that fails to change pixels
-  - [ ] Fix ablation runner (`tools/ablate.py`) with flag propagation and diff assertions
-  - [ ] Measure and document Forge diffusion nondeterminism across identical seeds
+- [x] **R4: Instrument the Pipeline** (Branches: `feat/stage-trace`, `fix/ablation-toggles`)
+  - [x] Add `trace=True` intermediate image/embedding saving with SHA256 and pixel-diff metrics
+  - [x] Add `StageNoOpError` assertion for any enabled stage that fails to change pixels
+  - [x] Fix ablation runner (`tools/ablate.py`) with flag propagation and diff assertions
+  - [x] Measure and document Forge diffusion nondeterminism across identical seeds
 
 - [ ] **R5: Diagnose the Real Pipeline**
   - [ ] Execute v2 default on DEV-FAST with full stage tracing

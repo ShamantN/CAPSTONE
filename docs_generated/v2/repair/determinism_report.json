@@ -1,0 +1,13 @@
+{
+  "scene_number": 1,
+  "seed": 11,
+  "run1_sha256": "6216075961a9cbf4e9bb003c0b4e0334235ff0f01d88b4bf79b2a4e22fb0acf3",
+  "run2_sha256": "81fc8c59a3d27f6b1d3867aa0614095708623f79a97dba93400e2b2da81a301e",
+  "bitwise_identical": false,
+  "mean_pixel_diff": 0.6665,
+  "ssim": 0.997274,
+  "psnr_db": 43.82,
+  "run1_runtime_s": 270.28,
+  "run2_runtime_s": 140.73,
+  "notes": "Near-identical with minor GPU xformers/CUDA non-deterministic floating-point kernel drift"
+}
