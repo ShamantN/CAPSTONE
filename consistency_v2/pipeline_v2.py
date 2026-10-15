@@ -39,6 +39,8 @@ from consistency_v2.candidates import CandidateScreen
 from consistency_v2.healing_v2 import HealingControllerV2
 from consistency_v2.identity_memory import IdentityMemoryManager
 
+from consistency_v2.stage_trace import StageTracer, StageNoOpError
+
 logger = logging.getLogger("MMCCP.PipelineV2")
 
 
@@ -96,14 +98,20 @@ class ConsistencyPipelineV2:
         self,
         story: StorySpec,
         scene: SceneSpec,
-        seed: int = -1
+        seed: int = -1,
+        trace: bool = False
     ) -> Tuple[Optional[np.ndarray], Dict[str, Any]]:
         """
-        Executes complete v2 consistency generation for a single storyboard scene.
+        Executes complete v2 consistency generation for a single storyboard scene with optional tracing.
         """
         # Scope Guard check
         self.config.validate_seed(seed)
         t0 = time.time()
+
+        tracer = StageTracer(
+            trace_id=f"{story.story_id}_{scene.scene_id}_seed_{seed}",
+            enabled=trace
+        )
 
         # 1. Scene Planning
         plan: SceneExecutionPlan = ScenePlanner.plan_scene(
@@ -158,6 +166,8 @@ class ConsistencyPipelineV2:
                 "guidance_start": 0.0,
                 "guidance_end": self.config.openpose_guidance_end
             }
+            if trace and skeleton_cv is not None:
+                tracer.record_stage("layout_skeleton", skeleton_cv, enforce_active=False)
 
         # 3. ControlNet Units Assembly (Pass 1)
         cnet_units = []
@@ -240,6 +250,9 @@ class ConsistencyPipelineV2:
                 return None, {"error": "Pass 1 failed"}
             draft_b64 = draft_imgs[0]
             actual_seed = info1.get("seed", seed)
+            draft_cv = decode_image_to_cv2(draft_b64)
+            if draft_cv is not None:
+                tracer.record_stage("pass1_draft", draft_cv, enforce_active=False)
 
         # 6. Pass 2: Refinement IMG2IMG
         pass2_scripts = alwayson_scripts.copy()
@@ -269,28 +282,42 @@ class ConsistencyPipelineV2:
             final_imgs, info2 = self.client.img2img(img2img_payload)
             result_b64 = final_imgs[0] if final_imgs else draft_b64
             current_cv = decode_image_to_cv2(result_b64)
+            if current_cv is not None:
+                tracer.record_stage("pass2_refined", current_cv, enforce_active=True)
 
         # 7. M6: Identity-Conditioned Face Detailer
         detailer_report = {}
-        if self.config.enable_face_detailer and current_cv is not None and 'scene_layout' in locals():
+        if self.config.enable_face_detailer and current_cv is not None and layout_boxes:
             char_prompts = {
                 cid: (self.registry.get_character(cid).visual_summary if self.registry.get_character(cid) else cid)
                 for cid in characters_present
             }
-            current_cv = self.face_detailer.detail_image(
+            detailed_cv = self.face_detailer.detail_image(
                 image_bgr=current_cv,
                 character_prompts=char_prompts,
-                layout_boxes=scene_layout.layout_boxes,
+                layout_boxes=layout_boxes,
                 bank_manager=self.bank_manager,
                 config=self.detailer_config
             )
-            detailer_report = {"detailed": True}
+            if detailed_cv is not None:
+                current_cv = detailed_cv
+                detailer_report = {"detailed": True}
+                face_bboxes = [b.face_bbox for b in layout_boxes]
+                tracer.record_stage(
+                    "m6_face_detailer",
+                    current_cv,
+                    target_bboxes=None,
+                    stage_metadata={"layout_face_bboxes": face_bboxes},
+                    enforce_active=True
+                )
+        else:
+            tracer.record_skipped_stage("m6_face_detailer", "disabled or no layout boxes")
 
         # 8. M5: Reliable Identity Transplant (Direct InsightFace swap)
         swap_report = {}
-        if self.config.enable_reliable_face_swap and current_cv is not None and 'scene_layout' in locals():
+        if self.config.enable_reliable_face_swap and current_cv is not None and layout_boxes:
             swap_specs = []
-            for b in scene_layout.layout_boxes:
+            for b in layout_boxes:
                 cid = b.character_id
                 best_ref = self.bank_manager.select_best_reference(cid)
                 if best_ref and "path" in best_ref:
@@ -317,9 +344,20 @@ class ConsistencyPipelineV2:
                     if swapped_cv is not None:
                         current_cv = swapped_cv
                         swap_report = {"swapped": True, "num_swaps": len(swap_specs), "specs": swap_specs}
+                        swap_bboxes = [b.face_bbox for b in layout_boxes]
+                        tracer.record_stage(
+                            "m5_face_swap",
+                            current_cv,
+                            target_bboxes=None,
+                            stage_metadata={"layout_face_bboxes": swap_bboxes},
+                            enforce_active=True
+                        )
+        else:
+            tracer.record_skipped_stage("m5_face_swap", "disabled or no layout boxes")
 
         # 9. M7: Wardrobe and Palette Lock
         wardrobe_report = {}
+        faces_for_wardrobe = []
         if self.config.enable_wardrobe_lock and current_cv is not None:
             char_wardrobes = {}
             for cid in characters_present:
@@ -332,11 +370,10 @@ class ConsistencyPipelineV2:
 
             # Extract detected face bboxes bound to layout boxes
             detected_faces = self.face_detailer.auditor.detect_faces(current_cv)
-            faces_for_wardrobe = []
-            if 'scene_layout' in locals():
+            if layout_boxes:
                 for f in detected_faces:
                     matched_box = self.face_detailer.match_face_to_layout_box(
-                        f["bbox"], scene_layout.layout_boxes, current_cv.shape[1]
+                        f["bbox"], layout_boxes, current_cv.shape[1]
                     )
                     if matched_box:
                         faces_for_wardrobe.append({
@@ -350,10 +387,17 @@ class ConsistencyPipelineV2:
                 character_wardrobes=char_wardrobes,
                 blend_strength=0.70
             )
+            tracer.record_stage(
+                "m7_wardrobe_lock",
+                current_cv,
+                enforce_active=(wardrobe_report.get("repairs_applied", 0) > 0)
+            )
+        else:
+            tracer.record_skipped_stage("m7_wardrobe_lock", "disabled")
 
         # 10. M10: Cross-Scene Identity Memory Promotion
         memory_promotions = []
-        if self.config.enable_identity_memory and current_cv is not None and 'faces_for_wardrobe' in locals():
+        if self.config.enable_identity_memory and current_cv is not None and faces_for_wardrobe:
             for fb in faces_for_wardrobe:
                 cid = fb.get("character_id")
                 bbox = fb.get("bbox")
@@ -365,6 +409,12 @@ class ConsistencyPipelineV2:
                         scene_id=scene.scene_number
                     )
                     memory_promotions.append(promo_decision._asdict())
+
+        # Final composite record
+        if current_cv is not None:
+            tracer.record_stage("final_composite", current_cv, enforce_active=False)
+
+        trace_report = tracer.finalize()
 
         elapsed = time.time() - t0
         mem_end = get_vram_telemetry()
@@ -395,7 +445,8 @@ class ConsistencyPipelineV2:
             "detailer_report": detailer_report,
             "swap_report": swap_report,
             "wardrobe_report": wardrobe_report,
-            "memory_promotions": memory_promotions
+            "memory_promotions": memory_promotions,
+            "trace": trace_report
         }
 
         return current_cv, metadata
@@ -405,7 +456,8 @@ class ConsistencyPipelineV2:
         story: StorySpec,
         output_dir: Path,
         seed: int = 101,
-        prefix: str = "scene_"
+        prefix: str = "scene_",
+        trace: bool = False
     ) -> List[Tuple[Optional[np.ndarray], Dict[str, Any]]]:
         """
         Renders all scenes in a storyboard with v2 pipeline and writes outputs and sidecars.
@@ -416,7 +468,7 @@ class ConsistencyPipelineV2:
         logger.info(f"Generating Storyboard '{story.title}' with Consistency Pipeline v2 (seed {seed})")
 
         for scene in story.scenes:
-            img_cv, meta = self.generate_scene(story=story, scene=scene, seed=seed)
+            img_cv, meta = self.generate_scene(story=story, scene=scene, seed=seed, trace=trace)
             results.append((img_cv, meta))
 
             if img_cv is not None:

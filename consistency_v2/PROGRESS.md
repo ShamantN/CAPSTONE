@@ -1,11 +1,11 @@
 # MMCCP Consistency v2: Master Progress & Execution Log
 
 **Current Campaign:** REPAIR AND REAL-IMPROVEMENT PASS  
-**Current Phase:** Phase R3 (Splits, Seal, Baselines - COMPLETE) -> Phase R4 (Instrument the Pipeline)  
-**Previous Phase:** Phase R2 (Repair the Measuring Tools - MERGED & FROZEN)  
+**Current Phase:** Phase R4 (Instrument the Pipeline - COMPLETE) -> Phase R5 (Diagnose the Real Pipeline)  
+**Previous Phase:** Phase R3 (Splits, Seal, Baselines - MERGED & SEALED)  
 **Active Integration Branch:** `consistency-v2`  
 **Open PR:** [PR #19](https://github.com/ShamantN/CAPSTONE/pull/19) (`consistency-v2` into `main` - MUST STAY OPEN)  
-**Last Tag Pushed:** `verifier-v1.1-frozen` (`e3cb397`)  
+**Last Tag Pushed:** `test2-sealed` (`eed746f`)  
 **Hardware & Power:** Intel i7-12650H, 32GB RAM, RTX 3070 Ti Laptop GPU (8GB), AC Standby/Hibernate disabled (0s).  
 **Telemetry:** 1 Hz `nvidia-smi` background sampler running in `results/telemetry/`.  
 
@@ -17,11 +17,12 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `main` | - | Protected | `cf114dc110060baf28dc3edda5e381af7fcbc2d4` | - | Production stable branch |
 | `sync/local-baseline` | `main` | Open PR | `cf12f7f585af60c82c179672fafe6ef9292efb26` | [PR #1](https://github.com/ShamantN/CAPSTONE/pull/1) | Initial local baseline import & hygiene |
-| `consistency-v2` | `sync/local-baseline` | Active | `ed0aac9` | - | Long-lived v2 integration branch |
+| `consistency-v2` | `sync/local-baseline` | Active | `eed746f` | - | Long-lived v2 integration branch |
 | `chore/r0-safety-setup` | `consistency-v2` | Merged (PR #20) | `33b497d` | [PR #20](https://github.com/ShamantN/CAPSTONE/pull/20) | R0 safety setup, telemetry, canary, seeds audit |
 | `docs/audit-retractions` | `consistency-v2` | Merged (PR #21) | `a4cbac3` | [PR #21](https://github.com/ShamantN/CAPSTONE/pull/21) | R1 audit, quarantine unsupported docs, RETRACTIONS.md |
 | `fix/verifier-v1.1` | `consistency-v2` | Merged (PR #22) | `d601b0f` | [PR #22](https://github.com/ShamantN/CAPSTONE/pull/22) | R2 Verifier v1.1 freeze, controls, recalibration, rescore |
-| `feat/splits-and-seal` | `consistency-v2` | Active | In Progress | Pending | R3 splits guard, holdout story, certified anchors, seal, baseline DEV2/TEST2 |
+| `feat/splits-and-seal` | `consistency-v2` | Merged (PR #23) | `eed746f` | [PR #23](https://github.com/ShamantN/CAPSTONE/pull/23) | R3 splits guard, holdout story, certified anchors, seal, baseline DEV2/TEST2 |
+| `feat/stage-trace` | `consistency-v2` | Active | In Progress | Pending | R4 StageTracer instrumentation, StageNoOp assertions, bugfixes |
 
 ---
 
