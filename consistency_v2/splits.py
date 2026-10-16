@@ -39,11 +39,18 @@ RESERVED_SEEDS = [606, 707, 808]
 SPLIT_NAMES = ["DEV-FAST", "DEV-FULL", "DEV-2", "TEST-2", "RESERVED"]
 
 
-def _log_split_access(split: str, caller_info: str):
-    """Appends split access event to results/split_access_log.jsonl."""
-    log_dir = PROJECT_ROOT / "results"
-    log_dir.mkdir(parents=True, exist_ok=True)
-    log_file = log_dir / "split_access_log.jsonl"
+def get_split_access_log_path() -> Path:
+    """Returns the split access log path, respecting SPLIT_ACCESS_LOG_PATH environment override."""
+    override = os.environ.get("SPLIT_ACCESS_LOG_PATH")
+    if override:
+        return Path(override)
+    return PROJECT_ROOT / "results" / "split_access_log.jsonl"
+
+
+def _log_split_access(split: str, caller_info: str, log_path: Optional[Path] = None):
+    """Appends split access event to results/split_access_log.jsonl or custom log_path."""
+    target_file = log_path or get_split_access_log_path()
+    target_file.parent.mkdir(parents=True, exist_ok=True)
     
     event = {
         "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
@@ -53,11 +60,11 @@ def _log_split_access(split: str, caller_info: str):
         "env_allow_test2": os.environ.get("ALLOW_TEST2", "0"),
         "env_allow_reserved": os.environ.get("ALLOW_RESERVED", "0")
     }
-    with open(log_file, "a", encoding="utf-8") as f:
+    with open(target_file, "a", encoding="utf-8") as f:
         f.write(json.dumps(event) + "\n")
 
 
-def assert_split_allowed(split: str, caller_info: str = ""):
+def assert_split_allowed(split: str, caller_info: str = "", log_path: Optional[Path] = None):
     """
     Enforces access guards on data splits:
     - DEV-FAST, DEV-FULL, DEV-2: Always allowed.
@@ -73,7 +80,7 @@ def assert_split_allowed(split: str, caller_info: str = ""):
                 "TEST-2 is sealed until Phase R10 final evaluation. "
                 "To unlock for final evaluation, set environment variable ALLOW_TEST2=1."
             )
-        _log_split_access("TEST-2", caller_info)
+        _log_split_access("TEST-2", caller_info, log_path=log_path)
         
     elif split_norm == "RESERVED":
         if os.environ.get("ALLOW_RESERVED") != "1":
@@ -81,7 +88,7 @@ def assert_split_allowed(split: str, caller_info: str = ""):
                 "Access to RESERVED split is FORBIDDEN! "
                 "Reserved seeds {606, 707, 808} must never be used."
             )
-        _log_split_access("RESERVED", caller_info)
+        _log_split_access("RESERVED", caller_info, log_path=log_path)
 
 
 def assert_seed_allowed(seed: int, split: Optional[str] = None):

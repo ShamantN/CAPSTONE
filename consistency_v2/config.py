@@ -75,6 +75,12 @@ class ConsistencyV2Config:
     # Scope Override Extension Point: M11 LoRA training is OUT OF SCOPE
     use_character_lora: bool = False  # Keep disabled; reserved for future tier
 
+    # M12: Collage-Init Composition (Multi-character resolution anchor)
+    enable_collage_init: bool = False
+    collage_feather_radius: int = 15
+    collage_alpha_blend: float = 0.85
+    collage_min_face_scale_px: int = 96
+
     # Generation Base Parameters
     steps_pass1: int = 20
     steps_pass2: int = 15

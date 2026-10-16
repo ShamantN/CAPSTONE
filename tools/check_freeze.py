@@ -42,6 +42,14 @@ def check_freeze() -> bool:
         current_files[rel_path] = cur_hash
         if cur_hash != expected_hash:
             mismatches.append(f"MODIFIED: {rel_path} (expected {expected_hash[:12]}..., got {cur_hash[:12]}...)")
+
+    # Check for unrecorded / stray files in consistency_v2/verify/
+    for p in VERIFY_DIR.rglob("*"):
+        if p.is_dir() or "__pycache__" in p.parts or p.name.endswith(".pyc"):
+            continue
+        rel = p.relative_to(VERIFY_DIR).as_posix()
+        if rel not in recorded_files:
+            mismatches.append(f"UNRECORDED STRAY FILE: {rel}")
             
     # Compute current combined hash
     combined_str = "".join(f"{k}:{current_files[k]}\n" for k in sorted(current_files.keys()))

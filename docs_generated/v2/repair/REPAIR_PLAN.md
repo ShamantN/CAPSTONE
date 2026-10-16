@@ -64,10 +64,10 @@
   - [x] Analyze adult vs child disparity
   - [x] Write `docs_generated/v2/repair/diagnosis.md` with empirical evidence to direct R7 work streams
 
-- [ ] **R6: Rebuild the Identity Bank & M12 Prep** (Branch: `feat/bank-views`)
-  - [ ] Generate and gate 5 to 8 multi-pose/expression views per character into local identity bank
-  - [ ] Measure M1 gain on DEV-FAST (single anchor vs centroid vs nearest-pose selection)
-  - [ ] Prepare M12 Collage-Init implementation behind feature flag
+- [x] **R6: Rebuild the Identity Bank & M12 Prep** (Branch: `feat/bank-views`)
+  - [x] Generate and gate 5 to 8 multi-pose/expression views per character into local identity bank (7 views/character generated and audited)
+  - [x] Measure M1 gain on DEV-FAST (single anchor vs centroid vs nearest-pose selection: nearest_pose won +0.0045)
+  - [x] Prepare M12 Collage-Init implementation behind feature flag (unit tested; decoupled for feat/m12-collage-init)
 
 - [ ] **R7: Identity and Binding Repair Loops** (Branches: `fix/identity-*`, `fix/binding-*`, `feat/m12-collage-init`)
   - [ ] W1: Stage execution order (lock identity last)

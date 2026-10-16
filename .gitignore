@@ -36,6 +36,7 @@ results/v2/
 results/v2_default/
 results/v2_quality/
 results/ablation/
+results/m1_screening/**/*.png
 !results/MANIFEST.json
 docs_generated/raw/ablation_images/
 docs_generated/raw/best_images/
