@@ -64,7 +64,8 @@ class IdentityUnitManager:
         character_ids: List[str],
         bank_manager: IdentityBankManager,
         target_yaw: float = 0.0,
-        config: Optional[IdentityUnitConfig] = None
+        config: Optional[IdentityUnitConfig] = None,
+        strategy: str = "nearest_pose"
     ) -> List[ControlSpec]:
         """
         Builds calibrated identity ControlSpecs for all specified characters.
@@ -74,6 +75,7 @@ class IdentityUnitManager:
             bank_manager: Loaded IdentityBankManager instance.
             target_yaw: Target head yaw angle for reference selection.
             config: IdentityUnitConfig instance (defaults to standard settings).
+            strategy: Reference selection strategy ('single_anchor', 'centroid', 'nearest_pose').
 
         Returns:
             List of ControlSpec objects ready for Forge ControlNet payload building.
@@ -84,7 +86,7 @@ class IdentityUnitManager:
         specs: List[ControlSpec] = []
 
         for cid in character_ids:
-            best_ref = bank_manager.select_best_reference(cid, target_yaw=target_yaw)
+            best_ref = bank_manager.select_best_reference(cid, target_yaw=target_yaw, strategy=strategy)
             if not best_ref or "path" not in best_ref:
                 logger.warning(f"No identity bank reference available for character: {cid}")
                 continue

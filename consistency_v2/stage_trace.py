@@ -99,6 +99,9 @@ class StageTracer:
         Records an intermediate pipeline stage.
         If enforce_active=True, asserts pixel change in target region > epsilon_diff.
         """
+        if not self.enabled:
+            return {}
+
         t_now = time.time()
         sha = compute_image_sha256(image_bgr)
 
@@ -138,6 +141,9 @@ class StageTracer:
 
     def record_skipped_stage(self, stage_name: str, reason: str):
         """Records a disabled or intentionally bypassed stage."""
+        if not self.enabled:
+            return
+
         stage_record = {
             "stage_index": len(self.stages) + 1,
             "stage_name": stage_name,

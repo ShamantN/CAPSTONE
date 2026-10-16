@@ -272,11 +272,14 @@ class IdentityBankManager:
         self,
         character_id: str,
         target_yaw: float = 0.0,
-        target_scale: str = "medium"
+        target_scale: str = "medium",
+        strategy: str = "nearest_pose"
     ) -> Optional[Dict[str, Any]]:
         """
-        Nearest-neighbor reference view selection:
-        Selects the bank image with minimal angular yaw distance to target_yaw.
+        Multi-reference view selection supporting three distinct strategies:
+        - 'single_anchor': strictly returns ref_00 (the certified frontal anchor).
+        - 'centroid': returns the most representative exemplar reference view.
+        - 'nearest_pose': returns the reference view with minimal angular distance to target_yaw.
         """
         if character_id not in self._banks:
             return None
@@ -286,6 +289,14 @@ class IdentityBankManager:
         if not refs:
             return None
 
+        if strategy == "single_anchor":
+            return refs[0]
+
+        if strategy == "centroid":
+            best_ref = max(refs, key=lambda r: r.get("biometric_score", 0.0))
+            return best_ref
+
+        # Default: nearest_pose
         best_ref = None
         min_dist = float("inf")
 
@@ -296,7 +307,7 @@ class IdentityBankManager:
                 min_dist = dist
                 best_ref = r
 
-        return best_ref
+        return best_ref if best_ref is not None else refs[0]
 
     def get_blended_centroid(self, character_id: str) -> Optional[Dict[str, np.ndarray]]:
         """Returns the L2-normalized centroid embedding vector across all bank references."""

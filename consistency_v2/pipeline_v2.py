@@ -23,7 +23,7 @@ from story_engine.character_registry import CharacterRegistry
 from story_engine.scene_planner import ScenePlanner, SceneExecutionPlan
 from generation.forge_client import ForgeClient
 from experiments.memory_utils import vram_guard, get_vram_telemetry
-from metrics import decode_image_to_cv2, SD_MODELS
+from metrics import decode_image_to_cv2, encode_image_to_base64, SD_MODELS
 
 from consistency_v2.config import ConsistencyV2Config, RESERVED_SEEDS
 from consistency_v2.identity_bank import IdentityBankManager
@@ -39,7 +39,7 @@ from consistency_v2.candidates import CandidateScreen
 from consistency_v2.healing_v2 import HealingControllerV2
 from consistency_v2.identity_memory import IdentityMemoryManager
 
-from consistency_v2.stage_trace import StageTracer, StageNoOpError
+from consistency_v2.stage_trace import StageTracer, StageNoOpError, compute_region_pixel_diff
 
 logger = logging.getLogger("MMCCP.PipelineV2")
 
@@ -93,6 +93,16 @@ class ConsistencyPipelineV2:
             bank_manager=self.bank_manager,
             min_similarity_to_anchor=self.config.drift_guard_threshold
         )
+        if self.config.enable_collage_init:
+            from consistency_v2.collage_init import CollageInitConfig
+            self.collage_config = CollageInitConfig(
+                enabled=self.config.enable_collage_init,
+                feather_radius=self.config.collage_feather_radius,
+                alpha_blend=self.config.collage_alpha_blend,
+                min_face_scale_px=self.config.collage_min_face_scale_px
+            )
+        else:
+            self.collage_config = None
 
     def generate_scene(
         self,
@@ -180,7 +190,8 @@ class ConsistencyPipelineV2:
                 character_ids=characters_present,
                 bank_manager=self.bank_manager,
                 target_yaw=0.0,
-                config=self.identity_config
+                config=self.identity_config,
+                strategy=self.config.bank_selection_metric
             )
             for spec in id_specs:
                 cnet_units.append(ControlNetAdapter.to_forge_unit(spec))
@@ -254,6 +265,20 @@ class ConsistencyPipelineV2:
             if draft_cv is not None:
                 tracer.record_stage("pass1_draft", draft_cv, enforce_active=False)
 
+        # M12: Collage-Init Composition (Multi-character resolution anchor)
+        if self.config.enable_collage_init and draft_cv is not None and layout_boxes:
+            from consistency_v2.collage_init import CollageInitEngine
+            collaged_cv, collage_rep = CollageInitEngine.compose_collage(
+                canvas_bgr=draft_cv,
+                layout_boxes=layout_boxes,
+                bank_manager=self.bank_manager,
+                config=self.collage_config
+            )
+            if collage_rep.get("collage_applied", False):
+                draft_cv = collaged_cv
+                draft_b64 = encode_image_to_base64(collaged_cv)
+                tracer.record_stage("m12_collage_init", draft_cv, enforce_active=True)
+
         # 6. Pass 2: Refinement IMG2IMG
         pass2_scripts = alwayson_scripts.copy()
         if "forge couple" in pass2_scripts:
@@ -288,10 +313,13 @@ class ConsistencyPipelineV2:
         # 7. M6: Identity-Conditioned Face Detailer
         detailer_report = {}
         if self.config.enable_face_detailer and current_cv is not None and layout_boxes:
-            char_prompts = {
-                cid: (self.registry.get_character(cid).visual_summary if self.registry.get_character(cid) else cid)
-                for cid in characters_present
-            }
+            char_prompts = {}
+            for cid in characters_present:
+                c = self.registry.get_character(cid)
+                if c:
+                    char_prompts[cid] = f"{c.name}, {c.ethnicity} {c.gender}, {c.hair_color} hair, {c.eye_color} eyes"
+                else:
+                    char_prompts[cid] = cid
             detailed_cv = self.face_detailer.detail_image(
                 image_bgr=current_cv,
                 character_prompts=char_prompts,
@@ -300,16 +328,20 @@ class ConsistencyPipelineV2:
                 config=self.detailer_config
             )
             if detailed_cv is not None:
-                current_cv = detailed_cv
-                detailer_report = {"detailed": True}
-                face_bboxes = [b.face_bbox for b in layout_boxes]
-                tracer.record_stage(
-                    "m6_face_detailer",
-                    current_cv,
-                    target_bboxes=None,
-                    stage_metadata={"layout_face_bboxes": face_bboxes},
-                    enforce_active=True
-                )
+                diff = compute_region_pixel_diff(current_cv, detailed_cv)
+                if diff > 0.5:
+                    current_cv = detailed_cv
+                    detailer_report = {"detailed": True, "pixel_diff": diff}
+                    face_bboxes = [b.face_bbox for b in layout_boxes]
+                    tracer.record_stage(
+                        "m6_face_detailer",
+                        current_cv,
+                        target_bboxes=face_bboxes,
+                        stage_metadata={"layout_face_bboxes": face_bboxes},
+                        enforce_active=True
+                    )
+                else:
+                    tracer.record_skipped_stage("m6_face_detailer", "no faces met detailing threshold")
         else:
             tracer.record_skipped_stage("m6_face_detailer", "disabled or no layout boxes")
 
@@ -319,7 +351,7 @@ class ConsistencyPipelineV2:
             swap_specs = []
             for b in layout_boxes:
                 cid = b.character_id
-                best_ref = self.bank_manager.select_best_reference(cid)
+                best_ref = self.bank_manager.select_best_reference(cid, strategy=self.config.bank_selection_metric)
                 if best_ref and "path" in best_ref:
                     swap_specs.append({
                         "character_id": cid,
