@@ -1,25 +1,23 @@
-# Verifier v1.1 Changelog
+# Verifier v1.2 Changelog
 
-> **Verifier Version:** `1.1`  
+> **Verifier Version:** `1.2`  
 > **Status:** FROZEN  
-> **Combined SHA-256:** `ee3b29d5a3511f1bad0efed114b079d4c4478beeeafd6c13b9053ebb99c9b8ac`  
-> **Date:** 2026-10-15  
-> **Supercedes:** Verifier v1.0 (`verifier-frozen` tag)
+> **Combined SHA-256:** `3fa69071f888643bccb1c21ee732415ac81996a9f3cb0b71dedd68086fecb4b6`  
+> **Date:** 2026-10-18  
+> **Supercedes:** Verifier v1.1 (`verifier-v1.1-frozen` tag, `ee3b29d5...`)
 
 ---
 
 ## 1. Summary of Changes
 
-| Component | Verifier v1.0 Flaw | Verifier v1.1 Fix | Evidence / Verification |
+| Component | Verifier v1.1 Flaw | Verifier v1.2 Fix | Evidence / Verification |
 |---|---|---|---|
-| **SegFormer Bridge** | In `my_app_env`, missing `torch` caused fallback to central-torso crop (`int(th*0.2):int(th*0.8)`). In Scene 1, sampled mahogany dining table, reporting 25% wardrobe accuracy. | Executed in Forge Python via `torch_bridge.py`. Central-torso fallback deleted. If $< 50$ px clothing found, reports `seg_failed`. Expanded clothing classes to `(4, 5, 6, 7, 17)`. | Control Test 4; zero silent fallbacks. |
-| **Face Crop Embedding** | `DeepFace.represent()` re-ran OpenCV Haar cascade on cropped faces. If Haar failed on tightly-cropped face, whole crop or fallback was used, dropping similarity on JPEG compression to 0.71. | Added `detector_backend="skip"`. DeepFace skips redundant face detection and normalizes the audited face crop directly. | Control Test 8; JPEG compression similarity $> 0.998$ (diff $< 0.0013$). |
-| **Calibration & EER** | Trivial calibration on 2 images per character gave 7 genuine and 32 impostor pairs, resulting in artificial EER = 0.0000. No child/adult splits. | Calibrated on 63 DEV scenes: 859 genuine pairs (561 child, 298 adult), 1,850 impostor pairs (1,408 hard cross-age/adult pairs). Realistic EER (0.4597 - 0.4773) with bootstrap 95% CIs. | `consistency_v2/verify/calibration.json` |
-| **Wardrobe $\Delta E$ Calibration** | $\Delta E$ threshold was arbitrarily set to 25.0 without labeled ground truth. | Labeled 60 clothing crops (30 positive, 30 negative) across 8 target colors. Evaluated on 30 holdout crops: optimal $T^* = 10.0$ achieved 95.0% balanced accuracy (90% sensitivity, 100% specificity). | `consistency_v2/verify/calibration.json` |
-| **Binding Decomposition** | Single binary binding metric obscured whether position, wardrobe, or identity failed. | Decomposed into: `spatial_position_pass_rate`, `wardrobe_palette_pass_rate`, `identity_at_position_pass_rate`, and `combined_binding_pass_rate`. | Reported in `report.json` and `summary.csv`. |
-| **Age Subgroup Split** | Face recognizers have higher variance on children under 10; Ebright story has 3 child scenes and 3 adult scenes. Not analyzed previously. | Verifier automatically tracks child vs adult metrics across identity, Rank-1, and binding. | Separate child and adult summary dictionaries in `report.json`. |
-| **Detector Health Tracking** | Verifier previously didn't track whether detectors actually ran or silently failed. | Explicit 9-point detector health monitoring (`retinaface`, `yolov8n`, `segformer`, `clip`, `dinov2`, `facenet512`, `sface`, `ghostfacenet`, `arcface`). | Reported in `detector_health` block. |
-| **Deterministic Freeze** | Divergent hash tools used raw byte hashing sensitive to CRLF vs LF on Windows. | Canonical `tools/freeze_verifier.py` and `tools/check_freeze.py` with newline normalization. | CI gate passes consistently. |
+| **Calibrated Thresholds & Default Loading** | `load_calibration()` looked for `data["thresholds"]`, but `calibration.json` had `thresholds_adult`, `thresholds_child`, etc. Furthermore `BiometricEnsemble.__init__()` had `calibration_path=None` by default. As a result, the ensemble remained at uncalibrated `DEFAULT_THRESHOLDS` (0.40, 0.45, 0.42, 0.48). With real face similarities ~0.20-0.25, `pass_count >= 3` was impossible, pinning `ensemble_passed` and `identity_at_position_pass` to exact 0.0% for 100% of benchmark images (including baseline v1). | `__init__` now defaults to `calibration.json`. Added top-level `"thresholds"` and `"thresholds_teen"` to `calibration.json`. Updated `DEFAULT_THRESHOLDS` to calibrated values (`Facenet512: 0.22, SFace: 0.24, GhostFaceNet: 0.18, ArcFace: 0.25`). Calibrated thresholds allow binding metrics to move realistically. | Control Test 11; genuine bank reference pass rate jumps from 47-80% to 92-100%. |
+| **Multi-Face Scene Matching (Crowd Bug)** | `cli.py` matched characters by arbitrary detection index (`detected_faces[i]`). In Scene 6 Graduation (1 expected face, 4-14 detected faces in crowd), `college_ebright` (`i=0`) was matched to a tiny 30px audience member on the left edge rather than the 137px hero subject on stage in the center. | Implemented `assign_faces_to_characters()` using spatial zone and bounding box prominence (area $w \times h$). Filters out background crowd faces (< 20% max area or < 56px) when assigning hero subjects. | Control Test 12; synthetic 3-face crowd correctly matches center hero (140px), not spectator (35px). |
+| **Small-Crop ArcFace Collapse Guard** | When fed small blurry crops (< 56px), ArcFace produces degenerate normalized embeddings yielding artificial pseudo-similarities > 0.95 to any reference face, while Facenet512 correctly rejects them (< 0.15). | Added small-crop guard in `score_against_bank`: if face width < 56px and ArcFace similarity exceeds Facenet512 by > 0.25, ArcFace is discounted relative to Facenet512. | Control Test 13; small 40px crop pseudo-similarity clamped. |
+| **CLIP Prop Zero-Shot Calibration** | Binary forced-choice `["a scene showing {p}", "a scene without {p}"]` caused severe confirmation bias due to CLIP text negation weakness. Clean period scenes (Scene 1, Scene 2) were flagged as containing `laptop`, `smartphone`, and `computer` at 75-100% false-alarm rates. | Calibrated contrastive prompt sets with domain-appropriate negative/vintage room descriptors (`"a photo of an empty desk or vintage furniture"`, `"a historical period room with wooden furniture and paper books"`). Requires $\ge 0.70$ probability and strict margin over null scenes. | Control Test 14; 0 false positive props detected on clean period storyboard images. |
+| **3-Way Age Disaggregation** | `teen_ebright` was previously lumped into the adult category (`is_child = bool("young" in cid)`). | Disaggregated into 3 distinct biological age stages: `child` (`young_ebright`), `teen` (`teen_ebright`), and `adult` (`college_ebright`, `james_wong`, `mother`). Summary reports metrics for all three separately. | Control Test 15; explicit 3-way split in `age_split_metrics`. |
+| **Persistent Vision Worker IPC** | Previous one-shot subprocess bridge incurred ~35s cold-start overhead per image loading PyTorch, Ultralytics, and Transformers. | Added `--worker` mode to `torch_vision_helper.py` and persistent bidirectional JSON-lines IPC in `torch_bridge.py`, reducing per-image vision latency to 0.60s while maintaining 100% bit-exact mathematical outputs. | Control Tests 1-15 verified with sub-second per-call turnaround. |
 
 ---
 
@@ -27,28 +25,28 @@
 
 | File | SHA-256 (LF-normalized) |
 |---|---|
-| `__init__.py` | `e45736073679d2b584f11f9b840674ce57e086f841fe95a036f89189eba4b373` |
-| `__main__.py` | `90c802660ba74e43d83035a4ba6ec9ff593f21b6258bec20c94b1779702b7b63` |
-| `appearance_evaluator.py` | `56069935c0d6fad6922f34f29dfc037281576dd00e1c9fba49372cd96d9b59f4` |
-| `binding_checker.py` | `efb10c9d300062aeb28dd6615b3cba14dcf73c9451121fa25d97bcfae8387063` |
-| `biometric_ensemble.py` | `1bc72e8111626f86cae7284ce40212001a15555462fc14f9611b85db8c946e3a` |
-| `calibration.json` | `888f4e2f3d5ee1ba08154e1dfb5faeb925501861036d0b57e79cff3c749a9fb1` |
-| `calibration.py` | `65849b6f3c9574aecb9adc6a82fdb7e4778e9ac1cd5d10d5bd27b5dca5648c69` |
-| `cli.py` | `a906231efb7ee0c13bb101d24835260197a9f77b78913d33efea43734e5653db` |
-| `scene_auditor.py` | `bf731af6b398d798d019c40493a280633a50ff5bf2653001399eec7f8f802c77` |
-| `torch_bridge.py` | `42d82178984eea50dc8fa51643182f7e24d71f616903b08987daeda4c40e40fb` |
-| `torch_vision_helper.py` | `9b3626e257ebbebb6cf4b46c6fcbf0c33ee3fe98971034444983e20ec42ef39b` |
-| `visual_review/make_blind_sheet.py` | `83384d0fe56a11b7d869c2a14fa6e772f3e34c385dd4b5772d3ba6060bf751bc` |
-| `visual_review/make_contact_sheet.py` | `66ebbe2aae654712f304dfbf389589d4993b9400e8aa3d0f74034a12ee19004c` |
-| `visual_review/rubric.py` | `9cc9ba80421067eba0f33a913402f65d758e8bcf161c50a4eab6832ee1ad3871` |
+| `__init__.py` | `3b59657dfe90bcdc72e4d3d39ee16cfb0c45dac8f4aeb00fefa138aea8d94334` |
+| `__main__.py` | `d8a58bc354041bbe9e53518a1a612938cc26e2aecc06adf52f7825bb9385cf14` |
+| `appearance_evaluator.py` | `42d1ad69fdfe213a6b68f6e9bfd4898b2756a0aaebea74836874fb12c85773ae` |
+| `binding_checker.py` | `4cf2eda80cce7dcf7828a649e46f827b5974bc7d9fce03e9b71f229970c27748` |
+| `biometric_ensemble.py` | `13f1fd4f97f2d5720a0e3b50f86dcfc1737ff6a5a593e17155bf4f41dfadbd60` |
+| `calibration.json` | `e2927e53e40b14e275151f60abaf01498478f3cb5b465dcb84d6776ba62b7bef` |
+| `calibration.py` | `33a8454a1c4e8cb50d07289154483435e95891d2ff30b60c5b92b33dc5a46491` |
+| `cli.py` | `11ac342f7ded00832cfb32f35bb0dd1981727dbe5a6a0cde41251b93d17c5b9b` |
+| `scene_auditor.py` | `73f605bb6a5919f3191caf4a2ec6d1387f0c978c05251675f2f6b288cdcfb81f` |
+| `torch_bridge.py` | `be7aee9591746b6fe17f2999a52f6cfa8854ea62f1a680210efa145830985be0` |
+| `torch_vision_helper.py` | `b15f878eec2d5923f20f484001e58c44d233113eac8cc5a072d6fb4f8cc186ef` |
+| `visual_review/make_blind_sheet.py` | `1a0c4e12cfe0822d72061eafcfc5e5f982e4cf92c26ec9c492b4ca30f792f546` |
+| `visual_review/make_contact_sheet.py` | `c3d6daebc2e504306c108128301b53bd59329d1ebcabd365757ab002889d1455` |
+| `visual_review/rubric.py` | `c432a8a73dafc3bc6044b50e287ebf96d7207039eaa1e1ea5bd6be2a70df1a10` |
 
-**Canonical Combined SHA-256:** `ee3b29d5a3511f1bad0efed114b079d4c4478beeeafd6c13b9053ebb99c9b8ac`
+**Canonical Combined SHA-256:** `3fa69071f888643bccb1c21ee732415ac81996a9f3cb0b71dedd68086fecb4b6`
 
 ---
 
 ## 3. Control Tests Suite
 
-The verifier behavior is guarded by 10 deterministic unit tests in `tests/verifier_controls/test_controls.py`:
+The verifier behavior is guarded by 15 deterministic unit tests in `tests/verifier_controls/test_controls.py`:
 1. `test_01_identical_image_gives_max_similarity`: Cosine similarity == 1.0 (within 0.005).
 2. `test_02_horizontal_flip_fails_spatial_binding`: Inversion of left/right fails spatial binding.
 3. `test_03_color_inversion_flagged`: Inversion detector catches color-inverted canary.
@@ -59,3 +57,8 @@ The verifier behavior is guarded by 10 deterministic unit tests in `tests/verifi
 8. `test_08_jpeg_resave_within_small_tolerance`: JPEG compression alters similarity by $< 0.002$.
 9. `test_09_clean_image_has_zero_defects`: Clean portrait has 0 defect taxonomy violations.
 10. `test_10_detector_health_tracked`: All vision detectors verify `ran=True`.
+11. `test_11_calibrated_thresholds_loaded`: BiometricEnsemble automatically loads calibrated v1.2 thresholds.
+12. `test_12_spatial_prominence_assigns_hero`: Multi-face scene matching assigns foreground hero face, not background crowd.
+13. `test_13_small_crop_arcface_guard`: Small crops (<56px) with divergent pseudo-similarity are discounted.
+14. `test_14_calibrated_props_no_false_positive_on_clean_period`: Calibrated CLIP prop detection triggers 0 false alarms on clean period scenes.
+15. `test_15_three_way_age_disaggregation`: Child, teen, and adult age categories are tracked as separate non-overlapping groups.

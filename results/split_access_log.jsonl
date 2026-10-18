@@ -6,3 +6,5 @@
 {"timestamp": "2026-10-15T15:10:17.863760+00:00", "split": "TEST-2", "caller": "unit_test", "process_id": 5588, "env_allow_test2": "1", "env_allow_reserved": "0"}
 {"timestamp": "2026-10-15T15:28:52.911963+00:00", "split": "TEST-2", "caller": "unit_test", "process_id": 9032, "env_allow_test2": "1", "env_allow_reserved": "0"}
 {"timestamp": "2026-10-15T15:43:47.650049+00:00", "split": "TEST-2", "caller": "unit_test", "process_id": 20036, "env_allow_test2": "1", "env_allow_reserved": "0"}
+{"timestamp": "2026-10-18T07:11:13.959108+00:00", "split": "TEST-2", "caller": "rescore_all.py for baseline_v1_test2_ebright under Verifier v1.2", "process_id": 12876, "env_allow_test2": "1", "env_allow_reserved": "0"}
+{"timestamp": "2026-10-18T07:18:19.295980+00:00", "split": "TEST-2", "caller": "rescore_all.py for baseline_v1_test2_holdout under Verifier v1.2", "process_id": 12876, "env_allow_test2": "1", "env_allow_reserved": "0"}

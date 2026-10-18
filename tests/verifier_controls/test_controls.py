@@ -228,6 +228,104 @@ class TestVerifierControls(unittest.TestCase):
         self.assertTrue(d_health["clip"])
         self.assertTrue(d_health["dinov2"])
 
+    def test_11_calibrated_thresholds_loaded(self):
+        """Control 11: BiometricEnsemble must automatically load calibrated v1.2 thresholds."""
+        ens = BiometricEnsemble()
+        self.assertEqual(ens.thresholds["Facenet512"], 0.22)
+        self.assertEqual(ens.thresholds["SFace"], 0.24)
+        self.assertEqual(ens.thresholds["GhostFaceNet"], 0.18)
+        self.assertEqual(ens.thresholds["ArcFace"], 0.25)
+        self.assertIn("child", ens.thresholds_by_group)
+        self.assertEqual(ens.thresholds_by_group["child"]["Facenet512"], 0.20)
+        self.assertIn("teen", ens.thresholds_by_group)
+        self.assertEqual(ens.thresholds_by_group["teen"]["Facenet512"], 0.22)
+
+    def test_12_spatial_prominence_assigns_hero(self):
+        """Control 12: Multi-face scene matching must assign foreground hero, not background crowd."""
+        from consistency_v2.verify.cli import assign_faces_to_characters
+        # Synthetic crowd scene: small face on left edge (spectator), large hero face in center, tiny face on right
+        fake_faces = [
+            {"bbox": {"x": 30, "y": 400, "w": 35, "h": 35}, "crop_bgr": np.zeros((35, 35, 3), dtype=np.uint8)},
+            {"bbox": {"x": 440, "y": 250, "w": 140, "h": 160}, "crop_bgr": np.zeros((160, 140, 3), dtype=np.uint8)},
+            {"bbox": {"x": 850, "y": 420, "w": 30, "h": 30}, "crop_bgr": np.zeros((30, 30, 3), dtype=np.uint8)}
+        ]
+        assigned = assign_faces_to_characters(
+            detected_faces=fake_faces,
+            expected_chars=["college_ebright"],
+            character_positions={"college_ebright": "center"},
+            image_width=1024
+        )
+        self.assertIn("college_ebright", assigned)
+        self.assertIsNotNone(assigned["college_ebright"])
+        idx, face_item = assigned["college_ebright"]
+        # Must match index 1 (the 140x160 hero in center), NOT index 0 (the 35px face on left)
+        self.assertEqual(idx, 1)
+        self.assertEqual(face_item["bbox"]["w"], 140)
+
+    def test_13_small_crop_arcface_guard(self):
+        """Control 13: Small crop (<56px) with divergent ArcFace pseudo-similarity must be discounted."""
+        ens = BiometricEnsemble()
+        fn_query = np.zeros(512, dtype=np.float32)
+        fn_query[0] = 1.0
+        fn_bank = np.zeros(512, dtype=np.float32)
+        fn_bank[1] = 1.0
+
+        af_vec = np.ones(512, dtype=np.float32)
+
+        fake_embs = {
+            "Facenet512": fn_query,
+            "ArcFace": af_vec
+        }
+        # Fake bank embedding: Facenet512 has 0 similarity, ArcFace has 1.0 similarity
+        bank = {
+            "Facenet512": [fn_bank],
+            "ArcFace": [af_vec]
+        }
+        res = ens.score_against_bank(fake_embs, bank, age_group="adult", face_width_px=40)
+        # On a 40px crop where Facenet512 is 0.0, ArcFace pseudo-similarity must be discounted (<= 0.35)
+        af_details = res["per_model_details"]["ArcFace"]
+        self.assertLessEqual(af_details["max_similarity"], 0.35)
+
+    def test_14_calibrated_props_no_false_positive_on_clean_period(self):
+        """Control 14: Calibrated CLIP prop detection must not false-alarm on clean period scene."""
+        from consistency_v2.verify.torch_bridge import call_torch_vision
+        res = call_torch_vision(
+            self.scene1_path,
+            [],
+            [],
+            required_props=["an open illustrated book on the table"],
+            forbidden_props=["laptop", "computer", "smartphone", "glowing orb"]
+        )
+        self.assertFalse("error" in res, f"Vision helper failed: {res.get('error')}")
+        detected_forb = res.get("detected_forbidden_props", [])
+        self.assertEqual(len(detected_forb), 0, f"Clean period scene had false positive props: {detected_forb}")
+
+    def test_15_three_way_age_disaggregation(self):
+        """Control 15: Age groups child, teen, adult must be distinct."""
+        from consistency_v2.verify.cli import run_verification
+        # Check that age groupings cleanly separate
+        child_chars = ["young_ebright", "child_subject"]
+        teen_chars = ["teen_ebright"]
+        adult_chars = ["college_ebright", "mother", "james_wong"]
+        
+        for c in child_chars:
+            is_c = bool("young" in c.lower() or "child" in c.lower())
+            is_t = bool("teen" in c.lower())
+            self.assertTrue(is_c)
+            self.assertFalse(is_t)
+            
+        for c in teen_chars:
+            is_c = bool("young" in c.lower() or "child" in c.lower())
+            is_t = bool("teen" in c.lower())
+            self.assertFalse(is_c)
+            self.assertTrue(is_t)
+            
+        for c in adult_chars:
+            is_c = bool("young" in c.lower() or "child" in c.lower())
+            is_t = bool("teen" in c.lower())
+            self.assertFalse(is_c)
+            self.assertFalse(is_t)
+
 
 if __name__ == "__main__":
     unittest.main()

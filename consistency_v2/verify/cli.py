@@ -111,6 +111,94 @@ def load_character_banks(bank_dir: Path, verifier: BiometricEnsemble) -> Tuple[D
     return banks, centroids, reference_crops
 
 
+def assign_faces_to_characters(
+    detected_faces: List[Dict[str, Any]],
+    expected_chars: List[str],
+    character_positions: Dict[str, str],
+    image_width: int
+) -> Dict[str, Optional[Tuple[int, Dict[str, Any]]]]:
+    """
+    Matches detected faces to expected characters based on spatial position zone
+    and prominence (bounding box area), preventing background crowd faces from
+    stealing hero character assignments.
+    Returns: char_id -> (face_index_in_detected_faces, face_item) or None
+    """
+    if not detected_faces:
+        return {cid: None for cid in expected_chars}
+
+    # If exactly 1 expected character:
+    if len(expected_chars) == 1:
+        cid = expected_chars[0]
+        pos_str = character_positions.get(cid, "center").lower()
+
+        # Sort candidates by area descending
+        indexed_faces = list(enumerate(detected_faces))
+        indexed_faces.sort(key=lambda t: t[1]["bbox"]["w"] * t[1]["bbox"]["h"], reverse=True)
+        max_area = indexed_faces[0][1]["bbox"]["w"] * indexed_faces[0][1]["bbox"]["h"]
+
+        # Filter candidates: must be at least 20% of max face area or width >= 56px to exclude tiny background crowd
+        prominent = [t for t in indexed_faces if (t[1]["bbox"]["w"] * t[1]["bbox"]["h"]) >= 0.20 * max_area or t[1]["bbox"]["w"] >= 56]
+        if not prominent:
+            prominent = indexed_faces
+
+        best_match = None
+        for idx, f in prominent:
+            cx = (f["bbox"]["x"] + f["bbox"]["w"] / 2.0) / float(image_width)
+            if "left" in pos_str and cx <= 0.45:
+                best_match = (idx, f)
+                break
+            elif "right" in pos_str and cx >= 0.55:
+                best_match = (idx, f)
+                break
+            elif "center" in pos_str and 0.20 <= cx <= 0.80:
+                best_match = (idx, f)
+                break
+        if best_match is None:
+            best_match = prominent[0]
+        return {cid: best_match}
+
+    # If multiple expected characters:
+    indexed_faces = list(enumerate(detected_faces))
+    max_area = max(f["bbox"]["w"] * f["bbox"]["h"] for f in detected_faces)
+    candidates = [t for t in indexed_faces if (t[1]["bbox"]["w"] * t[1]["bbox"]["h"]) >= 0.15 * max_area or t[1]["bbox"]["w"] >= 56]
+    if not candidates:
+        candidates = indexed_faces
+
+    assigned: Dict[str, Optional[Tuple[int, Dict[str, Any]]]] = {}
+    available = list(candidates)
+
+    for cid in expected_chars:
+        pos_str = character_positions.get(cid, "center").lower()
+        best_tup = None
+        best_score = -999.0
+
+        for idx, f in available:
+            cx = (f["bbox"]["x"] + f["bbox"]["w"] / 2.0) / float(image_width)
+            area = f["bbox"]["w"] * f["bbox"]["h"]
+            zone_score = 0.0
+            if "left" in pos_str:
+                zone_score = 1.0 - cx
+            elif "right" in pos_str:
+                zone_score = cx
+            else:
+                zone_score = 1.0 - 2.0 * abs(cx - 0.5)
+
+            prominence_score = area / float(max_area)
+            total_score = 2.0 * zone_score + prominence_score
+
+            if total_score > best_score:
+                best_score = total_score
+                best_tup = (idx, f)
+
+        if best_tup is not None:
+            assigned[cid] = best_tup
+            available.remove(best_tup)
+        else:
+            assigned[cid] = None
+
+    return assigned
+
+
 def run_verification(
     images_dir: Path,
     story_path: Path,
@@ -163,6 +251,11 @@ def run_verification(
     child_rank1 = []
     child_combined_binding = []
     child_wardrobe = []
+
+    teen_ensemble_scores = []
+    teen_rank1 = []
+    teen_combined_binding = []
+    teen_wardrobe = []
 
     adult_ensemble_scores = []
     adult_rank1 = []
@@ -237,36 +330,64 @@ def run_verification(
 
         expected_chars = matched_scene.characters_present
 
-        # 4. Match Detected Faces to Expected Characters
+        # 4. Match Detected Faces to Expected Characters using Spatial Prominence
         char_evaluations = []
         scene_face_embs_list = []
 
         clothing_labs = vision_res.get("clothing_labs", [])
         dino_sims = vision_res.get("dinov2_similarities", [])
 
+        assigned_faces = assign_faces_to_characters(
+            detected_faces=detected_faces,
+            expected_chars=expected_chars,
+            character_positions=matched_scene.character_positions,
+            image_width=w_img
+        )
+
         for i, cid in enumerate(expected_chars):
             char_spec = story.characters.get(cid)
             expected_pos = matched_scene.character_positions.get(cid, "center")
             expected_colors = char_spec.clothing_colors if char_spec else []
             is_child = bool("young" in cid.lower() or "child" in cid.lower())
+            is_teen = bool("teen" in cid.lower())
+            if is_child:
+                age_group = "child"
+            elif is_teen:
+                age_group = "teen"
+            else:
+                age_group = "adult"
 
             # Assign face
-            face_item = detected_faces[i] if i < len(detected_faces) else None
+            face_tup = assigned_faces.get(cid)
+            if face_tup is not None:
+                face_idx, face_item = face_tup
+            else:
+                face_idx, face_item = None, None
+
             face_crop = face_item["crop_bgr"] if face_item else None
             face_bbox = face_item["bbox"] if face_item else None
 
             # Biometrics
             if face_crop is not None and face_crop.size > 0:
+                face_quality = auditor.audit_face_quality(face_item)
+                face_width = face_quality.get("width_px", face_bbox["w"] if face_bbox else 0)
+
                 face_embs = verifier.extract_face_embeddings(face_crop)
                 scene_face_embs_list.append((cid, face_embs))
                 for m_name in BiometricEnsemble.JUDGE_MODELS:
                     if m_name in face_embs:
                         detector_health_counts[m_name.lower()] += 1
 
-                # Biometric ensemble against bank
+                # Biometric ensemble against bank with age group and face width
                 c_banks = banks.get(cid, {})
                 c_cents = centroids.get(cid, {})
-                bio_res = verifier.score_against_bank(face_embs, c_banks, c_cents)
+                bio_res = verifier.score_against_bank(
+                    face_embeddings=face_embs,
+                    bank_embeddings=c_banks,
+                    bank_centroids=c_cents,
+                    age_group=age_group,
+                    face_width_px=face_width
+                )
                 for m_name in BiometricEnsemble.JUDGE_MODELS:
                     per_judge_scores[m_name].append(bio_res["per_model_details"].get(m_name, {}).get("max_similarity", 0.0))
 
@@ -281,7 +402,7 @@ def run_verification(
                 )
 
                 # Wardrobe color check from SegFormer
-                raw_lab = clothing_labs[i] if (i < len(clothing_labs)) else None
+                raw_lab = clothing_labs[face_idx] if (face_idx is not None and face_idx < len(clothing_labs)) else None
                 if raw_lab is None:
                     seg_status = "seg_failed"
                     total_seg_failed += 1
@@ -297,8 +418,7 @@ def run_verification(
                 id_pos_pass = bool(bio_res["ensemble_passed"] and disc_res["rank1_correct"])
                 combined_binding_pass = bool(spatial_pass and wardrobe_pass and id_pos_pass)
 
-                dino_sim = dino_sims[i] if i < len(dino_sims) else 0.0
-                face_quality = auditor.audit_face_quality(face_item)
+                dino_sim = dino_sims[face_idx] if (face_idx is not None and face_idx < len(dino_sims)) else 0.0
 
                 overall_char_pass = bool(
                     combined_binding_pass and
@@ -307,7 +427,9 @@ def run_verification(
 
                 char_eval = {
                     "character_id": cid,
+                    "age_group": age_group,
                     "is_child": is_child,
+                    "is_teen": is_teen,
                     "overall_pass": overall_char_pass,
                     "face_bbox": face_bbox,
                     "detected_face_crop_bgr": face_crop,
@@ -344,6 +466,11 @@ def run_verification(
                     child_rank1.append(1.0 if disc_res["rank1_correct"] else 0.0)
                     child_combined_binding.append(1.0 if combined_binding_pass else 0.0)
                     child_wardrobe.append(1.0 if wardrobe_pass else 0.0)
+                elif is_teen:
+                    teen_ensemble_scores.append(bio_res["ensemble_score"])
+                    teen_rank1.append(1.0 if disc_res["rank1_correct"] else 0.0)
+                    teen_combined_binding.append(1.0 if combined_binding_pass else 0.0)
+                    teen_wardrobe.append(1.0 if wardrobe_pass else 0.0)
                 else:
                     adult_ensemble_scores.append(bio_res["ensemble_score"])
                     adult_rank1.append(1.0 if disc_res["rank1_correct"] else 0.0)
@@ -354,7 +481,9 @@ def run_verification(
                 # Face missing
                 char_eval = {
                     "character_id": cid,
+                    "age_group": age_group,
                     "is_child": is_child,
+                    "is_teen": is_teen,
                     "overall_pass": False,
                     "face_bbox": None,
                     "detected_face_crop_bgr": None,
@@ -392,6 +521,11 @@ def run_verification(
                     child_rank1.append(0.0)
                     child_combined_binding.append(0.0)
                     child_wardrobe.append(0.0)
+                elif is_teen:
+                    teen_ensemble_scores.append(0.0)
+                    teen_rank1.append(0.0)
+                    teen_combined_binding.append(0.0)
+                    teen_wardrobe.append(0.0)
                 else:
                     adult_ensemble_scores.append(0.0)
                     adult_rank1.append(0.0)
@@ -406,7 +540,9 @@ def run_verification(
                 "scene_number": matched_scene.scene_number,
                 "scene_title": matched_scene.title,
                 "character_id": cid,
+                "age_group": age_group,
                 "is_child": is_child,
+                "is_teen": is_teen,
                 "overall_pass": char_eval["overall_pass"],
                 "biometric_ensemble_score": char_eval["biometric_ensemble_score"],
                 "rank1_correct": char_eval["rank1_correct"],
@@ -487,6 +623,11 @@ def run_verification(
     child_binding_acc = float(np.mean(child_combined_binding)) if child_combined_binding else 0.0
     child_wardrobe_acc = float(np.mean(child_wardrobe)) if child_wardrobe else 0.0
 
+    teen_mean_ens = float(np.mean(teen_ensemble_scores)) if teen_ensemble_scores else 0.0
+    teen_rank1_acc = float(np.mean(teen_rank1)) if teen_rank1 else 0.0
+    teen_binding_acc = float(np.mean(teen_combined_binding)) if teen_combined_binding else 0.0
+    teen_wardrobe_acc = float(np.mean(teen_wardrobe)) if teen_wardrobe else 0.0
+
     adult_mean_ens = float(np.mean(adult_ensemble_scores)) if adult_ensemble_scores else 0.0
     adult_rank1_acc = float(np.mean(adult_rank1)) if adult_rank1 else 0.0
     adult_binding_acc = float(np.mean(adult_combined_binding)) if adult_combined_binding else 0.0
@@ -528,7 +669,7 @@ def run_verification(
     detector_health_summary["all_healthy"] = all(detector_health_summary.values())
 
     final_report = {
-        "verifier_version": "1.1",
+        "verifier_version": "1.2",
         "verifier_freeze_sha": freeze_sha,
         "detector_health": detector_health_summary,
         "images_evaluated_count": len(image_files),
@@ -557,6 +698,13 @@ def run_verification(
                     "rank1_accuracy": round(child_rank1_acc, 4),
                     "combined_binding_accuracy": round(child_binding_acc, 4),
                     "wardrobe_accuracy": round(child_wardrobe_acc, 4)
+                },
+                "teen": {
+                    "count": len(teen_ensemble_scores),
+                    "biometric_ensemble_mean": round(teen_mean_ens, 4),
+                    "rank1_accuracy": round(teen_rank1_acc, 4),
+                    "combined_binding_accuracy": round(teen_binding_acc, 4),
+                    "wardrobe_accuracy": round(teen_wardrobe_acc, 4)
                 },
                 "adult": {
                     "count": len(adult_ensemble_scores),
