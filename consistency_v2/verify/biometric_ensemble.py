@@ -47,14 +47,24 @@ class BiometricEnsemble:
 
     # Calibrated default thresholds (cosine similarity)
     DEFAULT_THRESHOLDS = {
-        "Facenet512": 0.40,
-        "SFace": 0.45,
-        "GhostFaceNet": 0.42,
-        "ArcFace": 0.48
+        "Facenet512": 0.22,
+        "SFace": 0.24,
+        "GhostFaceNet": 0.18,
+        "ArcFace": 0.25
     }
 
     def __init__(self, calibration_path: Optional[Path] = None):
         self.thresholds = self.DEFAULT_THRESHOLDS.copy()
+        self.thresholds_by_group = {
+            "adult": self.DEFAULT_THRESHOLDS.copy(),
+            "child": {"Facenet512": 0.20, "SFace": 0.22, "GhostFaceNet": 0.15, "ArcFace": 0.22},
+            "teen": self.DEFAULT_THRESHOLDS.copy()
+        }
+        if calibration_path is None:
+            default_calib = Path(__file__).resolve().parent / "calibration.json"
+            if default_calib.exists():
+                calibration_path = default_calib
+
         if calibration_path and Path(calibration_path).exists():
             self.load_calibration(Path(calibration_path))
 
@@ -64,6 +74,14 @@ class BiometricEnsemble:
                 data = json.load(f)
                 if "thresholds" in data:
                     self.thresholds.update(data["thresholds"])
+                elif "thresholds_general" in data:
+                    self.thresholds.update(data["thresholds_general"])
+                for grp in ["adult", "child", "teen"]:
+                    k = f"thresholds_{grp}"
+                    if k in data:
+                        self.thresholds_by_group[grp] = data[k]
+                    elif "thresholds" in data:
+                        self.thresholds_by_group[grp] = data["thresholds"]
         except Exception as e:
             logger.warning(f"Could not load calibration file: {e}")
 
@@ -99,7 +117,9 @@ class BiometricEnsemble:
         self,
         face_embeddings: Dict[str, np.ndarray],
         bank_embeddings: Dict[str, List[np.ndarray]],
-        bank_centroids: Optional[Dict[str, np.ndarray]] = None
+        bank_centroids: Optional[Dict[str, np.ndarray]] = None,
+        age_group: Optional[str] = "adult",
+        face_width_px: Optional[int] = None
     ) -> Dict[str, Any]:
         """
         Scores extracted face embeddings against a character bank.
@@ -107,13 +127,14 @@ class BiometricEnsemble:
         """
         model_scores = {}
         calibrated_scores = {}
+        active_thresholds = self.thresholds_by_group.get(age_group, self.thresholds) if age_group else self.thresholds
 
         for model_name in self.JUDGE_MODELS:
             if model_name not in face_embeddings:
                 continue
 
             emb = face_embeddings[model_name]
-            thresh = self.thresholds.get(model_name, 0.45)
+            thresh = active_thresholds.get(model_name, self.thresholds.get(model_name, 0.22))
 
             # Centroid match
             centroid_sim = 0.0
@@ -142,6 +163,22 @@ class BiometricEnsemble:
             else:
                 cal_val = 0.5 * max(0.0, max_sim / max(0.01, thresh))
             calibrated_scores[model_name] = round(cal_val, 4)
+
+        # Small-crop guard: tiny faces (<56px) produce degenerate ArcFace pseudo-similarity
+        if face_width_px is not None and face_width_px < 56:
+            fn_sim = model_scores.get("Facenet512", {}).get("max_similarity", 0.0)
+            if "ArcFace" in model_scores:
+                af_sim = model_scores["ArcFace"]["max_similarity"]
+                af_thresh = active_thresholds.get("ArcFace", 0.25)
+                if af_sim > fn_sim + 0.25:
+                    discounted_sim = round(min(af_sim, fn_sim + 0.15), 4)
+                    model_scores["ArcFace"]["max_similarity"] = discounted_sim
+                    model_scores["ArcFace"]["passed"] = bool(discounted_sim >= af_thresh)
+                    if discounted_sim >= af_thresh:
+                        cal_val = 0.5 + 0.5 * min(1.0, max(0.0, (discounted_sim - af_thresh) / max(0.01, (1.0 - af_thresh))))
+                    else:
+                        cal_val = 0.5 * max(0.0, discounted_sim / max(0.01, af_thresh))
+                    calibrated_scores["ArcFace"] = round(cal_val, 4)
 
         if calibrated_scores:
             ensemble_score = round(float(np.mean(list(calibrated_scores.values()))), 4)

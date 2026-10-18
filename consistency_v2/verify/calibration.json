@@ -1,29 +1,41 @@
 {
-  "verifier_version": "1.1",
-  "calibrated_timestamp": "2026-10-15T11:15:00Z",
+  "verifier_version": "1.2",
+  "calibrated_timestamp": "2026-10-18T11:30:00Z",
   "models_evaluated": [
     "Facenet512",
     "SFace",
     "GhostFaceNet",
     "ArcFace"
   ],
+  "thresholds": {
+    "Facenet512": 0.22,
+    "SFace": 0.24,
+    "GhostFaceNet": 0.18,
+    "ArcFace": 0.25
+  },
   "thresholds_adult": {
-    "Facenet512": 0.1563,
-    "SFace": 0.1603,
-    "GhostFaceNet": 0.1082,
-    "ArcFace": 0.1202
+    "Facenet512": 0.22,
+    "SFace": 0.24,
+    "GhostFaceNet": 0.18,
+    "ArcFace": 0.25
   },
   "thresholds_child": {
-    "Facenet512": 0.1463,
-    "SFace": 0.1623,
-    "GhostFaceNet": 0.1022,
-    "ArcFace": 0.1303
+    "Facenet512": 0.20,
+    "SFace": 0.22,
+    "GhostFaceNet": 0.15,
+    "ArcFace": 0.22
+  },
+  "thresholds_teen": {
+    "Facenet512": 0.22,
+    "SFace": 0.24,
+    "GhostFaceNet": 0.18,
+    "ArcFace": 0.25
   },
   "thresholds_general": {
-    "Facenet512": 0.1563,
-    "SFace": 0.1603,
-    "GhostFaceNet": 0.1082,
-    "ArcFace": 0.1202
+    "Facenet512": 0.22,
+    "SFace": 0.24,
+    "GhostFaceNet": 0.18,
+    "ArcFace": 0.25
   },
   "wardrobe_calibration": {
     "max_delta_e_threshold": 10.0,

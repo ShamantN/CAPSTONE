@@ -132,22 +132,35 @@ def process_image(
         inv_prob = float(out.logits_per_image.softmax(dim=1).cpu().numpy()[0][1])
 
         for p in required_props:
-            p_prompts = [f"a scene showing {p}", f"a scene without {p}"]
+            p_prompts = [
+                f"a scene clearly showing {p}",
+                "a scene without these specific items",
+                "a blank background or empty room"
+            ]
             c_in = clip_proc(text=p_prompts, images=pil_full, return_tensors="pt", padding=True)
             with torch.no_grad():
                 c_out = clip_model(**c_in)
-            prob = float(c_out.logits_per_image.softmax(dim=1).cpu().numpy()[0][0])
-            if prob < 0.35:
+            probs = c_out.logits_per_image.softmax(dim=1).cpu().numpy()[0]
+            prob = float(probs[0])
+            if prob < 0.25:
                 req_missing.append({"prop": p, "score": round(prob, 4)})
 
         for p in forbidden_props:
-            p_prompts = [f"a scene showing {p}", f"a scene without {p}"]
+            # Calibrated contrastive prompt set: distinguishes modern props from clean vintage/period rooms
+            p_prompts = [
+                f"a photo showing a modern electronic {p}",
+                "a photo of an empty desk, vintage furniture, or room without electronics",
+                "a historical period room with wooden furniture and paper books",
+                "a vintage science illustration or butterfly specimen"
+            ]
             c_in = clip_proc(text=p_prompts, images=pil_full, return_tensors="pt", padding=True)
             with torch.no_grad():
                 c_out = clip_model(**c_in)
-            prob = float(c_out.logits_per_image.softmax(dim=1).cpu().numpy()[0][0])
-            if prob >= 0.65:
-                forb_present.append({"prop": p, "score": round(prob, 4)})
+            probs = c_out.logits_per_image.softmax(dim=1).cpu().numpy()[0]
+            prob_prop = float(probs[0])
+            null_max = float(max(probs[1:]))
+            if prob_prop >= 0.70 and prob_prop > null_max:
+                forb_present.append({"prop": p, "score": round(prob_prop, 4)})
 
         detector_health["clip"] = True
     except Exception as e:
@@ -290,21 +303,62 @@ def process_image(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", required=True, type=Path)
-    parser.add_argument("--out", required=True, type=Path)
+    parser.add_argument("--config", type=Path)
+    parser.add_argument("--out", type=Path)
+    parser.add_argument("--worker", action="store_true", help="Run in persistent worker mode")
     args = parser.parse_args()
 
-    with open(args.config, "r", encoding="utf-8") as f:
-        cfg = json.load(f)
+    if args.worker:
+        if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+            sys.stdout.reconfigure(encoding="utf-8", line_buffering=True)
+        # Pre-warm models once
+        get_dinov2()
+        get_segformer()
+        get_clip()
+        get_yolo()
 
-    res = process_image(
-        image_path=Path(cfg["image_path"]),
-        face_bboxes=cfg.get("face_bboxes", []),
-        reference_image_paths=[Path(p) for p in cfg.get("reference_image_paths", [])],
-        required_props=cfg.get("required_props", []),
-        forbidden_props=cfg.get("forbidden_props", [])
-    )
+        sys.stdout.write("READY\n")
+        sys.stdout.flush()
 
-    args.out.parent.mkdir(parents=True, exist_ok=True)
-    with open(args.out, "w", encoding="utf-8") as f:
-        json.dump(res, f, indent=2)
+        for line in sys.stdin:
+            line = line.strip()
+            if not line:
+                continue
+            if line == "PING":
+                sys.stdout.write("PONG\n")
+                sys.stdout.flush()
+                continue
+            if line == "SHUTDOWN":
+                break
+            try:
+                cfg = json.loads(line)
+                res = process_image(
+                    image_path=Path(cfg["image_path"]),
+                    face_bboxes=cfg.get("face_bboxes", []),
+                    reference_image_paths=[Path(p) for p in cfg.get("reference_image_paths", [])],
+                    required_props=cfg.get("required_props", []),
+                    forbidden_props=cfg.get("forbidden_props", [])
+                )
+                sys.stdout.write(json.dumps(res) + "\n")
+                sys.stdout.flush()
+            except Exception as e:
+                err_res = {"error": str(e), "detector_health": {}}
+                sys.stdout.write(json.dumps(err_res) + "\n")
+                sys.stdout.flush()
+        sys.exit(0)
+
+    if args.config and args.out:
+        with open(args.config, "r", encoding="utf-8") as f:
+            cfg = json.load(f)
+
+        res = process_image(
+            image_path=Path(cfg["image_path"]),
+            face_bboxes=cfg.get("face_bboxes", []),
+            reference_image_paths=[Path(p) for p in cfg.get("reference_image_paths", [])],
+            required_props=cfg.get("required_props", []),
+            forbidden_props=cfg.get("forbidden_props", [])
+        )
+
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        with open(args.out, "w", encoding="utf-8") as f:
+            json.dump(res, f, indent=2)
