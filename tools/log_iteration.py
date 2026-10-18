@@ -30,7 +30,7 @@ def ensure_loop_log_header():
         header = (
             "# MMCCP Consistency v2: Master Engineering Loop Log (Live)\n\n"
             "> **Standard:** Loop Protocol & Acceptance Rule (Rules 1-10)\n"
-            "> **Verifier:** v1.1 Frozen (`ee3b29d5...`)\n"
+            "> **Verifier:** v1.2 Frozen (`3fa69071f888643b...`)\n"
             "> **Hardware Ceiling:** RTX 3070 Ti (8 GB), VRAM <= 7.4 GB, Zero OOM\n\n"
             "This log documents every hypothesis-driven engineering iteration in the "
             "Repair and Real-Improvement pass. Every number is extracted directly from "
