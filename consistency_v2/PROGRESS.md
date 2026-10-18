@@ -45,6 +45,7 @@ Source file: `results/rescored_v1.2/rescored_summary.json` (Rescored on 2026-10-
 | PR # | Branch | Base | Status | Merge Commit SHA | Merged At | Purpose |
 | :---: | :--- | :--- | :---: | :---: | :---: | :--- |
 | **#19** | `consistency-v2` | `main` | **OPEN** | - | - | Master tracking PR into main (Must remain OPEN) |
+| **#28** | `fix/verifier-v1.2` | `consistency-v2` | MERGED | `6c4573b` | 2026-10-18 07:24 UTC | Verifier v1.2 upgrade, controls, persistent worker, historical rescore, M1 default |
 | **#27** | `feat/m12-collage-init` | `consistency-v2` | MERGED | `87c3589` | 2026-10-16 06:55 UTC | M12 collage-init module and unit tests behind default-OFF flag |
 | **#26** | `feat/bank-views` | `consistency-v2` | MERGED | `5258633` | 2026-10-16 06:52 UTC | Rebuild identity banks, screen M1 strategies, harden split logging |
 | **#25** | `chore/diagnosis-r5` | `consistency-v2` | MERGED | `b291aa5` | 2026-10-15 15:12 UTC | R5 pipeline stage-trace diagnosis on DEV-FAST |
