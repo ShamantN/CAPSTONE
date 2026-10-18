@@ -1,16 +1,17 @@
 """
-MMCCP Phase R7: Engineering Loop Iteration Runner and Verifier
+MMCCP Phase R7: Engineering Loop Iteration Runner and Canonical Verifier v1.2
 Executes a hypothesis-driven iteration on DEV-FAST (Scenes 1, 2, 4, 5 | Seeds 11, 23, 37).
 Strictly adheres to:
-- Verifier v1.1 frozen ensemble scoring
+- Verifier v1.2 frozen ensemble scoring and contact sheet generation
 - Stage-trace assertions in smoke test
-- Cluster bootstrap 95% CI on paired differences
+- Cluster bootstrap 95% CI on paired differences against v2 baseline (single_anchor)
 - Acceptance rule & guardrail verification (zero OOM, VRAM <= 7.4 GB, spatial pass >= 90%)
 - Automated logging to loop_log.md and loop_log.jsonl
 """
 import os
 import sys
 import io
+import csv
 import json
 import time
 import argparse
@@ -22,8 +23,8 @@ import numpy as np
 # Force UTF-8 on Windows
 if sys.platform == "win32":
     try:
-        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
-        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace", line_buffering=True)
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace", line_buffering=True)
     except Exception:
         pass
 
@@ -53,9 +54,7 @@ if os.path.exists(_SD_SITE) and _SD_SITE not in sys.path:
 from story_engine.schema import StorySpec, SceneSpec
 from consistency_v2.config import ConsistencyV2Config
 from consistency_v2.pipeline_v2 import ConsistencyPipelineV2
-from consistency_v2.verify.biometric_ensemble import BiometricEnsemble
-from consistency_v2.verify.scene_auditor import SceneAuditor
-from consistency_v2.verify.binding_checker import BindingChecker
+from consistency_v2.verify.cli import run_verification
 from consistency_v2.splits import DEV_FAST_SCENES, DEV_FAST_SEEDS, assert_seed_allowed
 from consistency_v2.stage_trace import StageTracer, StageNoOpError
 from tools.log_iteration import append_iteration_entry
@@ -63,81 +62,13 @@ from tools.log_iteration import append_iteration_entry
 ANCHORS_DIR = PROJECT_ROOT / "experiments" / "clean_run_ground_truth" / "anchors"
 STORYBOARD_PATH = PROJECT_ROOT / "storyboards" / "ebright.json"
 TELEMETRY_DIR = PROJECT_ROOT / "results" / "telemetry"
-
-
-def load_anchors(auditor: SceneAuditor, ensemble: BiometricEnsemble) -> Dict[str, Dict[str, np.ndarray]]:
-    """Loads certified character anchors and extracts multi-model embeddings."""
-    anchors = {}
-    for p in ANCHORS_DIR.glob("*_ground_truth.png"):
-        cid = p.stem.replace("_ground_truth", "")
-        img = cv2.imread(str(p))
-        if img is not None:
-            embs = ensemble.extract_face_embeddings(img)
-            if embs:
-                anchors[cid] = embs
-    return anchors
-
-
-def score_rendered_image(
-    img_bgr: np.ndarray,
-    expected_cids: List[str],
-    anchors: Dict[str, Dict[str, np.ndarray]],
-    auditor: SceneAuditor,
-    ensemble: BiometricEnsemble
-) -> Tuple[float, List[Dict[str, Any]]]:
-    """Scores biometric similarity for all expected characters in the rendered image."""
-    faces = auditor.detect_faces(img_bgr)
-    if not faces or not expected_cids:
-        return 0.0, []
-
-    scores = []
-    face_details = []
-    for cid in expected_cids:
-        if cid not in anchors:
-            continue
-        anchor_embs = anchors[cid]
-        best_char_score = 0.0
-        best_face_info = None
-
-        for face in faces:
-            fx, fy, fw, fh = face["bbox"]["x"], face["bbox"]["y"], face["bbox"]["w"], face["bbox"]["h"]
-            crop = img_bgr[fy:fy+fh, fx:fx+fw]
-            if crop.size == 0:
-                continue
-            face_embs = ensemble.extract_face_embeddings(crop)
-            sims = []
-            for m in BiometricEnsemble.JUDGE_MODELS:
-                if m in anchor_embs and m in face_embs:
-                    sims.append(float(np.dot(anchor_embs[m], face_embs[m])))
-            if sims:
-                ens_sim = float(np.mean(sims))
-                if ens_sim > best_char_score:
-                    best_char_score = ens_sim
-                    best_face_info = {
-                        "character_id": cid,
-                        "score": round(ens_sim, 4),
-                        "bbox": face["bbox"],
-                        "confidence": face.get("confidence", 1.0)
-                    }
-
-        scores.append(best_char_score)
-        if best_face_info:
-            face_details.append(best_face_info)
-        else:
-            face_details.append({
-                "character_id": cid,
-                "score": 0.0,
-                "bbox": {"x": 0, "y": 0, "w": 0, "h": 0},
-                "confidence": 0.0
-            })
-
-    mean_score = float(np.mean(scores)) if scores else 0.0
-    return mean_score, face_details
+BASELINE_REPORT = PROJECT_ROOT / "results" / "m1_screening" / "single_anchor" / "report_v1_2.json"
+BASELINE_CSV = PROJECT_ROOT / "results" / "m1_screening" / "single_anchor" / "summary.csv"
 
 
 def compute_cluster_bootstrap(
     diffs_by_scene: Dict[int, List[float]],
-    num_bootstrap: int = 1000,
+    num_bootstrap: int = 10000,
     seed: int = 42
 ) -> Tuple[float, float, float]:
     """Computes clustered bootstrap 95% confidence interval across scenes."""
@@ -155,7 +86,8 @@ def compute_cluster_bootstrap(
 
     ci_lower = float(np.percentile(boot_means, 2.5))
     ci_upper = float(np.percentile(boot_means, 97.5))
-    point_est = float(np.mean([d for diffs in diffs_by_scene.values() for d in diffs]))
+    all_diffs = [d for diffs in diffs_by_scene.values() for d in diffs]
+    point_est = float(np.mean(all_diffs)) if all_diffs else 0.0
     return point_est, ci_lower, ci_upper
 
 
@@ -185,6 +117,31 @@ def get_peak_vram_recent(duration_sec: float = 300) -> float:
     return peak
 
 
+def load_csv_faces(csv_path: Path) -> Dict[Tuple[int, int, str], Dict[str, Any]]:
+    """Loads per-face records keyed by (scene_number, seed, character_id)."""
+    faces = {}
+    if not csv_path.exists():
+        return faces
+    with open(csv_path, "r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for r in reader:
+            s_num = int(r["scene_number"])
+            fname = r["image_filename"]
+            seed = int(fname.split("_")[-1].replace(".png", ""))
+            cid = r["character_id"]
+            faces[(s_num, seed, cid)] = {
+                "score": float(r["biometric_ensemble_score"]),
+                "rank1": r["rank1_correct"].lower() == "true",
+                "spatial": r["spatial_pass"].lower() == "true",
+                "wardrobe": r["wardrobe_pass"].lower() == "true",
+                "id_pos": r["identity_at_position_pass"].lower() == "true",
+                "width": int(float(r["face_width_px"])),
+                "age_group": r["age_group"],
+                "seg_status": r["seg_status"]
+            }
+    return faces
+
+
 def run_iteration(
     iteration_id: str,
     phase: str,
@@ -192,7 +149,8 @@ def run_iteration(
     hypothesis: str,
     change_desc: str,
     config_overrides: Optional[Dict[str, Any]] = None,
-    smoke_only: bool = False
+    smoke_only: bool = False,
+    force_rerun: bool = False
 ):
     print("=" * 80)
     print(f"MMCCP Phase R7 Engineering Iteration: {iteration_id}")
@@ -204,7 +162,7 @@ def run_iteration(
     cfg_kwargs = {
         "mode": "fast",
         "enable_identity_bank": True,
-        "bank_selection_metric": "nearest_pose"
+        "bank_selection_metric": "single_anchor"
     }
     if config_overrides:
         cfg_kwargs.update(config_overrides)
@@ -215,10 +173,6 @@ def run_iteration(
         story_data = json.load(f)
     story = StorySpec.from_dict(story_data)
     scene_map = {s.scene_number: s for s in story.scenes}
-
-    auditor = SceneAuditor()
-    ensemble = BiometricEnsemble()
-    anchors = load_anchors(auditor, ensemble)
 
     # 2. Smoke Test on Scene 1 Seed 11 with Stage Tracing
     print("\n--- [SMOKE TEST] Scene 1 Seed 11 with Stage-Trace Assertions ---")
@@ -238,9 +192,6 @@ def run_iteration(
     print(f"Executed stages: {stages_executed}")
     print(f"Pixel diffs across stages: {pixel_diffs}")
 
-    smoke_score, _ = score_rendered_image(smoke_img, smoke_scene.characters_present, anchors, auditor, ensemble)
-    print(f"Smoke test biometric score: {smoke_score:.4f}")
-
     if smoke_only:
         print("\n[SMOKE-ONLY COMPLETE] Terminating run per --smoke-only flag.")
         return
@@ -252,12 +203,6 @@ def run_iteration(
     iter_renders_dir.mkdir(parents=True, exist_ok=True)
 
     render_records = []
-    scores_by_scene: Dict[int, List[float]] = {s: [] for s in DEV_FAST_SCENES}
-    child_scores = []
-    teen_scores = []
-    adult_scores = []
-    face_widths = []
-
     start_eval_time = time.time()
 
     for scene_num in DEV_FAST_SCENES:
@@ -267,90 +212,114 @@ def run_iteration(
 
         for seed in DEV_FAST_SEEDS:
             assert_seed_allowed(seed, split="DEV-FAST")
-            t_render = time.time()
-            img_out, rep = pipeline.generate_scene(story=story, scene=scene, seed=seed, trace=False)
-            dt = time.time() - t_render
-
-            if img_out is None:
-                raise RuntimeError(f"Render failed on Scene {scene_num} Seed {seed}")
-
             img_path = iter_renders_dir / f"scene_{scene_num}_seed_{seed}.png"
-            cv2.imwrite(str(img_path), img_out)
 
-            score, face_details = score_rendered_image(img_out, cids, anchors, auditor, ensemble)
-            scores_by_scene[scene_num].append(score)
-
-            for fd in face_details:
-                fw = fd["bbox"]["w"]
-                if fw > 0:
-                    face_widths.append(fw)
-
-            if scene_num in [1, 2]:
-                child_scores.append(score)
-            elif scene_num == 4:
-                teen_scores.append(score)
-            elif scene_num == 5:
-                adult_scores.append(score)
-
-            print(f"  Seed {seed:3d}: Score={score:.4f} | Faces={len(face_details)} | Widths={[fd['bbox']['w'] for fd in face_details]} | Time={dt:.1f}s")
+            if img_path.exists() and not force_rerun:
+                print(f"  Seed {seed:3d}: Reusing existing render: {img_path.name}")
+                dt = 0.0
+            else:
+                t_render = time.time()
+                img_out, rep = pipeline.generate_scene(story=story, scene=scene, seed=seed, trace=False)
+                dt = time.time() - t_render
+                if img_out is None:
+                    raise RuntimeError(f"Render failed on Scene {scene_num} Seed {seed}")
+                cv2.imwrite(str(img_path), img_out)
+                print(f"  Seed {seed:3d}: Rendered in {dt:.1f}s -> {img_path.name}")
 
             render_records.append({
                 "scene_number": scene_num,
                 "seed": seed,
                 "shot_type": scene.shot_type,
                 "characters": cids,
-                "biometric_score": round(score, 4),
-                "face_details": face_details,
+                "image_filename": img_path.name,
                 "render_time_sec": round(dt, 2)
             })
 
     total_eval_time = time.time() - start_eval_time
     peak_vram = get_peak_vram_recent(duration_sec=total_eval_time)
 
-    # 4. Compare Against Baseline
-    # Load previous baseline from results/m1_screening/m1_screening_summary.json (nearest_pose condition)
-    baseline_summary_path = PROJECT_ROOT / "results" / "m1_screening" / "m1_screening_summary.json"
-    baseline_map: Dict[Tuple[int, int], float] = {}
-    if baseline_summary_path.exists():
-        with open(baseline_summary_path, "r", encoding="utf-8") as f:
-            bsum = json.load(f)
-        for r in bsum.get("conditions", {}).get("nearest_pose", {}).get("renders", []):
-            baseline_map[(r["scene_number"], r["seed"])] = r["biometric_score"]
+    # 4. Canonical Verification with Frozen Verifier v1.2
+    print("\n--- [VERIFICATION] Auditing iteration renders with frozen Verifier v1.2 ---")
+    report_out_path = iter_dir / "report_v1_2.json"
+    rep = run_verification(
+        images_dir=iter_renders_dir,
+        story_path=STORYBOARD_PATH,
+        bank_dir=ANCHORS_DIR,
+        output_report_path=report_out_path,
+        baseline_report_path=BASELINE_REPORT if BASELINE_REPORT.exists() else None
+    )
 
+    iter_csv_path = iter_dir / "summary.csv"
+    iter_faces = load_csv_faces(iter_csv_path)
+    base_faces = load_csv_faces(BASELINE_CSV)
+
+    all_keys = sorted(list(set(iter_faces.keys()) | set(base_faces.keys())))
     paired_diffs_by_scene: Dict[int, List[float]] = {s: [] for s in DEV_FAST_SCENES}
     paired_diffs_all: List[float] = []
 
-    for r in render_records:
-        key = (r["scene_number"], r["seed"])
-        b_score = baseline_map.get(key, 0.1789)
-        diff = r["biometric_score"] - b_score
-        paired_diffs_by_scene[r["scene_number"]].append(diff)
+    iter_scores = []
+    base_scores = []
+    iter_widths = []
+    base_widths = []
+
+    child_diffs = []
+    teen_diffs = []
+    adult_diffs = []
+
+    for k in all_keys:
+        sc, sd, ch = k
+        if sc not in DEV_FAST_SCENES:
+            continue
+        i_rec = iter_faces.get(k)
+        b_rec = base_faces.get(k)
+
+        s_iter = i_rec["score"] if i_rec else 0.0
+        s_base = b_rec["score"] if b_rec else 0.0
+        diff = s_iter - s_base
+
+        iter_scores.append(s_iter)
+        base_scores.append(s_base)
+        if i_rec and i_rec["width"] > 0:
+            iter_widths.append(i_rec["width"])
+        if b_rec and b_rec["width"] > 0:
+            base_widths.append(b_rec["width"])
+
+        paired_diffs_by_scene[sc].append(diff)
         paired_diffs_all.append(diff)
-        r["baseline_score"] = round(b_score, 4)
-        r["paired_delta"] = round(diff, 4)
+
+        age = (i_rec or b_rec)["age_group"]
+        if age == "child":
+            child_diffs.append(diff)
+        elif age == "teen":
+            teen_diffs.append(diff)
+        else:
+            adult_diffs.append(diff)
 
     point_est, ci_lower, ci_upper = compute_cluster_bootstrap(paired_diffs_by_scene)
     positive_pairs = sum(1 for d in paired_diffs_all if d > 0)
     pos_pair_rate = positive_pairs / len(paired_diffs_all) if paired_diffs_all else 0.0
 
-    mean_intervention = float(np.mean([r["biometric_score"] for r in render_records]))
-    mean_baseline = float(np.mean([r["baseline_score"] for r in render_records]))
+    mean_intervention = float(np.mean(iter_scores)) if iter_scores else 0.0
+    mean_baseline = float(np.mean(base_scores)) if base_scores else 0.0
     mean_delta = mean_intervention - mean_baseline
 
-    mean_child = float(np.mean(child_scores)) if child_scores else 0.0
-    mean_teen = float(np.mean(teen_scores)) if teen_scores else 0.0
-    mean_adult = float(np.mean(adult_scores)) if adult_scores else 0.0
-    mean_face_width = float(np.mean(face_widths)) if face_widths else 0.0
+    mean_iter_width = float(np.mean(iter_widths)) if iter_widths else 0.0
+    mean_base_width = float(np.mean(base_widths)) if base_widths else 0.0
 
-    print("\n" + "=" * 70)
-    print("ITERATION EVALUATION SUMMARY")
-    print("=" * 70)
+    mean_child_delta = float(np.mean(child_diffs)) if child_diffs else 0.0
+    mean_teen_delta = float(np.mean(teen_diffs)) if teen_diffs else 0.0
+    mean_adult_delta = float(np.mean(adult_diffs)) if adult_diffs else 0.0
+
+    print("\n" + "=" * 80)
+    print("ITERATION EVALUATION SUMMARY (Canonical Verifier v1.2)")
+    print("=" * 80)
     print(f"Overall Biometric Score: {mean_intervention:.4f} vs Baseline {mean_baseline:.4f} (Delta = {mean_delta:+.4f})")
-    print(f"Subgroups: Child={mean_child:.4f} | Teen={mean_teen:.4f} | Adult={mean_adult:.4f}")
-    print(f"Mean Face Width: {mean_face_width:.1f}px")
     print(f"Cluster Bootstrap 95% CI: [{ci_lower:+.4f}, {ci_upper:+.4f}]")
-    print(f"Positive Pair Rate: {pos_pair_rate*100:.1f}% ({positive_pairs}/{len(paired_diffs_all)})")
-    print(f"Peak VRAM: {peak_vram:.0f} MB (Ceiling: 7400 MB)")
+    print(f"Positive Pair Rate:       {pos_pair_rate*100:.1f}% ({positive_pairs}/{len(paired_diffs_all)})")
+    print(f"Mean Face Width:          {mean_iter_width:.1f} px vs Baseline {mean_base_width:.1f} px (Delta = {mean_iter_width - mean_base_width:+.1f} px)")
+    print(f"Subgroup Deltas:          Child={mean_child_delta:+.4f} | Teen={mean_teen_delta:+.4f} | Adult={mean_adult_delta:+.4f}")
+    print(f"Peak VRAM:                {peak_vram:.0f} MB (Ceiling: 7400 MB)")
+    print(f"Total Latency:            {total_eval_time:.1f}s ({total_eval_time/12:.1f}s per scene)")
 
     # 5. Acceptance Rule Decision
     rule_passed = (ci_lower > 0.0) or (mean_delta >= 0.02 and pos_pair_rate >= 0.70)
@@ -359,7 +328,11 @@ def run_iteration(
     decision = "ACCEPT" if (rule_passed and guardrails_passed) else "REJECT"
     print(f"\nDECISION: >>> {decision} <<< (Rule Passed: {rule_passed}, Guardrails: {guardrails_passed})")
 
-    # 6. Save Iteration Summary JSON
+    # 6. Contact Sheet Directory for Visual Review
+    contact_sheet_dir = PROJECT_ROOT / "docs_generated" / "v2" / "visual_review" / "contact_sheets"
+    print(f"\nContact Sheets available for visual review in: {contact_sheet_dir}")
+
+    # 7. Save Iteration Summary JSON
     summary_data = {
         "iteration_id": iteration_id,
         "phase": phase,
@@ -368,15 +341,20 @@ def run_iteration(
         "change_desc": change_desc,
         "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "metrics": {
-            "mean_score": round(mean_intervention, 4),
-            "baseline_score": round(mean_baseline, 4),
-            "delta": round(mean_delta, 4),
-            "ci_95": [round(ci_lower, 4), round(ci_upper, 4)],
+            "intervention_biometric_mean": round(mean_intervention, 4),
+            "baseline_biometric_mean": round(mean_baseline, 4),
+            "delta_mean": round(mean_delta, 4),
+            "delta_95ci_cluster_bootstrap": [round(ci_lower, 4), round(ci_upper, 4)],
             "positive_pair_rate": round(pos_pair_rate, 4),
-            "child_score": round(mean_child, 4),
-            "teen_score": round(mean_teen, 4),
-            "adult_score": round(mean_adult, 4),
-            "mean_face_width_px": round(mean_face_width, 1)
+            "positive_pairs_count": positive_pairs,
+            "total_pairs_count": len(paired_diffs_all),
+            "mean_face_width_px": round(mean_iter_width, 1),
+            "baseline_face_width_px": round(mean_base_width, 1),
+            "subgroup_deltas": {
+                "child": round(mean_child_delta, 4),
+                "teen": round(mean_teen_delta, 4),
+                "adult": round(mean_adult_delta, 4)
+            }
         },
         "guardrails": {
             "peak_vram_mb": round(peak_vram, 0),
@@ -393,7 +371,7 @@ def run_iteration(
         json.dump(summary_data, f, indent=2)
     print(f"Saved machine iteration summary: {summary_file}")
 
-    # 7. Append to Master Loop Log
+    # 8. Append to Master Loop Log
     append_iteration_entry(
         iteration_id=iteration_id,
         phase=phase,
@@ -411,9 +389,9 @@ def run_iteration(
             "latency_avg_sec": round(total_eval_time / 12, 1)
         },
         decision=decision,
-        extra_notes=f"Child={mean_child:.4f}, Teen={mean_teen:.4f}, Adult={mean_adult:.4f}, Mean Face={mean_face_width:.1f}px"
+        extra_notes=f"Child={mean_child_delta:+.4f}, Teen={mean_teen_delta:+.4f}, Adult={mean_adult_delta:+.4f}, Face Width={mean_iter_width:.1f}px vs {mean_base_width:.1f}px"
     )
-    print(f"Appended entry to docs_generated/v2/loop_log.md and loop_log.jsonl")
+    print("Appended entry to docs_generated/v2/loop_log.md and loop_log.jsonl")
 
 
 def main():
@@ -424,6 +402,7 @@ def main():
     parser.add_argument("--hypothesis", type=str, required=True, help="Scientific hypothesis for the intervention")
     parser.add_argument("--change", type=str, required=True, help="Description of code/parameter change")
     parser.add_argument("--smoke-only", action="store_true", help="Run only the smoke test with stage tracing")
+    parser.add_argument("--force-rerun", action="store_true", help="Force re-rendering of all 12 images")
     args = parser.parse_args()
 
     run_iteration(
@@ -432,7 +411,8 @@ def main():
         branch=args.branch,
         hypothesis=args.hypothesis,
         change_desc=args.change,
-        smoke_only=args.smoke_only
+        smoke_only=args.smoke_only,
+        force_rerun=args.force_rerun
     )
 
 

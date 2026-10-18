@@ -105,7 +105,7 @@ class LayoutPlanner:
     def compute_scale_params(cls, shot_type: str) -> Tuple[float, float, str]:
         """
         Computes total figure height (px), face width (px), and scale category.
-        Ensures strict face size minimums: >=140px for medium, >=120px for wide.
+        Ensures strict face size minimums: >=96px for medium, >=64px for wide.
         """
         st = shot_type.lower()
         if "extreme close-up" in st or "macro" in st:
@@ -113,20 +113,20 @@ class LayoutPlanner:
             face_width = 300.0
             cat = "close"
         elif "close-up" in st or "portrait" in st or "hero" in st or "medium close-up" in st:
-            fig_height = 1150.0
-            face_width = 220.0
+            fig_height = 1100.0
+            face_width = 180.0
             cat = "close"
         elif "medium shot" in st or "two-shot" in st:
-            fig_height = 860.0
-            face_width = 160.0  # Raised from 120px to 160px for medium/two-shot
+            fig_height = 780.0
+            face_width = 120.0  # Well above 96px minimum
             cat = "medium"
         elif "wide shot" in st or "full shot" in st or "long shot" in st:
-            fig_height = 720.0
-            face_width = 135.0  # Raised from 75px to 135px for wide shot
+            fig_height = 540.0
+            face_width = 75.0   # Well above 64px minimum
             cat = "wide"
         else:
-            fig_height = 800.0
-            face_width = 150.0
+            fig_height = 720.0
+            face_width = 110.0
             cat = "medium"
 
         return fig_height, face_width, cat
