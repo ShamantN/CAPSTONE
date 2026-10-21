@@ -59,6 +59,12 @@ class ConsistencyPipelineV2:
         self.checkpoint_name = checkpoint_name
         self.registry = CharacterRegistry()
 
+        # Enforce Forge memory parameters to guarantee VRAM <= 7.4 GB and prevent memory thrashing
+        try:
+            self.client.set_options({"forge_inference_memory": 1024.0, "xl_GPU_MB": 3200.0})
+        except Exception:
+            pass
+
         # Initialize sub-modules
         self.bank_manager = IdentityBankManager()
         self.layout_planner = LayoutPlanner()
@@ -168,8 +174,9 @@ class ConsistencyPipelineV2:
             openpose_unit = {
                 "enabled": True,
                 "module": "None",
-                "model": "openpose_xl",
+                "model": getattr(self.config, "openpose_model", "openpose_xl [f4251cb4]"),
                 "weight": self.config.openpose_weight,
+                "image": skeleton_b64,
                 "input_image": skeleton_b64,
                 "control_mode": "Balanced",
                 "pixel_perfect": True,
