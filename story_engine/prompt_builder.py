@@ -56,17 +56,17 @@ class PromptBuilder:
                 if not outfit:
                     outfit = age_state.clothing_description if age_state and age_state.clothing_description else char.recurring_clothing
 
-                demo_str = f"((strictly {char.ethnicity}:1.45)), ({char.skin_tone} skin tone:1.35), ({char.face_shape} face:1.25)"
-                color_tokens = " and ".join([f"({col} garment:1.30)" for col in char.clothing_colors[:2]]) if char.clothing_colors else ""
+                demo_str = f"strictly {char.ethnicity}, {char.skin_tone} skin tone, {char.face_shape} face"
+                color_tokens = " and ".join([f"{col} garment" for col in char.clothing_colors[:2]]) if char.clothing_colors else ""
 
                 char_desc = (
-                    f"(({char.unique_token}:1.4)), centered in frame, {demo_str}, {age_val} years old {stage_val} {char.gender}, "
-                    f"wearing ({outfit}:1.30), {color_tokens}, {char.hair_color} hair ({char.hair_style}), clean face, detailed eyes"
+                    f"({char.unique_token}:1.15), centered in frame, {demo_str}, {age_val} years old {stage_val} {char.gender}, "
+                    f"wearing {outfit}, {color_tokens}, {char.hair_color} hair ({char.hair_style}), clean face, detailed eyes"
                 )
             else:
                 char_desc = f"a person in the scene"
 
-            master_pos = f"({active_style}:1.2), masterpiece, cinematic lighting, 8k resolution, highly detailed, {scene.action_description} BREAK {char_desc} BREAK Background: {env_desc}, {shot_info}."
+            master_pos = f"({active_style}:1.2), masterpiece, cinematic lighting, 8k resolution, highly detailed, {scene.action_description}, {char_desc}, {env_desc}, {shot_info}."
             regional_meta = {"regional_active": False}
 
         else:
@@ -93,12 +93,12 @@ class PromptBuilder:
                     if not outfit:
                         outfit = age_state.clothing_description if age_state and age_state.clothing_description else char.recurring_clothing
 
-                    demo_str = f"((strictly {char.ethnicity}:1.45)), ({char.skin_tone} skin tone:1.35), ({char.face_shape} face:1.25)"
-                    color_tokens = " and ".join([f"({col} garment:1.30)" for col in char.clothing_colors[:2]]) if char.clothing_colors else ""
+                    demo_str = f"strictly {char.ethnicity}, {char.skin_tone} skin tone, {char.face_shape} face"
+                    color_tokens = " and ".join([f"{col} garment" for col in char.clothing_colors[:2]]) if char.clothing_colors else ""
 
                     c_desc = (
-                        f"(({char.unique_token}:1.4)), {pos_str}, {demo_str}, {age_val} years old {stage_val} {char.gender}, "
-                        f"wearing ({outfit}:1.30), {color_tokens}, {char.hair_color} hair, clean face, detailed eyes"
+                        f"({char.unique_token}:1.15), {pos_str}, {demo_str}, {age_val} years old {stage_val} {char.gender}, "
+                        f"wearing {outfit}, {color_tokens}, {char.hair_color} hair, clean face, detailed eyes"
                     )
                     regional_blocks.append(c_desc)
                     column_ratios.append("1")
