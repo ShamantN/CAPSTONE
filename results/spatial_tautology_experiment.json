@@ -1,0 +1,56 @@
+{
+  "original_results": {
+    "young_ebright": {
+      "face_idx": 0,
+      "bbox": {
+        "x": 282,
+        "y": 107,
+        "w": 120,
+        "h": 150
+      },
+      "center_ratio_rx": 0.281,
+      "observed_zone": "left",
+      "spatial_pass": true
+    },
+    "mother": {
+      "face_idx": 1,
+      "bbox": {
+        "x": 860,
+        "y": 45,
+        "w": 116,
+        "h": 147
+      },
+      "center_ratio_rx": 0.755,
+      "observed_zone": "right",
+      "spatial_pass": true
+    }
+  },
+  "swapped_results": {
+    "young_ebright": {
+      "face_idx": 0,
+      "bbox": {
+        "x": 282,
+        "y": 108,
+        "w": 120,
+        "h": 149
+      },
+      "center_ratio_rx": 0.281,
+      "observed_zone": "left",
+      "spatial_pass": true
+    },
+    "mother": {
+      "face_idx": 1,
+      "bbox": {
+        "x": 862,
+        "y": 45,
+        "w": 115,
+        "h": 148
+      },
+      "center_ratio_rx": 0.756,
+      "observed_zone": "right",
+      "spatial_pass": true
+    }
+  },
+  "tautology_confirmed": true,
+  "conclusion": "PROVEN TAUTOLOGICAL: Even when characters' faces were deliberately swapped between left and right positions, spatial_pass still reported 100% PASS for both characters! Reason: assign_faces_to_characters assigns faces purely based on horizontal zone score (rx), assigning whatever face is on the left to the left character, and whatever face is on the right to the right character. verify_spatial_position then checks if the assigned face is in that zone, which is guaranteed by definition. Therefore, spatial_pass CANNOT fail based on identity."
+}

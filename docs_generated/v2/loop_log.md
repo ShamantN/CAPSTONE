@@ -188,3 +188,23 @@ This log documents every hypothesis-driven engineering iteration in the Repair a
 
 ---
 
+## Iteration: `loop-W3W4-iter4-cfg-5.5`
+
+- **Timestamp:** `2026-10-21T06:51:47.517418+00:00`
+- **Phase / Workstream:** R7
+- **Branch:** `fix/identity-layout-scale`
+- **Commit SHA / PR:** Uncommitted | N/A
+- **Hypothesis:** Elevating CFG scale from 5.0 to 5.5 restores facial contrast and eliminates RetinaFace detection failure on Mother in Scene 1 Seed 37
+- **Change:** Set CFG scale to 5.5 with all other bundle settings identical
+- **Smoke Test:** Scene 1 Seed 11 stage trace passed (217.5s, diffs recorded)
+- **Screen on DEV-FAST:**
+  - Baseline: **0.3142**
+  - Intervention: **0.3088**
+  - Paired $\Delta$: **-0.0054**
+  - Bootstrap 95% CI: `[-0.0824, +0.0364]`
+- **Guardrails:** Peak VRAM: `7805.0 MB` (<= 7400 MB) | OOM: `ZERO` | Latency: `0.0s`
+- **Decision:** **REJECT**
+- **Notes:** Child=-0.0559, Teen=-0.0048, Adult=+0.0281, Face Width=118.6px vs 233.1px
+
+---
+

@@ -445,9 +445,12 @@ def main():
     parser.add_argument("--collage-feather-radius", type=int, default=None, help="Feather radius in pixels for collage-init")
     parser.add_argument("--collage-min-face-scale", type=int, default=None, help="Minimum face scale in pixels for collage-init")
     parser.add_argument("--all-scenes-collage", action="store_true", help="Apply collage-init to all scenes, not just multi-character")
+    parser.add_argument("--cfg-scale", type=float, default=None, help="CFG scale override (e.g. 5.5 vs 5.0)")
     args = parser.parse_args()
 
     config_overrides = {}
+    if args.cfg_scale is not None:
+        config_overrides["cfg_scale"] = args.cfg_scale
     if args.enable_collage_init:
         config_overrides["enable_collage_init"] = True
     if args.collage_alpha_blend is not None:
