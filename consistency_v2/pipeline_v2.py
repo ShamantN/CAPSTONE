@@ -164,9 +164,22 @@ class ConsistencyPipelineV2:
                 canvas_h=plan.height
             )
             layout_masks = {b.character_id: b.normalized_region for b in layout_boxes}
+            action_lower = getattr(scene, "action_description", "").lower()
+            shot_lower = getattr(scene, "shot_type", "").lower()
+            pos_strs = " ".join([str(v) for v in char_pos_dict.values()]).lower()
+            if "sit" in action_lower or "table" in action_lower or "seated" in action_lower or "sit" in pos_strs:
+                pose_type = "seated_table"
+                guidance_end = 0.60
+            elif "close-up" in shot_lower or "portrait" in shot_lower or "shoulder" in shot_lower or "hero" in shot_lower:
+                pose_type = "upper_body_front"
+                guidance_end = 0.55
+            else:
+                pose_type = "standing_front"
+                guidance_end = self.config.openpose_guidance_end
+
             skeleton_cv = self.layout_planner.render_openpose_canvas(
                 layout_boxes=layout_boxes,
-                pose_type="standing_front",
+                pose_type=pose_type,
                 canvas_w=plan.width,
                 canvas_h=plan.height
             )
@@ -181,7 +194,7 @@ class ConsistencyPipelineV2:
                 "control_mode": "Balanced",
                 "pixel_perfect": True,
                 "guidance_start": 0.0,
-                "guidance_end": self.config.openpose_guidance_end
+                "guidance_end": guidance_end
             }
             if trace and skeleton_cv is not None:
                 tracer.record_stage("layout_skeleton", skeleton_cv, enforce_active=False)

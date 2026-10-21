@@ -86,6 +86,38 @@ class LayoutPlanner:
             15: (0.03, -0.41),
             16: (-0.07, -0.39),
             17: (0.07, -0.39)
+        },
+        "seated_table": {
+            0: (0.0, -0.38),    # Nose
+            1: (0.0, -0.28),    # Neck
+            2: (-0.14, -0.26),  # R-Shoulder
+            3: (-0.16, -0.08),  # R-Elbow
+            4: (-0.08, 0.06),   # R-Wrist (resting on table)
+            5: (0.14, -0.26),   # L-Shoulder
+            6: (0.16, -0.08),   # L-Elbow
+            7: (0.08, 0.06),    # L-Wrist (resting on table)
+            8: (-0.08, 0.02),   # R-Hip
+            11: (0.08, 0.02),   # L-Hip
+            14: (-0.03, -0.41), # R-Eye
+            15: (0.03, -0.41),  # L-Eye
+            16: (-0.07, -0.39), # R-Ear
+            17: (0.07, -0.39)   # L-Ear
+        },
+        "upper_body_front": {
+            0: (0.0, -0.28),    # Nose
+            1: (0.0, -0.16),    # Neck
+            2: (-0.18, -0.14),  # R-Shoulder
+            3: (-0.22, 0.08),   # R-Elbow
+            4: (-0.14, 0.28),   # R-Wrist
+            5: (0.18, -0.14),   # L-Shoulder
+            6: (0.22, 0.08),    # L-Elbow
+            7: (0.14, 0.28),    # L-Wrist
+            8: (-0.10, 0.32),   # R-Hip
+            11: (0.10, 0.32),   # L-Hip
+            14: (-0.04, -0.31), # R-Eye
+            15: (0.04, -0.31),  # L-Eye
+            16: (-0.09, -0.29), # R-Ear
+            17: (0.09, -0.29)   # L-Ear
         }
     }
 
@@ -105,28 +137,28 @@ class LayoutPlanner:
     def compute_scale_params(cls, shot_type: str) -> Tuple[float, float, str]:
         """
         Computes total figure height (px), face width (px), and scale category.
-        Ensures strict face size minimums: >=96px for medium, >=64px for wide.
+        Ensures strict face size minimums: >=120px for all shots (more for close-ups).
         """
         st = shot_type.lower()
         if "extreme close-up" in st or "macro" in st:
             fig_height = 1400.0
-            face_width = 300.0
+            face_width = 280.0
             cat = "close"
-        elif "close-up" in st or "portrait" in st or "hero" in st or "medium close-up" in st:
-            fig_height = 1100.0
-            face_width = 180.0
+        elif "close-up" in st or "portrait" in st or "hero" in st or "medium close-up" in st or "shoulder" in st:
+            fig_height = 1150.0
+            face_width = 220.0
             cat = "close"
         elif "medium shot" in st or "two-shot" in st:
-            fig_height = 780.0
-            face_width = 120.0  # Well above 96px minimum
+            fig_height = 800.0
+            face_width = 130.0  # Compliant with >= 120px requirement
             cat = "medium"
         elif "wide shot" in st or "full shot" in st or "long shot" in st:
-            fig_height = 540.0
-            face_width = 75.0   # Well above 64px minimum
+            fig_height = 680.0
+            face_width = 120.0   # Compliant with >= 120px requirement
             cat = "wide"
         else:
-            fig_height = 720.0
-            face_width = 110.0
+            fig_height = 780.0
+            face_width = 130.0
             cat = "medium"
 
         return fig_height, face_width, cat
@@ -153,22 +185,26 @@ class LayoutPlanner:
             pos_str = character_positions[cid]
             r_x, zone = cls.resolve_position_ratio(pos_str, 0.50)
 
+            is_child = any(term in cid.lower() for term in ["young", "child", "boy", "kid", "8"])
+            c_fig_h = fig_h * 0.88 if is_child else fig_h
+            c_face_w = max(180.0, face_w * 0.90) if (is_child and scale_cat == "close") else face_w
+
             cx = int(canvas_w * r_x)
-            cy = int(canvas_h * 0.52)
-            face_cy = int(cy - (fig_h * 0.38))
-            face_h = int(face_w * 1.2)
+            cy = int(canvas_h * 0.58) if scale_cat == "close" else int(canvas_h * 0.50)
+            face_cy = int(cy - (c_fig_h * 0.22)) if scale_cat == "close" else int(cy - (c_fig_h * 0.28))
+            face_h = int(c_face_w * 1.2)
 
             face_box = {
-                "x": max(0, int(cx - face_w / 2)),
+                "x": max(0, int(cx - c_face_w / 2)),
                 "y": max(0, int(face_cy - face_h / 2)),
-                "w": int(face_w),
+                "w": int(c_face_w),
                 "h": int(face_h)
             }
             body_box = {
-                "x": max(0, int(cx - (fig_h * 0.25))),
-                "y": max(0, int(cy - (fig_h * 0.5))),
-                "w": int(fig_h * 0.5),
-                "h": int(fig_h)
+                "x": max(0, int(cx - (c_fig_h * 0.25))),
+                "y": max(0, int(cy - (c_fig_h * 0.45))),
+                "w": int(c_fig_h * 0.5),
+                "h": int(c_fig_h * 0.9)
             }
             norm_region = [0.0, 1.0, 0.0, 1.0]
 
@@ -205,22 +241,26 @@ class LayoutPlanner:
             for i, cid in enumerate(ordered_pair):
                 r_x = r_offsets[i]
                 zone = zones[i]
+                is_child = any(term in cid.lower() for term in ["young", "child", "boy", "kid", "8"])
+                c_fig_h = fig_h * 0.78 if is_child else fig_h
+                c_face_w = max(115.0, face_w * 0.95) if is_child else face_w
+
                 cx = int(canvas_w * r_x)
-                cy = int(canvas_h * 0.55)
-                face_cy = int(cy - (fig_h * 0.38))
-                face_h = int(face_w * 1.2)
+                cy = int(canvas_h * 0.52)
+                face_cy = int(cy - (c_fig_h * 0.38))
+                face_h = int(c_face_w * 1.2)
 
                 face_box = {
-                    "x": max(0, int(cx - face_w / 2)),
+                    "x": max(0, int(cx - c_face_w / 2)),
                     "y": max(0, int(face_cy - face_h / 2)),
-                    "w": int(face_w),
+                    "w": int(c_face_w),
                     "h": int(face_h)
                 }
                 body_box = {
-                    "x": max(0, int(cx - (fig_h * 0.22))),
-                    "y": max(0, int(cy - (fig_h * 0.5))),
-                    "w": int(fig_h * 0.44),
-                    "h": int(fig_h)
+                    "x": max(0, int(cx - (c_fig_h * 0.22))),
+                    "y": max(0, int(cy - (c_fig_h * 0.5))),
+                    "w": int(c_fig_h * 0.44),
+                    "h": int(c_fig_h)
                 }
 
                 boxes.append(CharacterLayoutBox(
