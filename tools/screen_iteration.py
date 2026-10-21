@@ -91,7 +91,7 @@ def compute_cluster_bootstrap(
     return point_est, ci_lower, ci_upper
 
 
-def get_peak_vram_recent(duration_sec: float = 300) -> float:
+def get_peak_vram_recent(duration_sec: float = 300, start_line: Optional[int] = None) -> float:
     """Extracts peak VRAM in MB from recent entries in active telemetry CSV."""
     if not TELEMETRY_DIR.exists():
         return 0.0
@@ -103,11 +103,16 @@ def get_peak_vram_recent(duration_sec: float = 300) -> float:
     try:
         with open(latest_csv, "r", encoding="utf-8") as f:
             lines = f.readlines()
-        for line in lines[-int(duration_sec * 2):]:
+        if start_line is not None and 0 <= start_line < len(lines):
+            lines_to_check = lines[start_line:]
+        else:
+            n_lines = max(10, int(duration_sec * 1.05) + 5)
+            lines_to_check = lines[-n_lines:]
+        for line in lines_to_check:
             parts = line.strip().split(",")
-            if len(parts) >= 3:
+            if len(parts) >= 2:
                 try:
-                    val = float(parts[2].replace("MiB", "").replace("MB", "").strip())
+                    val = float(parts[1].replace("MiB", "").replace("MB", "").strip())
                     if val > peak:
                         peak = val
                 except ValueError:
@@ -115,6 +120,7 @@ def get_peak_vram_recent(duration_sec: float = 300) -> float:
     except Exception:
         pass
     return peak
+
 
 
 def load_csv_faces(csv_path: Path) -> Dict[Tuple[int, int, str], Dict[str, Any]]:
@@ -403,7 +409,24 @@ def main():
     parser.add_argument("--change", type=str, required=True, help="Description of code/parameter change")
     parser.add_argument("--smoke-only", action="store_true", help="Run only the smoke test with stage tracing")
     parser.add_argument("--force-rerun", action="store_true", help="Force re-rendering of all 12 images")
+    parser.add_argument("--enable-collage-init", action="store_true", help="Enable M12 collage-init composition")
+    parser.add_argument("--collage-alpha-blend", type=float, default=None, help="Alpha blend factor for collage-init")
+    parser.add_argument("--collage-feather-radius", type=int, default=None, help="Feather radius in pixels for collage-init")
+    parser.add_argument("--collage-min-face-scale", type=int, default=None, help="Minimum face scale in pixels for collage-init")
+    parser.add_argument("--all-scenes-collage", action="store_true", help="Apply collage-init to all scenes, not just multi-character")
     args = parser.parse_args()
+
+    config_overrides = {}
+    if args.enable_collage_init:
+        config_overrides["enable_collage_init"] = True
+    if args.collage_alpha_blend is not None:
+        config_overrides["collage_alpha_blend"] = args.collage_alpha_blend
+    if args.collage_feather_radius is not None:
+        config_overrides["collage_feather_radius"] = args.collage_feather_radius
+    if args.collage_min_face_scale is not None:
+        config_overrides["collage_min_face_scale_px"] = args.collage_min_face_scale
+    if args.all_scenes_collage:
+        config_overrides["collage_multichar_only"] = False
 
     run_iteration(
         iteration_id=args.name,
@@ -411,6 +434,7 @@ def main():
         branch=args.branch,
         hypothesis=args.hypothesis,
         change_desc=args.change,
+        config_overrides=config_overrides if config_overrides else None,
         smoke_only=args.smoke_only,
         force_rerun=args.force_rerun
     )

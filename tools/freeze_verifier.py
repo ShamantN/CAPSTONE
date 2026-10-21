@@ -65,5 +65,15 @@ def freeze_verifier(version: str = "1.1") -> Dict[str, Any]:
     return freeze_data
 
 if __name__ == "__main__":
-    ver = sys.argv[1] if len(sys.argv) > 1 else "1.1"
+    if len(sys.argv) > 1 and sys.argv[1] in ("--check", "-c"):
+        try:
+            from tools.check_freeze import check_freeze
+        except ImportError:
+            from check_freeze import check_freeze
+        if check_freeze():
+            sys.exit(0)
+        else:
+            sys.exit(1)
+    ver = sys.argv[1] if len(sys.argv) > 1 else "1.2"
     freeze_verifier(ver)
+
