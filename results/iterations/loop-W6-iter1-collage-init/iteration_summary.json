@@ -1,0 +1,162 @@
+{
+  "iteration_id": "loop-W6-iter1-collage-init",
+  "phase": "R7",
+  "branch": "feat/w6-m12-collage-init",
+  "hypothesis": "M12 feathered collage-init on draft canvas prior to Pass 2 anchors both subjects in multi-character scenes, eliminating two-shot single-person collapse",
+  "change_desc": "Enable enable_collage_init with multichar_only=True and retain all identity units in Pass 2",
+  "timestamp": "2026-10-18T08:24:50Z",
+  "metrics": {
+    "intervention_biometric_mean": 0.2026,
+    "baseline_biometric_mean": 0.2081,
+    "delta_mean": -0.0055,
+    "delta_95ci_cluster_bootstrap": [
+      -0.0209,
+      0.01
+    ],
+    "positive_pair_rate": 0.2222,
+    "positive_pairs_count": 4,
+    "total_pairs_count": 18,
+    "mean_face_width_px": 218.5,
+    "baseline_face_width_px": 210.2,
+    "subgroup_deltas": {
+      "child": -0.0189,
+      "teen": -0.0214,
+      "adult": 0.0088
+    }
+  },
+  "guardrails": {
+    "peak_vram_mb": 8192.0,
+    "zero_oom": true,
+    "avg_latency_sec": 90.1,
+    "guardrails_met": false
+  },
+  "decision": "REJECT",
+  "renders": [
+    {
+      "scene_number": 1,
+      "seed": 11,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "young_ebright",
+        "mother"
+      ],
+      "image_filename": "scene_1_seed_11.png",
+      "render_time_sec": 93.01
+    },
+    {
+      "scene_number": 1,
+      "seed": 23,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "young_ebright",
+        "mother"
+      ],
+      "image_filename": "scene_1_seed_23.png",
+      "render_time_sec": 103.12
+    },
+    {
+      "scene_number": 1,
+      "seed": 37,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "young_ebright",
+        "mother"
+      ],
+      "image_filename": "scene_1_seed_37.png",
+      "render_time_sec": 95.96
+    },
+    {
+      "scene_number": 2,
+      "seed": 11,
+      "shot_type": "Medium close-up",
+      "characters": [
+        "young_ebright"
+      ],
+      "image_filename": "scene_2_seed_11.png",
+      "render_time_sec": 80.27
+    },
+    {
+      "scene_number": 2,
+      "seed": 23,
+      "shot_type": "Medium close-up",
+      "characters": [
+        "young_ebright"
+      ],
+      "image_filename": "scene_2_seed_23.png",
+      "render_time_sec": 80.95
+    },
+    {
+      "scene_number": 2,
+      "seed": 37,
+      "shot_type": "Medium close-up",
+      "characters": [
+        "young_ebright"
+      ],
+      "image_filename": "scene_2_seed_37.png",
+      "render_time_sec": 77.9
+    },
+    {
+      "scene_number": 4,
+      "seed": 11,
+      "shot_type": "Over-the-shoulder shot",
+      "characters": [
+        "teen_ebright"
+      ],
+      "image_filename": "scene_4_seed_11.png",
+      "render_time_sec": 86.83
+    },
+    {
+      "scene_number": 4,
+      "seed": 23,
+      "shot_type": "Over-the-shoulder shot",
+      "characters": [
+        "teen_ebright"
+      ],
+      "image_filename": "scene_4_seed_23.png",
+      "render_time_sec": 82.24
+    },
+    {
+      "scene_number": 4,
+      "seed": 37,
+      "shot_type": "Over-the-shoulder shot",
+      "characters": [
+        "teen_ebright"
+      ],
+      "image_filename": "scene_4_seed_37.png",
+      "render_time_sec": 82.08
+    },
+    {
+      "scene_number": 5,
+      "seed": 11,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "college_ebright",
+        "james_wong"
+      ],
+      "image_filename": "scene_5_seed_11.png",
+      "render_time_sec": 102.85
+    },
+    {
+      "scene_number": 5,
+      "seed": 23,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "college_ebright",
+        "james_wong"
+      ],
+      "image_filename": "scene_5_seed_23.png",
+      "render_time_sec": 92.47
+    },
+    {
+      "scene_number": 5,
+      "seed": 37,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "college_ebright",
+        "james_wong"
+      ],
+      "image_filename": "scene_5_seed_37.png",
+      "render_time_sec": 103.01
+    }
+  ]
+}

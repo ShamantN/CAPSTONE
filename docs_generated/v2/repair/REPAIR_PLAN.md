@@ -69,18 +69,17 @@
   - [x] Measure M1 gain on DEV-FAST (single anchor vs centroid vs nearest-pose selection: nearest_pose won +0.0045)
   - [x] Prepare M12 Collage-Init implementation behind feature flag (unit tested; decoupled for feat/m12-collage-init)
 
-- [ ] **R7: Identity and Binding Repair Loops** (Branches: `fix/identity-*`, `fix/binding-*`, `feat/m12-collage-init`)
-  - [ ] W1: Stage execution order (lock identity last)
-  - [ ] W2: Face swap fidelity (2x crop upscale, feathered paste-back, CodeFormer sweep)
-  - [ ] W3: Layout & face scale enforcement (minimum face pixel constraints)
-  - [ ] W4: Identity unit weight sweeps (InstantID & IP-Adapter Plus)
-  - [ ] W5: Regional & wardrobe prompt binding + masked inpainting
-  - [ ] W6: M12 Collage-Init evaluation
-  - [ ] W7: Best-of-N candidate selection (M9) with CPU pre-screening
-  - [ ] W8: Identity memory (M10) drift testing
-  - [ ] W9: Reference-only attention (M8) sweeps
-  - [ ] Update `best_config.json` via script from empirical wins
-  - [ ] Execute leave-one-out ablation on DEV-2
+- [ ] **R7: Identity and Binding Repair Loops** (Branches: `fix/w4-openpose-anchoring`, `fix/identity-*`, `fix/binding-*`, `feat/m12-collage-init`)
+  - [x] loop-W3-iter1-face-scale: REJECTED (Delta = -0.0092 vs broken v2; box collision caused chimeric fusion; baseline restored in PR #30)
+  - [x] loop-W6-iter1-collage-init: REJECTED (Delta = -0.0055 vs broken v2; floating heads due to unconditioned Pass 1 draft; OpenPose bug diagnosed)
+  - [x] loop-W4-iter1a-openpose-dualpass: REJECTED (Dual-pass ControlNet spiked VRAM to 8005 MB > 7400 MB safe budget)
+  - [x] loop-W4-iter1b-openpose-pass2drop: REJECTED (Pass 2 ControlNet dropped; VRAM bounded to 7940 MB, biometric mean 0.2476)
+  - [x] loop-W4-iter2-stabilized-anchoring: REJECTED (Attention weights tamed <=1.15, BREAK removed, W1 swap-last staged; biometric mean 0.3091)
+  - [x] loop-W3W4-iter1-child-scale-seated-layout: REJECTED (Seated table template, child 0.78x figure scale; biometric mean 0.3309)
+  - [x] loop-W3W4-iter2-solo-centering: REJECTED (Upper body front pose, solo centering cy=0.46; biometric mean 0.3262)
+  - [x] loop-W3W4-iter3-closeup-scale-fidelity: REJECTED under old rule (Biometric mean 0.3277; adult gained, child/teen lagged; locked as bundle)
+  - [ ] loop-W3W4-iter4-cfg-5.5: Single-change CFG iteration (CFG 5.0 -> 5.5 to restore Mother detection in Scene 1 Seed 37)
+  - [ ] W4 PR #31 opened with OpenPose payload fix; awaiting evaluation of winner on DEV-2
 
 - [ ] **R8: Real Visual Review** (Branch: `test/visual-review-v2`)
   - [ ] Contact sheet generator, blind review template, and merge tools

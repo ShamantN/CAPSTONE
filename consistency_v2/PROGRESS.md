@@ -45,6 +45,9 @@ Source file: `results/rescored_v1.2/rescored_summary.json` (Rescored on 2026-10-
 | PR # | Branch | Base | Status | Merge Commit SHA | Merged At | Purpose |
 | :---: | :--- | :--- | :---: | :---: | :---: | :--- |
 | **#19** | `consistency-v2` | `main` | **OPEN** | - | - | Master tracking PR into main (Must remain OPEN) |
+| **#31** | `fix/openpose-payload-fix` | `consistency-v2` | **OPEN** | - | - | OpenPose payload keys (image/input_image), Forge options API, memory bounding |
+| **#30** | `fix/identity-layout-scale` | `consistency-v2` | MERGED | `72769ef` | 2026-10-18 07:49 UTC | Restore layout planner to baseline and document loop-W3-iter1-face-scale rejection |
+| **#29** | `chore/update-progress` | `consistency-v2` | MERGED | `3e07680` | 2026-10-18 07:25 UTC | Record PR #28 in master registry and update progress |
 | **#28** | `fix/verifier-v1.2` | `consistency-v2` | MERGED | `6c4573b` | 2026-10-18 07:24 UTC | Verifier v1.2 upgrade, controls, persistent worker, historical rescore, M1 default |
 | **#27** | `feat/m12-collage-init` | `consistency-v2` | MERGED | `87c3589` | 2026-10-16 06:55 UTC | M12 collage-init module and unit tests behind default-OFF flag |
 | **#26** | `feat/bank-views` | `consistency-v2` | MERGED | `5258633` | 2026-10-16 06:52 UTC | Rebuild identity banks, screen M1 strategies, harden split logging |
@@ -141,12 +144,14 @@ Source file: `results/rescored_v1.2/rescored_summary.json` (Rescored on 2026-10-
 - [x] Verifier v1.2 Formal Upgrade: Calibrated thresholds, spatial prominence hero matching, small-crop ArcFace guard, CLIP prop calibration, persistent IPC vision worker, 15 control tests passing, frozen at SHA `3fa69071f888643bccb1c21ee732415ac81996a9f3cb0b71dedd68086fecb4b6`.
 - [x] Canonical Historical Rescore: All 7 baseline and rc1 sets rescored with Verifier v1.2, logged to `results/rescored_v1.2/` and `results/split_access_log.jsonl`.
 - [x] M1 Strategy Selection Re-check: Cluster-bootstrap CI [0.0000, 0.01375] fails acceptance rule; defaulted to `single_anchor` in `best_config.json` via script.
+- [x] `loop-W3-iter1-face-scale`: REJECTED (Delta = -0.0092, 95% CI [-0.0171, 0.0000], positive pair rate = 0.0%). Contact sheets revealed oversized boxes caused two-shot character fusion into a single chimeric body. Baseline restored in PR #30.
+- [x] `loop-W6-iter1-collage-init`: REJECTED (Delta = -0.0055, 95% CI [-0.0209, +0.0100], positive pair rate = 22.2%). Contact sheets revealed collage heads floating in empty space because Pass 1 draft collapsed into a single central person. Diagnosed root cause: OpenPose unit used key `input_image` instead of `image` and omitted hash in model string `openpose_xl`, causing Forge to silently ignore pose conditioning.
+- [ ] W4: `loop-W4-iter1-openpose-anchoring`: Calibrate OpenPose model string `openpose_xl [f4251cb4]`, provide both `image` and `input_image` keys, and retain multi-character identity units in Pass 2.
 - [ ] W1: Stage execution order (lock identity last)
 - [ ] W2: Face swap fidelity (2x crop upscale, feathered paste-back, CodeFormer sweep)
-- [ ] W3: Layout & face scale enforcement (`loop-W3-iter1-face-scale`: 7/12 renders produced before server pause; re-running after metric audit)
-- [ ] W4: Identity unit weight sweeps (InstantID & IP-Adapter Plus)
+- [ ] W3: Layout & face scale enforcement
 - [ ] W5: Regional & wardrobe prompt binding + masked inpainting
-- [ ] W6: M12 Collage-Init evaluation
+- [ ] W6: M12 Collage-Init re-evaluation on multi-character scenes post-anchoring
 - [ ] W7: Best-of-N candidate selection (M9) with CPU pre-screening
 - [ ] W8: Identity memory (M10) drift testing
 - [ ] W9: Reference-only attention (M8) sweeps
