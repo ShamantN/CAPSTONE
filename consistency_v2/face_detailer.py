@@ -4,6 +4,7 @@ Applies layout-aware high-resolution inpainting to small or low-fidelity faces
 using character-specific prompt tokens, identity units, and post-swap CodeFormer restoration.
 """
 
+import os
 from typing import Dict, Any, List, Optional, Tuple
 from dataclasses import dataclass, field
 import cv2

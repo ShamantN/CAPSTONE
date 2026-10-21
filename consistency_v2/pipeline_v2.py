@@ -83,7 +83,8 @@ class ConsistencyPipelineV2:
             enabled=self.config.enable_face_detailer,
             denoising_strength=self.config.face_detailer_denoise,
             padding_px=self.config.face_detailer_padding,
-            steps=self.config.face_detailer_steps
+            steps=self.config.face_detailer_steps,
+            apply_swap_after_detail=False  # W1: Stage order swap last in Stage 8
         )
         self.wardrobe_lock = WardrobeLock(
             delta_e_threshold=self.config.wardrobe_delta_e_threshold
@@ -103,6 +104,7 @@ class ConsistencyPipelineV2:
             from consistency_v2.collage_init import CollageInitConfig
             self.collage_config = CollageInitConfig(
                 enabled=self.config.enable_collage_init,
+                multichar_only=self.config.collage_multichar_only,
                 feather_radius=self.config.collage_feather_radius,
                 alpha_blend=self.config.collage_alpha_blend,
                 min_face_scale_px=self.config.collage_min_face_scale_px
@@ -187,7 +189,7 @@ class ConsistencyPipelineV2:
             openpose_unit = {
                 "enabled": True,
                 "module": "None",
-                "model": getattr(self.config, "openpose_model", "openpose_xl [f4251cb4]"),
+                "model": self.config.openpose_model,
                 "weight": self.config.openpose_weight,
                 "image": skeleton_b64,
                 "input_image": skeleton_b64,
@@ -227,15 +229,17 @@ class ConsistencyPipelineV2:
             cnet_units.extend(ref_units)
 
         # 4. Attention & Script Setup
-        freeu_args = [True, 1.3, 1.4, 0.9, 0.2, 0.0, 1.0]
-        pag_args = [True, 3.0, 0.0, 0.0, 1.0]
-        cfg_fix_args = [True, 7.0, 1.0, "Constant", 0.0, "Constant", 0.0, 1.0, "enable", "MEAN", "AD", 1.0]
+        alwayson_scripts = {}
+        if self.config.enable_freeu:
+            freeu_args = [True, 1.3, 1.4, 0.9, 0.2, 0.0, 1.0]
+            alwayson_scripts["freeu integrated (sd 1.x, sd 2.x, sdxl)"] = {"args": freeu_args}
+        if self.config.enable_pag:
+            pag_args = [True, 3.0, 0.0, 0.0, 1.0]
+            alwayson_scripts["perturbedattentionguidance integrated"] = {"args": pag_args}
+        if self.config.enable_dynamic_thresholding:
+            cfg_fix_args = [True, 7.0, 1.0, "Constant", 0.0, "Constant", 0.0, 1.0, "enable", "MEAN", "AD", 1.0]
+            alwayson_scripts["dynamicthresholding (cfg-fix) integrated"] = {"args": cfg_fix_args}
 
-        alwayson_scripts = {
-            "freeu integrated (sd 1.x, sd 2.x, sdxl)": {"args": freeu_args},
-            "perturbedattentionguidance integrated": {"args": pag_args},
-            "dynamicthresholding (cfg-fix) integrated": {"args": cfg_fix_args}
-        }
         if cnet_units:
             alwayson_scripts["controlnet"] = {"args": cnet_units}
 
@@ -301,12 +305,21 @@ class ConsistencyPipelineV2:
 
         # 6. Pass 2: Refinement IMG2IMG
         pass2_scripts = alwayson_scripts.copy()
-        if "forge couple" in pass2_scripts:
-            # Regional couple stays active in Pass 2
+        # Drop PAG in Pass 2 to eliminate attention memory doubling during img2img
+        pass2_scripts.pop("perturbedattentionguidance integrated", None)
+
+        # In Pass 2 img2img refinement (denoise 0.35), drop ControlNet units to stay strictly under 7.4 GB VRAM ceiling
+        pass2_scripts.pop("controlnet", None)
+
+        # Garbage collect and flush cache before Pass 2 img2img
+        try:
+            import gc
+            gc.collect()
+            import torch
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+        except Exception:
             pass
-        if "controlnet" in pass2_scripts and len(pass2_scripts["controlnet"].get("args", [])) > 1:
-            # In Pass 2, retain only identity unit, drop pose skeleton
-            pass2_scripts["controlnet"] = {"args": [pass2_scripts["controlnet"]["args"][-1]]}
 
         img2img_payload = {
             "prompt": plan.positive_prompt,
@@ -400,7 +413,7 @@ class ConsistencyPipelineV2:
                         tracer.record_stage(
                             "m5_face_swap",
                             current_cv,
-                            target_bboxes=None,
+                            target_bboxes=swap_bboxes,
                             stage_metadata={"layout_face_bboxes": swap_bboxes},
                             enforce_active=True
                         )

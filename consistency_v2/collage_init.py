@@ -18,6 +18,7 @@ logger = logging.getLogger("MMCCP.CollageInit")
 @dataclass
 class CollageInitConfig:
     enabled: bool = False
+    multichar_only: bool = True  # Only apply collage-init to scenes with >=2 characters
     feather_radius: int = 15
     alpha_blend: float = 0.85
     min_face_scale_px: int = 96
@@ -70,6 +71,9 @@ class CollageInitEngine:
 
         if not config.enabled or not layout_boxes:
             return canvas_bgr, {"collage_applied": False, "num_characters_collaged": 0}
+
+        if config.multichar_only and len(layout_boxes) < 2:
+            return canvas_bgr, {"collage_applied": False, "num_characters_collaged": 0, "reason": "multichar_only_single_character"}
 
         canvas_h, canvas_w = canvas_bgr.shape[:2]
         result = canvas_bgr.copy()

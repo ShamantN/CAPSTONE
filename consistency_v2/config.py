@@ -27,6 +27,7 @@ class ConsistencyV2Config:
     enable_layout_planner: bool = True
     min_face_size_px_medium: int = 96
     min_face_size_px_wide: int = 64
+    openpose_model: str = "openpose_xl [f4251cb4]"
     openpose_weight: float = 0.70
     openpose_guidance_end: float = 0.75
 
@@ -35,7 +36,7 @@ class ConsistencyV2Config:
     regional_global_weight: float = 0.40
 
     # M4: Identity Units (Dual InstantID + IP-Adapter Plus-Face SDXL)
-    enable_dual_instantid: bool = True
+    enable_dual_instantid: bool = False
     instantid_ip_weight: float = 0.65
     instantid_keypoints_weight: float = 0.60
     instantid_guidance_end: float = 0.80
@@ -45,7 +46,7 @@ class ConsistencyV2Config:
     # M5: Reliable Identity Transplant
     enable_reliable_face_swap: bool = True
     swap_backend: str = "direct_insightface"  # "direct_insightface" or "reactor_api"
-    codeformer_fidelity: float = 0.75
+    codeformer_fidelity: float = 0.85
 
     # M6: Identity-Conditioned Face Detailer
     enable_face_detailer: bool = True
@@ -77,9 +78,15 @@ class ConsistencyV2Config:
 
     # M12: Collage-Init Composition (Multi-character resolution anchor)
     enable_collage_init: bool = False
+    collage_multichar_only: bool = True
     collage_feather_radius: int = 15
     collage_alpha_blend: float = 0.85
     collage_min_face_scale_px: int = 96
+
+    # Native U-Net Attention Toggles
+    enable_pag: bool = False  # Disabled by default to stay strictly under 7.4 GB VRAM ceiling and prevent offload slowdown
+    enable_freeu: bool = True
+    enable_dynamic_thresholding: bool = True
 
     # Generation Base Parameters
     steps_pass1: int = 20
