@@ -1,0 +1,100 @@
+{
+  "baseline_v1": {
+    "ensemble": {
+      "genuine_mean": 0.5751,
+      "impostor_mean": 0.2094,
+      "coherence_ratio": 2.7461,
+      "separation_gap": 0.3657
+    },
+    "per_model": {
+      "Facenet512": {
+        "genuine_mean": 0.7599,
+        "impostor_mean": 0.2184,
+        "coherence_ratio": 3.4794,
+        "separation_gap": 0.5415,
+        "num_genuine_pairs": 27,
+        "num_impostor_pairs": 126
+      },
+      "SFace": {
+        "genuine_mean": 0.4634,
+        "impostor_mean": 0.2385,
+        "coherence_ratio": 1.9431,
+        "separation_gap": 0.2249,
+        "num_genuine_pairs": 27,
+        "num_impostor_pairs": 126
+      },
+      "GhostFaceNet": {
+        "genuine_mean": 0.4787,
+        "impostor_mean": 0.1778,
+        "coherence_ratio": 2.6932,
+        "separation_gap": 0.301,
+        "num_genuine_pairs": 27,
+        "num_impostor_pairs": 126
+      },
+      "ArcFace": {
+        "genuine_mean": 0.5984,
+        "impostor_mean": 0.203,
+        "coherence_ratio": 2.9474,
+        "separation_gap": 0.3953,
+        "num_genuine_pairs": 27,
+        "num_impostor_pairs": 126
+      }
+    },
+    "character_instance_counts": {
+      "college_ebright": 3,
+      "james_wong": 3,
+      "mother": 3,
+      "teen_ebright": 3,
+      "young_ebright": 6
+    }
+  },
+  "bundle_iter3": {
+    "ensemble": {
+      "genuine_mean": 0.5679,
+      "impostor_mean": 0.1754,
+      "coherence_ratio": 3.2385,
+      "separation_gap": 0.3926
+    },
+    "per_model": {
+      "Facenet512": {
+        "genuine_mean": 0.6728,
+        "impostor_mean": 0.2036,
+        "coherence_ratio": 3.3054,
+        "separation_gap": 0.4693,
+        "num_genuine_pairs": 25,
+        "num_impostor_pairs": 111
+      },
+      "SFace": {
+        "genuine_mean": 0.5518,
+        "impostor_mean": 0.1713,
+        "coherence_ratio": 3.2221,
+        "separation_gap": 0.3806,
+        "num_genuine_pairs": 25,
+        "num_impostor_pairs": 111
+      },
+      "GhostFaceNet": {
+        "genuine_mean": 0.5521,
+        "impostor_mean": 0.1633,
+        "coherence_ratio": 3.3806,
+        "separation_gap": 0.3888,
+        "num_genuine_pairs": 25,
+        "num_impostor_pairs": 111
+      },
+      "ArcFace": {
+        "genuine_mean": 0.4951,
+        "impostor_mean": 0.1633,
+        "coherence_ratio": 3.0318,
+        "separation_gap": 0.3318,
+        "num_genuine_pairs": 25,
+        "num_impostor_pairs": 111
+      }
+    },
+    "character_instance_counts": {
+      "college_ebright": 3,
+      "james_wong": 3,
+      "mother": 2,
+      "teen_ebright": 3,
+      "young_ebright": 6
+    }
+  }
+}

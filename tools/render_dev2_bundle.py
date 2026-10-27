@@ -51,7 +51,7 @@ if os.path.exists(_SD_SITE) and _SD_SITE not in sys.path:
 from story_engine.schema import StorySpec, SceneSpec
 from consistency_v2.config import ConsistencyV2Config, RESERVED_SEEDS
 from consistency_v2.pipeline_v2 import ConsistencyPipelineV2
-from consistency_v2.verify.cli import run_verification
+from consistency_v2.verify.cli import run_verification, bootstrap_ci_95
 from consistency_v2.splits import assert_seed_allowed
 
 DEV2_SEEDS = [101, 202, 303, 404, 505]
@@ -125,24 +125,23 @@ def run_dev2_evaluation(resume: bool = True):
 
             print(f"  [{current_render}/{total_renders}] Seed {seed}: Generating...")
             t0 = time.time()
-            res = pipeline.generate_scene(scene, seed)
+            img_cv, meta = pipeline.generate_scene(story=story_spec, scene=scene, seed=seed)
             t_render = time.time() - t0
             render_times.append(t_render)
 
-            cv2.imwrite(str(out_img), res.image_bgr)
-            meta = {
-                "scene_number": s_num,
-                "seed": seed,
-                "title": scene.title,
-                "shot_type": scene.shot_type,
-                "runtime_seconds": round(t_render, 2),
-                "vram_peak_mb": round(res.vram_peak_mb, 1),
-                "config_hash": config_hash
-            }
-            with open(out_meta, "w", encoding="utf-8") as f:
-                json.dump(meta, f, indent=2)
+            if img_cv is not None:
+                cv2.imwrite(str(out_img), img_cv)
+                meta["scene_number"] = s_num
+                meta["seed"] = seed
+                meta["config_hash"] = config_hash
+                meta["runtime_seconds"] = round(t_render, 2)
+                with open(out_meta, "w", encoding="utf-8") as f:
+                    json.dump(meta, f, indent=2)
 
-            print(f"  [{current_render}/{total_renders}] Seed {seed}: Done in {t_render:.1f}s (Peak VRAM: {res.vram_peak_mb:.0f} MB)")
+                peak_vram = meta.get("peak_vram_mb", 0.0)
+                print(f"  [{current_render}/{total_renders}] Seed {seed}: Done in {t_render:.1f}s (Peak VRAM: {peak_vram:.0f} MB)")
+            else:
+                print(f"  [{current_render}/{total_renders}] Seed {seed}: Generation failed!")
 
     # 4. Run frozen Verifier v1.2
     print("\n" + "=" * 80)
@@ -156,11 +155,10 @@ def run_dev2_evaluation(resume: bool = True):
 
     verifier_results = run_verification(
         images_dir=RENDERS_DIR,
-        story_spec_path=STORYBOARD_PATH,
-        identity_banks_dir=ANCHORS_DIR,
+        story_path=STORYBOARD_PATH,
+        bank_dir=ANCHORS_DIR,
         output_report_path=report_path,
-        output_summary_csv=summary_csv_path,
-        contact_sheet_dir=contact_dir
+        baseline_report_path=BASELINE_REPORT if BASELINE_REPORT.exists() else None
     )
 
     print(f"\nVerification complete! Saved report to: {report_path}")
@@ -182,26 +180,68 @@ def eval_rules(bundle_res: Dict[str, Any], base_res: Dict[str, Any], render_time
     b_metrics = bundle_res.get("summary_metrics", {})
     base_metrics = base_res.get("summary_metrics", {})
 
-    # Rule 1: Presence >= 95%
-    total_expected = 45  # Scenes 1(2)+2(1)+3(1)+4(1)+5(2)+6(1) = 8 per seed * 5 = 40 (wait, check total faces)
-    # Check actual face counts
+    # Rule 1: Presence >= 95% of expected (40 faces total across 30 scenes)
+    expected_faces = 40
     bundle_faces = bundle_res.get("total_face_instances", 0)
-    base_faces = base_res.get("total_face_instances", 0)
+    presence_pct = bundle_faces / expected_faces * 100.0 if expected_faces > 0 else 0.0
     rule1_presence = (bundle_faces >= 38)
-    print(f"Rule 1 - Presence (>=95% expected): {bundle_faces} faces detected | {'MET' if rule1_presence else 'NOT MET'}")
+    print(f"Rule 1 - Presence (>=95%, >=38/40 faces): {bundle_faces}/{expected_faces} ({presence_pct:.1f}%) | {'MET' if rule1_presence else 'NOT MET'}")
 
-    # Rule 2: Identity non-inferior (paired delta CI lower bound > -0.02, age groups >= -0.05, Rank-1 >= v1)
+    # Rule 2: Identity non-inferior
     bundle_ens = b_metrics.get("biometric_ensemble_mean", 0.0)
     base_ens = base_metrics.get("biometric_ensemble_mean", 0.0)
     delta_ens = bundle_ens - base_ens
-    rule2_id = (delta_ens >= -0.02)
-    print(f"Rule 2 - Identity Ensemble: Bundle={bundle_ens:.4f} vs Baseline={base_ens:.4f} (Delta={delta_ens:+.4f}) | {'MET' if rule2_id else 'NOT MET'}")
+
+    # Bootstrap CI of paired delta if available
+    b_scores = bundle_res.get("raw_biometric_ensemble_scores", [])
+    base_scores = base_res.get("raw_biometric_ensemble_scores", [])
+    min_len = min(len(b_scores), len(base_scores))
+    if min_len > 0:
+        deltas = [b_scores[i] - base_scores[i] for i in range(min_len)]
+        ci_low, ci_high = bootstrap_ci_95(deltas, n_boot=2000)
+    else:
+        ci_low, ci_high = delta_ens, delta_ens
+
+    rule2a_noninf = (ci_low > -0.02)
+    print(f"Rule 2a - Overall Identity Non-Inferiority: Bundle={bundle_ens:.4f} vs Baseline={base_ens:.4f} (Delta={delta_ens:+.4f}, 95% CI: [{ci_low:+.4f}, {ci_high:+.4f}]) | {'MET' if rule2a_noninf else 'NOT MET'}")
+
+    # Age group deltas
+    b_splits = b_metrics.get("age_split_metrics", {})
+    base_splits = base_metrics.get("age_split_metrics", {})
+
+    b_child = b_splits.get("child", {}).get("biometric_ensemble_mean", 0.0)
+    base_child = base_splits.get("child", {}).get("biometric_ensemble_mean", 0.0)
+    d_child = b_child - base_child
+    rule2b_child = (d_child >= -0.05)
+    print(f"Rule 2b - Child Biometric (>= -0.05): Bundle={b_child:.4f} vs Baseline={base_child:.4f} (Delta={d_child:+.4f}) | {'MET' if rule2b_child else 'NOT MET'}")
+
+    b_teen = b_splits.get("teen", {}).get("biometric_ensemble_mean", 0.0)
+    base_teen = base_splits.get("teen", {}).get("biometric_ensemble_mean", 0.0)
+    d_teen = b_teen - base_teen
+    rule2c_teen = (d_teen >= -0.05)
+    print(f"Rule 2c - Teen Biometric (>= -0.05): Bundle={b_teen:.4f} vs Baseline={base_teen:.4f} (Delta={d_teen:+.4f}) | {'MET' if rule2c_teen else 'NOT MET'}")
+
+    b_adult = b_splits.get("adult", {}).get("biometric_ensemble_mean", 0.0)
+    base_adult = base_splits.get("adult", {}).get("biometric_ensemble_mean", 0.0)
+    d_adult = b_adult - base_adult
+    rule2d_adult = (d_adult >= -0.05)
+    print(f"Rule 2d - Adult Biometric (>= -0.05): Bundle={b_adult:.4f} vs Baseline={base_adult:.4f} (Delta={d_adult:+.4f}) | {'MET' if rule2d_adult else 'NOT MET'}")
+
+    b_rank1 = b_metrics.get("rank1_discrimination_accuracy", 0.0)
+    base_rank1 = base_metrics.get("rank1_discrimination_accuracy", 0.0)
+    rule2e_rank1 = (b_rank1 >= base_rank1)
+    print(f"Rule 2e - Rank-1 Accuracy (>= v1): Bundle={b_rank1*100:.1f}% vs Baseline={base_rank1*100:.1f}% | {'MET' if rule2e_rank1 else 'NOT MET'}")
 
     # Rule 3: Wardrobe pass > v1, Structural defects <= v1
-    b_ward = b_metrics.get("wardrobe_palette_pass_rate", 0.0)
-    base_ward = base_metrics.get("wardrobe_palette_pass_rate", 0.0)
-    rule3_ward = (b_ward >= base_ward)
-    print(f"Rule 3 - Wardrobe Pass: Bundle={b_ward*100:.1f}% vs Baseline={base_ward*100:.1f}% | {'MET' if rule3_ward else 'NOT MET'}")
+    b_ward = b_metrics.get("binding_decomposed", {}).get("wardrobe_palette_pass_rate", 0.0)
+    base_ward = base_metrics.get("binding_decomposed", {}).get("wardrobe_palette_pass_rate", 0.0)
+    rule3a_ward = (b_ward >= base_ward)
+    print(f"Rule 3a - Wardrobe Palette Pass (>= v1): Bundle={b_ward*100:.1f}% vs Baseline={base_ward*100:.1f}% | {'MET' if rule3a_ward else 'NOT MET'}")
+
+    b_defects = b_metrics.get("mean_defects_per_scene", 0.0)
+    base_defects = base_metrics.get("mean_defects_per_scene", 0.0)
+    rule3b_defects = (b_defects <= base_defects)
+    print(f"Rule 3b - Structural Defects (<= v1): Bundle={b_defects:.2f} vs Baseline={base_defects:.2f} | {'MET' if rule3b_defects else 'NOT MET'}")
 
     # Rule 4: Latency <= 240s/scene, peak VRAM <= 7400 MB
     avg_lat = float(np.mean(render_times)) if render_times else 150.0

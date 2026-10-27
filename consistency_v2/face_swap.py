@@ -89,6 +89,7 @@ from insightface.app import FaceAnalysis
 target_img_path = sys.argv[1]
 swap_specs_json = sys.argv[2]
 out_img_path = sys.argv[3]
+crop_upscale = sys.argv[4].lower() == "true" if len(sys.argv) > 4 else False
 
 with open(swap_specs_json, "r", encoding="utf-8") as f:
     swap_specs = json.load(f)
@@ -130,7 +131,40 @@ for spec in swap_specs:
             break
 
     if matched_target is not None:
-        result_bgr = swapper.get(result_bgr, matched_target, src_face, paste_back=True)
+        swapped = False
+        if crop_upscale:
+            try:
+                x1, y1, x2, y2 = matched_target.bbox.astype(int)
+                bw, bh = x2 - x1, y2 - y1
+                cx, cy = (x1 + x2) // 2, (y1 + y2) // 2
+                crop_w, crop_h = int(bw * 1.8), int(bh * 1.8)
+                cx1, cy1 = max(0, cx - crop_w // 2), max(0, cy - crop_h // 2)
+                cx2, cy2 = min(w, cx + crop_w // 2), min(h, cy + crop_h // 2)
+                cw, ch = cx2 - cx1, cy2 - cy1
+
+                if cw > 20 and ch > 20:
+                    crop = result_bgr[cy1:cy2, cx1:cx2].copy()
+                    crop_2x = cv2.resize(crop, (cw * 2, ch * 2), interpolation=cv2.INTER_LANCZOS4)
+                    crop_faces = app.get(crop_2x)
+                    if crop_faces:
+                        crop_tf = sorted(crop_faces, key=lambda f: (f.bbox[0] + f.bbox[2] - cw * 2)**2 + (f.bbox[1] + f.bbox[3] - ch * 2)**2)[0]
+                        swapped_2x = swapper.get(crop_2x, crop_tf, src_face, paste_back=True)
+                        swapped_1x = cv2.resize(swapped_2x, (cw, ch), interpolation=cv2.INTER_LANCZOS4)
+
+                        mask = np.zeros((ch, cw), dtype=np.float32)
+                        cv2.ellipse(mask, (cw // 2, ch // 2), (int(bw * 0.75), int(bh * 0.75)), 0, 0, 360, 1.0, -1)
+                        ksize = max(5, (min(cw, ch) // 6) | 1)
+                        mask = cv2.GaussianBlur(mask, (ksize, ksize), 0)
+                        mask = np.clip(mask, 0.0, 1.0)[:, :, np.newaxis]
+
+                        blended = (swapped_1x * mask + crop * (1.0 - mask)).astype(np.uint8)
+                        result_bgr[cy1:cy2, cx1:cx2] = blended
+                        swapped = True
+            except Exception as e:
+                swapped = False
+
+        if not swapped:
+            result_bgr = swapper.get(result_bgr, matched_target, src_face, paste_back=True)
 
 cv2.imwrite(out_img_path, result_bgr)
 '''
@@ -143,6 +177,7 @@ cv2.imwrite(out_img_path, result_bgr)
         out_image_path: str,
         codeformer_fidelity: float = 0.65,
         codeformer_visibility: float = 0.75,
+        crop_upscale: bool = False,
         forge_api_url: str = "http://127.0.0.1:7860",
         forge_python_exe: str = r"C:\Stable-Diffusion\system\python\python.exe"
     ) -> bool:
@@ -155,6 +190,7 @@ cv2.imwrite(out_img_path, result_bgr)
             out_image_path: Destination path for final image.
             codeformer_fidelity: CodeFormer restoration fidelity (0.0 to 1.0).
             codeformer_visibility: CodeFormer blend visibility (0.0 to 1.0).
+            crop_upscale: If True, crops and upscales target face 2x before swap with feathered paste-back.
             forge_api_url: Stable Diffusion Forge WebUI API base URL.
             forge_python_exe: Path to Forge's embedded Python.
 
@@ -184,7 +220,8 @@ cv2.imwrite(out_img_path, result_bgr)
                 worker_path,
                 target_image_path,
                 specs_path,
-                raw_swapped_path
+                raw_swapped_path,
+                str(crop_upscale)
             ], capture_output=True, text=True, timeout=120)
 
             if res.returncode != 0 or not os.path.exists(raw_swapped_path):

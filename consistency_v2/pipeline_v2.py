@@ -402,6 +402,7 @@ class ConsistencyPipelineV2:
                     swap_specs=swap_specs,
                     out_image_path=temp_out,
                     codeformer_fidelity=self.config.codeformer_fidelity,
+                    crop_upscale=getattr(self.config, "enable_crop_upscale_swap", False),
                     forge_api_url=self.client.base_url
                 )
                 if success and os.path.exists(temp_out):

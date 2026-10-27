@@ -208,3 +208,23 @@ This log documents every hypothesis-driven engineering iteration in the Repair a
 
 ---
 
+## Iteration: `loop-W2-crop-upscale-swap`
+
+- **Timestamp:** `2026-10-21T09:50:37.324692+00:00`
+- **Phase / Workstream:** R7
+- **Branch:** `fix/identity-layout-scale`
+- **Commit SHA / PR:** Uncommitted | N/A
+- **Hypothesis:** Upscaling target face crops 2x prior to inswapper_128 with feathered blending sharpens landmark localization on low-resolution child/teen faces, elevating child and teen biometric identity.
+- **Change:** Add crop-upscale-swap with 2x Lanczos upscale, center landmark re-alignment, and feathered Gaussian elliptical blending in DirectFaceSwapper
+- **Smoke Test:** Scene 1 Seed 11 stage trace passed (212.0s, diffs recorded)
+- **Screen on DEV-FAST:**
+  - Baseline: **0.3142**
+  - Intervention: **0.3111**
+  - Paired $\Delta$: **-0.0031**
+  - Bootstrap 95% CI: `[-0.0783, +0.0306]`
+- **Guardrails:** Peak VRAM: `7805.0 MB` (<= 7400 MB) | OOM: `ZERO` | Latency: `0.0s`
+- **Decision:** **REJECT**
+- **Notes:** Child=-0.0617, Teen=+0.0091, Adult=+0.0318, Face Width=118.4px vs 233.1px
+
+---
+

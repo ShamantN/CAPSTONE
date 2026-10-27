@@ -47,6 +47,7 @@ class ConsistencyV2Config:
     enable_reliable_face_swap: bool = True
     swap_backend: str = "direct_insightface"  # "direct_insightface" or "reactor_api"
     codeformer_fidelity: float = 0.85
+    enable_crop_upscale_swap: bool = False
 
     # M6: Identity-Conditioned Face Detailer
     enable_face_detailer: bool = True
