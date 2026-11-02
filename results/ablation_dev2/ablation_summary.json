@@ -1,0 +1,132 @@
+{
+  "full_v2": {
+    "config_hash": "f713798ac1e6",
+    "overrides": {},
+    "renders": {
+      "scene_1_seed_101": {
+        "sha256": "4eed52797a57d1e118c7f57b2317fa56864d1ad86d95e2e48248b146eecf8c0c",
+        "runtime_s": 491.18,
+        "peak_vram_mb": 0.0
+      },
+      "scene_2_seed_101": {
+        "sha256": "3bffadc0678e9f4375d138179b785fcfb65a46df898e60d5a667e473da905563",
+        "runtime_s": 125.8,
+        "peak_vram_mb": 0.0
+      }
+    }
+  },
+  "no_m2_layout": {
+    "config_hash": "818eb47a4029",
+    "overrides": {
+      "enable_layout_planner": false
+    },
+    "renders": {
+      "scene_1_seed_101": {
+        "sha256": "e37e2ed7850d67beee59bf97cb8127d400b5388c0063885ebfb50b3a5800fa9e",
+        "runtime_s": 128.35,
+        "peak_vram_mb": 0.0
+      },
+      "scene_2_seed_101": {
+        "sha256": "2f89baeb26924e3d547ccc21e7e24b16afb290fea84a1b99b1b440f7ff9aab99",
+        "runtime_s": 70.53,
+        "peak_vram_mb": 0.0
+      }
+    },
+    "mean_diff_vs_full": 74.46
+  },
+  "no_m3_couple": {
+    "config_hash": "5f1c1b85d45c",
+    "overrides": {
+      "enable_regional_couple": false
+    },
+    "renders": {
+      "scene_1_seed_101": {
+        "sha256": "12349fdfbfc15f8637ac06f103440aebbcfc7eb3d6394d081251ef937c803689",
+        "runtime_s": 265.35,
+        "peak_vram_mb": 0.0
+      },
+      "scene_2_seed_101": {
+        "sha256": "3bffadc0678e9f4375d138179b785fcfb65a46df898e60d5a667e473da905563",
+        "runtime_s": 140.53,
+        "peak_vram_mb": 0.0
+      }
+    },
+    "mean_diff_vs_full": 27.79
+  },
+  "no_m4_ip_adapter": {
+    "config_hash": "1ed8ae410f72",
+    "overrides": {
+      "enable_ip_adapter_plus": false
+    },
+    "renders": {
+      "scene_1_seed_101": {
+        "sha256": "da89e7b25fc86645b23860b9fd5e35e3939bdc63796df4e415dbc736d77891f9",
+        "runtime_s": 188.93,
+        "peak_vram_mb": 0.0
+      },
+      "scene_2_seed_101": {
+        "sha256": "23a9c6eea3b682851d454b386e32097efa6fd108d1552291e9f114e742a3c907",
+        "runtime_s": 51.16,
+        "peak_vram_mb": 0.0
+      }
+    },
+    "mean_diff_vs_full": 70.66
+  },
+  "no_m5_swap": {
+    "config_hash": "cff5c1623fa3",
+    "overrides": {
+      "enable_reliable_face_swap": false
+    },
+    "renders": {
+      "scene_1_seed_101": {
+        "sha256": "789249b1595223b0a75d6f7c92eed595fce78a0da3b30b591b83e242cd25f5e3",
+        "runtime_s": 213.19,
+        "peak_vram_mb": 0.0
+      },
+      "scene_2_seed_101": {
+        "sha256": "f9b26d37a98f250454a94c92d6a9bde71d790a56987f03f0263e4eb463e4b96f",
+        "runtime_s": 103.65,
+        "peak_vram_mb": 0.0
+      }
+    },
+    "mean_diff_vs_full": 0.78
+  },
+  "no_m6_detailer": {
+    "config_hash": "b03460089316",
+    "overrides": {
+      "enable_face_detailer": false
+    },
+    "renders": {
+      "scene_1_seed_101": {
+        "sha256": "fbf8789d1b9919a63da736aa5b074a4b2b225c32d7f83ec6702350dfe468341a",
+        "runtime_s": 94.68,
+        "peak_vram_mb": 0.0
+      },
+      "scene_2_seed_101": {
+        "sha256": "3bffadc0678e9f4375d138179b785fcfb65a46df898e60d5a667e473da905563",
+        "runtime_s": 68.02,
+        "peak_vram_mb": 0.0
+      }
+    },
+    "mean_diff_vs_full": 0.26
+  },
+  "no_m7_wardrobe": {
+    "config_hash": "7710542337ce",
+    "overrides": {
+      "enable_wardrobe_lock": false
+    },
+    "renders": {
+      "scene_1_seed_101": {
+        "sha256": "811dd23e8fa9aea3ef43da30cfa24bd6c195cfe7a790838abc488e89dcbf74e9",
+        "runtime_s": 199.23,
+        "peak_vram_mb": 0.0
+      },
+      "scene_2_seed_101": {
+        "sha256": "011052b70f17c8233b653459f7a7d305899b0475718f88afbc79e8c092ff9ed5",
+        "runtime_s": 65.94,
+        "peak_vram_mb": 0.0
+      }
+    },
+    "mean_diff_vs_full": 4.04
+  }
+}

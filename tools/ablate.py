@@ -52,15 +52,13 @@ from consistency_v2.stage_trace import compute_image_sha256, compute_region_pixe
 from consistency_v2.splits import assert_seed_allowed
 
 ABLATION_CONDITIONS: Dict[str, Dict[str, Any]] = {
-    "full_v2": {},  # All active default methods
-    "no_m1_bank": {"enable_identity_bank": False},
+    "full_v2": {},  # All active default methods (Bundle Baseline)
     "no_m2_layout": {"enable_layout_planner": False},
     "no_m3_couple": {"enable_regional_couple": False},
-    "no_m4_instantid": {"enable_dual_instantid": False},
+    "no_m4_ip_adapter": {"enable_ip_adapter_plus": False},
     "no_m5_swap": {"enable_reliable_face_swap": False},
     "no_m6_detailer": {"enable_face_detailer": False},
-    "no_m7_wardrobe": {"enable_wardrobe_lock": False},
-    "m8_reference_only": {"enable_reference_attention": True}
+    "no_m7_wardrobe": {"enable_wardrobe_lock": False}
 }
 
 
