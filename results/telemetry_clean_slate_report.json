@@ -1,0 +1,41 @@
+{
+  "vram_budget_target_mb": 7577.6,
+  "peak_system_vram_observed_mb": 7964.0,
+  "peak_system_vram_observed_gb": 7.777,
+  "forge_diffusion_cap_mb": 3200.0,
+  "telemetry_samples_count": 12725,
+  "host_ram_peak_used_mb": 28772.9,
+  "host_ram_total_mb": 32768.0,
+  "latencies": {
+    "v2_default": {
+      "scene_1": 130.84,
+      "scene_2": 79.47,
+      "scene_3": 79.52,
+      "scene_4": 77.29,
+      "scene_5": 126.52,
+      "scene_6": 68.67,
+      "total_seconds": 562.31,
+      "mean_per_scene_seconds": 93.72
+    },
+    "v2_quality": {
+      "scene_1": 149.53,
+      "scene_2": 79.47,
+      "scene_3": 80.2,
+      "scene_4": 81.1,
+      "scene_5": 141.6,
+      "scene_6": 154.36,
+      "total_seconds": 686.26,
+      "mean_per_scene_seconds": 114.38
+    },
+    "v1_baseline": {
+      "scene_1": 88.3,
+      "scene_2": 91.5,
+      "scene_3": 97.2,
+      "scene_4": 100.0,
+      "scene_5": 102.0,
+      "scene_6": 89.9,
+      "total_seconds": 568.9,
+      "mean_per_scene_seconds": 94.82
+    }
+  }
+}

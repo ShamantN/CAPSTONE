@@ -6,6 +6,7 @@ Supports:
 --pipeline v1: Phase 3 baseline pipeline
 --pipeline v2: Consistency v2 SOTA pipeline (M1-M10)
 --mode fast|default|quality: execution mode presets
+--story: path to storyboard JSON specification
 ================================================================================
 """
 import os
@@ -67,7 +68,7 @@ from metrics import (
 )
 
 
-def run_v1_scratch():
+def run_v1_scratch(story_path: str = "storyboards/ebright.json"):
     from app import render_phase3_scene
     print("=" * 90)
     print("  🚀 RUNNING BASELINE v1 FROM SCRATCH (0 INITIAL ANCHORS)")
@@ -125,7 +126,7 @@ def run_v1_scratch():
             print(f"     ✅ Scene {s_num} rendered in {elapsed_s:.1f}s")
 
 
-def run_v2_scratch(mode: str = "default"):
+def run_v2_scratch(mode: str = "default", story_path: str = "storyboards/ebright.json"):
     from consistency_v2.config import ConsistencyV2Config
     from consistency_v2.pipeline_v2 import ConsistencyPipelineV2
     from story_engine.schema import StorySpec
@@ -137,11 +138,36 @@ def run_v2_scratch(mode: str = "default"):
     cfg = ConsistencyV2Config(mode=mode)
     pipeline = ConsistencyPipelineV2(config=cfg)
 
-    # Load canonical storyboard
-    story_file = PROJECT_ROOT / "storyboards" / "ebright.json"
+    # Load storyboard
+    story_file = Path(story_path) if Path(story_path).is_absolute() else (PROJECT_ROOT / story_path)
     story = StorySpec.load_json(str(story_file))
 
-    output_dir = PROJECT_ROOT / "edu_outputs" / "v2"
+    # Check if character banks need bootstrapping from fresh visual DNA anchors
+    chars_to_bootstrap = list(story.characters.keys()) if isinstance(story.characters, dict) else [c.id for c in story.characters]
+    missing_banks = [cid for cid in chars_to_bootstrap if cid not in pipeline.bank_manager._banks]
+    if missing_banks:
+        print(f"  [BOOTSTRAP] Identity banks empty for {missing_banks}. Generating certified fresh anchors...")
+        fresh_anchor_dir = PROJECT_ROOT / "experiments" / "fresh_run_from_scratch" / "anchors"
+        fresh_anchor_dir.mkdir(parents=True, exist_ok=True)
+        sd_checkpoint = SD_MODELS["Juggernaut"]
+        cache_data = ensure_visual_dna_anchors(
+            characters_db=HARDCODED_CHARACTERS,
+            cache_path=CACHE_FILE,
+            sd_checkpoint=sd_checkpoint,
+            force_regenerate=True
+        )
+        for char in HARDCODED_CHARACTERS:
+            cid = char["id"]
+            b64 = cache_data.get(cid)
+            if b64:
+                pil_img = decode_image_to_pil(b64)
+                if pil_img:
+                    out_p = fresh_anchor_dir / f"{cid}_anchor.png"
+                    pil_img.save(str(out_p))
+                    pipeline.bank_manager.initialize_character_bank(cid, [out_p])
+        print("  ✅ Identity banks initialized from fresh certified anchors!")
+
+    output_dir = PROJECT_ROOT / "edu_outputs" / f"v2_{mode}"
     output_dir.mkdir(parents=True, exist_ok=True)
 
     t0 = time.time()
@@ -154,7 +180,7 @@ def run_v2_scratch(mode: str = "default"):
     total_time = time.time() - t0
 
     print("\n" + "=" * 90)
-    print(f"  🎉 MMCCP v2 RENDERING COMPLETE IN {total_time/60:.2f} MINUTES!")
+    print(f"  🎉 MMCCP v2 ({mode}) RENDERING COMPLETE IN {total_time/60:.2f} MINUTES!")
     print(f"  Outputs saved in: {output_dir}")
     print("=" * 90)
 
@@ -225,13 +251,18 @@ def main():
         default="default",
         help="Execution mode preset for v2 pipeline ('fast', 'default', 'quality')"
     )
+    parser.add_argument(
+        "--story",
+        default="storyboards/ebright.json",
+        help="Path to storyboard JSON specification"
+    )
 
     args = parser.parse_args()
 
     if args.pipeline == "v2":
-        run_v2_scratch(mode=args.mode)
+        run_v2_scratch(mode=args.mode, story_path=args.story)
     else:
-        run_v1_scratch()
+        run_v1_scratch(story_path=args.story)
 
 
 if __name__ == "__main__":
