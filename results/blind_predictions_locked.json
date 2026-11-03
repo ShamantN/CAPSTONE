@@ -1,0 +1,343 @@
+{
+  "evaluation_timestamp": 1793692948.8188248,
+  "ab_preference_predictions": {
+    "pair_scene_1_seed_101": {
+      "chosen_option": "A",
+      "sharpness_option_a": 1096.81,
+      "sharpness_option_b": 718.41,
+      "faces_option_a": 2,
+      "faces_option_b": 2,
+      "rationale": "Option A displays superior facial sharpness (1096.8 vs 718.4), cleaner boundary definition, and coherent facial features."
+    },
+    "pair_scene_1_seed_202": {
+      "chosen_option": "A",
+      "sharpness_option_a": 1212.85,
+      "sharpness_option_b": 563.32,
+      "faces_option_a": 2,
+      "faces_option_b": 2,
+      "rationale": "Option A displays superior facial sharpness (1212.8 vs 563.3), cleaner boundary definition, and coherent facial features."
+    },
+    "pair_scene_2_seed_101": {
+      "chosen_option": "A",
+      "sharpness_option_a": 291.5,
+      "sharpness_option_b": 234.63,
+      "faces_option_a": 1,
+      "faces_option_b": 1,
+      "rationale": "Option A displays superior facial sharpness (291.5 vs 234.6), cleaner boundary definition, and coherent facial features."
+    },
+    "pair_scene_2_seed_202": {
+      "chosen_option": "B",
+      "sharpness_option_a": 44.63,
+      "sharpness_option_b": 428.2,
+      "faces_option_a": 1,
+      "faces_option_b": 1,
+      "rationale": "Option B displays superior facial sharpness (428.2 vs 44.6), cleaner boundary definition, and coherent facial features."
+    },
+    "pair_scene_3_seed_101": {
+      "chosen_option": "B",
+      "sharpness_option_a": 121.83,
+      "sharpness_option_b": 550.02,
+      "faces_option_a": 1,
+      "faces_option_b": 1,
+      "rationale": "Option B displays superior facial sharpness (550.0 vs 121.8), cleaner boundary definition, and coherent facial features."
+    },
+    "pair_scene_3_seed_202": {
+      "chosen_option": "B",
+      "sharpness_option_a": 127.58,
+      "sharpness_option_b": 1010.72,
+      "faces_option_a": 1,
+      "faces_option_b": 1,
+      "rationale": "Option B displays superior facial sharpness (1010.7 vs 127.6), cleaner boundary definition, and coherent facial features."
+    },
+    "pair_scene_4_seed_101": {
+      "chosen_option": "A",
+      "sharpness_option_a": 243.72,
+      "sharpness_option_b": 57.99,
+      "faces_option_a": 1,
+      "faces_option_b": 1,
+      "rationale": "Option A displays superior facial sharpness (243.7 vs 58.0), cleaner boundary definition, and coherent facial features."
+    },
+    "pair_scene_4_seed_202": {
+      "chosen_option": "B",
+      "sharpness_option_a": 74.21,
+      "sharpness_option_b": 364.6,
+      "faces_option_a": 1,
+      "faces_option_b": 1,
+      "rationale": "Option B displays superior facial sharpness (364.6 vs 74.2), cleaner boundary definition, and coherent facial features."
+    },
+    "pair_scene_5_seed_101": {
+      "chosen_option": "A",
+      "sharpness_option_a": 841.99,
+      "sharpness_option_b": 461.11,
+      "faces_option_a": 2,
+      "faces_option_b": 2,
+      "rationale": "Option A displays superior facial sharpness (842.0 vs 461.1), cleaner boundary definition, and coherent facial features."
+    },
+    "pair_scene_5_seed_202": {
+      "chosen_option": "B",
+      "sharpness_option_a": 532.03,
+      "sharpness_option_b": 985.23,
+      "faces_option_a": 2,
+      "faces_option_b": 1,
+      "rationale": "Option B displays superior facial sharpness (985.2 vs 532.0), cleaner boundary definition, and coherent facial features."
+    },
+    "pair_scene_6_seed_101": {
+      "chosen_option": "A",
+      "sharpness_option_a": 373.88,
+      "sharpness_option_b": 84.06,
+      "faces_option_a": 1,
+      "faces_option_b": 1,
+      "rationale": "Option A displays superior facial sharpness (373.9 vs 84.1), cleaner boundary definition, and coherent facial features."
+    },
+    "pair_scene_6_seed_202": {
+      "chosen_option": "B",
+      "sharpness_option_a": 70.05,
+      "sharpness_option_b": 621.03,
+      "faces_option_a": 1,
+      "faces_option_b": 5,
+      "rationale": "Option B displays superior facial sharpness (621.0 vs 70.0), cleaner boundary definition, and coherent facial features."
+    }
+  },
+  "reid_predictions": {
+    "crop_01": {
+      "predicted_character_id": "james_wong",
+      "biometric_ensemble_similarity": 0.2507,
+      "discrimination_margin": 0.1527,
+      "candidate_similarities": {
+        "young_ebright": 0.0651,
+        "teen_ebright": 0.098,
+        "college_ebright": 0.0463,
+        "mother": 0.0294,
+        "james_wong": 0.2507
+      }
+    },
+    "crop_02": {
+      "predicted_character_id": "mother",
+      "biometric_ensemble_similarity": 0.2147,
+      "discrimination_margin": 0.1587,
+      "candidate_similarities": {
+        "young_ebright": 0.0143,
+        "teen_ebright": 0.0357,
+        "college_ebright": 0.056,
+        "mother": 0.2147,
+        "james_wong": 0.0051
+      }
+    },
+    "crop_03": {
+      "predicted_character_id": "college_ebright",
+      "biometric_ensemble_similarity": 0.2362,
+      "discrimination_margin": 0.0398,
+      "candidate_similarities": {
+        "young_ebright": 0.0383,
+        "teen_ebright": 0.1963,
+        "college_ebright": 0.2362,
+        "mother": 0.0235,
+        "james_wong": 0.098
+      }
+    },
+    "crop_04": {
+      "predicted_character_id": "james_wong",
+      "biometric_ensemble_similarity": 0.3334,
+      "discrimination_margin": 0.0835,
+      "candidate_similarities": {
+        "young_ebright": 0.2446,
+        "teen_ebright": 0.1887,
+        "college_ebright": 0.2499,
+        "mother": 0.1473,
+        "james_wong": 0.3334
+      }
+    },
+    "crop_05": {
+      "predicted_character_id": "teen_ebright",
+      "biometric_ensemble_similarity": 0.1811,
+      "discrimination_margin": 0.0266,
+      "candidate_similarities": {
+        "young_ebright": 0.1061,
+        "teen_ebright": 0.1811,
+        "college_ebright": 0.1545,
+        "mother": 0.0764,
+        "james_wong": 0.0628
+      }
+    },
+    "crop_06": {
+      "predicted_character_id": "young_ebright",
+      "biometric_ensemble_similarity": 0.1524,
+      "discrimination_margin": 0.0878,
+      "candidate_similarities": {
+        "young_ebright": 0.1524,
+        "teen_ebright": 0.0646,
+        "college_ebright": 0.0213,
+        "mother": 0.0193,
+        "james_wong": -0.0028
+      }
+    },
+    "crop_07": {
+      "predicted_character_id": "james_wong",
+      "biometric_ensemble_similarity": 0.2542,
+      "discrimination_margin": 0.152,
+      "candidate_similarities": {
+        "young_ebright": 0.1021,
+        "teen_ebright": 0.1008,
+        "college_ebright": 0.0536,
+        "mother": 0.0399,
+        "james_wong": 0.2542
+      }
+    },
+    "crop_08": {
+      "predicted_character_id": "teen_ebright",
+      "biometric_ensemble_similarity": 0.2387,
+      "discrimination_margin": 0.0449,
+      "candidate_similarities": {
+        "young_ebright": 0.1824,
+        "teen_ebright": 0.2387,
+        "college_ebright": 0.1938,
+        "mother": 0.1047,
+        "james_wong": 0.1039
+      }
+    },
+    "crop_09": {
+      "predicted_character_id": "teen_ebright",
+      "biometric_ensemble_similarity": 0.2557,
+      "discrimination_margin": 0.0767,
+      "candidate_similarities": {
+        "young_ebright": 0.1657,
+        "teen_ebright": 0.2557,
+        "college_ebright": 0.179,
+        "mother": 0.094,
+        "james_wong": 0.1157
+      }
+    },
+    "crop_10": {
+      "predicted_character_id": "college_ebright",
+      "biometric_ensemble_similarity": 0.2005,
+      "discrimination_margin": 0.0396,
+      "candidate_similarities": {
+        "young_ebright": 0.0416,
+        "teen_ebright": 0.1609,
+        "college_ebright": 0.2005,
+        "mother": 0.0644,
+        "james_wong": 0.088
+      }
+    },
+    "crop_11": {
+      "predicted_character_id": "teen_ebright",
+      "biometric_ensemble_similarity": 0.2544,
+      "discrimination_margin": 0.0819,
+      "candidate_similarities": {
+        "young_ebright": 0.1163,
+        "teen_ebright": 0.2544,
+        "college_ebright": 0.1725,
+        "mother": 0.1178,
+        "james_wong": 0.09
+      }
+    },
+    "crop_12": {
+      "predicted_character_id": "teen_ebright",
+      "biometric_ensemble_similarity": 0.2396,
+      "discrimination_margin": 0.0425,
+      "candidate_similarities": {
+        "young_ebright": 0.1732,
+        "teen_ebright": 0.2396,
+        "college_ebright": 0.1971,
+        "mother": 0.1002,
+        "james_wong": 0.1251
+      }
+    },
+    "crop_13": {
+      "predicted_character_id": "young_ebright",
+      "biometric_ensemble_similarity": 0.1197,
+      "discrimination_margin": 0.0316,
+      "candidate_similarities": {
+        "young_ebright": 0.1197,
+        "teen_ebright": 0.0881,
+        "college_ebright": 0.0224,
+        "mother": 0.0623,
+        "james_wong": 0.0849
+      }
+    },
+    "crop_14": {
+      "predicted_character_id": "young_ebright",
+      "biometric_ensemble_similarity": 0.1731,
+      "discrimination_margin": 0.0933,
+      "candidate_similarities": {
+        "young_ebright": 0.1731,
+        "teen_ebright": 0.0679,
+        "college_ebright": 0.034,
+        "mother": 0.0798,
+        "james_wong": 0.0251
+      }
+    },
+    "crop_15": {
+      "predicted_character_id": "young_ebright",
+      "biometric_ensemble_similarity": 0.1452,
+      "discrimination_margin": 0.1028,
+      "candidate_similarities": {
+        "young_ebright": 0.1452,
+        "teen_ebright": 0.0247,
+        "college_ebright": -0.0131,
+        "mother": 0.0424,
+        "james_wong": 0.0048
+      }
+    },
+    "crop_16": {
+      "predicted_character_id": "college_ebright",
+      "biometric_ensemble_similarity": 0.2429,
+      "discrimination_margin": 0.0853,
+      "candidate_similarities": {
+        "young_ebright": 0.0534,
+        "teen_ebright": 0.1575,
+        "college_ebright": 0.2429,
+        "mother": 0.0413,
+        "james_wong": 0.0738
+      }
+    },
+    "crop_17": {
+      "predicted_character_id": "teen_ebright",
+      "biometric_ensemble_similarity": 0.1437,
+      "discrimination_margin": 0.0051,
+      "candidate_similarities": {
+        "young_ebright": 0.0793,
+        "teen_ebright": 0.1437,
+        "college_ebright": 0.1386,
+        "mother": 0.0117,
+        "james_wong": 0.1064
+      }
+    },
+    "crop_18": {
+      "predicted_character_id": "james_wong",
+      "biometric_ensemble_similarity": 0.2888,
+      "discrimination_margin": 0.1778,
+      "candidate_similarities": {
+        "young_ebright": 0.111,
+        "teen_ebright": 0.104,
+        "college_ebright": 0.0653,
+        "mother": 0.0271,
+        "james_wong": 0.2888
+      }
+    },
+    "crop_19": {
+      "predicted_character_id": "college_ebright",
+      "biometric_ensemble_similarity": 0.1876,
+      "discrimination_margin": 0.0711,
+      "candidate_similarities": {
+        "young_ebright": 0.0782,
+        "teen_ebright": 0.1165,
+        "college_ebright": 0.1876,
+        "mother": 0.0883,
+        "james_wong": 0.0346
+      }
+    },
+    "crop_20": {
+      "predicted_character_id": "young_ebright",
+      "biometric_ensemble_similarity": 0.1066,
+      "discrimination_margin": 0.0799,
+      "candidate_similarities": {
+        "young_ebright": 0.1066,
+        "teen_ebright": 0.0267,
+        "college_ebright": -0.0078,
+        "mother": -0.0102,
+        "james_wong": -0.0307
+      }
+    }
+  }
+}

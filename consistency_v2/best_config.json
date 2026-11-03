@@ -21,7 +21,7 @@
   "swap_backend": "direct_insightface",
   "codeformer_fidelity": 0.85,
   "enable_face_detailer": true,
-  "face_detailer_denoise": 0.35,
+  "face_detailer_denoise": 0.28,
   "face_detailer_padding": 48,
   "face_detailer_steps": 20,
   "enable_wardrobe_lock": true,

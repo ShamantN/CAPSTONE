@@ -8,7 +8,7 @@
       "canary_id": "Canary_1_Inverted_Face",
       "defect_type": "Inverted / Upside-down Face Crop",
       "caught": true,
-      "failure_flag": "DEFECT_COLOR_INVERSION_SOLARIZATION: Upside-down photographic negative face crop on young_ebright",
+      "failure_flag": "DEFECT_COLOR_INVERSION_SOLARIZATION: Chromatic B>R inversion detected (130.2 > 80.7)",
       "rubric": {
         "review_version": "2.0",
         "image_filename": "canary_1_inverted_face.png",
@@ -32,7 +32,7 @@
             "age_plausible": "yes",
             "clothing_matches_spec": "yes",
             "distinguishing_features_visible": "yes",
-            "qualitative_assessment": "Upside-down photographic negative face; severe chromatic inversion and distorted orientation."
+            "qualitative_assessment": "Upside-down photographic negative face detected: chromatic B/R inversion ratio=1.61 (B=130.2, R=80.7)."
           },
           "mother": {
             "character_id": "mother",
@@ -79,13 +79,13 @@
       "canary_id": "Canary_2_Extra_People",
       "defect_type": "Extra Third Unprompted Character",
       "caught": true,
-      "failure_flag": "DEFECT_EXTRA_PEOPLE: Found 3 people in scene, expected 1",
+      "failure_flag": "DEFECT_EXTRA_PEOPLE: Detected 3 faces in scene, expected 1",
       "rubric": {
         "review_version": "2.0",
         "image_filename": "canary_2_extra_people.png",
         "scene_id": "scene_2",
         "scene_title": "The Butterfly Basement",
-        "literal_scene_description": "Found 3 people in basement scene when only Young Ebright was prompted.",
+        "literal_scene_description": "Detected 3 faces in scene when only 1 Young Ebright was expected.",
         "character_evaluations": {
           "young_ebright": {
             "character_id": "young_ebright",
@@ -130,9 +130,9 @@
     },
     {
       "canary_id": "Canary_3_Swapped_Identity",
-      "defect_type": "Swapped Character Identity (Cross-Storyboard)",
+      "defect_type": "Swapped Character Identity (James Wong substituted for Young Ebright)",
       "caught": true,
-      "failure_flag": "DEFECT_SWAPPED_IDENTITY: Cross-storyboard identity mismatch (Elena Rostova substituted for Young Ebright)",
+      "failure_flag": "DEFECT_SWAPPED_IDENTITY: Biometric ensemble mismatch (sim_expected=0.1057 < sim_actual=0.2680)",
       "rubric": {
         "review_version": "2.0",
         "image_filename": "canary_3_swapped_identity.png",
@@ -156,7 +156,7 @@
             "age_plausible": "yes",
             "clothing_matches_spec": "yes",
             "distinguishing_features_visible": "yes",
-            "qualitative_assessment": "Identity mismatch: Strawberry-blonde braided female character (Elena from Holdout) substituted for Young Ebright reference."
+            "qualitative_assessment": "Biometric identity mismatch: Face matches James Wong (sim=0.2680) over Young Ebright (sim=0.1057)."
           },
           "mother": {
             "character_id": "mother",

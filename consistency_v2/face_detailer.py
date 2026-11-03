@@ -31,7 +31,7 @@ class FaceDetailerConfig:
     enabled: bool = True
     face_size_threshold: int = 120  # Apply detailing to faces with width < 120 px
     padding_px: int = 48            # Padding around face crop for inpaint_full_res
-    denoising_strength: float = 0.35 # Denoising strength for subtle feature refinement
+    denoising_strength: float = 0.28 # Denoising strength for subtle feature refinement
     steps: int = 20
     cfg_scale: float = 5.0
     mask_blur_radius: int = 21

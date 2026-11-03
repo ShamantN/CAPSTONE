@@ -51,7 +51,7 @@ class ConsistencyV2Config:
 
     # M6: Identity-Conditioned Face Detailer
     enable_face_detailer: bool = True
-    face_detailer_denoise: float = 0.35
+    face_detailer_denoise: float = 0.28
     face_detailer_padding: int = 48
     face_detailer_steps: int = 20
 

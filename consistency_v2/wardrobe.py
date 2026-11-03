@@ -200,10 +200,7 @@ class WardrobeLock:
         expected_color_names: List[str],
         bank_wardrobe_lab: Optional[np.ndarray] = None
     ) -> Optional[np.ndarray]:
-        """Resolves target CIELAB color from bank reference or expected color names."""
-        if bank_wardrobe_lab is not None:
-            return np.array(bank_wardrobe_lab, dtype=np.float32)
-
+        """Resolves target CIELAB color from expected color names (story spec) or bank reference."""
         for c_name in expected_color_names:
             clean = c_name.lower().strip()
             if clean in REFERENCE_LAB_COLORS:
@@ -212,6 +209,9 @@ class WardrobeLock:
                 if k in clean or clean in k:
                     return v
 
+        if bank_wardrobe_lab is not None:
+            return np.array(bank_wardrobe_lab, dtype=np.float32)
+
         return None
 
     def apply_bounded_cielab_repair(
@@ -219,7 +219,7 @@ class WardrobeLock:
         image_bgr: np.ndarray,
         clothing_mask: np.ndarray,
         target_lab: np.ndarray,
-        blend_strength: float = 0.65
+        blend_strength: float = 0.85
     ) -> np.ndarray:
         """
         Applies smooth, bounded color transfer in CIELAB space on clothing pixels,
@@ -263,7 +263,7 @@ class WardrobeLock:
         image_bgr: np.ndarray,
         faces_info: List[Dict[str, Any]],
         character_wardrobes: Dict[str, Dict[str, Any]],
-        blend_strength: float = 0.65
+        blend_strength: float = 0.85
     ) -> Tuple[np.ndarray, Dict[str, Any]]:
         """
         Processes all characters in scene:

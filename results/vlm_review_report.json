@@ -5,11 +5,11 @@
   ],
   "device": "cpu",
   "total_images": 12,
-  "cohens_kappa_person_counts": 0.625,
-  "cohens_kappa_wardrobe": 0.2857,
-  "cohens_kappa_overall_verdict": 0.4706,
-  "cohens_kappa": 0.625,
-  "inter_rater_agreement_category": "Substantial Agreement",
+  "cohens_kappa_person_counts": 0.122,
+  "cohens_kappa_wardrobe": -0.125,
+  "cohens_kappa_overall_verdict": -0.05,
+  "cohens_kappa": 0.122,
+  "inter_rater_agreement_category": "Moderate Agreement",
   "evaluations": [
     {
       "filename": "scene_1_seed_101.png",
@@ -28,12 +28,12 @@
       "clothing_breakdown": {
         "young_ebright": {
           "target_clothing": "yellow long-sleeve t-shirt",
-          "clip_prob": 0.0378,
+          "clip_prob": 0.3516,
           "match": false
         },
         "mother": {
           "target_clothing": "pale blue floral blouse",
-          "clip_prob": 0.8845,
+          "clip_prob": 0.6877,
           "match": true
         }
       },
@@ -46,7 +46,7 @@
       "filename": "scene_1_seed_202.png",
       "scene_number": 1,
       "seed": 202,
-      "caption": "a woman sitting at a table with a child",
+      "caption": "a woman and a child sitting at a table",
       "expected_characters": [
         "young_ebright",
         "mother"
@@ -59,12 +59,12 @@
       "clothing_breakdown": {
         "young_ebright": {
           "target_clothing": "yellow long-sleeve t-shirt",
-          "clip_prob": 0.0743,
+          "clip_prob": 0.201,
           "match": false
         },
         "mother": {
           "target_clothing": "pale blue floral blouse",
-          "clip_prob": 0.9763,
+          "clip_prob": 0.8625,
           "match": true
         }
       },
@@ -77,57 +77,57 @@
       "filename": "scene_2_seed_101.png",
       "scene_number": 2,
       "seed": 101,
-      "caption": "a young boy sitting on a bench with a bunch of butterflies flying around him",
+      "caption": "a young boy sitting on a table with a yellow box",
       "expected_characters": [
         "young_ebright"
       ],
       "expected_count": 1,
       "vlm_detected_count": 2,
-      "verifier_yolo_count": 2,
+      "verifier_yolo_count": 1,
       "person_count_match_vlm": false,
-      "person_count_match_verifier": false,
+      "person_count_match_verifier": true,
       "clothing_breakdown": {
         "young_ebright": {
           "target_clothing": "yellow long-sleeve t-shirt",
-          "clip_prob": 0.373,
-          "match": false
+          "clip_prob": 0.9521,
+          "match": true
         }
       },
-      "wardrobe_match_vlm": false,
-      "wardrobe_match_verifier": false,
+      "wardrobe_match_vlm": true,
+      "wardrobe_match_verifier": true,
       "vlm_pass": false,
-      "verifier_pass": false
+      "verifier_pass": true
     },
     {
       "filename": "scene_2_seed_202.png",
       "scene_number": 2,
       "seed": 202,
-      "caption": "a young boy standing in front of a butterfly cage",
+      "caption": "a young boy in a yellow shirt and blue hat",
       "expected_characters": [
         "young_ebright"
       ],
       "expected_count": 1,
-      "vlm_detected_count": 1,
-      "verifier_yolo_count": 2,
-      "person_count_match_vlm": true,
-      "person_count_match_verifier": false,
+      "vlm_detected_count": 2,
+      "verifier_yolo_count": 1,
+      "person_count_match_vlm": false,
+      "person_count_match_verifier": true,
       "clothing_breakdown": {
         "young_ebright": {
           "target_clothing": "yellow long-sleeve t-shirt",
-          "clip_prob": 0.8022,
-          "match": true
+          "clip_prob": 0.4781,
+          "match": false
         }
       },
-      "wardrobe_match_vlm": true,
-      "wardrobe_match_verifier": false,
-      "vlm_pass": true,
-      "verifier_pass": false
+      "wardrobe_match_vlm": false,
+      "wardrobe_match_verifier": true,
+      "vlm_pass": false,
+      "verifier_pass": true
     },
     {
       "filename": "scene_3_seed_101.png",
       "scene_number": 3,
       "seed": 101,
-      "caption": "a man sitting on a bed",
+      "caption": "a boy sitting at a table with a piece of paper",
       "expected_characters": [
         "teen_ebright"
       ],
@@ -139,12 +139,12 @@
       "clothing_breakdown": {
         "teen_ebright": {
           "target_clothing": "dark green plaid button-up shirt",
-          "clip_prob": 0.9054,
+          "clip_prob": 0.994,
           "match": true
         }
       },
       "wardrobe_match_vlm": true,
-      "wardrobe_match_verifier": false,
+      "wardrobe_match_verifier": true,
       "vlm_pass": true,
       "verifier_pass": true
     },
@@ -152,113 +152,82 @@
       "filename": "scene_3_seed_202.png",
       "scene_number": 3,
       "seed": 202,
-      "caption": "a young boy sitting on a stool in a room",
+      "caption": "a boy sitting on a bed",
       "expected_characters": [
         "teen_ebright"
       ],
       "expected_count": 1,
-      "vlm_detected_count": 1,
+      "vlm_detected_count": 2,
       "verifier_yolo_count": 1,
-      "person_count_match_vlm": true,
-      "person_count_match_verifier": true,
-      "clothing_breakdown": {
-        "teen_ebright": {
-          "target_clothing": "dark green plaid button-up shirt",
-          "clip_prob": 0.9457,
-          "match": true
-        }
-      },
-      "wardrobe_match_vlm": true,
-      "wardrobe_match_verifier": false,
-      "vlm_pass": true,
-      "verifier_pass": true
-    },
-    {
-      "filename": "scene_4_seed_101.png",
-      "scene_number": 4,
-      "seed": 101,
-      "caption": "a young boy sitting on a fence in a garden",
-      "expected_characters": [
-        "teen_ebright"
-      ],
-      "expected_count": 1,
-      "vlm_detected_count": 1,
-      "verifier_yolo_count": 1,
-      "person_count_match_vlm": true,
-      "person_count_match_verifier": true,
-      "clothing_breakdown": {
-        "teen_ebright": {
-          "target_clothing": "dark green plaid button-up shirt",
-          "clip_prob": 0.9981,
-          "match": true
-        }
-      },
-      "wardrobe_match_vlm": true,
-      "wardrobe_match_verifier": false,
-      "vlm_pass": true,
-      "verifier_pass": true
-    },
-    {
-      "filename": "scene_4_seed_202.png",
-      "scene_number": 4,
-      "seed": 202,
-      "caption": "a young boy standing in front of a garden",
-      "expected_characters": [
-        "teen_ebright"
-      ],
-      "expected_count": 1,
-      "vlm_detected_count": 1,
-      "verifier_yolo_count": 1,
-      "person_count_match_vlm": true,
-      "person_count_match_verifier": true,
-      "clothing_breakdown": {
-        "teen_ebright": {
-          "target_clothing": "dark green plaid button-up shirt",
-          "clip_prob": 0.9901,
-          "match": true
-        }
-      },
-      "wardrobe_match_vlm": true,
-      "wardrobe_match_verifier": false,
-      "vlm_pass": true,
-      "verifier_pass": true
-    },
-    {
-      "filename": "scene_5_seed_101.png",
-      "scene_number": 5,
-      "seed": 101,
-      "caption": "a man in a yellow shirt",
-      "expected_characters": [
-        "college_ebright",
-        "james_wong"
-      ],
-      "expected_count": 2,
-      "vlm_detected_count": 4,
-      "verifier_yolo_count": 4,
       "person_count_match_vlm": false,
-      "person_count_match_verifier": false,
+      "person_count_match_verifier": true,
       "clothing_breakdown": {
-        "college_ebright": {
-          "target_clothing": "mustard yellow polo shirt",
-          "clip_prob": 0.9366,
-          "match": true
-        },
-        "james_wong": {
-          "target_clothing": "crimson red Harvard sweater",
-          "clip_prob": 0.8233,
+        "teen_ebright": {
+          "target_clothing": "dark green plaid button-up shirt",
+          "clip_prob": 0.9925,
           "match": true
         }
       },
       "wardrobe_match_vlm": true,
       "wardrobe_match_verifier": true,
       "vlm_pass": false,
-      "verifier_pass": false
+      "verifier_pass": true
     },
     {
-      "filename": "scene_5_seed_202.png",
-      "scene_number": 5,
+      "filename": "scene_4_seed_101.png",
+      "scene_number": 4,
+      "seed": 101,
+      "caption": "a young boy leaning on a fence in a garden",
+      "expected_characters": [
+        "teen_ebright"
+      ],
+      "expected_count": 1,
+      "vlm_detected_count": 2,
+      "verifier_yolo_count": 1,
+      "person_count_match_vlm": false,
+      "person_count_match_verifier": true,
+      "clothing_breakdown": {
+        "teen_ebright": {
+          "target_clothing": "dark green plaid button-up shirt",
+          "clip_prob": 0.9784,
+          "match": true
+        }
+      },
+      "wardrobe_match_vlm": true,
+      "wardrobe_match_verifier": true,
+      "vlm_pass": false,
+      "verifier_pass": true
+    },
+    {
+      "filename": "scene_4_seed_202.png",
+      "scene_number": 4,
       "seed": 202,
-      "caption": "two young men sitting on a bench",
+      "caption": "a boy standing in front of a box of food",
+      "expected_characters": [
+        "teen_ebright"
+      ],
+      "expected_count": 1,
+      "vlm_detected_count": 2,
+      "verifier_yolo_count": 1,
+      "person_count_match_vlm": false,
+      "person_count_match_verifier": true,
+      "clothing_breakdown": {
+        "teen_ebright": {
+          "target_clothing": "dark green plaid button-up shirt",
+          "clip_prob": 0.7549,
+          "match": true
+        }
+      },
+      "wardrobe_match_vlm": true,
+      "wardrobe_match_verifier": true,
+      "vlm_pass": false,
+      "verifier_pass": true
+    },
+    {
+      "filename": "scene_5_seed_101.png",
+      "scene_number": 5,
+      "seed": 101,
+      "caption": "a man sitting on a chair",
       "expected_characters": [
         "college_ebright",
         "james_wong"
@@ -271,25 +240,56 @@
       "clothing_breakdown": {
         "college_ebright": {
           "target_clothing": "mustard yellow polo shirt",
-          "clip_prob": 0.36,
+          "clip_prob": 0.1468,
           "match": false
         },
         "james_wong": {
           "target_clothing": "crimson red Harvard sweater",
-          "clip_prob": 0.738,
-          "match": true
+          "clip_prob": 0.3673,
+          "match": false
         }
       },
-      "wardrobe_match_vlm": true,
+      "wardrobe_match_vlm": false,
       "wardrobe_match_verifier": true,
       "vlm_pass": false,
       "verifier_pass": true
     },
     {
+      "filename": "scene_5_seed_202.png",
+      "scene_number": 5,
+      "seed": 202,
+      "caption": "a young boy in a hallway",
+      "expected_characters": [
+        "college_ebright",
+        "james_wong"
+      ],
+      "expected_count": 2,
+      "vlm_detected_count": 2,
+      "verifier_yolo_count": 2,
+      "person_count_match_vlm": true,
+      "person_count_match_verifier": true,
+      "clothing_breakdown": {
+        "college_ebright": {
+          "target_clothing": "mustard yellow polo shirt",
+          "clip_prob": 0.5303,
+          "match": true
+        },
+        "james_wong": {
+          "target_clothing": "crimson red Harvard sweater",
+          "clip_prob": 0.9822,
+          "match": true
+        }
+      },
+      "wardrobe_match_vlm": true,
+      "wardrobe_match_verifier": false,
+      "vlm_pass": true,
+      "verifier_pass": false
+    },
+    {
       "filename": "scene_6_seed_101.png",
       "scene_number": 6,
       "seed": 101,
-      "caption": "a man in a graduation gown holding a diploma",
+      "caption": "a man in a graduation gown holding a red book",
       "expected_characters": [
         "college_ebright"
       ],
@@ -301,13 +301,13 @@
       "clothing_breakdown": {
         "college_ebright": {
           "target_clothing": "mustard yellow polo shirt",
-          "clip_prob": 0.4846,
-          "match": false
+          "clip_prob": 0.7771,
+          "match": true
         }
       },
-      "wardrobe_match_vlm": false,
-      "wardrobe_match_verifier": false,
-      "vlm_pass": false,
+      "wardrobe_match_vlm": true,
+      "wardrobe_match_verifier": true,
+      "vlm_pass": true,
       "verifier_pass": true
     },
     {
@@ -320,18 +320,18 @@
       ],
       "expected_count": 1,
       "vlm_detected_count": 2,
-      "verifier_yolo_count": 3,
+      "verifier_yolo_count": 5,
       "person_count_match_vlm": false,
       "person_count_match_verifier": false,
       "clothing_breakdown": {
         "college_ebright": {
           "target_clothing": "mustard yellow polo shirt",
-          "clip_prob": 0.3485,
-          "match": false
+          "clip_prob": 0.699,
+          "match": true
         }
       },
-      "wardrobe_match_vlm": false,
-      "wardrobe_match_verifier": false,
+      "wardrobe_match_vlm": true,
+      "wardrobe_match_verifier": true,
       "vlm_pass": false,
       "verifier_pass": false
     }

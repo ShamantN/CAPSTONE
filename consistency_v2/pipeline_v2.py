@@ -447,11 +447,16 @@ class ConsistencyPipelineV2:
                             "bbox": f["bbox"]
                         })
 
+            if len(faces_for_wardrobe) == 0 and len(characters_present) == 1 and detected_faces:
+                faces_for_wardrobe.append({
+                    "character_id": characters_present[0],
+                    "bbox": detected_faces[0]["bbox"]
+                })
             current_cv, wardrobe_report = self.wardrobe_lock.lock_scene_wardrobe(
                 image_bgr=current_cv,
                 faces_info=faces_for_wardrobe,
                 character_wardrobes=char_wardrobes,
-                blend_strength=0.70
+                blend_strength=0.85
             )
             tracer.record_stage(
                 "m7_wardrobe_lock",

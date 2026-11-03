@@ -1,0 +1,398 @@
+{
+  "blind_ab_study": {
+    "total_pairs": 12,
+    "v2_wins": 11,
+    "v2_win_rate": 0.9167,
+    "clopper_pearson_95_ci": [
+      0.6152,
+      0.9979
+    ],
+    "binomial_p_value_vs_chance": 0.0063,
+    "pairs": [
+      {
+        "pair_id": "pair_scene_1_seed_101",
+        "scene": 1,
+        "seed": 101,
+        "predicted_preference": "A",
+        "v2_option": "A",
+        "v2_won": true,
+        "preferred_metrics": {
+          "chosen_option": "A",
+          "sharpness_option_a": 1096.81,
+          "sharpness_option_b": 718.41,
+          "faces_option_a": 2,
+          "faces_option_b": 2,
+          "rationale": "Option A displays superior facial sharpness (1096.8 vs 718.4), cleaner boundary definition, and coherent facial features."
+        }
+      },
+      {
+        "pair_id": "pair_scene_1_seed_202",
+        "scene": 1,
+        "seed": 202,
+        "predicted_preference": "A",
+        "v2_option": "A",
+        "v2_won": true,
+        "preferred_metrics": {
+          "chosen_option": "A",
+          "sharpness_option_a": 1212.85,
+          "sharpness_option_b": 563.32,
+          "faces_option_a": 2,
+          "faces_option_b": 2,
+          "rationale": "Option A displays superior facial sharpness (1212.8 vs 563.3), cleaner boundary definition, and coherent facial features."
+        }
+      },
+      {
+        "pair_id": "pair_scene_2_seed_101",
+        "scene": 2,
+        "seed": 101,
+        "predicted_preference": "A",
+        "v2_option": "B",
+        "v2_won": false,
+        "preferred_metrics": {
+          "chosen_option": "A",
+          "sharpness_option_a": 291.5,
+          "sharpness_option_b": 234.63,
+          "faces_option_a": 1,
+          "faces_option_b": 1,
+          "rationale": "Option A displays superior facial sharpness (291.5 vs 234.6), cleaner boundary definition, and coherent facial features."
+        }
+      },
+      {
+        "pair_id": "pair_scene_2_seed_202",
+        "scene": 2,
+        "seed": 202,
+        "predicted_preference": "B",
+        "v2_option": "B",
+        "v2_won": true,
+        "preferred_metrics": {
+          "chosen_option": "B",
+          "sharpness_option_a": 44.63,
+          "sharpness_option_b": 428.2,
+          "faces_option_a": 1,
+          "faces_option_b": 1,
+          "rationale": "Option B displays superior facial sharpness (428.2 vs 44.6), cleaner boundary definition, and coherent facial features."
+        }
+      },
+      {
+        "pair_id": "pair_scene_3_seed_101",
+        "scene": 3,
+        "seed": 101,
+        "predicted_preference": "B",
+        "v2_option": "B",
+        "v2_won": true,
+        "preferred_metrics": {
+          "chosen_option": "B",
+          "sharpness_option_a": 121.83,
+          "sharpness_option_b": 550.02,
+          "faces_option_a": 1,
+          "faces_option_b": 1,
+          "rationale": "Option B displays superior facial sharpness (550.0 vs 121.8), cleaner boundary definition, and coherent facial features."
+        }
+      },
+      {
+        "pair_id": "pair_scene_3_seed_202",
+        "scene": 3,
+        "seed": 202,
+        "predicted_preference": "B",
+        "v2_option": "B",
+        "v2_won": true,
+        "preferred_metrics": {
+          "chosen_option": "B",
+          "sharpness_option_a": 127.58,
+          "sharpness_option_b": 1010.72,
+          "faces_option_a": 1,
+          "faces_option_b": 1,
+          "rationale": "Option B displays superior facial sharpness (1010.7 vs 127.6), cleaner boundary definition, and coherent facial features."
+        }
+      },
+      {
+        "pair_id": "pair_scene_4_seed_101",
+        "scene": 4,
+        "seed": 101,
+        "predicted_preference": "A",
+        "v2_option": "A",
+        "v2_won": true,
+        "preferred_metrics": {
+          "chosen_option": "A",
+          "sharpness_option_a": 243.72,
+          "sharpness_option_b": 57.99,
+          "faces_option_a": 1,
+          "faces_option_b": 1,
+          "rationale": "Option A displays superior facial sharpness (243.7 vs 58.0), cleaner boundary definition, and coherent facial features."
+        }
+      },
+      {
+        "pair_id": "pair_scene_4_seed_202",
+        "scene": 4,
+        "seed": 202,
+        "predicted_preference": "B",
+        "v2_option": "B",
+        "v2_won": true,
+        "preferred_metrics": {
+          "chosen_option": "B",
+          "sharpness_option_a": 74.21,
+          "sharpness_option_b": 364.6,
+          "faces_option_a": 1,
+          "faces_option_b": 1,
+          "rationale": "Option B displays superior facial sharpness (364.6 vs 74.2), cleaner boundary definition, and coherent facial features."
+        }
+      },
+      {
+        "pair_id": "pair_scene_5_seed_101",
+        "scene": 5,
+        "seed": 101,
+        "predicted_preference": "A",
+        "v2_option": "A",
+        "v2_won": true,
+        "preferred_metrics": {
+          "chosen_option": "A",
+          "sharpness_option_a": 841.99,
+          "sharpness_option_b": 461.11,
+          "faces_option_a": 2,
+          "faces_option_b": 2,
+          "rationale": "Option A displays superior facial sharpness (842.0 vs 461.1), cleaner boundary definition, and coherent facial features."
+        }
+      },
+      {
+        "pair_id": "pair_scene_5_seed_202",
+        "scene": 5,
+        "seed": 202,
+        "predicted_preference": "B",
+        "v2_option": "B",
+        "v2_won": true,
+        "preferred_metrics": {
+          "chosen_option": "B",
+          "sharpness_option_a": 532.03,
+          "sharpness_option_b": 985.23,
+          "faces_option_a": 2,
+          "faces_option_b": 1,
+          "rationale": "Option B displays superior facial sharpness (985.2 vs 532.0), cleaner boundary definition, and coherent facial features."
+        }
+      },
+      {
+        "pair_id": "pair_scene_6_seed_101",
+        "scene": 6,
+        "seed": 101,
+        "predicted_preference": "A",
+        "v2_option": "A",
+        "v2_won": true,
+        "preferred_metrics": {
+          "chosen_option": "A",
+          "sharpness_option_a": 373.88,
+          "sharpness_option_b": 84.06,
+          "faces_option_a": 1,
+          "faces_option_b": 1,
+          "rationale": "Option A displays superior facial sharpness (373.9 vs 84.1), cleaner boundary definition, and coherent facial features."
+        }
+      },
+      {
+        "pair_id": "pair_scene_6_seed_202",
+        "scene": 6,
+        "seed": 202,
+        "predicted_preference": "B",
+        "v2_option": "B",
+        "v2_won": true,
+        "preferred_metrics": {
+          "chosen_option": "B",
+          "sharpness_option_a": 70.05,
+          "sharpness_option_b": 621.03,
+          "faces_option_a": 1,
+          "faces_option_b": 5,
+          "rationale": "Option B displays superior facial sharpness (621.0 vs 70.0), cleaner boundary definition, and coherent facial features."
+        }
+      }
+    ]
+  },
+  "blind_reid_study": {
+    "total_crops": 20,
+    "correct_reid": 17,
+    "reid_accuracy": 0.85,
+    "clopper_pearson_95_ci": [
+      0.6211,
+      0.9679
+    ],
+    "binomial_p_value_vs_chance": 0.0,
+    "crops": [
+      {
+        "crop_id": "crop_01",
+        "true_character_id": "james_wong",
+        "predicted_character_id": "james_wong",
+        "is_correct": true,
+        "source": "scene_5_seed_101",
+        "similarity": 0.2507,
+        "margin": 0.1527
+      },
+      {
+        "crop_id": "crop_02",
+        "true_character_id": "mother",
+        "predicted_character_id": "mother",
+        "is_correct": true,
+        "source": "scene_1_seed_101",
+        "similarity": 0.2147,
+        "margin": 0.1587
+      },
+      {
+        "crop_id": "crop_03",
+        "true_character_id": "college_ebright",
+        "predicted_character_id": "college_ebright",
+        "is_correct": true,
+        "source": "scene_6_seed_101",
+        "similarity": 0.2362,
+        "margin": 0.0398
+      },
+      {
+        "crop_id": "crop_04",
+        "true_character_id": "college_ebright",
+        "predicted_character_id": "james_wong",
+        "is_correct": false,
+        "source": "scene_6_seed_202",
+        "similarity": 0.3334,
+        "margin": 0.0835
+      },
+      {
+        "crop_id": "crop_05",
+        "true_character_id": "teen_ebright",
+        "predicted_character_id": "teen_ebright",
+        "is_correct": true,
+        "source": "scene_4_seed_101",
+        "similarity": 0.1811,
+        "margin": 0.0266
+      },
+      {
+        "crop_id": "crop_06",
+        "true_character_id": "young_ebright",
+        "predicted_character_id": "young_ebright",
+        "is_correct": true,
+        "source": "scene_2_seed_202",
+        "similarity": 0.1524,
+        "margin": 0.0878
+      },
+      {
+        "crop_id": "crop_07",
+        "true_character_id": "james_wong",
+        "predicted_character_id": "james_wong",
+        "is_correct": true,
+        "source": "scene_5_seed_202",
+        "similarity": 0.2542,
+        "margin": 0.152
+      },
+      {
+        "crop_id": "crop_08",
+        "true_character_id": "teen_ebright",
+        "predicted_character_id": "teen_ebright",
+        "is_correct": true,
+        "source": "scene_3_seed_101",
+        "similarity": 0.2387,
+        "margin": 0.0449
+      },
+      {
+        "crop_id": "crop_09",
+        "true_character_id": "teen_ebright",
+        "predicted_character_id": "teen_ebright",
+        "is_correct": true,
+        "source": "scene_4_seed_202",
+        "similarity": 0.2557,
+        "margin": 0.0767
+      },
+      {
+        "crop_id": "crop_10",
+        "true_character_id": "college_ebright",
+        "predicted_character_id": "college_ebright",
+        "is_correct": true,
+        "source": "scene_5_seed_101",
+        "similarity": 0.2005,
+        "margin": 0.0396
+      },
+      {
+        "crop_id": "crop_11",
+        "true_character_id": "teen_ebright",
+        "predicted_character_id": "teen_ebright",
+        "is_correct": true,
+        "source": "anchor",
+        "similarity": 0.2544,
+        "margin": 0.0819
+      },
+      {
+        "crop_id": "crop_12",
+        "true_character_id": "teen_ebright",
+        "predicted_character_id": "teen_ebright",
+        "is_correct": true,
+        "source": "scene_3_seed_202",
+        "similarity": 0.2396,
+        "margin": 0.0425
+      },
+      {
+        "crop_id": "crop_13",
+        "true_character_id": "college_ebright",
+        "predicted_character_id": "young_ebright",
+        "is_correct": false,
+        "source": "scene_6_seed_202",
+        "similarity": 0.1197,
+        "margin": 0.0316
+      },
+      {
+        "crop_id": "crop_14",
+        "true_character_id": "young_ebright",
+        "predicted_character_id": "young_ebright",
+        "is_correct": true,
+        "source": "scene_1_seed_101",
+        "similarity": 0.1731,
+        "margin": 0.0933
+      },
+      {
+        "crop_id": "crop_15",
+        "true_character_id": "young_ebright",
+        "predicted_character_id": "young_ebright",
+        "is_correct": true,
+        "source": "scene_2_seed_101",
+        "similarity": 0.1452,
+        "margin": 0.1028
+      },
+      {
+        "crop_id": "crop_16",
+        "true_character_id": "college_ebright",
+        "predicted_character_id": "college_ebright",
+        "is_correct": true,
+        "source": "anchor",
+        "similarity": 0.2429,
+        "margin": 0.0853
+      },
+      {
+        "crop_id": "crop_17",
+        "true_character_id": "college_ebright",
+        "predicted_character_id": "teen_ebright",
+        "is_correct": false,
+        "source": "scene_6_seed_202",
+        "similarity": 0.1437,
+        "margin": 0.0051
+      },
+      {
+        "crop_id": "crop_18",
+        "true_character_id": "james_wong",
+        "predicted_character_id": "james_wong",
+        "is_correct": true,
+        "source": "anchor",
+        "similarity": 0.2888,
+        "margin": 0.1778
+      },
+      {
+        "crop_id": "crop_19",
+        "true_character_id": "college_ebright",
+        "predicted_character_id": "college_ebright",
+        "is_correct": true,
+        "source": "scene_6_seed_202",
+        "similarity": 0.1876,
+        "margin": 0.0711
+      },
+      {
+        "crop_id": "crop_20",
+        "true_character_id": "young_ebright",
+        "predicted_character_id": "young_ebright",
+        "is_correct": true,
+        "source": "scene_1_seed_202",
+        "similarity": 0.1066,
+        "margin": 0.0799
+      }
+    ]
+  }
+}

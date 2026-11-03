@@ -180,6 +180,60 @@ def run_ablation(
         json.dump(results_matrix, f, indent=2)
     print(f"\nAblation summary saved to: {summary_file}")
 
+    stage_tracer_file = out_dir / "stage_tracer_verification.json"
+    stage_tracer_data = {
+        "verified_at": time.time(),
+        "total_conditions": len(cond_keys),
+        "conditions": {}
+    }
+    for c_name in cond_keys:
+        c_renders = results_matrix[c_name].get("renders", {})
+        stage_tracer_data["conditions"][c_name] = {
+            "config_hash": results_matrix[c_name]["config_hash"],
+            "overrides": results_matrix[c_name]["overrides"],
+            "renders_count": len(c_renders),
+            "renders": {
+                rk: {
+                    "sha256": rv["sha256"],
+                    "pixel_diff_vs_full": compute_region_pixel_diff(
+                        images_by_condition[c_name][rk],
+                        images_by_condition["full_v2"][rk]
+                    ) if (c_name != "full_v2" and rk in images_by_condition.get("full_v2", {}) and rk in images_by_condition.get(c_name, {})) else 0.0
+                } for rk, rv in c_renders.items()
+            },
+            "mean_pixel_diff_vs_full": results_matrix[c_name].get("mean_diff_vs_full", 0.0)
+        }
+    with open(stage_tracer_file, "w", encoding="utf-8") as f:
+        json.dump(stage_tracer_data, f, indent=2)
+    print(f"Stage tracer verification saved to: {stage_tracer_file}")
+
+    stage_tracer_file = out_dir / "stage_tracer_verification.json"
+    stage_tracer_data = {
+        "verified_at": time.time(),
+        "total_conditions": len(cond_keys),
+        "conditions": {}
+    }
+    for c_name in cond_keys:
+        c_renders = results_matrix[c_name].get("renders", {})
+        stage_tracer_data["conditions"][c_name] = {
+            "config_hash": results_matrix[c_name]["config_hash"],
+            "overrides": results_matrix[c_name]["overrides"],
+            "renders_count": len(c_renders),
+            "renders": {
+                rk: {
+                    "sha256": rv["sha256"],
+                    "pixel_diff_vs_full": compute_region_pixel_diff(
+                        images_by_condition[c_name][rk],
+                        images_by_condition["full_v2"][rk]
+                    ) if (c_name != "full_v2" and rk in images_by_condition.get("full_v2", {}) and rk in images_by_condition.get(c_name, {})) else 0.0
+                } for rk, rv in c_renders.items()
+            },
+            "mean_pixel_diff_vs_full": results_matrix[c_name].get("mean_diff_vs_full", 0.0)
+        }
+    with open(stage_tracer_file, "w", encoding="utf-8") as f:
+        json.dump(stage_tracer_data, f, indent=2)
+    print(f"Stage tracer verification saved to: {stage_tracer_file}")
+
     return results_matrix
 
 

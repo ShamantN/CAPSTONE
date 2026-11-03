@@ -120,9 +120,11 @@ class PromptBuilder:
         if scene.forbidden_props:
             neg_parts.append(", ".join([f"no {p}" for p in scene.forbidden_props]))
 
-        # Multi-person specific negative guards
+        # Person count specific negative guards
         if num_chars >= 2:
-            neg_parts.append("solo, 1person, single person alone, identical faces, twin, clone, demographic bleed, merged bodies")
+            neg_parts.append("solo, 1person, single person alone, 3persons, 4persons, extra people, crowd, bystanders, background people, multiple people, group of people, extra faces, extra persons, identical faces, twin, clone, demographic bleed, merged bodies")
+        elif num_chars == 1:
+            neg_parts.append("2persons, 3persons, extra people, crowd, bystanders, background people, multiple people, group of people, extra faces, extra persons, duplicate person, clone, merged bodies")
 
         master_neg = ", ".join([p for p in neg_parts if p.strip()])
 

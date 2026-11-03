@@ -64,13 +64,15 @@ OUT_DIR = PROJECT_ROOT / "results" / "bundle_dev2"
 RENDERS_DIR = OUT_DIR / "renders"
 
 
-def run_dev2_evaluation(resume: bool = True):
+def run_dev2_evaluation(resume: bool = True, seeds: Optional[List[int]] = None, scenes: Optional[List[int]] = None):
+    target_seeds = seeds if seeds is not None else DEV2_SEEDS
+    target_scenes = scenes if scenes is not None else DEV2_SCENES
     print("=" * 80)
     print("MMCCP Phase R7: DEV-2 Locked Bundle Evaluation (30 Renders)")
     print("=" * 80)
 
     # 1. Verify seeds
-    for sd in DEV2_SEEDS:
+    for sd in target_seeds:
         assert_seed_allowed(sd)
 
     RENDERS_DIR.mkdir(parents=True, exist_ok=True)
@@ -105,16 +107,16 @@ def run_dev2_evaluation(resume: bool = True):
     pipeline = ConsistencyPipelineV2(config=config)
 
     render_times = []
-    total_renders = len(DEV2_SCENES) * len(DEV2_SEEDS)
+    total_renders = len(target_scenes) * len(target_seeds)
     current_render = 0
 
     print(f"\nTargeting {total_renders} renders across 6 scenes and 5 seeds...")
 
-    for s_num in DEV2_SCENES:
+    for s_num in target_scenes:
         scene = scenes_map[s_num]
         print(f"\n--- Scene {s_num}: {scene.title} ({scene.shot_type}) ---")
 
-        for seed in DEV2_SEEDS:
+        for seed in target_seeds:
             current_render += 1
             out_img = RENDERS_DIR / f"scene_{s_num}_seed_{seed}.png"
             out_meta = RENDERS_DIR / f"scene_{s_num}_seed_{seed}.json"
@@ -253,6 +255,10 @@ def eval_rules(bundle_res: Dict[str, Any], base_res: Dict[str, Any], render_time
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--resume", action="store_true", default=True)
+    parser.add_argument("--resume", action="store_true", default=False)
+    parser.add_argument("--overwrite", action="store_true", default=False)
+    parser.add_argument("--seeds", nargs="+", type=int, default=None)
+    parser.add_argument("--scenes", nargs="+", type=int, default=None)
     args = parser.parse_args()
-    run_dev2_evaluation(resume=args.resume)
+    use_resume = args.resume and not args.overwrite
+    run_dev2_evaluation(resume=use_resume, seeds=args.seeds, scenes=args.scenes)

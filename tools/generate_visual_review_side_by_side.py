@@ -26,14 +26,14 @@ v1_scores = {}
 if V1_REPORT_PATH.exists():
     with open(V1_REPORT_PATH, "r", encoding="utf-8") as f:
         v1_data = json.load(f)
-        for sc in v1_data.get("scene_reports", []):
+        for sc in v1_data.get("per_scene_reports", v1_data.get("scene_reports", [])):
             v1_scores[sc["image_filename"]] = sc
 
 v2_scores = {}
 if V2_REPORT_PATH.exists():
     with open(V2_REPORT_PATH, "r", encoding="utf-8") as f:
         v2_data = json.load(f)
-        for sc in v2_data.get("scene_reports", []):
+        for sc in v2_data.get("per_scene_reports", v2_data.get("scene_reports", [])):
             v2_scores[sc["image_filename"]] = sc
 
 
