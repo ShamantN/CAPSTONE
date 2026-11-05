@@ -111,8 +111,8 @@ class WardrobeLock:
         face_exclusion = np.zeros((h_img, w_img), dtype=bool)
 
         # Define face exclusion zone with 15% safety padding
-        pad_x = int(0.15 * fw)
-        pad_y = int(0.15 * fh)
+        pad_x = int(0.20 * fw)
+        pad_y = int(0.20 * fh)
         fe_x1 = max(0, fx - pad_x)
         fe_y1 = max(0, fy - pad_y)
         fe_x2 = min(w_img, fx + fw + pad_x)
@@ -147,10 +147,10 @@ class WardrobeLock:
             )
             pred_mask = upsampled.argmax(dim=1)[0].cpu().numpy()
 
-            # Class 4: Upper-clothes, 5: Skirt, 6: Pants, 7: Dress, 8: Coat/Suit
+            # Class 4: Upper-clothes, 5: Skirt, 6: Pants, 7: Dress, 8: Coat/Suit, 17: Scarf
             torso_clothing = (
                 (pred_mask == 4) | (pred_mask == 5) | (pred_mask == 6) |
-                (pred_mask == 7) | (pred_mask == 8)
+                (pred_mask == 7) | (pred_mask == 8) | (pred_mask == 17)
             )
         else:
             # Fallback: central torso patch
@@ -201,6 +201,9 @@ class WardrobeLock:
         bank_wardrobe_lab: Optional[np.ndarray] = None
     ) -> Optional[np.ndarray]:
         """Resolves target CIELAB color from expected color names (story spec) or bank reference."""
+        if bank_wardrobe_lab is not None:
+            return np.array(bank_wardrobe_lab, dtype=np.float32)
+
         for c_name in expected_color_names:
             clean = c_name.lower().strip()
             if clean in REFERENCE_LAB_COLORS:
@@ -219,7 +222,7 @@ class WardrobeLock:
         image_bgr: np.ndarray,
         clothing_mask: np.ndarray,
         target_lab: np.ndarray,
-        blend_strength: float = 0.85
+        blend_strength: float = 0.70
     ) -> np.ndarray:
         """
         Applies smooth, bounded color transfer in CIELAB space on clothing pixels,
@@ -231,7 +234,7 @@ class WardrobeLock:
 
         # Gaussian blur the clothing mask edges to avoid harsh boundaries
         mask_uint8 = (clothing_mask.astype(np.uint8) * 255)
-        blurred_mask = cv2.GaussianBlur(mask_uint8, (9, 9), 3).astype(np.float32) / 255.0
+        blurred_mask = cv2.GaussianBlur(mask_uint8, (15, 15), 5).astype(np.float32) / 255.0
 
         lab_std = bgr_to_standard_cielab(image_bgr)
         target_l, target_a, target_b = target_lab[0], target_lab[1], target_lab[2]
@@ -263,7 +266,7 @@ class WardrobeLock:
         image_bgr: np.ndarray,
         faces_info: List[Dict[str, Any]],
         character_wardrobes: Dict[str, Dict[str, Any]],
-        blend_strength: float = 0.85
+        blend_strength: float = 0.70
     ) -> Tuple[np.ndarray, Dict[str, Any]]:
         """
         Processes all characters in scene:

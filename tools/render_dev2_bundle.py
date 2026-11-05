@@ -169,12 +169,13 @@ def run_dev2_evaluation(resume: bool = True, seeds: Optional[List[int]] = None, 
     if BASELINE_REPORT.exists():
         with open(BASELINE_REPORT, "r", encoding="utf-8") as f:
             base_data = json.load(f)
-        eval_rules(verifier_results, base_data, render_times)
+        expected_faces = sum(len(scenes_map[s].characters_present) for s in target_scenes) * len(target_seeds)
+        eval_rules(verifier_results, base_data, render_times, expected_faces=expected_faces)
     else:
         print(f"Warning: Baseline report not found at {BASELINE_REPORT}")
 
 
-def eval_rules(bundle_res: Dict[str, Any], base_res: Dict[str, Any], render_times: List[float]):
+def eval_rules(bundle_res: Dict[str, Any], base_res: Dict[str, Any], render_times: List[float], expected_faces: int = 40):
     print("\n" + "=" * 80)
     print("PRE-REGISTERED DECISION RULES EVALUATION (DEV-2 Bundle vs Baseline v1)")
     print("=" * 80)
@@ -182,12 +183,12 @@ def eval_rules(bundle_res: Dict[str, Any], base_res: Dict[str, Any], render_time
     b_metrics = bundle_res.get("summary_metrics", {})
     base_metrics = base_res.get("summary_metrics", {})
 
-    # Rule 1: Presence >= 95% of expected (40 faces total across 30 scenes)
-    expected_faces = 40
+    # Rule 1: Presence >= 95% of expected
     bundle_faces = bundle_res.get("total_face_instances", 0)
     presence_pct = bundle_faces / expected_faces * 100.0 if expected_faces > 0 else 0.0
-    rule1_presence = (bundle_faces >= 38)
-    print(f"Rule 1 - Presence (>=95%, >=38/40 faces): {bundle_faces}/{expected_faces} ({presence_pct:.1f}%) | {'MET' if rule1_presence else 'NOT MET'}")
+    req_faces = int(0.95 * expected_faces)
+    rule1_presence = (bundle_faces >= req_faces)
+    print(f"Rule 1 - Presence (>=95%, >={req_faces}/{expected_faces} faces): {bundle_faces}/{expected_faces} ({presence_pct:.1f}%) | {'MET' if rule1_presence else 'NOT MET'}")
 
     # Rule 2: Identity non-inferior
     bundle_ens = b_metrics.get("biometric_ensemble_mean", 0.0)

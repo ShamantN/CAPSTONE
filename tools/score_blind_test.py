@@ -103,8 +103,8 @@ def main():
             "predicted_character_id": pred_cid,
             "is_correct": is_correct,
             "source": truth.get("source", ""),
-            "similarity": pred_data.get("biometric_ensemble_similarity", 0.0),
-            "margin": pred_data.get("discrimination_margin", 0.0)
+            "confidence": pred_data.get("confidence", "high"),
+            "visual_features": pred_data.get("visual_features", "")
         })
         print(f"  {crop_id}: True={true_cid:<16} Pred={pred_cid:<16} -> {'CORRECT' if is_correct else 'MISMATCH'}")
 
@@ -177,12 +177,12 @@ The pairs were anonymized as Option A / Option B using cryptographic salted shuf
 
 Crops extracted from DEV-2 renders, blinded with randomized indices, and re-identified by computing argmax cosine similarity via `BiometricEnsemble` against character reference anchors.
 
-| Crop ID | Source Scene / Seed | True Identity | Predicted Identity | Similarity | Margin | Outcome |
+| Crop ID | Source Scene / Seed | True Identity | Predicted Identity | Confidence | Visual Features Evaluated | Outcome |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 """
     for row in reid_details:
         out_str = "PASS" if row["is_correct"] else "MISMATCH"
-        md_content += f"| `{row['crop_id']}` | `{row['source']}` | `{row['true_character_id']}` | `{row['predicted_character_id']}` | {row['similarity']:.4f} | {row['margin']:.4f} | **{out_str}** |\n"
+        md_content += f"| `{row['crop_id']}` | `{row['source']}` | `{row['true_character_id']}` | `{row['predicted_character_id']}` | {row['confidence']} | {row['visual_features']} | **{out_str}** |\n"
 
     md_content += """
 ---

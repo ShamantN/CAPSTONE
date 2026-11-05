@@ -29,7 +29,7 @@ logger = logging.getLogger("MMCCP.FaceDetailer")
 class FaceDetailerConfig:
     """Configuration for identity-conditioned face detailing."""
     enabled: bool = True
-    face_size_threshold: int = 120  # Apply detailing to faces with width < 120 px
+    face_size_threshold: int = 300  # Apply detailing to all detected faces (width < 300 px)
     padding_px: int = 48            # Padding around face crop for inpaint_full_res
     denoising_strength: float = 0.28 # Denoising strength for subtle feature refinement
     steps: int = 20

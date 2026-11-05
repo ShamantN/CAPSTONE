@@ -28,7 +28,7 @@ CONDITIONS = [
 ]
 
 STORY_PATH = PROJECT_ROOT / "storyboards" / "ebright.json"
-BANK_DIR = PROJECT_ROOT / "consistency_v2" / "banks"
+BANK_DIR = PROJECT_ROOT / "experiments" / "clean_run_ground_truth" / "anchors"
 ABLATION_DIR = PROJECT_ROOT / "results" / "ablation_dev2"
 
 

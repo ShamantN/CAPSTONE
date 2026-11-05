@@ -1,129 +1,129 @@
 {
   "conditions": {
     "full_v2": {
-      "biometric_ensemble_mean": 0.3138,
+      "biometric_ensemble_mean": 0.3323,
       "biometric_ensemble_95ci": [
-        0.1871,
-        0.4374
+        0.2941,
+        0.3648
       ],
-      "rank1_accuracy": 0.5,
+      "rank1_accuracy": 0.875,
       "spatial_pass_rate": 1.0,
-      "wardrobe_pass_rate": 1.0,
-      "mean_defects": 1.0,
-      "child_bio": 0.0435,
-      "adult_bio": 0.3659,
+      "wardrobe_pass_rate": 0.875,
+      "mean_defects": 1.1667,
+      "child_bio": 0.316,
+      "adult_bio": 0.3382,
       "delta_bio_vs_full": 0.0,
       "delta_spatial_vs_full": 0.0,
       "delta_wardrobe_vs_full": 0.0
     },
     "no_m2_layout": {
-      "biometric_ensemble_mean": 0.2412,
+      "biometric_ensemble_mean": 0.223,
       "biometric_ensemble_95ci": [
-        0.1172,
-        0.3753
+        0.134,
+        0.3012
       ],
-      "rank1_accuracy": 0.375,
+      "rank1_accuracy": 0.125,
       "spatial_pass_rate": 0.75,
       "wardrobe_pass_rate": 0.625,
       "mean_defects": 1.6667,
-      "child_bio": 0.0272,
-      "adult_bio": 0.2281,
-      "delta_bio_vs_full": -0.0726,
+      "child_bio": 0.2237,
+      "adult_bio": 0.2172,
+      "delta_bio_vs_full": -0.1093,
       "delta_spatial_vs_full": -0.25,
-      "delta_wardrobe_vs_full": -0.375
+      "delta_wardrobe_vs_full": -0.25
     },
     "no_m3_couple": {
-      "biometric_ensemble_mean": 0.3119,
+      "biometric_ensemble_mean": 0.301,
       "biometric_ensemble_95ci": [
-        0.1996,
-        0.4286
+        0.2689,
+        0.3313
       ],
-      "rank1_accuracy": 0.375,
+      "rank1_accuracy": 0.875,
       "spatial_pass_rate": 1.0,
       "wardrobe_pass_rate": 0.875,
       "mean_defects": 1.1667,
-      "child_bio": 0.1035,
-      "adult_bio": 0.3321,
-      "delta_bio_vs_full": -0.0019,
+      "child_bio": 0.3229,
+      "adult_bio": 0.2825,
+      "delta_bio_vs_full": -0.0313,
       "delta_spatial_vs_full": 0.0,
-      "delta_wardrobe_vs_full": -0.125
+      "delta_wardrobe_vs_full": 0.0
     },
     "no_m4_ip_adapter": {
-      "biometric_ensemble_mean": 0.3152,
+      "biometric_ensemble_mean": 0.2712,
       "biometric_ensemble_95ci": [
-        0.2453,
-        0.3885
+        0.2307,
+        0.3157
       ],
-      "rank1_accuracy": 0.5,
+      "rank1_accuracy": 0.375,
       "spatial_pass_rate": 1.0,
       "wardrobe_pass_rate": 0.75,
       "mean_defects": 1.6667,
-      "child_bio": 0.1809,
-      "adult_bio": 0.3098,
-      "delta_bio_vs_full": 0.0014,
+      "child_bio": 0.2812,
+      "adult_bio": 0.242,
+      "delta_bio_vs_full": -0.0611,
       "delta_spatial_vs_full": 0.0,
-      "delta_wardrobe_vs_full": -0.25
+      "delta_wardrobe_vs_full": -0.125
     },
     "no_m5_swap": {
-      "biometric_ensemble_mean": 0.2885,
+      "biometric_ensemble_mean": 0.2364,
       "biometric_ensemble_95ci": [
-        0.1734,
-        0.4148
+        0.1649,
+        0.2896
       ],
       "rank1_accuracy": 0.5,
       "spatial_pass_rate": 1.0,
       "wardrobe_pass_rate": 0.75,
       "mean_defects": 1.1667,
-      "child_bio": 0.0761,
-      "adult_bio": 0.2734,
-      "delta_bio_vs_full": -0.0253,
+      "child_bio": 0.2579,
+      "adult_bio": 0.1914,
+      "delta_bio_vs_full": -0.0959,
       "delta_spatial_vs_full": 0.0,
-      "delta_wardrobe_vs_full": -0.25
+      "delta_wardrobe_vs_full": -0.125
     },
     "no_m6_detailer": {
-      "biometric_ensemble_mean": 0.3173,
+      "biometric_ensemble_mean": 0.3052,
       "biometric_ensemble_95ci": [
-        0.2114,
-        0.4324
+        0.2545,
+        0.3548
       ],
-      "rank1_accuracy": 0.375,
+      "rank1_accuracy": 0.75,
       "spatial_pass_rate": 1.0,
       "wardrobe_pass_rate": 0.75,
-      "mean_defects": 1.1667,
-      "child_bio": 0.1066,
-      "adult_bio": 0.3413,
-      "delta_bio_vs_full": 0.0035,
+      "mean_defects": 1.6667,
+      "child_bio": 0.2224,
+      "adult_bio": 0.3596,
+      "delta_bio_vs_full": -0.0271,
       "delta_spatial_vs_full": 0.0,
-      "delta_wardrobe_vs_full": -0.25
+      "delta_wardrobe_vs_full": -0.125
     },
     "no_m7_wardrobe": {
-      "biometric_ensemble_mean": 0.3177,
+      "biometric_ensemble_mean": 0.3052,
       "biometric_ensemble_95ci": [
-        0.212,
-        0.4325
+        0.2545,
+        0.3548
       ],
-      "rank1_accuracy": 0.375,
+      "rank1_accuracy": 0.75,
       "spatial_pass_rate": 1.0,
       "wardrobe_pass_rate": 0.25,
-      "mean_defects": 1.1667,
-      "child_bio": 0.1079,
-      "adult_bio": 0.3415,
-      "delta_bio_vs_full": 0.0039,
+      "mean_defects": 1.6667,
+      "child_bio": 0.2224,
+      "adult_bio": 0.3596,
+      "delta_bio_vs_full": -0.0271,
       "delta_spatial_vs_full": 0.0,
-      "delta_wardrobe_vs_full": -0.75
+      "delta_wardrobe_vs_full": -0.625
     }
   },
   "full_v2_baseline": {
-    "biometric_ensemble_mean": 0.3138,
+    "biometric_ensemble_mean": 0.3323,
     "biometric_ensemble_95ci": [
-      0.1871,
-      0.4374
+      0.2941,
+      0.3648
     ],
-    "rank1_accuracy": 0.5,
+    "rank1_accuracy": 0.875,
     "spatial_pass_rate": 1.0,
-    "wardrobe_pass_rate": 1.0,
-    "mean_defects": 1.0,
-    "child_bio": 0.0435,
-    "adult_bio": 0.3659
+    "wardrobe_pass_rate": 0.875,
+    "mean_defects": 1.1667,
+    "child_bio": 0.316,
+    "adult_bio": 0.3382
   }
 }

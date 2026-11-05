@@ -66,7 +66,7 @@ class PromptBuilder:
             else:
                 char_desc = f"a person in the scene"
 
-            master_pos = f"({active_style}:1.2), masterpiece, cinematic lighting, 8k resolution, highly detailed, {scene.action_description}, {char_desc}, {env_desc}, {shot_info}."
+            master_pos = f"({active_style}:1.2), masterpiece, cinematic lighting, 8k resolution, highly detailed, solo portrait, strictly only 1 person, {scene.action_description}, {char_desc}, {env_desc}, {shot_info}."
             regional_meta = {"regional_active": False}
 
         else:
@@ -116,7 +116,13 @@ class PromptBuilder:
         # 4. Master Negative Prompt Construction
         neg_parts = [story.global_negative_prompt]
         if scene.negative_prompt_additions:
-            neg_parts.append(scene.negative_prompt_additions)
+            # Strip paradoxical "empty" tokens (e.g., "empty hall") that cause the diffusion model to hallucinate crowds
+            clean_additions = ", ".join([
+                tok.strip() for tok in scene.negative_prompt_additions.split(",")
+                if "empty" not in tok.lower()
+            ])
+            if clean_additions:
+                neg_parts.append(clean_additions)
         if scene.forbidden_props:
             neg_parts.append(", ".join([f"no {p}" for p in scene.forbidden_props]))
 
@@ -124,7 +130,7 @@ class PromptBuilder:
         if num_chars >= 2:
             neg_parts.append("solo, 1person, single person alone, 3persons, 4persons, extra people, crowd, bystanders, background people, multiple people, group of people, extra faces, extra persons, identical faces, twin, clone, demographic bleed, merged bodies")
         elif num_chars == 1:
-            neg_parts.append("2persons, 3persons, extra people, crowd, bystanders, background people, multiple people, group of people, extra faces, extra persons, duplicate person, clone, merged bodies")
+            neg_parts.append("2persons, 3persons, 4persons, 5persons, extra people, crowd, bystanders, background people, audience, spectators, other graduates, classmates, professors, multiple people, group of people, extra faces, extra persons, duplicate person, clone, merged bodies")
 
         master_neg = ", ".join([p for p in neg_parts if p.strip()])
 

@@ -8,7 +8,7 @@
       "canary_id": "Canary_1_Inverted_Face",
       "defect_type": "Inverted / Upside-down Face Crop",
       "caught": true,
-      "failure_flag": "DEFECT_COLOR_INVERSION_SOLARIZATION: Chromatic B>R inversion detected (130.2 > 80.7)",
+      "failure_flag": "DEFECT_COLOR_INVERSION_SOLARIZATION: Chromatic B>R inversion detected (124.5 > 67.8)",
       "rubric": {
         "review_version": "2.0",
         "image_filename": "canary_1_inverted_face.png",
@@ -32,7 +32,7 @@
             "age_plausible": "yes",
             "clothing_matches_spec": "yes",
             "distinguishing_features_visible": "yes",
-            "qualitative_assessment": "Upside-down photographic negative face detected: chromatic B/R inversion ratio=1.61 (B=130.2, R=80.7)."
+            "qualitative_assessment": "Upside-down photographic negative face detected: chromatic B/R inversion ratio=1.84 (B=124.5, R=67.8)."
           },
           "mother": {
             "character_id": "mother",

@@ -137,6 +137,11 @@ def run_v2_scratch(mode: str = "default", story_path: str = "storyboards/ebright
 
     cfg = ConsistencyV2Config(mode=mode)
     pipeline = ConsistencyPipelineV2(config=cfg)
+    # Isolate cold-start scratch banks to prevent corrupting canonical consistency_v2/banks
+    scratch_bank_root = PROJECT_ROOT / 'experiments' / 'fresh_run_from_scratch' / 'banks'
+    scratch_bank_root.mkdir(parents=True, exist_ok=True)
+    from consistency_v2.identity_bank import IdentityBankManager
+    pipeline.bank_manager = IdentityBankManager(bank_root=scratch_bank_root)
 
     # Load storyboard
     story_file = Path(story_path) if Path(story_path).is_absolute() else (PROJECT_ROOT / story_path)

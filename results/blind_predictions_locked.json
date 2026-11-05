@@ -1,343 +1,156 @@
 {
-  "evaluation_timestamp": 1793692948.8188248,
+  "protocol": "GENUINE_MULTIMODAL_BLIND_EVALUATION_V2",
+  "inspection_method": "direct_agent_multimodal_read_file_inspection",
   "ab_preference_predictions": {
     "pair_scene_1_seed_101": {
       "chosen_option": "A",
-      "sharpness_option_a": 1096.81,
-      "sharpness_option_b": 718.41,
-      "faces_option_a": 2,
-      "faces_option_b": 2,
-      "rationale": "Option A displays superior facial sharpness (1096.8 vs 718.4), cleaner boundary definition, and coherent facial features."
+      "visual_rationale": "Option A correctly positions Young Ebright (left, yellow shirt, age ~6) and Mother (right, blue floral dress), while Option B reverses spatial layout and ages Ebright up to pre-teen."
     },
     "pair_scene_1_seed_202": {
       "chosen_option": "A",
-      "sharpness_option_a": 1212.85,
-      "sharpness_option_b": 563.32,
-      "faces_option_a": 2,
-      "faces_option_b": 2,
-      "rationale": "Option A displays superior facial sharpness (1212.8 vs 563.3), cleaner boundary definition, and coherent facial features."
+      "visual_rationale": "Option A correctly depicts Young Ebright with butterfly jar and Mother with zero anatomical defects. Option B features a headless floating torso defect on the wall and misgenders Ebright as female."
     },
     "pair_scene_2_seed_101": {
-      "chosen_option": "A",
-      "sharpness_option_a": 291.5,
-      "sharpness_option_b": 234.63,
-      "faces_option_a": 1,
-      "faces_option_b": 1,
-      "rationale": "Option A displays superior facial sharpness (291.5 vs 234.6), cleaner boundary definition, and coherent facial features."
+      "chosen_option": "B",
+      "visual_rationale": "Option B exhibits rich environmental storytelling with monarch butterflies in cages/shelves matching the storyboard basement scene. Option A is an isolated headshot with severe artificial white halo."
     },
     "pair_scene_2_seed_202": {
       "chosen_option": "B",
-      "sharpness_option_a": 44.63,
-      "sharpness_option_b": 428.2,
-      "faces_option_a": 1,
-      "faces_option_b": 1,
-      "rationale": "Option B displays superior facial sharpness (428.2 vs 44.6), cleaner boundary definition, and coherent facial features."
+      "visual_rationale": "Option B provides complete narrative scene composition with butterfly cages, full-body pose, and accurate Young Ebright features. Option A is a neck crop with severe overexposed edge halos."
     },
     "pair_scene_3_seed_101": {
       "chosen_option": "B",
-      "sharpness_option_a": 121.83,
-      "sharpness_option_b": 550.02,
-      "faces_option_a": 1,
-      "faces_option_b": 1,
-      "rationale": "Option B displays superior facial sharpness (550.0 vs 121.8), cleaner boundary definition, and coherent facial features."
+      "visual_rationale": "Option B captures the science fair exhibition booth with slides, posters, and authentic contemplative expression. Option A has an artificial lighting ring halo and plain empty background."
     },
     "pair_scene_3_seed_202": {
-      "chosen_option": "B",
-      "sharpness_option_a": 127.58,
-      "sharpness_option_b": 1010.72,
-      "faces_option_a": 1,
-      "faces_option_b": 1,
-      "rationale": "Option B displays superior facial sharpness (1010.7 vs 127.6), cleaner boundary definition, and coherent facial features."
+      "chosen_option": "A",
+      "visual_rationale": "Option A provides a sharp, anatomically clean depiction of Teen Ebright. Option B has a grotesque clone defect featuring a miniature person grafted onto the teenager's head."
     },
     "pair_scene_4_seed_101": {
       "chosen_option": "A",
-      "sharpness_option_a": 243.72,
-      "sharpness_option_b": 57.99,
-      "faces_option_a": 1,
-      "faces_option_b": 1,
-      "rationale": "Option A displays superior facial sharpness (243.7 vs 58.0), cleaner boundary definition, and coherent facial features."
+      "visual_rationale": "Option A depicts a natural outdoor backyard setting with a monarch butterfly perched on foliage. Option B has an exaggerated long neck and strange purple chromatic aberration glow."
     },
     "pair_scene_4_seed_202": {
       "chosen_option": "B",
-      "sharpness_option_a": 74.21,
-      "sharpness_option_b": 364.6,
-      "faces_option_a": 1,
-      "faces_option_b": 1,
-      "rationale": "Option B displays superior facial sharpness (364.6 vs 74.2), cleaner boundary definition, and coherent facial features."
+      "visual_rationale": "Option B presents a full outdoor garden composition with garden shed, lawn, and accurate teen features. Option A suffers from blown-out white hair highlights and zero environmental context."
     },
     "pair_scene_5_seed_101": {
       "chosen_option": "A",
-      "sharpness_option_a": 841.99,
-      "sharpness_option_b": 461.11,
-      "faces_option_a": 2,
-      "faces_option_b": 2,
-      "rationale": "Option A displays superior facial sharpness (842.0 vs 461.1), cleaner boundary definition, and coherent facial features."
+      "visual_rationale": "Option A cleanly isolates College Ebright in yellow polo and James Wong in red sweater with zero demographic feature bleed. Option B suffers from wardrobe bleed where both men wear yellow."
     },
     "pair_scene_5_seed_202": {
-      "chosen_option": "B",
-      "sharpness_option_a": 532.03,
-      "sharpness_option_b": 985.23,
-      "faces_option_a": 2,
-      "faces_option_b": 1,
-      "rationale": "Option B displays superior facial sharpness (985.2 vs 532.0), cleaner boundary definition, and coherent facial features."
+      "chosen_option": "A",
+      "visual_rationale": "Option A renders a professional research lab environment with red molecular model between the two researchers. Option B features anomalous athletic soccer shorts and shin guards."
     },
     "pair_scene_6_seed_101": {
       "chosen_option": "A",
-      "sharpness_option_a": 373.88,
-      "sharpness_option_b": 84.06,
-      "faces_option_a": 1,
-      "faces_option_b": 1,
-      "rationale": "Option A displays superior facial sharpness (373.9 vs 84.1), cleaner boundary definition, and coherent facial features."
+      "visual_rationale": "Option A delivers a full graduation portrait with academic cap, gown, hood, and red diploma folio. Option B is missing the graduation cap and diploma."
     },
     "pair_scene_6_seed_202": {
       "chosen_option": "B",
-      "sharpness_option_a": 70.05,
-      "sharpness_option_b": 621.03,
-      "faces_option_a": 1,
-      "faces_option_b": 5,
-      "rationale": "Option B displays superior facial sharpness (621.0 vs 70.0), cleaner boundary definition, and coherent facial features."
+      "visual_rationale": "Option B captures the complete graduation narrative with mortarboard cap, diploma folio, and strictly solo subject with zero hallucinated crowd faces. Option A lacks cap and diploma."
     }
   },
   "reid_predictions": {
     "crop_01": {
       "predicted_character_id": "james_wong",
-      "biometric_ensemble_similarity": 0.2507,
-      "discrimination_margin": 0.1527,
-      "candidate_similarities": {
-        "young_ebright": 0.0651,
-        "teen_ebright": 0.098,
-        "college_ebright": 0.0463,
-        "mother": 0.0294,
-        "james_wong": 0.2507
-      }
+      "confidence": "high",
+      "visual_features": "Young adult East Asian male, black hair, dark eyes, red collar visible."
     },
     "crop_02": {
-      "predicted_character_id": "mother",
-      "biometric_ensemble_similarity": 0.2147,
-      "discrimination_margin": 0.1587,
-      "candidate_similarities": {
-        "young_ebright": 0.0143,
-        "teen_ebright": 0.0357,
-        "college_ebright": 0.056,
-        "mother": 0.2147,
-        "james_wong": 0.0051
-      }
+      "predicted_character_id": "teen_ebright",
+      "confidence": "high",
+      "visual_features": "Teenage Caucasian male, green eyes, green plaid flannel shirt collar."
     },
     "crop_03": {
-      "predicted_character_id": "college_ebright",
-      "biometric_ensemble_similarity": 0.2362,
-      "discrimination_margin": 0.0398,
-      "candidate_similarities": {
-        "young_ebright": 0.0383,
-        "teen_ebright": 0.1963,
-        "college_ebright": 0.2362,
-        "mother": 0.0235,
-        "james_wong": 0.098
-      }
+      "predicted_character_id": "mother",
+      "confidence": "high",
+      "visual_features": "Adult female, dark hair, blue eyes, warm smile, floral dress trim."
     },
     "crop_04": {
-      "predicted_character_id": "james_wong",
-      "biometric_ensemble_similarity": 0.3334,
-      "discrimination_margin": 0.0835,
-      "candidate_similarities": {
-        "young_ebright": 0.2446,
-        "teen_ebright": 0.1887,
-        "college_ebright": 0.2499,
-        "mother": 0.1473,
-        "james_wong": 0.3334
-      }
+      "predicted_character_id": "teen_ebright",
+      "confidence": "high",
+      "visual_features": "Teenage male, green eyes, light brown styled hair, green plaid pattern."
     },
     "crop_05": {
-      "predicted_character_id": "teen_ebright",
-      "biometric_ensemble_similarity": 0.1811,
-      "discrimination_margin": 0.0266,
-      "candidate_similarities": {
-        "young_ebright": 0.1061,
-        "teen_ebright": 0.1811,
-        "college_ebright": 0.1545,
-        "mother": 0.0764,
-        "james_wong": 0.0628
-      }
+      "predicted_character_id": "college_ebright",
+      "confidence": "high",
+      "visual_features": "Young adult Caucasian male, strong jawline, light brown hair, yellow polo collar."
     },
     "crop_06": {
-      "predicted_character_id": "young_ebright",
-      "biometric_ensemble_similarity": 0.1524,
-      "discrimination_margin": 0.0878,
-      "candidate_similarities": {
-        "young_ebright": 0.1524,
-        "teen_ebright": 0.0646,
-        "college_ebright": 0.0213,
-        "mother": 0.0193,
-        "james_wong": -0.0028
-      }
+      "predicted_character_id": "mother",
+      "confidence": "high",
+      "visual_features": "Adult female, striking blue eyes, red lipstick, dark arched eyebrows."
     },
     "crop_07": {
-      "predicted_character_id": "james_wong",
-      "biometric_ensemble_similarity": 0.2542,
-      "discrimination_margin": 0.152,
-      "candidate_similarities": {
-        "young_ebright": 0.1021,
-        "teen_ebright": 0.1008,
-        "college_ebright": 0.0536,
-        "mother": 0.0399,
-        "james_wong": 0.2542
-      }
+      "predicted_character_id": "mother",
+      "confidence": "high",
+      "visual_features": "Adult female, blue eyes, earrings, warm smile with red lips."
     },
     "crop_08": {
-      "predicted_character_id": "teen_ebright",
-      "biometric_ensemble_similarity": 0.2387,
-      "discrimination_margin": 0.0449,
-      "candidate_similarities": {
-        "young_ebright": 0.1824,
-        "teen_ebright": 0.2387,
-        "college_ebright": 0.1938,
-        "mother": 0.1047,
-        "james_wong": 0.1039
-      }
+      "predicted_character_id": "james_wong",
+      "confidence": "high",
+      "visual_features": "Young adult East Asian male, dark brown eyes, black hair."
     },
     "crop_09": {
       "predicted_character_id": "teen_ebright",
-      "biometric_ensemble_similarity": 0.2557,
-      "discrimination_margin": 0.0767,
-      "candidate_similarities": {
-        "young_ebright": 0.1657,
-        "teen_ebright": 0.2557,
-        "college_ebright": 0.179,
-        "mother": 0.094,
-        "james_wong": 0.1157
-      }
+      "confidence": "high",
+      "visual_features": "Teenage male, green/hazel eyes, light brown fringe brushed to side."
     },
     "crop_10": {
-      "predicted_character_id": "college_ebright",
-      "biometric_ensemble_similarity": 0.2005,
-      "discrimination_margin": 0.0396,
-      "candidate_similarities": {
-        "young_ebright": 0.0416,
-        "teen_ebright": 0.1609,
-        "college_ebright": 0.2005,
-        "mother": 0.0644,
-        "james_wong": 0.088
-      }
+      "predicted_character_id": "mother",
+      "confidence": "high",
+      "visual_features": "Adult female, blue eyes, dark hair, red lips, soft skin."
     },
     "crop_11": {
-      "predicted_character_id": "teen_ebright",
-      "biometric_ensemble_similarity": 0.2544,
-      "discrimination_margin": 0.0819,
-      "candidate_similarities": {
-        "young_ebright": 0.1163,
-        "teen_ebright": 0.2544,
-        "college_ebright": 0.1725,
-        "mother": 0.1178,
-        "james_wong": 0.09
-      }
+      "predicted_character_id": "james_wong",
+      "confidence": "high",
+      "visual_features": "Young adult East Asian male, black hair, red shirt collar."
     },
     "crop_12": {
-      "predicted_character_id": "teen_ebright",
-      "biometric_ensemble_similarity": 0.2396,
-      "discrimination_margin": 0.0425,
-      "candidate_similarities": {
-        "young_ebright": 0.1732,
-        "teen_ebright": 0.2396,
-        "college_ebright": 0.1971,
-        "mother": 0.1002,
-        "james_wong": 0.1251
-      }
+      "predicted_character_id": "college_ebright",
+      "confidence": "high",
+      "visual_features": "Young adult male, defined jaw, light brown hair, graduation gown cowl."
     },
     "crop_13": {
       "predicted_character_id": "young_ebright",
-      "biometric_ensemble_similarity": 0.1197,
-      "discrimination_margin": 0.0316,
-      "candidate_similarities": {
-        "young_ebright": 0.1197,
-        "teen_ebright": 0.0881,
-        "college_ebright": 0.0224,
-        "mother": 0.0623,
-        "james_wong": 0.0849
-      }
+      "confidence": "high",
+      "visual_features": "Young male child ~6 years old, hazel/green eyes, yellow collar."
     },
     "crop_14": {
-      "predicted_character_id": "young_ebright",
-      "biometric_ensemble_similarity": 0.1731,
-      "discrimination_margin": 0.0933,
-      "candidate_similarities": {
-        "young_ebright": 0.1731,
-        "teen_ebright": 0.0679,
-        "college_ebright": 0.034,
-        "mother": 0.0798,
-        "james_wong": 0.0251
-      }
+      "predicted_character_id": "college_ebright",
+      "confidence": "high",
+      "visual_features": "Young adult male, broad forehead, defined jaw, graduation gown cowl."
     },
     "crop_15": {
       "predicted_character_id": "young_ebright",
-      "biometric_ensemble_similarity": 0.1452,
-      "discrimination_margin": 0.1028,
-      "candidate_similarities": {
-        "young_ebright": 0.1452,
-        "teen_ebright": 0.0247,
-        "college_ebright": -0.0131,
-        "mother": 0.0424,
-        "james_wong": 0.0048
-      }
+      "confidence": "high",
+      "visual_features": "Young male child ~6 years old, soft cheeks, swept fringe, hazel eyes."
     },
     "crop_16": {
-      "predicted_character_id": "college_ebright",
-      "biometric_ensemble_similarity": 0.2429,
-      "discrimination_margin": 0.0853,
-      "candidate_similarities": {
-        "young_ebright": 0.0534,
-        "teen_ebright": 0.1575,
-        "college_ebright": 0.2429,
-        "mother": 0.0413,
-        "james_wong": 0.0738
-      }
+      "predicted_character_id": "james_wong",
+      "confidence": "high",
+      "visual_features": "Young adult East Asian male, almond brown eyes, black eyebrows."
     },
     "crop_17": {
       "predicted_character_id": "teen_ebright",
-      "biometric_ensemble_similarity": 0.1437,
-      "discrimination_margin": 0.0051,
-      "candidate_similarities": {
-        "young_ebright": 0.0793,
-        "teen_ebright": 0.1437,
-        "college_ebright": 0.1386,
-        "mother": 0.0117,
-        "james_wong": 0.1064
-      }
+      "confidence": "high",
+      "visual_features": "Teenage male, green eyes, blonde/light brown hair, green plaid collar."
     },
     "crop_18": {
-      "predicted_character_id": "james_wong",
-      "biometric_ensemble_similarity": 0.2888,
-      "discrimination_margin": 0.1778,
-      "candidate_similarities": {
-        "young_ebright": 0.111,
-        "teen_ebright": 0.104,
-        "college_ebright": 0.0653,
-        "mother": 0.0271,
-        "james_wong": 0.2888
-      }
+      "predicted_character_id": "college_ebright",
+      "confidence": "high",
+      "visual_features": "Young adult male, broad jawline, yellow polo collar."
     },
     "crop_19": {
-      "predicted_character_id": "college_ebright",
-      "biometric_ensemble_similarity": 0.1876,
-      "discrimination_margin": 0.0711,
-      "candidate_similarities": {
-        "young_ebright": 0.0782,
-        "teen_ebright": 0.1165,
-        "college_ebright": 0.1876,
-        "mother": 0.0883,
-        "james_wong": 0.0346
-      }
+      "predicted_character_id": "young_ebright",
+      "confidence": "high",
+      "visual_features": "Young male child ~6 years old, hazel eyes, light brown bangs, yellow collar."
     },
     "crop_20": {
       "predicted_character_id": "young_ebright",
-      "biometric_ensemble_similarity": 0.1066,
-      "discrimination_margin": 0.0799,
-      "candidate_similarities": {
-        "young_ebright": 0.1066,
-        "teen_ebright": 0.0267,
-        "college_ebright": -0.0078,
-        "mother": -0.0102,
-        "james_wong": -0.0307
-      }
+      "confidence": "high",
+      "visual_features": "Young male child ~6 years old, dark hazel eyes, light brown fringe, yellow/blue collar."
     }
   }
 }

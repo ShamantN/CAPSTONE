@@ -7,7 +7,7 @@
 
 | Canary ID | Defect Injected | Status | Exact Failure Flag |
 | :--- | :--- | :---: | :--- |
-| `Canary_1_Inverted_Face` | Inverted / Upside-down Face Crop | **CAUGHT [PASS]** | `DEFECT_COLOR_INVERSION_SOLARIZATION: Chromatic B>R inversion detected (130.2 > 80.7)` |
+| `Canary_1_Inverted_Face` | Inverted / Upside-down Face Crop | **CAUGHT [PASS]** | `DEFECT_COLOR_INVERSION_SOLARIZATION: Chromatic B>R inversion detected (124.5 > 67.8)` |
 | `Canary_2_Extra_People` | Extra Third Unprompted Character | **CAUGHT [PASS]** | `DEFECT_EXTRA_PEOPLE: Detected 3 faces in scene, expected 1` |
 | `Canary_3_Swapped_Identity` | Swapped Character Identity (James Wong substituted for Young Ebright) | **CAUGHT [PASS]** | `DEFECT_SWAPPED_IDENTITY: Biometric ensemble mismatch (sim_expected=0.1057 < sim_actual=0.2680)` |
 

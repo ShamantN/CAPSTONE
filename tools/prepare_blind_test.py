@@ -110,64 +110,99 @@ def prepare_blind_ab():
 def prepare_blind_reid():
     auditor = SceneAuditor()
     renders_dir = V2_DIR
-    anchors_dir = PROJECT_ROOT / "experiments" / "clean_run_ground_truth" / "anchors"
+    archive_dir = PROJECT_ROOT / "results" / "bundle_dev2" / "legacy_seeds_archive"
 
-    raw_crops = []
-
-    # 1. Collect reference anchor crops (5 characters)
-    char_anchors = {
-        "young_ebright": anchors_dir / "young_ebright_ground_truth.png",
-        "teen_ebright": anchors_dir / "teen_ebright_ground_truth.png",
-        "college_ebright": anchors_dir / "college_ebright_ground_truth.png",
-        "mother": anchors_dir / "mother_ground_truth.png",
-        "james_wong": anchors_dir / "james_wong_ground_truth.png"
+    crops_by_char = {
+        "young_ebright": [],
+        "teen_ebright": [],
+        "college_ebright": [],
+        "mother": [],
+        "james_wong": []
     }
 
-    for cid, apath in char_anchors.items():
-        if apath.exists():
-            img = cv2.imread(str(apath))
-            faces = auditor.detect_faces(img)
-            if faces:
-                fb = faces[0]["bbox"]
-                crop = img[fb["y"]:fb["y"]+fb["h"], fb["x"]:fb["x"]+fb["w"]]
-                if crop.size > 0:
-                    raw_crops.append((cid, "anchor", crop))
+    def extract_hero_crops(img_path: Path, s_num: int):
+        if not img_path.exists():
+            return []
+        img = cv2.imread(str(img_path))
+        if img is None:
+            return []
+        faces = auditor.detect_faces(img)
+        if not faces:
+            return []
+        w_img = img.shape[1]
 
-    # 2. Collect from DEV-2 renders (seed 101 and seed 202)
+        # For solo scenes, pick ONLY the single largest prominent hero face
+        if s_num in [2, 3, 4, 6]:
+            faces_sorted = sorted(faces, key=lambda f: f["bbox"]["w"] * f["bbox"]["h"], reverse=True)
+            top = faces_sorted[0]
+            fb = top["bbox"]
+            if fb["w"] >= 40 and fb["h"] >= 40:
+                crop = img[fb["y"]:fb["y"]+fb["h"], fb["x"]:fb["x"]+fb["w"]]
+                cid = "young_ebright" if s_num == 2 else ("teen_ebright" if s_num in [3, 4] else "college_ebright")
+                return [(cid, img_path.stem, crop)]
+            return []
+
+        # For two-character scenes (1, 5), pick the largest face on left and right
+        elif s_num in [1, 5]:
+            left_cands = []
+            right_cands = []
+            for f in faces:
+                fb = f["bbox"]
+                if fb["w"] < 40 or fb["h"] < 40:
+                    continue
+                cx = (fb["x"] + fb["w"] / 2.0) / float(w_img)
+                area = fb["w"] * fb["h"]
+                if cx < 0.50:
+                    left_cands.append((area, f))
+                else:
+                    right_cands.append((area, f))
+
+            res = []
+            if left_cands:
+                left_cands.sort(key=lambda t: t[0], reverse=True)
+                fb = left_cands[0][1]["bbox"]
+                crop = img[fb["y"]:fb["y"]+fb["h"], fb["x"]:fb["x"]+fb["w"]]
+                cid = "young_ebright" if s_num == 1 else "college_ebright"
+                res.append((cid, img_path.stem, crop))
+
+            if right_cands:
+                right_cands.sort(key=lambda t: t[0], reverse=True)
+                fb = right_cands[0][1]["bbox"]
+                crop = img[fb["y"]:fb["y"]+fb["h"], fb["x"]:fb["x"]+fb["w"]]
+                cid = "mother" if s_num == 1 else "james_wong"
+                res.append((cid, img_path.stem, crop))
+
+            return res
+        return []
+
+    # 1. Harvest crops from DEV-2 renders (seeds 101 and 202)
     for s_num in [1, 2, 3, 4, 5, 6]:
         for sd in [101, 202]:
             p = renders_dir / f"scene_{s_num}_seed_{sd}.png"
-            if not p.exists():
-                continue
-            img = cv2.imread(str(p))
-            if img is None:
-                continue
-            faces = auditor.detect_faces(img)
-            w_img = img.shape[1]
-            for f in faces:
-                fb = f["bbox"]
-                crop = img[fb["y"]:fb["y"]+fb["h"], fb["x"]:fb["x"]+fb["w"]]
-                if crop.size == 0 or crop.shape[0] < 40 or crop.shape[1] < 40:
-                    continue
-                cx = (fb["x"] + fb["w"] / 2.0) / float(w_img)
-                if s_num == 1:
-                    cid = "young_ebright" if cx < 0.50 else "mother"
-                elif s_num == 2:
-                    cid = "young_ebright"
-                elif s_num in [3, 4]:
-                    cid = "teen_ebright"
-                elif s_num == 5:
-                    cid = "college_ebright" if cx < 0.50 else "james_wong"
-                elif s_num == 6:
-                    cid = "college_ebright"
-                else:
-                    continue
-                raw_crops.append((cid, f"scene_{s_num}_seed_{sd}", crop))
+            for cid, src, crop in extract_hero_crops(p, s_num):
+                crops_by_char[cid].append((cid, src, crop))
 
-    # Select balanced 20 crops
-    rng = random.Random(42)  # Deterministic seed for preparation
-    rng.shuffle(raw_crops)
-    selected_20 = raw_crops[:20]
+    # 2. For mother and james_wong, supplement from legacy DEV-2 seed renders (seeds 303, 404)
+    for sd in [303, 404]:
+        p1 = archive_dir / f"scene_1_seed_{sd}.png"
+        for cid, src, crop in extract_hero_crops(p1, 1):
+            if cid == "mother":
+                crops_by_char["mother"].append((cid, src, crop))
+        p5 = archive_dir / f"scene_5_seed_{sd}.png"
+        for cid, src, crop in extract_hero_crops(p5, 5):
+            if cid == "james_wong":
+                crops_by_char["james_wong"].append((cid, src, crop))
+
+    # Select exactly 4 crops per character (20 crops total, perfectly balanced, zero anchor leakage)
+    selected_20 = []
+    for cid in ["young_ebright", "teen_ebright", "college_ebright", "mother", "james_wong"]:
+        available = crops_by_char[cid]
+        if len(available) < 4:
+            print(f"Warning: Only {len(available)} crops for {cid}")
+        selected_20.extend(available[:4])
+
+    rng = random.Random(42)  # Deterministic seed for unblindable shuffling
+    rng.shuffle(selected_20)
 
     sealed_reid_key = {}
     reid_manifest = []
@@ -195,10 +230,9 @@ def prepare_blind_reid():
     with open(REID_DIR / "reid_manifest.json", "w", encoding="utf-8") as f:
         json.dump(reid_manifest, f, indent=2)
 
-    print(f"[OK] Generated {len(reid_manifest)} Blind Re-ID crops. Sealed key saved.")
+    print(f"[OK] Generated {len(reid_manifest)} Blind Re-ID crops (4 per character, ZERO anchor leakage). Sealed key saved.")
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     prepare_blind_ab()
     prepare_blind_reid()
-

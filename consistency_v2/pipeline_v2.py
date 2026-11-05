@@ -61,7 +61,7 @@ class ConsistencyPipelineV2:
 
         # Enforce Forge memory parameters to guarantee VRAM <= 7.4 GB and prevent memory thrashing
         try:
-            self.client.set_options({"forge_inference_memory": 1024.0, "xl_GPU_MB": 3200.0})
+            self.client.set_options({"forge_inference_memory": 3072.0, "xl_GPU_MB": 1600.0, "disable_weights_auto_swap": False})
         except Exception:
             pass
 
@@ -81,6 +81,7 @@ class ConsistencyPipelineV2:
         self.face_detailer = FaceDetailer(forge_api_url=base_url)
         self.detailer_config = FaceDetailerConfig(
             enabled=self.config.enable_face_detailer,
+            face_size_threshold=300,
             denoising_strength=self.config.face_detailer_denoise,
             padding_px=self.config.face_detailer_padding,
             steps=self.config.face_detailer_steps,
@@ -278,6 +279,9 @@ class ConsistencyPipelineV2:
             "alwayson_scripts": alwayson_scripts
         }
 
+        import gc
+        gc.collect()
+
         with vram_guard(threshold_mb=7400.0, scene_tag=f"Scene {scene.scene_number} Pass 1"):
             draft_imgs, info1 = self.client.txt2img(txt2img_payload)
             if not draft_imgs:
@@ -361,11 +365,11 @@ class ConsistencyPipelineV2:
                 config=self.detailer_config
             )
             if detailed_cv is not None:
-                diff = compute_region_pixel_diff(current_cv, detailed_cv)
+                face_bboxes = [b.face_bbox for b in layout_boxes]
+                diff = compute_region_pixel_diff(current_cv, detailed_cv, bboxes=face_bboxes)
                 if diff > 0.5:
                     current_cv = detailed_cv
                     detailer_report = {"detailed": True, "pixel_diff": diff}
-                    face_bboxes = [b.face_bbox for b in layout_boxes]
                     tracer.record_stage(
                         "m6_face_detailer",
                         current_cv,
@@ -456,7 +460,7 @@ class ConsistencyPipelineV2:
                 image_bgr=current_cv,
                 faces_info=faces_for_wardrobe,
                 character_wardrobes=char_wardrobes,
-                blend_strength=0.85
+                blend_strength=0.70
             )
             tracer.record_stage(
                 "m7_wardrobe_lock",

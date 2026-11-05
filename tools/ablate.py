@@ -68,7 +68,8 @@ def run_ablation(
     scene_numbers: List[int] = [1, 2],
     seeds: List[int] = [11],
     conditions: Optional[List[str]] = None,
-    trace: bool = True
+    trace: bool = True,
+    overwrite: bool = False
 ) -> Dict[str, Any]:
     out_dir.mkdir(parents=True, exist_ok=True)
     with open(story_path, "r", encoding="utf-8") as f:
@@ -120,7 +121,7 @@ def run_ablation(
                 img_path = cond_dir / f"{render_key}.png"
                 sidecar_path = cond_dir / f"{render_key}.json"
 
-                if img_path.exists() and sidecar_path.exists():
+                if not overwrite and img_path.exists() and sidecar_path.exists():
                     print(f"    [SKIP] {render_key} already exists")
                     img_cv = cv2.imread(str(img_path))
                     with open(sidecar_path, "r", encoding="utf-8") as f:
@@ -207,32 +208,7 @@ def run_ablation(
         json.dump(stage_tracer_data, f, indent=2)
     print(f"Stage tracer verification saved to: {stage_tracer_file}")
 
-    stage_tracer_file = out_dir / "stage_tracer_verification.json"
-    stage_tracer_data = {
-        "verified_at": time.time(),
-        "total_conditions": len(cond_keys),
-        "conditions": {}
-    }
-    for c_name in cond_keys:
-        c_renders = results_matrix[c_name].get("renders", {})
-        stage_tracer_data["conditions"][c_name] = {
-            "config_hash": results_matrix[c_name]["config_hash"],
-            "overrides": results_matrix[c_name]["overrides"],
-            "renders_count": len(c_renders),
-            "renders": {
-                rk: {
-                    "sha256": rv["sha256"],
-                    "pixel_diff_vs_full": compute_region_pixel_diff(
-                        images_by_condition[c_name][rk],
-                        images_by_condition["full_v2"][rk]
-                    ) if (c_name != "full_v2" and rk in images_by_condition.get("full_v2", {}) and rk in images_by_condition.get(c_name, {})) else 0.0
-                } for rk, rv in c_renders.items()
-            },
-            "mean_pixel_diff_vs_full": results_matrix[c_name].get("mean_diff_vs_full", 0.0)
-        }
-    with open(stage_tracer_file, "w", encoding="utf-8") as f:
-        json.dump(stage_tracer_data, f, indent=2)
-    print(f"Stage tracer verification saved to: {stage_tracer_file}")
+
 
     return results_matrix
 
@@ -244,6 +220,7 @@ if __name__ == "__main__":
     parser.add_argument("--out-dir", type=str, default="results/ablation", help="Output directory")
     parser.add_argument("--conditions", nargs="+", type=str, default=None, help="Specific conditions to test")
     parser.add_argument("--no-trace", action="store_true", help="Disable stage tracing")
+    parser.add_argument("--overwrite", action="store_true", default=False, help="Overwrite existing renders")
     args = parser.parse_args()
 
     story_p = PROJECT_ROOT / "storyboards" / "ebright.json"
@@ -255,5 +232,6 @@ if __name__ == "__main__":
         scene_numbers=args.scenes,
         seeds=args.seeds,
         conditions=args.conditions,
-        trace=not args.no_trace
+        trace=not args.no_trace,
+        overwrite=args.overwrite
     )
