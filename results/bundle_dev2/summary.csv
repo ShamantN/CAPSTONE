@@ -3,15 +3,39 @@ scene_1_seed_101.png,1,The Spark of Curiosity,young_ebright,child,True,False,Fal
 scene_1_seed_101.png,1,The Spark of Curiosity,mother,adult,False,False,False,0.2264,True,0.0843,True,right,True,20.15,False,False,seg_ok,1048.49,102
 scene_1_seed_202.png,1,The Spark of Curiosity,young_ebright,child,True,False,False,0.3167,True,0.0315,True,left,True,36.57,False,False,seg_ok,1089.12,107
 scene_1_seed_202.png,1,The Spark of Curiosity,mother,adult,False,False,False,0.2333,True,0.0814,True,right,True,26.02,False,False,seg_ok,1232.27,100
+scene_1_seed_303.png,1,The Spark of Curiosity,young_ebright,child,True,False,False,0.2836,True,0.0296,True,left,False,56.7,False,False,seg_ok,771.93,100
+scene_1_seed_303.png,1,The Spark of Curiosity,mother,adult,False,False,False,0.2798,True,0.1038,True,right,True,18.34,False,False,seg_ok,912.7,108
+scene_1_seed_404.png,1,The Spark of Curiosity,young_ebright,child,True,False,False,0.2738,True,0.0231,True,left,True,32.09,False,False,seg_ok,708.41,105
+scene_1_seed_404.png,1,The Spark of Curiosity,mother,adult,False,False,False,0.2451,True,0.1121,True,right,True,32.83,False,False,seg_ok,1029.53,110
+scene_1_seed_505.png,1,The Spark of Curiosity,young_ebright,child,True,False,False,0.2023,False,-0.0544,True,left,False,53.57,False,False,seg_ok,944.66,113
+scene_1_seed_505.png,1,The Spark of Curiosity,mother,adult,False,False,False,0.2658,True,0.0939,True,right,True,23.82,False,False,seg_ok,1364.35,98
 scene_2_seed_101.png,2,The Butterfly Basement,young_ebright,child,True,False,False,0.2818,False,-0.0193,True,center,True,18.82,False,False,seg_ok,249.17,184
 scene_2_seed_202.png,2,The Butterfly Basement,young_ebright,child,True,False,False,0.2988,True,0.0302,True,center,True,35.39,False,False,seg_ok,368.77,174
+scene_2_seed_303.png,2,The Butterfly Basement,young_ebright,child,True,False,False,0.2599,False,-0.0231,True,center,True,32.84,False,False,seg_ok,234.87,175
+scene_2_seed_404.png,2,The Butterfly Basement,young_ebright,child,True,False,False,0.2838,False,-0.0086,True,center,False,39.42,False,False,seg_ok,279.48,160
+scene_2_seed_505.png,2,The Butterfly Basement,young_ebright,child,True,False,False,0.3268,False,-0.0333,True,center,True,19.46,False,False,seg_ok,334.92,173
 scene_3_seed_101.png,3,Failure at the Science Fair,teen_ebright,teen,False,True,False,0.3657,True,0.0989,True,center,True,21.28,False,False,seg_ok,190.92,190
 scene_3_seed_202.png,3,Failure at the Science Fair,teen_ebright,teen,False,True,False,0.3114,True,0.0793,True,center,True,21.72,False,False,seg_ok,751.22,118
+scene_3_seed_303.png,3,Failure at the Science Fair,teen_ebright,teen,False,True,False,0.2827,True,0.0654,True,center,True,22.11,False,False,seg_ok,174.56,220
+scene_3_seed_404.png,3,Failure at the Science Fair,teen_ebright,teen,False,True,False,0.2969,True,0.0518,True,center,True,21.83,False,False,seg_ok,99.99,279
+scene_3_seed_505.png,3,Failure at the Science Fair,teen_ebright,teen,False,True,False,0.2843,True,0.0376,True,center,True,28.16,False,False,seg_ok,796.88,119
 scene_4_seed_101.png,4,The Starling Experiment,teen_ebright,teen,False,True,False,0.3077,True,0.0602,True,center,True,19.43,False,False,seg_ok,393.4,157
 scene_4_seed_202.png,4,The Starling Experiment,teen_ebright,teen,False,True,False,0.3237,True,0.0936,True,center,True,18.59,False,False,seg_ok,437.65,151
+scene_4_seed_303.png,4,The Starling Experiment,teen_ebright,teen,False,True,False,0.3694,True,0.1252,True,center,True,21.52,False,False,seg_ok,291.77,167
+scene_4_seed_404.png,4,The Starling Experiment,teen_ebright,teen,False,True,False,0.3088,True,0.1039,True,center,True,35.16,False,False,seg_ok,398.95,148
+scene_4_seed_505.png,4,The Starling Experiment,teen_ebright,teen,False,True,False,0.3046,True,0.1012,True,center,True,18.42,False,False,seg_ok,401.42,162
 scene_5_seed_101.png,5,The Breakthrough at Harvard,college_ebright,adult,False,False,False,0.3711,True,0.0798,True,left,True,37.42,False,False,seg_ok,764.61,94
 scene_5_seed_101.png,5,The Breakthrough at Harvard,james_wong,adult,False,False,False,0.4012,True,0.1703,True,right,True,21.56,False,False,seg_ok,740.12,95
 scene_5_seed_202.png,5,The Breakthrough at Harvard,college_ebright,adult,False,False,False,0.4196,True,0.0727,True,left,True,37.44,False,False,seg_ok,714.4,107
 scene_5_seed_202.png,5,The Breakthrough at Harvard,james_wong,adult,False,False,False,0.3496,True,0.1448,True,right,True,28.17,False,False,seg_ok,1038.95,98
+scene_5_seed_303.png,5,The Breakthrough at Harvard,college_ebright,adult,False,False,False,0.0458,False,-0.2522,False,right,False,71.97,False,False,seg_ok,57.13,294
+scene_5_seed_303.png,5,The Breakthrough at Harvard,james_wong,adult,False,False,False,0.1137,False,-0.3013,False,left,False,55.48,False,False,seg_ok,469.84,115
+scene_5_seed_404.png,5,The Breakthrough at Harvard,college_ebright,adult,False,False,False,0.4746,True,0.1209,True,left,True,27.15,False,False,seg_ok,1195.33,85
+scene_5_seed_404.png,5,The Breakthrough at Harvard,james_wong,adult,False,False,False,0.3995,True,0.0767,True,right,True,15.49,False,False,seg_ok,478.63,165
+scene_5_seed_505.png,5,The Breakthrough at Harvard,college_ebright,adult,False,False,False,0.3398,True,0.0529,True,left,True,29.47,False,False,seg_ok,522.97,157
+scene_5_seed_505.png,5,The Breakthrough at Harvard,james_wong,adult,False,False,False,0.2603,True,0.0801,True,right,True,19.13,False,False,seg_ok,1221.7,85
 scene_6_seed_101.png,6,Graduation,college_ebright,adult,False,False,False,0.354,True,0.076,True,center,False,43.44,False,False,seg_ok,285.11,145
 scene_6_seed_202.png,6,Graduation,college_ebright,adult,False,False,False,0.387,True,0.0448,True,center,False,40.32,False,False,seg_ok,349.8,126
+scene_6_seed_303.png,6,Graduation,college_ebright,adult,False,False,False,0.4033,True,0.0651,True,center,False,38.73,False,False,seg_ok,343.82,132
+scene_6_seed_404.png,6,Graduation,college_ebright,adult,False,False,False,0.3956,True,0.0494,True,center,False,43.12,False,False,seg_ok,74.75,277
+scene_6_seed_505.png,6,Graduation,college_ebright,adult,False,False,False,0.3743,True,0.0866,True,center,False,42.17,False,False,seg_ok,394.99,134

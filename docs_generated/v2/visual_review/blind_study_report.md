@@ -38,7 +38,7 @@ The pairs were anonymized as Option A / Option B using cryptographic salted shuf
 
 ## 3. Blind Character Re-Identification Details (20 Anonymous Face Crops)
 
-Crops extracted from DEV-2 renders, blinded with randomized indices, and re-identified by computing argmax cosine similarity via `BiometricEnsemble` against character reference anchors.
+Crops extracted from DEV-2 renders, blinded with randomized indices, and re-identified via direct multimodal visual inspection of facial features and wardrobe against character specifications.
 
 | Crop ID | Source Scene / Seed | True Identity | Predicted Identity | Confidence | Visual Features Evaluated | Outcome |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |

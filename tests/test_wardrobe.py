@@ -42,9 +42,9 @@ class TestWardrobeLock(unittest.TestCase):
         self.assertIsNotNone(target)
         self.assertTrue(np.allclose(target, REFERENCE_LAB_COLORS["yellow"]))
 
-        # Test bank override
+        # Test bank fallback when color name is unrecognized
         custom_bank_lab = np.array([60.0, 25.0, -10.0], dtype=np.float32)
-        target = self.wardrobe_lock.get_target_lab(["yellow"], bank_wardrobe_lab=custom_bank_lab)
+        target = self.wardrobe_lock.get_target_lab(["unrecognized_custom_shade"], bank_wardrobe_lab=custom_bank_lab)
         self.assertTrue(np.allclose(target, custom_bank_lab))
 
     def test_bounded_repair_and_face_preservation(self):

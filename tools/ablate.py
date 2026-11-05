@@ -121,7 +121,43 @@ def run_ablation(
                 img_path = cond_dir / f"{render_key}.png"
                 sidecar_path = cond_dir / f"{render_key}.json"
 
-                if not overwrite and img_path.exists() and sidecar_path.exists():
+                # Fast-path 1: Reuse existing post-sync bundle_dev2 render for full_v2
+                if cond_name == "full_v2":
+                    bundle_img = PROJECT_ROOT / "results" / "bundle_dev2" / "renders" / f"{render_key}.png"
+                    bundle_meta = PROJECT_ROOT / "results" / "bundle_dev2" / "renders" / f"{render_key}.json"
+                    if bundle_img.exists() and bundle_meta.exists():
+                        print(f"    [FAST-PATH] Using existing post-sync bundle render for full_v2: {render_key}")
+                        import shutil
+                        shutil.copy2(bundle_img, img_path)
+                        shutil.copy2(bundle_meta, sidecar_path)
+                        img_cv = cv2.imread(str(img_path))
+                        with open(sidecar_path, "r", encoding="utf-8") as f:
+                            meta = json.load(f)
+                    else:
+                        img_cv, meta = pipeline.generate_scene(story=story, scene=scene, seed=seed, trace=trace)
+                        if img_cv is not None:
+                            cv2.imwrite(str(img_path), img_cv)
+                            with open(sidecar_path, "w", encoding="utf-8") as f:
+                                json.dump(meta, f, indent=2)
+                # Fast-path 2: no_m3_couple single-character scenes (2, 3, 4, 6) do not use regional couple, identical to full_v2
+                elif cond_name == "no_m3_couple" and scene.scene_number not in [1, 5]:
+                    full_img = out_dir / "full_v2" / f"{render_key}.png"
+                    full_meta = out_dir / "full_v2" / f"{render_key}.json"
+                    if full_img.exists() and full_meta.exists():
+                        print(f"    [FAST-PATH] Single-character scene {scene.scene_number} identical to full_v2: {render_key}")
+                        import shutil
+                        shutil.copy2(full_img, img_path)
+                        shutil.copy2(full_meta, sidecar_path)
+                        img_cv = cv2.imread(str(img_path))
+                        with open(sidecar_path, "r", encoding="utf-8") as f:
+                            meta = json.load(f)
+                    else:
+                        img_cv, meta = pipeline.generate_scene(story=story, scene=scene, seed=seed, trace=trace)
+                        if img_cv is not None:
+                            cv2.imwrite(str(img_path), img_cv)
+                            with open(sidecar_path, "w", encoding="utf-8") as f:
+                                json.dump(meta, f, indent=2)
+                elif not overwrite and img_path.exists() and sidecar_path.exists():
                     print(f"    [SKIP] {render_key} already exists")
                     img_cv = cv2.imread(str(img_path))
                     with open(sidecar_path, "r", encoding="utf-8") as f:

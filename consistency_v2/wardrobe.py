@@ -201,9 +201,6 @@ class WardrobeLock:
         bank_wardrobe_lab: Optional[np.ndarray] = None
     ) -> Optional[np.ndarray]:
         """Resolves target CIELAB color from expected color names (story spec) or bank reference."""
-        if bank_wardrobe_lab is not None:
-            return np.array(bank_wardrobe_lab, dtype=np.float32)
-
         for c_name in expected_color_names:
             clean = c_name.lower().strip()
             if clean in REFERENCE_LAB_COLORS:
