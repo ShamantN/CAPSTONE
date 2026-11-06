@@ -21,6 +21,9 @@ EXCLUDED_FILES = {
     PROJECT_ROOT / "tests" / "test_splits.py",
     PROJECT_ROOT / "tools" / "audit_test2_isolation.py",
     PROJECT_ROOT / "tools" / "claims_audit.py",
+    PROJECT_ROOT / "tools" / "run_sealed_test2.py",
+    PROJECT_ROOT / "tools" / "compute_test2_statistics.py",
+    PROJECT_ROOT / "tools" / "render_docs.py",
 }
 
 

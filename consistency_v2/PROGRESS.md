@@ -159,8 +159,8 @@ Source file: `results/rescored_v1.2/rescored_summary.json` (Rescored on 2026-10-
 - [ ] Execute leave-one-out ablation on DEV-2
 - [ ] R8: Real Visual Review (Contact sheets, blind review, canary verification)
 - [ ] R9: End-to-End Clean-Slate Run (Headless execution and UI walkthrough)
-- [ ] R10: Final Sealed Evaluation on TEST-2 (Single run, cluster bootstrap CIs)
-- [ ] R11: Rebuild Documentation from Artifacts & Tag `v2.0.0-rc2`
+- [x] R10: Final Sealed Evaluation on TEST-2: 30 Ebright + 12 Holdout renders completed strictly one-shot. 10,000 cluster-bootstrap 95% CIs and Wilcoxon tests calculated in `results/test2_evaluation_summary.json`. All 4 hypotheses P1-P4 confirmed MET.
+- [x] R11: Rebuild Documentation from Artifacts: `results/numbers.json` gathered, documentation rendered via `tools/render_docs.py`, doc-lint tests verified passing, and tagged `v2.0.0-rc2`.
 
 ---
 

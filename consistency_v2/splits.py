@@ -64,6 +64,9 @@ def _log_split_access(split: str, caller_info: str, log_path: Optional[Path] = N
         f.write(json.dumps(event) + "\n")
 
 
+log_split_access = _log_split_access
+
+
 def assert_split_allowed(split: str, caller_info: str = "", log_path: Optional[Path] = None):
     """
     Enforces access guards on data splits:

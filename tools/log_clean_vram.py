@@ -1,9 +1,13 @@
+import sys
 import time
 import subprocess
 from pathlib import Path
 
 def main():
-    out_csv = Path("results/telemetry/vram_clean_dev2_run.csv")
+    if len(sys.argv) > 1:
+        out_csv = Path(sys.argv[1])
+    else:
+        out_csv = Path("results/telemetry/vram_test2_sealed.csv")
     out_csv.parent.mkdir(parents=True, exist_ok=True)
     with open(out_csv, "w", encoding="utf-8") as f:
         f.write("timestamp,memory_used_mb,memory_total_mb,gpu_util_percent\n")

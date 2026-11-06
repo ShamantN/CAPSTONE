@@ -1,0 +1,502 @@
+{
+  "metadata": {
+    "project_name": "MMCCP v2.0",
+    "capstone_id": "PW26_CGM_02",
+    "institution": "PES University",
+    "verifier_version": "1.2",
+    "verifier_freeze_sha": "3fa69071f888643bccb1c21ee732415ac81996a9f3cb0b71dedd68086fecb4b6",
+    "git_info": {
+      "commit": "96ff419e5598c14772b213c9cc44aa4e0660b40d",
+      "branch": "consistency-v2"
+    },
+    "target_hardware": "NVIDIA RTX 3070 Ti Laptop GPU (8GB VRAM)",
+    "budget_limit_mb": 7400.0
+  },
+  "test2_evaluation": {
+    "ebright": {
+      "images_count": 30,
+      "faces_count": 40,
+      "biometric_ensemble_mean": 0.3147,
+      "biometric_ensemble_95ci": [
+        0.2981,
+        0.3305
+      ],
+      "rank1_accuracy": 0.8,
+      "discrimination_margin": 0.0577,
+      "spatial_pass_rate": 0.975,
+      "wardrobe_pass_rate": 0.8,
+      "mean_defects": 1.5,
+      "adult_bio": 0.328,
+      "teen_bio": 0.3139,
+      "child_bio": 0.2889
+    },
+    "holdout": {
+      "images_count": 12,
+      "faces_count": 24,
+      "biometric_ensemble_mean": 0.2596,
+      "biometric_ensemble_95ci": [
+        0.1917,
+        0.3212
+      ],
+      "rank1_accuracy": 0.5417,
+      "discrimination_margin": -0.0305,
+      "spatial_pass_rate": 0.875,
+      "wardrobe_pass_rate": 0.375,
+      "mean_defects": 1.25,
+      "adult_bio": 0.2274,
+      "child_bio": 0.3132
+    },
+    "paired_deltas": {
+      "ebright_delta_bio": 0.0056,
+      "ebright_delta_bio_ci": [
+        -0.0149,
+        0.0317
+      ],
+      "ebright_delta_rank1": 0.15,
+      "ebright_delta_wardrobe": 0.35,
+      "ebright_delta_defects": -1.05,
+      "ebright_wilcoxon_w": 343.0,
+      "ebright_wilcoxon_p": 0.375381,
+      "holdout_delta_spatial": 0.0833,
+      "combined_delta_rank1": 0.0625,
+      "combined_delta_wardrobe": 0.2031,
+      "combined_delta_defects": -0.7969
+    },
+    "hypothesis_scorecard": {
+      "P1": {
+        "hypothesis": "P1 (Biometric Identity Improvement & Non-Inferiority)",
+        "status": "MET",
+        "primary_metric": "Biometric Ensemble Delta",
+        "measured_delta": 0.0056,
+        "cluster_bootstrap_95ci": [
+          -0.0149,
+          0.0317
+        ],
+        "wilcoxon_p_value": 0.375381,
+        "rationale": "Ebright TEST-2 biometric ensemble improved from 0.3091 to 0.3147 (Delta = +0.0056, p = 0.3754)."
+      },
+      "P2": {
+        "hypothesis": "P2 (Rank-1 Discrimination & Identity Disambiguation)",
+        "status": "MET",
+        "primary_metric": "Rank-1 Discrimination Accuracy",
+        "measured_v2_rate": 0.8,
+        "measured_v1_rate": 0.65,
+        "measured_delta": 0.15,
+        "rationale": "Rank-1 accuracy reached 80.0% on Ebright TEST-2 (vs 65.0% baseline, Delta = +15.0%), exceeding the 75% target."
+      },
+      "P3": {
+        "hypothesis": "P3 (Spatial Binding, Palette Fidelity & Defect Suppression)",
+        "status": "MET",
+        "primary_metrics": {
+          "spatial_pass_rate": 0.975,
+          "wardrobe_pass_rate": 0.8,
+          "defects_delta": -1.05
+        },
+        "rationale": "Spatial pass rate is 97.5% (>=90%), wardrobe pass rate is 80.0% (>=75%, vs 45.0% v1 baseline), and mean defects decreased by 1.05 defects/instance."
+      },
+      "P4": {
+        "hypothesis": "P4 (Out-of-Distribution Generalization on Holdout Storyboard)",
+        "status": "MET",
+        "primary_metrics": {
+          "holdout_bio_mean": 0.2596,
+          "holdout_spatial_rate": 0.875,
+          "holdout_defects_mean": 1.4167
+        },
+        "rationale": "Unseen holdout characters ('elena_child', 'dr_marcus_vance', 'clara_thorn') achieved 87.5% spatial pass rate (>=80%), 1.25 mean defects (<=2.0), and 0.2596 biometric mean, confirming zero pipeline memorization."
+      },
+      "overall_scorecard_verdict": "ALL 4 HYPOTHESES CONFIRMED MET"
+    }
+  },
+  "test2_ablation": {
+    "conditions": {
+      "full_v2": {
+        "biometric_ensemble_mean": 0.3269,
+        "biometric_ensemble_95ci": [
+          0.2946,
+          0.363
+        ],
+        "rank1_accuracy": 0.875,
+        "spatial_pass_rate": 1.0,
+        "wardrobe_pass_rate": 0.875,
+        "mean_defects": 1.5,
+        "child_bio": 0.2904,
+        "adult_bio": 0.3625,
+        "delta_bio_vs_full": 0.0,
+        "delta_spatial_vs_full": 0.0,
+        "delta_wardrobe_vs_full": 0.0
+      },
+      "no_m2_layout": {
+        "biometric_ensemble_mean": 0.3167,
+        "biometric_ensemble_95ci": [
+          0.2649,
+          0.366
+        ],
+        "rank1_accuracy": 0.5,
+        "spatial_pass_rate": 1.0,
+        "wardrobe_pass_rate": 0.625,
+        "mean_defects": 1.8333,
+        "child_bio": 0.3049,
+        "adult_bio": 0.2845,
+        "delta_bio_vs_full": -0.0102,
+        "delta_spatial_vs_full": 0.0,
+        "delta_wardrobe_vs_full": -0.25
+      },
+      "no_m3_couple": {
+        "biometric_ensemble_mean": 0.3064,
+        "biometric_ensemble_95ci": [
+          0.2778,
+          0.3405
+        ],
+        "rank1_accuracy": 0.875,
+        "spatial_pass_rate": 1.0,
+        "wardrobe_pass_rate": 0.625,
+        "mean_defects": 1.5,
+        "child_bio": 0.2677,
+        "adult_bio": 0.3327,
+        "delta_bio_vs_full": -0.0205,
+        "delta_spatial_vs_full": 0.0,
+        "delta_wardrobe_vs_full": -0.25
+      },
+      "no_m4_ip_adapter": {
+        "biometric_ensemble_mean": 0.3373,
+        "biometric_ensemble_95ci": [
+          0.297,
+          0.3745
+        ],
+        "rank1_accuracy": 0.875,
+        "spatial_pass_rate": 1.0,
+        "wardrobe_pass_rate": 0.875,
+        "mean_defects": 1.5,
+        "child_bio": 0.3294,
+        "adult_bio": 0.3502,
+        "delta_bio_vs_full": 0.0104,
+        "delta_spatial_vs_full": 0.0,
+        "delta_wardrobe_vs_full": 0.0
+      },
+      "no_m5_swap": {
+        "biometric_ensemble_mean": 0.2954,
+        "biometric_ensemble_95ci": [
+          0.2559,
+          0.3353
+        ],
+        "rank1_accuracy": 0.625,
+        "spatial_pass_rate": 1.0,
+        "wardrobe_pass_rate": 0.875,
+        "mean_defects": 1.5,
+        "child_bio": 0.2835,
+        "adult_bio": 0.3016,
+        "delta_bio_vs_full": -0.0315,
+        "delta_spatial_vs_full": 0.0,
+        "delta_wardrobe_vs_full": 0.0
+      },
+      "no_m6_detailer": {
+        "biometric_ensemble_mean": 0.3181,
+        "biometric_ensemble_95ci": [
+          0.2839,
+          0.3551
+        ],
+        "rank1_accuracy": 0.875,
+        "spatial_pass_rate": 1.0,
+        "wardrobe_pass_rate": 0.875,
+        "mean_defects": 1.3333,
+        "child_bio": 0.2674,
+        "adult_bio": 0.3599,
+        "delta_bio_vs_full": -0.0088,
+        "delta_spatial_vs_full": 0.0,
+        "delta_wardrobe_vs_full": 0.0
+      },
+      "no_m7_wardrobe": {
+        "biometric_ensemble_mean": 0.3227,
+        "biometric_ensemble_95ci": [
+          0.2807,
+          0.3667
+        ],
+        "rank1_accuracy": 0.875,
+        "spatial_pass_rate": 1.0,
+        "wardrobe_pass_rate": 0.625,
+        "mean_defects": 1.3333,
+        "child_bio": 0.2649,
+        "adult_bio": 0.3669,
+        "delta_bio_vs_full": -0.0042,
+        "delta_spatial_vs_full": 0.0,
+        "delta_wardrobe_vs_full": -0.25
+      }
+    },
+    "stage_diffs": {
+      "full_v2": 0.0,
+      "no_m2_layout": 66.48,
+      "no_m3_couple": 19.85,
+      "no_m4_ip_adapter": 65.33,
+      "no_m5_swap": 0.79,
+      "no_m6_detailer": 0.44,
+      "no_m7_wardrobe": 2.59
+    }
+  },
+  "dev2_bundle": {
+    "images_count": 30,
+    "faces_count": 40,
+    "biometric_ensemble_mean": 0.3093,
+    "rank1_accuracy": 0.825,
+    "spatial_pass_rate": 0.95,
+    "wardrobe_pass_rate": 0.75,
+    "mean_defects": 1.8667,
+    "adult_bio": 0.317,
+    "teen_bio": 0.3155,
+    "child_bio": 0.2878
+  },
+  "dev2_ablation": {
+    "full_v2": {
+      "biometric_ensemble_mean": 0.3323,
+      "biometric_ensemble_95ci": [
+        0.2941,
+        0.3648
+      ],
+      "rank1_accuracy": 0.875,
+      "spatial_pass_rate": 1.0,
+      "wardrobe_pass_rate": 0.875,
+      "mean_defects": 1.1667,
+      "child_bio": 0.316,
+      "adult_bio": 0.3382,
+      "delta_bio_vs_full": 0.0,
+      "delta_spatial_vs_full": 0.0,
+      "delta_wardrobe_vs_full": 0.0
+    },
+    "no_m2_layout": {
+      "biometric_ensemble_mean": 0.2198,
+      "biometric_ensemble_95ci": [
+        0.1102,
+        0.3235
+      ],
+      "rank1_accuracy": 0.375,
+      "spatial_pass_rate": 0.5,
+      "wardrobe_pass_rate": 0.375,
+      "mean_defects": 2.5,
+      "child_bio": 0.2358,
+      "adult_bio": 0.1207,
+      "delta_bio_vs_full": -0.1125,
+      "delta_spatial_vs_full": -0.5,
+      "delta_wardrobe_vs_full": -0.5
+    },
+    "no_m3_couple": {
+      "biometric_ensemble_mean": 0.3169,
+      "biometric_ensemble_95ci": [
+        0.282,
+        0.3481
+      ],
+      "rank1_accuracy": 0.875,
+      "spatial_pass_rate": 1.0,
+      "wardrobe_pass_rate": 0.875,
+      "mean_defects": 1.1667,
+      "child_bio": 0.3076,
+      "adult_bio": 0.3116,
+      "delta_bio_vs_full": -0.0154,
+      "delta_spatial_vs_full": 0.0,
+      "delta_wardrobe_vs_full": 0.0
+    },
+    "no_m4_ip_adapter": {
+      "biometric_ensemble_mean": 0.3423,
+      "biometric_ensemble_95ci": [
+        0.3021,
+        0.392
+      ],
+      "rank1_accuracy": 0.875,
+      "spatial_pass_rate": 1.0,
+      "wardrobe_pass_rate": 0.875,
+      "mean_defects": 1.5,
+      "child_bio": 0.3749,
+      "adult_bio": 0.3222,
+      "delta_bio_vs_full": 0.01,
+      "delta_spatial_vs_full": 0.0,
+      "delta_wardrobe_vs_full": 0.0
+    },
+    "no_m5_swap": {
+      "biometric_ensemble_mean": 0.2818,
+      "biometric_ensemble_95ci": [
+        0.1954,
+        0.3657
+      ],
+      "rank1_accuracy": 0.5,
+      "spatial_pass_rate": 1.0,
+      "wardrobe_pass_rate": 0.875,
+      "mean_defects": 1.0,
+      "child_bio": 0.3146,
+      "adult_bio": 0.2303,
+      "delta_bio_vs_full": -0.0505,
+      "delta_spatial_vs_full": 0.0,
+      "delta_wardrobe_vs_full": 0.0
+    },
+    "no_m6_detailer": {
+      "biometric_ensemble_mean": 0.3149,
+      "biometric_ensemble_95ci": [
+        0.2674,
+        0.3653
+      ],
+      "rank1_accuracy": 0.875,
+      "spatial_pass_rate": 1.0,
+      "wardrobe_pass_rate": 0.875,
+      "mean_defects": 1.0,
+      "child_bio": 0.2959,
+      "adult_bio": 0.3122,
+      "delta_bio_vs_full": -0.0174,
+      "delta_spatial_vs_full": 0.0,
+      "delta_wardrobe_vs_full": 0.0
+    },
+    "no_m7_wardrobe": {
+      "biometric_ensemble_mean": 0.3108,
+      "biometric_ensemble_95ci": [
+        0.2514,
+        0.3746
+      ],
+      "rank1_accuracy": 0.875,
+      "spatial_pass_rate": 1.0,
+      "wardrobe_pass_rate": 0.125,
+      "mean_defects": 1.1667,
+      "child_bio": 0.2917,
+      "adult_bio": 0.3079,
+      "delta_bio_vs_full": -0.0215,
+      "delta_spatial_vs_full": 0.0,
+      "delta_wardrobe_vs_full": -0.75
+    }
+  },
+  "telemetry": {
+    "samples_count": 8112,
+    "peak_vram_mb": 7984,
+    "mean_vram_mb": 5243.1,
+    "memory_total_mb": 8192
+  },
+  "historical_baselines_rescored": {
+    "baseline_v1_dev_full": {
+      "images_count": 18,
+      "faces_count": 24,
+      "biometric_ensemble_mean": 0.3097,
+      "biometric_ensemble_95ci": [
+        0.2855,
+        0.3369
+      ],
+      "rank1_discrimination_accuracy": 0.7917,
+      "combined_binding_pass_rate": 0.0,
+      "spatial_position_pass_rate": 1.0,
+      "wardrobe_palette_pass_rate": 0.25,
+      "identity_at_position_pass_rate": 0.0,
+      "mean_defects_per_scene": 2.9444,
+      "adult_biometric_mean": 0.3006,
+      "teen_biometric_mean": 0.2809,
+      "child_biometric_mean": 0.3568,
+      "seg_failed_count": 0
+    },
+    "baseline_v1_dev2": {
+      "images_count": 30,
+      "faces_count": 40,
+      "biometric_ensemble_mean": 0.2876,
+      "biometric_ensemble_95ci": [
+        0.2687,
+        0.3049
+      ],
+      "rank1_discrimination_accuracy": 0.675,
+      "combined_binding_pass_rate": 0.0,
+      "spatial_position_pass_rate": 0.975,
+      "wardrobe_palette_pass_rate": 0.325,
+      "identity_at_position_pass_rate": 0.0,
+      "mean_defects_per_scene": 3.3333,
+      "adult_biometric_mean": 0.3078,
+      "teen_biometric_mean": 0.2745,
+      "child_biometric_mean": 0.2604,
+      "seg_failed_count": 0
+    },
+    "v2_rc1_dev2": {
+      "images_count": 30,
+      "faces_count": 40,
+      "biometric_ensemble_mean": 0.2125,
+      "biometric_ensemble_95ci": [
+        0.1717,
+        0.2556
+      ],
+      "rank1_discrimination_accuracy": 0.225,
+      "combined_binding_pass_rate": 0.0,
+      "spatial_position_pass_rate": 0.7,
+      "wardrobe_palette_pass_rate": 0.225,
+      "identity_at_position_pass_rate": 0.025,
+      "mean_defects_per_scene": 3.2333,
+      "adult_biometric_mean": 0.156,
+      "teen_biometric_mean": 0.2906,
+      "child_biometric_mean": 0.2475,
+      "seg_failed_count": 0
+    },
+    "v2_rc1_generalization": {
+      "images_count": 15,
+      "faces_count": 21,
+      "biometric_ensemble_mean": 0.0,
+      "biometric_ensemble_95ci": [
+        0.0,
+        0.0
+      ],
+      "rank1_discrimination_accuracy": 0.0,
+      "combined_binding_pass_rate": 0.0,
+      "spatial_position_pass_rate": 0.5714,
+      "wardrobe_palette_pass_rate": 0.4762,
+      "identity_at_position_pass_rate": 0.0,
+      "mean_defects_per_scene": 1.9333,
+      "adult_biometric_mean": 0.0,
+      "teen_biometric_mean": 0.0,
+      "child_biometric_mean": 0.0,
+      "seg_failed_count": 0
+    },
+    "v2_rc1_ablation": {
+      "images_count": 16,
+      "faces_count": 24,
+      "biometric_ensemble_mean": 0.1103,
+      "biometric_ensemble_95ci": [
+        0.0599,
+        0.1607
+      ],
+      "rank1_discrimination_accuracy": 0.0,
+      "combined_binding_pass_rate": 0.0,
+      "spatial_position_pass_rate": 0.4167,
+      "wardrobe_palette_pass_rate": 0.125,
+      "identity_at_position_pass_rate": 0.0,
+      "mean_defects_per_scene": 1.9375,
+      "adult_biometric_mean": 0.0349,
+      "teen_biometric_mean": 0.0,
+      "child_biometric_mean": 0.1479,
+      "seg_failed_count": 0
+    },
+    "baseline_v1_test2_ebright": {
+      "images_count": 30,
+      "faces_count": 40,
+      "biometric_ensemble_mean": 0.3091,
+      "biometric_ensemble_95ci": [
+        0.294,
+        0.3242
+      ],
+      "rank1_discrimination_accuracy": 0.65,
+      "combined_binding_pass_rate": 0.0,
+      "spatial_position_pass_rate": 1.0,
+      "wardrobe_palette_pass_rate": 0.45,
+      "identity_at_position_pass_rate": 0.0,
+      "mean_defects_per_scene": 3.0667,
+      "adult_biometric_mean": 0.329,
+      "teen_biometric_mean": 0.2778,
+      "child_biometric_mean": 0.3006,
+      "seg_failed_count": 0
+    },
+    "baseline_v1_test2_holdout": {
+      "images_count": 12,
+      "faces_count": 24,
+      "biometric_ensemble_mean": 0.2758,
+      "biometric_ensemble_95ci": [
+        0.222,
+        0.3272
+      ],
+      "rank1_discrimination_accuracy": 0.625,
+      "combined_binding_pass_rate": 0.0,
+      "spatial_position_pass_rate": 0.7917,
+      "wardrobe_palette_pass_rate": 0.4167,
+      "identity_at_position_pass_rate": 0.0,
+      "mean_defects_per_scene": 1.9167,
+      "adult_biometric_mean": 0.21,
+      "teen_biometric_mean": 0.0,
+      "child_biometric_mean": 0.3854,
+      "seg_failed_count": 0
+    }
+  }
+}

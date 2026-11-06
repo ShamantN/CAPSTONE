@@ -27,9 +27,19 @@ from consistency_v2.identity_bank import IdentityBankManager
 
 BANKS_ROOT = PROJECT_ROOT / "consistency_v2" / "banks"
 ANCHORS_DIR = PROJECT_ROOT / "experiments" / "clean_run_ground_truth" / "anchors"
+HOLDOUT_ANCHORS_DIR = ANCHORS_DIR / "holdout"
 CACHE_FILE = PROJECT_ROOT / "hardcoded_cache.json"
 
-CHARACTERS = ["young_ebright", "mother", "teen_ebright", "college_ebright", "james_wong"]
+CHAR_ANCHOR_MAP = {
+    "young_ebright": ANCHORS_DIR / "young_ebright_ground_truth.png",
+    "mother": ANCHORS_DIR / "mother_ground_truth.png",
+    "teen_ebright": ANCHORS_DIR / "teen_ebright_ground_truth.png",
+    "college_ebright": ANCHORS_DIR / "college_ebright_ground_truth.png",
+    "james_wong": ANCHORS_DIR / "james_wong_ground_truth.png",
+    "elena_child": HOLDOUT_ANCHORS_DIR / "elena_child_ground_truth.png",
+    "dr_marcus_vance": HOLDOUT_ANCHORS_DIR / "dr_marcus_vance_ground_truth.png",
+    "clara_thorn": HOLDOUT_ANCHORS_DIR / "clara_thorn_ground_truth.png",
+}
 
 def main():
     print("=" * 80)
@@ -47,8 +57,7 @@ def main():
         except Exception:
             cache_data = {}
 
-    for cid in CHARACTERS:
-        gt_path = ANCHORS_DIR / f"{cid}_ground_truth.png"
+    for cid, gt_path in CHAR_ANCHOR_MAP.items():
         if not gt_path.exists():
             print(f"[ERROR] Ground truth anchor {gt_path} not found!")
             sys.exit(1)
@@ -130,21 +139,21 @@ def main():
     print("  VERIFYING COSINE SIMILARITY: consistency_v2/banks VS experiments/.../anchors")
     print("=" * 80)
     all_exact_one = True
-    for cid in CHARACTERS:
+    for cid, gt_p in CHAR_ANCHOR_MAP.items():
         p1 = BANKS_ROOT / cid / f"ref_00_{cid}_anchor.png"
-        p2 = ANCHORS_DIR / f"{cid}_ground_truth.png"
+        p2 = gt_p
         im1 = cv2.imread(str(p1))
         im2 = cv2.imread(str(p2))
         e1 = ensemble.extract_face_embeddings(im1)
         e2 = ensemble.extract_face_embeddings(im2)
         sims = {m: float(np.dot(e1[m], e2[m])) for m in BiometricEnsemble.JUDGE_MODELS if m in e1 and m in e2}
         mean_sim = np.mean(list(sims.values()))
-        print(f"{cid:<16}: mean={mean_sim:.4f} | Facenet512={sims.get('Facenet512', 0):.4f} | SFace={sims.get('SFace', 0):.4f} | GhostFaceNet={sims.get('GhostFaceNet', 0):.4f} | ArcFace={sims.get('ArcFace', 0):.4f}")
+        print(f"{cid:<18}: mean={mean_sim:.4f} | Facenet512={sims.get('Facenet512', 0):.4f} | SFace={sims.get('SFace', 0):.4f} | GhostFaceNet={sims.get('GhostFaceNet', 0):.4f} | ArcFace={sims.get('ArcFace', 0):.4f}")
         if abs(mean_sim - 1.0) > 1e-4:
             all_exact_one = False
 
     if all_exact_one:
-        print("\n[SUCCESS] All 5 characters achieve EXACT 1.0000 cosine similarity with verifier ground-truth anchors!")
+        print("\n[SUCCESS] All 8 characters (5 Ebright + 3 Holdout) achieve EXACT 1.0000 cosine similarity with verifier ground-truth anchors!")
     else:
         print("\n[FAIL] Not all similarities are 1.0000")
         sys.exit(1)

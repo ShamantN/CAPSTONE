@@ -39,6 +39,10 @@ results/ablation/
 results/m1_screening/**/*.png
 results/iterations/**/*.png
 results/bundle_dev2/renders/
+results/test2_ebright/renders/
+results/test2_holdout/renders/
+results/ablation_test2/full_v2/
+results/ablation_test2/no_*/
 results/*.png
 !results/MANIFEST.json
 docs_generated/raw/ablation_images/
