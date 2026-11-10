@@ -1,4 +1,7 @@
 {
+  "status": "AUTOMATED-SUPERSEDED",
+  "evaluation_type": "automated, not human",
+  "superseded_by": "docs_generated/v2/visual_review/blind_study_report.json (still automated, not human) and docs_generated/v2/visual_review/HUMAN_BLIND_TEST.md (pending human input)",
   "blind_ab_preference": {
     "total_pairs_evaluated": 12,
     "v2_preferred_count": 12,

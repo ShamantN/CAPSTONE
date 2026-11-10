@@ -54,10 +54,15 @@ YOLO_WEIGHTS = PROJECT_ROOT / "models" / "yolov8n.pt"
 if not YOLO_WEIGHTS.exists():
     YOLO_WEIGHTS = Path("yolov8n.pt")
 
+import argparse
+
+def load_scene_expected(storyboard_path: Path) -> Dict[int, int]:
+    with open(storyboard_path, "r", encoding="utf-8") as f:
+        spec = json.load(f)
+    return {s["scene_number"]: len(s.get("characters_present", [])) for s in spec["scenes"]}
+
 STORYBOARD_PATH = PROJECT_ROOT / "storyboards" / "ebright.json"
-with open(STORYBOARD_PATH, "r", encoding="utf-8") as f:
-    story_spec = json.load(f)
-SCENE_EXPECTED = {s["scene_number"]: len(s.get("characters_present", [])) for s in story_spec["scenes"]}
+SCENE_EXPECTED = load_scene_expected(STORYBOARD_PATH)
 
 def detect_persons_yolo(model: YOLO, img_bgr: np.ndarray, conf_thresh: float = 0.40) -> List[Dict[str, Any]]:
     """Runs YOLOv8 person detection (class 0)."""
@@ -77,19 +82,25 @@ def detect_persons_yolo(model: YOLO, img_bgr: np.ndarray, conf_thresh: float = 0
                 })
     return persons
 
-def audit_directory(dir_path: Path, model: YOLO, label: str) -> Dict[str, Any]:
+def audit_directory(dir_path: Path, model: YOLO, label: str, scene_expected: Dict[int, int] = None) -> Dict[str, Any]:
     print(f"\n--- Auditing [{label}]: {dir_path} ---")
-    img_files = sorted(list(dir_path.glob("scene_*.png")))
+    expected_map = scene_expected if scene_expected is not None else SCENE_EXPECTED
+    img_files = sorted(list(dir_path.glob("*scene_*.png")))
     total_imgs = len(img_files)
     flagged_extra_persons = []
     
     for p in img_files:
-        # Parse scene number from filename
-        # e.g. scene_1_seed_11.png
-        parts = p.stem.split("_")
-        s_num = int(parts[1])
-        seed = int(parts[3]) if len(parts) >= 4 else 0
-        expected = SCENE_EXPECTED.get(s_num, 1)
+        # Parse scene number and seed robustly (supports scene_1_seed_11.png and holdout_scene_1_seed_1101.png)
+        import re as _re
+        m_fn = _re.search(r"scene_(\d+).*?_seed_(\d+)", p.stem)
+        if m_fn:
+            s_num = int(m_fn.group(1))
+            seed = int(m_fn.group(2))
+        else:
+            parts = p.stem.split("_")
+            s_num = int(parts[1])
+            seed = int(parts[3]) if len(parts) >= 4 else 0
+        expected = expected_map.get(s_num, 1)
         
         img = cv2.imread(str(p))
         if img is None:
@@ -122,12 +133,36 @@ def audit_directory(dir_path: Path, model: YOLO, label: str) -> Dict[str, Any]:
     }
 
 def main():
+    parser = argparse.ArgumentParser(description="MMCCP Structural Extra Person Detector (YOLOv8n, Read-Only)")
+    parser.add_argument("--target", action="append", nargs=3, metavar=("DIR", "STORYBOARD", "LABEL"),
+                        help="Target directory, storyboard JSON path, and dataset label (repeatable)")
+    parser.add_argument("--out", type=str, default="", help="Output JSON path")
+    args = parser.parse_args()
+
     print("=" * 80)
-    print("MMCCP Phase R7: Structural Extra Person Detector")
+    print("MMCCP Structural Extra Person Detector (YOLOv8n)")
     print("=" * 80)
     
     print("Loading YOLOv8n model...")
     model = YOLO(str(YOLO_WEIGHTS))
+
+    if args.target:
+        results = {}
+        for d_str, sb_str, label in args.target:
+            d_path = PROJECT_ROOT / d_str if not Path(d_str).is_absolute() else Path(d_str)
+            sb_path = PROJECT_ROOT / sb_str if not Path(sb_str).is_absolute() else Path(sb_str)
+            if not d_path.exists():
+                print(f"Directory not found, skipping: {d_path}")
+                continue
+            exp_map = load_scene_expected(sb_path)
+            res = audit_directory(d_path, model, label, scene_expected=exp_map)
+            results[label] = res
+        out_json = (PROJECT_ROOT / args.out) if (args.out and not Path(args.out).is_absolute()) else (Path(args.out) if args.out else PROJECT_ROOT / "results" / "structural_extra_person_audit_custom.json")
+        out_json.parent.mkdir(parents=True, exist_ok=True)
+        with open(out_json, "w", encoding="utf-8") as f:
+            json.dump({"datasets": results}, f, indent=2)
+        print(f"\nSaved extra person audit to: {out_json}")
+        return
     
     datasets = [
         # DEV-FAST datasets
