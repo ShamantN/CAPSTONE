@@ -146,6 +146,30 @@ def render_all():
 > [!NOTE]
 > Documentation reconciled from `v2.0.0-rc2`: earlier `rc2` summaries omitted pre-registration shifts, mixed defect units (`per-scene` vs `per-face-instance`), overstated Holdout performance, and omitted whole-system VRAM excursions above `{pc['p4_vram_limit_gb']} GB`. All metrics below are generated strictly from [`results/numbers.json`](file:///D:/5TH%20SEM/HACKATHON/results/numbers.json).
 
+### Branch, Tag, Reproduction & Non-Repo Assets
+- **Recommended Branch / Tag:** Use branch `consistency-v2` (synced with `main`, containing reconciled closeout documentation) or tag `v2.0.0-rc3` (`consistency-v2` release candidate snapshot prior to the `main` conflict-resolution merge).
+- **Reproduce Verification, Statistics & Docs (CPU / No GPU Required):**
+  ```powershell
+  my_app_env\\Scripts\\python.exe tools\\check_freeze.py
+  my_app_env\\Scripts\\python.exe tools\\audit_test2_isolation.py
+  my_app_env\\Scripts\\python.exe tools\\compute_test2_statistics.py
+  my_app_env\\Scripts\\python.exe tools\\collect_numbers.py
+  my_app_env\\Scripts\\python.exe tools\\render_docs.py
+  my_app_env\\Scripts\\python.exe -m unittest discover -s tests -p "test_*.py"
+  my_app_env\\Scripts\\python.exe -m unittest -v tests.verifier_controls.test_controls
+  ```
+- **Reproduce Canonical Banks & DEV Renders (Local Forge WebUI + GPU Required):**
+  ```powershell
+  my_app_env\\Scripts\\python.exe tools\\sync_canonical_banks.py
+  my_app_env\\Scripts\\python.exe tools\\render_dev2_bundle.py
+  my_app_env\\Scripts\\python.exe tools\\score_ablation_dev2.py
+  ```
+  *(Sealed `TEST-2` is burned after one-shot evaluation: never re-run with `ALLOW_TEST2`, and keep quarantined seeds `{{{r_seeds}}}` untouched.)*
+- **What Is NOT in the Repository & Where It Lives:**
+  - **Model Weights (`*.safetensors`, `*.onnx`, `*.pt`, `*.bin`):** SDXL base, ControlNet OpenPose XL, IP-Adapter Plus Face, InsightFace `inswapper_128`, SegFormer, DeepFace, and YOLO weights live locally in `C:\\Stable-Diffusion\\` and workstation HuggingFace / InsightFace caches (gitignored).
+  - **Active Character Banks & Embedding Caches:** `consistency_v2/banks/` and `hardcoded_cache.json` are gitignored runtime artifacts regenerated via `tools/sync_canonical_banks.py` from ground-truth anchors; workstation archives live outside git in `D:\\5TH SEM\\HACKATHON_RC2_BACKUP_FOR_LIVE_DEMO\\` and `D:\\5TH SEM\\_demo_state_archive\\`.
+  - **Generated Renders & Visual Review PNGs:** `results/test2_ebright/renders/`, `results/test2_holdout/renders/`, `results/bundle_dev2/renders/`, `results/ablation_dev2/`, `results/ablation_test2/`, `docs_generated/v2/visual_review/contact_sheets/`, `human_blind_ab/*.png`, and `human_blind_reid_crops/*.png` are excluded via `.gitignore`. All quantitative verification JSON/CSV artifacts (`results/numbers.json`, `results/**/report*.json`, `results/**/*.csv`, `docs_generated/v2/*.md`) ARE tracked in git; full render archives should be shared via a GitHub Release asset or Google Drive archive rather than committed.
+
 ### Verifier Freeze & Protocol Constants
 - **Frozen Verifier:** `v{meta['verifier_version']}` (`SHA: {meta['verifier_freeze_sha'][:16]}...`)
 - **Bootstrap:** `{pc['n_bootstrap_resamples']}` iterations (fixed seed `{pc['bootstrap_random_seed']}`), reporting **both** image-level and scene-cluster 95% CIs.
