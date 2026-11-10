@@ -616,6 +616,41 @@ def check_freeze_and_splits(project_root: Path) -> List[CheckResult]:
     return results
 
 
+def check_forge_patches(
+    forge_dir: Optional[Path] = None,
+    project_root: Optional[Path] = None,
+) -> CheckResult:
+    """Checks whether the 3 recommended MMCCP upstream Forge patches are applied cleanly."""
+    target_dir = Path(forge_dir) if forge_dir is not None else get_forge_dir()
+    patches_dir = (project_root or get_project_root()) / "patches" / "forge"
+    try:
+        from tools.apply_forge_patches import manage_patches
+        rc, report = manage_patches("check", forge_dir=target_dir, patches_dir=patches_dir)
+    except Exception as exc:
+        return CheckResult("Forge Patches", "WARN", f"Could not inspect Forge patches: {exc}")
+
+    if rc == 0:
+        return CheckResult(
+            "Forge Patches",
+            "PASS",
+            f"All {len(report.get('patches', []))} recommended upstream Forge patches applied cleanly.",
+        )
+    if rc == 1:
+        missing = [p["name"] for p in report.get("patches", []) if p.get("state") != "ALREADY_APPLIED"]
+        return CheckResult(
+            "Forge Patches",
+            "WARN",
+            f"{len(missing)} recommended upstream Forge patch(es) unapplied ({', '.join(missing)}).",
+            f'python tools/apply_forge_patches.py --forge-dir "{target_dir}" --apply',
+        )
+    return CheckResult(
+        "Forge Patches",
+        "WARN",
+        report.get("error", "Forge git repository mismatch/unavailable for patch check."),
+        "See patches/forge/README.md before applying Forge patches manually.",
+    )
+
+
 def run_preflight(
     mode: str = "new-machine",
     skip_forge: bool = False,
@@ -634,6 +669,7 @@ def run_preflight(
     results.extend(check_gpu_and_torch(mode))
     results.extend(check_packages(root / "requirements-lock.txt", mode))
     results.extend(check_forge_api(forge_url=forge_url, skip_forge=skip_forge))
+    results.append(check_forge_patches(project_root=root))
     results.extend(check_weights(models_dir, root, verify_sha256=verify_sha256))
     results.extend(check_freeze_and_splits(root))
     return results

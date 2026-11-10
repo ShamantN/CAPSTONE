@@ -126,6 +126,16 @@ class TestVerifySetup(unittest.TestCase):
             res = vs.check_forge_api("http://127.0.0.1:7860", skip_forge=False)
             self.assertTrue(any(r.status == "FAIL" for r in res))
 
+    def test_check_forge_patches_pass_and_warn(self):
+        with mock.patch("tools.apply_forge_patches.manage_patches", return_value=(0, {"patches": [{"name": "01.patch", "state": "ALREADY_APPLIED"}]})):
+            r = vs.check_forge_patches(forge_dir=Path("C:/FakeForge"))
+            self.assertEqual(r.status, "PASS")
+
+        with mock.patch("tools.apply_forge_patches.manage_patches", return_value=(1, {"patches": [{"name": "01.patch", "state": "UNAPPLIED"}]})):
+            r = vs.check_forge_patches(forge_dir=Path("C:/FakeForge"))
+            self.assertEqual(r.status, "WARN")
+            self.assertIn("apply_forge_patches.py", r.fix_hint)
+
 
 if __name__ == "__main__":
     unittest.main()
