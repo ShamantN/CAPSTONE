@@ -118,13 +118,17 @@ git clone https://github.com/Gourieff/sd-webui-reactor-sfw.git sd-webui-reactor
 
 *(InsightFace Note: Forge's embedded Python `C:\Stable-Diffusion\system\python\python.exe` carries `insightface-0.7.3-cp310-cp310-win_amd64.whl` and `onnxruntime-gpu==1.17.1` used by MMCCP's M5 subprocess face swapper.)*
 
-### 4.4 Pre-Existing Workstation Forge Patches (`UNTESTED` Unpatched Upstream Forge)
-Inspection of `C:\Stable-Diffusion\webui` showed three small pre-existing local patches (`Aug–Sep 2026`) in upstream Forge commit `dfdcbab685e57677014f05a3309b48cc87383167`:
-1. `extensions-builtin/sd_forge_ipadapter/lib_ipadapter/IPAdapterPlus.py`: synchronizes conditioning tensors & masks (`cond`, `to_kvs`, `mask`) to `q.device` / `org_dtype` and guards `tensorToNP` against dict inputs (prevents `RuntimeError: Expected all tensors to be on the same device, cpu and cuda:0!` when 8 GB GPUs offload layers; see [`experiments/ipadapter_device_fix_report.md`](../../experiments/ipadapter_device_fix_report.md)).
-2. `extensions-builtin/sd_forge_controlnet/scripts/controlnet.py`: adds `if i in self.current_params:` guards in `process_before_every_sampling` / `postprocess_batch_list`.
-3. `modules_forge/utils.py`: adds dict/`Tensor`/`None` type guards to `numpy_to_pytorch()`.
+### 4.4 Recommended Upstream Forge Patches
+The reference workstation (`C:\Stable-Diffusion\webui`) carried three small modifications (`Aug–Sep 2026`) against upstream Forge commit `dfdcbab685e57677014f05a3309b48cc87383167`, now shipped in [`patches/forge/`](../../patches/forge/README.md):
+1. `01_ipadapter_device_and_np_fix.patch` (`IPAdapterPlus.py`): adds missing `import numpy as np`, unwraps dict image payloads, and synchronizes conditioning tensors & masks to `q.device` / `org_dtype`.
+2. `02_controlnet_null_param_guard.patch` (`controlnet.py`): guards `if i in self.current_params:` when sampling ControlNet units.
+3. `03_forge_utils_numpy_to_pytorch.patch` (`modules_forge/utils.py`): unwraps dict image payloads and `Tensor`/`None` inputs in `numpy_to_pytorch()`.
 
-Because running **M4 IP-Adapter Plus-Face SDXL** on unpatched upstream Forge is `UNTESTED` here, keep [05_TROUBLESHOOTING.md](05_TROUBLESHOOTING.md#28-ipadapterpluspy-device-mismatch-cpu-vs-cuda0-on-8-gb-gpus) handy if upstream Forge raises a CUDA/CPU tensor mismatch.
+*Honest Clean-Copy Finding:* When tested against a clean stock Forge `dfdcbab6...` copy (`D:\5TH SEM\_forge_clean_test`) on `scene 1, seed 11` (`v2 default` IP-Adapter Plus-Face SDXL), the unpatched run completed without crashing (`RC=0`), because these defects historically triggered on `FaceID Plus v2` / multi-unit / dict API workloads (`experiments/ipadapter_device_fix_report.md`, `phase8_4_master_validation_report.md`). We therefore ship all 3 patches as **recommended** hardening:
+
+```powershell
+python tools\apply_forge_patches.py --forge-dir "C:\Stable-Diffusion" --apply
+```
 
 ---
 
@@ -239,7 +243,10 @@ python run_from_scratch.py --pipeline v2 --mode fast --story storyboards\ebright
 What happens & verified Step 3 measurements ([`TEST_LOG.md`](TEST_LOG.md)):
 1. Bootstraps `2` fresh character anchors (`young_ebright` `47s`, `mother` `27s`) into `experiments\fresh_run_from_scratch\anchors\` and writes `hardcoded_cache.json`.
 2. Renders `edu_outputs\v2_fast\scene_1_seed_11.png` (`Pass 1: 97.38s`, `Pass 2: 16.08s`, CPU `inswapper_128: ~27s`, CodeFormer: `~10s`, SegFormer WardrobeLock -> pipeline scene runtime **`174.86s` / `2.92 min`**) + telemetry sidecar `scene_1_seed_11.json` + copies `edu_outputs\images\scene_1.png`.
-3. Prints evaluation rows (`Composite: 0.5173 (51.7%)` in Step 3 fresh run; total end-to-end command runtime **`312.71s` / `5.21 min`**; **`7887.0 MiB`** peak 1 Hz system VRAM, `0` OOMs).
+3. Prints quick evaluation rows (`Composite: 0.5173` in Step 3 fresh run; total end-to-end command runtime **`312.71s` / `5.21 min`** on an 8 GB laptop).
+- **Important Metric Caveat:** The `Composite` table printed by `run_from_scratch.py` comes from **legacy `metrics.py`**, **not** Frozen Verifier `v1.2`, and is **NOT comparable** with the paper / `TEST-2` numbers in [`README_V2.md`](../../README_V2.md).
+- **Important VRAM Reality:** During this smoke test, peak whole-system GPU VRAM reached **`7887.0 MiB` (`7.70 GiB`)** (`0` OOMs), exceeding the **`7.4 GB` design budget** (`7984 MiB` / `7.797 GiB` peak on sealed `TEST-2`).
+- **Expected Install Cost:** Expect **`~7.72 GiB`** (`7,909.2 MB`) for the Python `venv`, **`~10` minutes** of `pip` downloads/installs (`~535s`–`710s` + `~219s`–`288s` CUDA PyTorch), **`~14.2 GiB`** of required model weights (`~22–25 GiB` with runtime caches), and **`~3–5` minutes per scene** on an 8 GB laptop GPU.
 
 Open `edu_outputs\v2_fast\scene_1_seed_11.png` visually and confirm you see **two separate figures** (young boy on left in yellow top, mother on right in blue patterned blouse) matching their fresh anchors.
 

@@ -89,3 +89,28 @@ pip install -r requirements.txt                                   # 535.49s
 3. Stopped Streamlit & WebUI Forge cleanly; `nvidia-smi` returned to **`398 MiB used / 7620 MiB free`**.
 4. Tested Section 13 Zero-Cache Reset (`Remove-Item hardcoded_cache.json`, `edu_outputs`, `experiments\fresh_run_from_scratch`): verified cleanly removed without touching `experiments\clean_run_ground_truth` or `results\`.
 
+---
+
+## 3. Clean-Copy Forge Patch Proof (`D:\5TH SEM\_forge_clean_test\`, `0.15 GiB` Copy)
+- **Setup:** Copied `C:\Stable-Diffusion\webui` cleanly (excluding huge model/venv caches), passed `--models-dir "C:\Stable-Diffusion\webui\models"` read-only, ran `tools/apply_forge_patches.py --revert` inside the copy only (`--check` exit `1`, all `3` patches `UNAPPLIED`, `git status` stock at `dfdcbab685e57677014f05a3309b48cc87383167`).
+- **Without Patches (Unpatched Stock Run, `scene 1, seed 11`):**
+  - Completed with exit `0` (`3.65 min` scene render; no runtime traceback in `forge_stock.log`; noted initial checkpoint fallback to `animagine-xl-3.1` until `cache.json` hashes Juggernaut-XL).
+  - **Honest Result:** Because the `IPAdapterPlus.py` `cpu vs cuda:0` and dict-payload failures occurred historically on `FaceID Plus v2` / multi-unit / dict workloads rather than `v2 default` `IP-Adapter Plus-Face SDXL`, the failure without patches was **not reproduced** here; the `3` patches are therefore shipped as **recommended**.
+- **With Patches Applied (`tools/apply_forge_patches.py --apply` -> `--check` exit `0`):**
+  - Re-ran `scene 1, seed 11` against patched `_forge_clean_test` with Juggernaut-XL (`--ckpt ...`): completed cleanly (`RC=0`, `3.69 min` render / `274.15s` total); visually verified output `scene_1_seed_11.png`; `C:\Stable-Diffusion\webui` remained untouched.
+- **Tool Unit Tests:** `tests/test_apply_forge_patches.py` (`3/3 OK` on a temporary toy git repo testing `--check`, idempotent `--apply`, idempotent `--revert`, commit mismatch refusal, conflict refusal, missing `.git` refusal).
+
+---
+
+## 4. Fresh-`venv` Frozen Verifier Re-Score Proof (`DEV-2`, Zero Pin Drift)
+Executed `D:\5TH SEM\_fresh_machine_test\venv\Scripts\python.exe` (`deepface 0.0.104`, `tensorflow 2.20.0`, `transformers 4.57.6`, `opencv-python 4.11.0.86`, `retina-face 0.0.19`) on CPU (`CUDA_VISIBLE_DEVICES=-1`) over all `30` `results/bundle_dev2/renders` images (`40` face instances):
+- **Re-Score Runtime:** `1527.76s` (`25.46 min`), exit `0` (`report -> scratch/dev2_fresh_venv_report_v1_2.json`).
+- **Comparison vs Canonical `results/bundle_dev2/report_v1_2.json`:**
+  - All `32` `summary_metrics` scalars: **`max_abs_diff = 0.00000000`** (`biometric_ensemble_mean = 0.3093`, `rank1 = 0.825`, `spatial = 0.95`, `wardrobe = 0.75`).
+  - All `40` `raw_biometric_ensemble_scores`: **`max_abs_diff = 0.00000000`**.
+  - All `38` numeric metrics across all `30` `per_scene_reports` (`Facenet512`, `SFace`, `GhostFaceNet`, `ArcFace`, `clip_i`, `dinov2`, `wardrobe_delta_e`, `face_sharpness`, `defect_count`, `bbox`, etc.): **`max_abs_diff = 0.00000000`**.
+  - `comparative_significance`: **`max_abs_diff = 0.0`**.
+  - Conclusion: Updated `requirements.txt` pins cause **zero** numeric drift (`0.00000000 <= 0.002` threshold; no lock-pin changes required).
+- **Verifier Controls in Fresh `venv`:** `unittest -v tests.verifier_controls.test_controls` -> **`Ran 15 tests in 187.220s -> OK`** (`197.75s` wall time).
+
+

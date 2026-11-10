@@ -9,13 +9,15 @@
 
 | Check | Scope | Result | Notes |
 | :--- | :--- | :---: | :--- |
-| **File length cap (`< 600` lines each)** | All `10` markdown files under `docs/run/` | **PASS** | Range `50–331` lines per file (`01_NEW_MACHINE_WINDOWS.md` is `331` lines) |
+| **File length cap (`< 600` lines each)** | All `11` markdown files under `docs/run/` | **PASS** | Range `47–338` lines per file (`01_NEW_MACHINE_WINDOWS.md` is `338` lines) |
 | **Required status + baseline headers** | All files under `docs/run/` | **PASS** | Top lines explicitly declare `TESTED` / `VERIFIED` / `UNTESTED` + branch/commit |
 | **Stale marker grep** | Unresolved draft tags across `docs/run/` | **PASS (`0` hits)** | Verified by regex scan |
 | **Secret scan (`tools/secret_scan.py`)** | All repo modified + untracked files | **PASS (`CLEAN`)** | Also verified `0` API key/token literals in `docs/run/` & `notebooks/` |
-| **Relative markdown links** | All relative markdown targets in `docs/run/*` | **PASS (`0` broken)** | Verified after adding `REVIEW.md` |
+| **Relative markdown links** | All relative markdown targets in `docs/run/*` | **PASS (`0` broken)** | Verified across all `docs/run/*.md` files |
 | **Personal path leak audit** | `01_NEW_MACHINE_WINDOWS.md` & newbie guides | **PASS** | Uses generic `<MMCCP_ROOT>` / `C:\Projects\MMCCP` & `env` vars |
-| **Notebook structural validation** | `notebooks/MMCCP_Colab.ipynb` (`31` cells: `16` md, `15` code) | **PASS** | `json.loads`, nbformat v4 keys, Python `ast.parse`, `bash -n` on `28` shell cmds, `7/7` URL/size/SHA parity with `WEIGHT_MANIFEST` |
+| **Notebook structural validation** | `notebooks/MMCCP_Colab.ipynb` (`34` cells: `18` md, `16` code) | **PASS** | `json.loads`, nbformat v4 keys, Python `ast.parse`, `bash -n` on `30` shell cmds, `7/7` URL/size/SHA parity with `WEIGHT_MANIFEST` |
+| **Forge patch CLI + clean copy test** | `patches/forge/*.patch`, `tools/apply_forge_patches.py` | **PASS (`recommended`)** | Toy-repo unit tests `3/3 OK`; clean copy at `D:\5TH SEM\_forge_clean_test\` tested unpatched & patched (`RC=0` each, no M4 crash reproduced on Plus-Face) |
+| **Fresh `venv` Frozen Verifier parity** | DEV-2 (`30` renders, `40` faces) + `15` controls | **PASS (`0.00000000` diff)** | `max_abs_diff = 0.00000000` vs `report_v1_2.json`; `15/15` `test_controls.py` `OK` |
 | **Frozen Verifier (`v1.2`) integrity** | `tools/check_freeze.py` | **PASS** | `Version 1.2 (SHA: 3fa69071f888643b...)` untouched |
 | **Split hygiene (`tools/audit_test2_isolation.py`)** | Whole repo Python tree + notebook | **PASS** | `TEST-2` & `RESERVED` splits untouched; zero unauthorized seed references |
 | **Canonical docs consistency (`tests.test_docs_numbers`)** | `README_V2.md` & `docs_generated/v2/*` | **PASS (`4/4 OK`)** | Re-rendered cleanly via `tools/render_docs.py` |
@@ -47,9 +49,10 @@ Per zero-fabrication rules, items without an exact verified SHA-256 checksum on 
 | **Streamlit `app.py` headless boot + zero-cache reset (`Remove-Item hardcoded_cache.json ...`)** | **TESTED** | HTTP `200 ok` on `/_stcore/health`, clean cleanup preserving original `D:\5TH SEM\HACKATHON` caches |
 | **Full 6-scene zero-cache `v2 default` demo & DEV-2 rescore** | **TESTED** *(on main repo)* | `18.72 min` 6-scene demo (`2026-11-10` archive) & DEV-2 `report_v1_2.json` — not repeated inside `_fresh_machine_test` |
 | **Empty-PC WebUI Forge `.7z` extraction & manual `~14–22 GiB` weight download** | **UNTESTED** | Tested against pre-existing `C:\Stable-Diffusion` read-only; live HTTP `HEAD` & SHA-256 verified |
-| **Unpatched upstream Forge `IPAdapterPlus.py` / `controlnet.py` / `utils.py` with M4** | **UNTESTED** | Author `C:\Stable-Diffusion\webui` carried 3 pre-existing Aug–Sep 2026 fixes documented in §4.4 & Troubleshooting `#28` |
+| **Unpatched upstream Forge `IPAdapterPlus.py` / `controlnet.py` / `utils.py` (`v2 default`)** | **TESTED** *(no crash reproduced on `Plus-Face`)* | Clean stock copy at `D:\5TH SEM\_forge_clean_test` completed `scene 1, seed 11` (`RC=0`); 3 patches shipped as recommended hardening |
+| **Fresh `venv` DEV-2 rescore + `15` Verifier controls** | **TESTED** | `max_abs_diff = 0.00000000` vs `results/bundle_dev2/report_v1_2.json`; `15/15` `test_controls.py` OK |
 | **Linux setup (`02_LINUX_NOTES.md`)** | **UNTESTED** | Portability helpers & `/proc/meminfo` unit-tested with mocks (`tests/test_portability.py` `6/6`), no live Linux GPU run |
-| **Google Colab (`03_GOOGLE_COLAB.md` + `notebooks/MMCCP_Colab.ipynb`)** | **UNTESTED** | Statically validated JSON/AST/`bash -n`/SHA parity; no live Colab T4 execution |
+| **Google Colab (`03_GOOGLE_COLAB.md` + `notebooks/MMCCP_Colab.ipynb`)** | **UNTESTED by choice** | Statically validated JSON/AST/`bash -n`/SHA parity; no live Colab T4 execution |
 | **`< 8 GB` VRAM GPUs (e.g., 6 GB `--lowvram`)** | **UNTESTED / UNSUPPORTED** | `8 GB` GPU already reaches `7887–7984 MiB` system peak |
 
 ---

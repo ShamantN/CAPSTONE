@@ -122,6 +122,10 @@ On Linux:
 - DeepFace's 4 biometric judges (`Facenet512`, `SFace`, `GhostFaceNet`, `ArcFace`) and RetinaFace face detection still execute normally inside your active Linux Python environment.
 - Subprocess-only `torch_bridge` probes (YOLOv8n person count, SegFormer clothes audit, DINOv2 similarity, CLIP props inside `consistency_v2/verify/`) are skipped when that Windows binary does not exist — do **not** report Linux verifier totals as full `v1.2` parity runs without noting this skipped bridge.
 
-## 4. Upstream Forge IP-Adapter Device Patch Note (`UNTESTED`)
-On the tested Windows workstation, `C:\Stable-Diffusion\webui\extensions-builtin\sd_forge_ipadapter\lib_ipadapter\IPAdapterPlus.py` had a local patch ensuring `cond`, `to_kvs`, and `mask` match `q.device` / `org_dtype` (preventing `RuntimeError: cpu and cuda:0` on aggressive GPU/RAM offloading; see [`experiments/ipadapter_device_fix_report.md`](../../experiments/ipadapter_device_fix_report.md)). If unpatched upstream Forge raises that error on Linux, apply that device sync fix in `IPAdapterPlus.py` (see [05_TROUBLESHOOTING.md](05_TROUBLESHOOTING.md#28-ipadapterpluspy-device-mismatch-cpu-vs-cuda0-on-8-gb-gpus)).
+## 4. Recommended Upstream Forge Patches (`UNTESTED`)
+The tested Windows workstation (`C:\Stable-Diffusion\webui`) carried `3` patches against upstream Forge commit `dfdcbab685e57677014f05a3309b48cc87383167` — shipped in [`patches/forge/`](../../patches/forge/README.md) with [`tools/apply_forge_patches.py`](../../tools/apply_forge_patches.py):
+```bash
+python tools/apply_forge_patches.py --forge-dir "$FORGE_DIR" --apply
+```
+*(In clean-copy Windows testing at `D:\5TH SEM\_forge_clean_test`, the unpatched `v2 default` IP-Adapter Plus-Face SDXL smoke path finished without crashing, so these `3` patches are shipped as **recommended** hardening against `FaceID Plus v2` / multi-unit / dict-payload errors documented in `experiments/ipadapter_device_fix_report.md` and `phase8_4_master_validation_report.md`.)*
 
