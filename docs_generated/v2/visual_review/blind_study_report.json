@@ -1,4 +1,6 @@
 {
+  "evaluation_type": "automated, not human",
+  "note": "Post-remediation Phase R8 automated proxy evaluation on DEV-2; see HUMAN_BLIND_TEST.md for pending human evaluation.",
   "blind_ab_study": {
     "total_pairs": 12,
     "v2_wins": 10,

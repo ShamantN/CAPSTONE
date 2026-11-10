@@ -1,4 +1,6 @@
 {
+  "evaluation_type": "automated, not human",
+  "note": "Automated Verifier v1.2 response check on planted synthetic defect canaries; not human visual review.",
   "verifier_version": "1.2",
   "total_canaries": 3,
   "total_caught": 3,

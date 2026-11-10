@@ -1,5 +1,8 @@
 # Phase R8: Local VLM Second Opinion Review Report
 
+> [!NOTE]
+> **Evaluation Type: `automated, not human`** — Automated CPU VLM (`BLIP` + `CLIP`) proxy check on 12 DEV-2 pairs, not human annotation.
+
 **Date:** 2026-11-02  
 **Backbones:** `Salesforce/blip-image-captioning-base` & `openai/clip-vit-base-patch32` (Pinned to CPU)  
 **Inter-Rater Agreement on Person Count (Cohen's Kappa):** **0.2258** (Moderate Agreement)  

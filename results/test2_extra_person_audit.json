@@ -1,0 +1,123 @@
+{
+  "datasets": {
+    "v2_test2_ebright": {
+      "label": "v2_test2_ebright",
+      "directory": "D:\\5TH SEM\\HACKATHON\\results\\test2_ebright\\renders",
+      "total_images": 30,
+      "flagged_count": 1,
+      "flagged_rate": 0.0333,
+      "flagged_images": [
+        {
+          "filename": "scene_5_seed_1202.png",
+          "scene": 5,
+          "seed": 1202,
+          "expected": 2,
+          "detected_persons_yolo": 3,
+          "extra_count": 1,
+          "person_boxes": [
+            {
+              "x": 181,
+              "y": 21,
+              "w": 324,
+              "h": 797
+            },
+            {
+              "x": 391,
+              "y": 32,
+              "w": 731,
+              "h": 796
+            },
+            {
+              "x": 411,
+              "y": 350,
+              "w": 703,
+              "h": 482
+            }
+          ]
+        }
+      ]
+    },
+    "v2_test2_holdout": {
+      "label": "v2_test2_holdout",
+      "directory": "D:\\5TH SEM\\HACKATHON\\results\\test2_holdout\\renders",
+      "total_images": 12,
+      "flagged_count": 0,
+      "flagged_rate": 0.0,
+      "flagged_images": []
+    },
+    "v1_test2_ebright": {
+      "label": "v1_test2_ebright",
+      "directory": "D:\\5TH SEM\\HACKATHON\\results\\baseline_v1\\test2\\ebright",
+      "total_images": 30,
+      "flagged_count": 1,
+      "flagged_rate": 0.0333,
+      "flagged_images": [
+        {
+          "filename": "scene_1_seed_1202.png",
+          "scene": 1,
+          "seed": 1202,
+          "expected": 2,
+          "detected_persons_yolo": 3,
+          "extra_count": 1,
+          "person_boxes": [
+            {
+              "x": 48,
+              "y": 135,
+              "w": 594,
+              "h": 640
+            },
+            {
+              "x": 863,
+              "y": 11,
+              "w": 352,
+              "h": 807
+            },
+            {
+              "x": 561,
+              "y": 193,
+              "w": 399,
+              "h": 635
+            }
+          ]
+        }
+      ]
+    },
+    "v1_test2_holdout": {
+      "label": "v1_test2_holdout",
+      "directory": "D:\\5TH SEM\\HACKATHON\\results\\baseline_v1\\test2\\holdout",
+      "total_images": 12,
+      "flagged_count": 1,
+      "flagged_rate": 0.0833,
+      "flagged_images": [
+        {
+          "filename": "scene_2_mentorship_seed_1202.png",
+          "scene": 2,
+          "seed": 1202,
+          "expected": 2,
+          "detected_persons_yolo": 3,
+          "extra_count": 1,
+          "person_boxes": [
+            {
+              "x": 487,
+              "y": 129,
+              "w": 727,
+              "h": 696
+            },
+            {
+              "x": 0,
+              "y": 26,
+              "w": 1212,
+              "h": 796
+            },
+            {
+              "x": 0,
+              "y": 37,
+              "w": 629,
+              "h": 785
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

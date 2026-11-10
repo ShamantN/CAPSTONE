@@ -1,0 +1,312 @@
+{
+  "evaluation_type": "read_only_audit_existing_renders",
+  "v1_dir": "results\\baseline_v1\\test2\\ebright",
+  "v2_dir": "results\\test2_ebright\\renders",
+  "anchor_similarity_circularity": {
+    "v1": {
+      "n_total_slots": 40,
+      "n_detected": 40,
+      "models": {
+        "Facenet512": {
+          "mean_all_slots": 0.6171,
+          "std_all_slots": 0.0952,
+          "mean_detected_only": 0.6171
+        },
+        "SFace": {
+          "mean_all_slots": 0.1311,
+          "std_all_slots": 0.0621,
+          "mean_detected_only": 0.1311
+        },
+        "GhostFaceNet": {
+          "mean_all_slots": 0.0235,
+          "std_all_slots": 0.0719,
+          "mean_detected_only": 0.0235
+        },
+        "ArcFace": {
+          "mean_all_slots": 0.0333,
+          "std_all_slots": 0.0454,
+          "mean_detected_only": 0.0333
+        },
+        "Ensemble_4Judge": {
+          "mean_all_slots": 0.2013,
+          "std_all_slots": 0.0296,
+          "mean_detected_only": 0.2013
+        },
+        "InsightFace_buffalo_l": {
+          "mean_all_slots": 0.7408,
+          "std_all_slots": 0.1127,
+          "mean_detected_only": 0.7408
+        }
+      },
+      "by_age_group": {
+        "adult": {
+          "n": 40,
+          "Ensemble_4Judge": 0.2013,
+          "InsightFace_buffalo_l": 0.7408
+        }
+      }
+    },
+    "v2": {
+      "n_total_slots": 40,
+      "n_detected": 40,
+      "models": {
+        "Facenet512": {
+          "mean_all_slots": 0.6836,
+          "std_all_slots": 0.1183,
+          "mean_detected_only": 0.6836
+        },
+        "SFace": {
+          "mean_all_slots": 0.1365,
+          "std_all_slots": 0.0591,
+          "mean_detected_only": 0.1365
+        },
+        "GhostFaceNet": {
+          "mean_all_slots": 0.0294,
+          "std_all_slots": 0.0592,
+          "mean_detected_only": 0.0294
+        },
+        "ArcFace": {
+          "mean_all_slots": 0.0313,
+          "std_all_slots": 0.032,
+          "mean_detected_only": 0.0313
+        },
+        "Ensemble_4Judge": {
+          "mean_all_slots": 0.2202,
+          "std_all_slots": 0.0351,
+          "mean_detected_only": 0.2202
+        },
+        "InsightFace_buffalo_l": {
+          "mean_all_slots": 0.8397,
+          "std_all_slots": 0.1261,
+          "mean_detected_only": 0.8397
+        }
+      },
+      "by_age_group": {
+        "adult": {
+          "n": 40,
+          "Ensemble_4Judge": 0.2202,
+          "InsightFace_buffalo_l": 0.8397
+        }
+      }
+    },
+    "paired_v2_minus_v1": {
+      "Facenet512": {
+        "n_pairs": 40,
+        "v1_mean": 0.6171,
+        "v2_mean": 0.6836,
+        "paired_delta_mean": 0.0665,
+        "image_level_95ci": [
+          0.0316,
+          0.0969
+        ]
+      },
+      "SFace": {
+        "n_pairs": 40,
+        "v1_mean": 0.1311,
+        "v2_mean": 0.1365,
+        "paired_delta_mean": 0.0053,
+        "image_level_95ci": [
+          -0.0133,
+          0.0225
+        ]
+      },
+      "GhostFaceNet": {
+        "n_pairs": 40,
+        "v1_mean": 0.0235,
+        "v2_mean": 0.0294,
+        "paired_delta_mean": 0.0059,
+        "image_level_95ci": [
+          -0.0203,
+          0.032
+        ]
+      },
+      "ArcFace": {
+        "n_pairs": 40,
+        "v1_mean": 0.0333,
+        "v2_mean": 0.0313,
+        "paired_delta_mean": -0.002,
+        "image_level_95ci": [
+          -0.0138,
+          0.0107
+        ]
+      },
+      "Ensemble_4Judge": {
+        "n_pairs": 40,
+        "v1_mean": 0.2013,
+        "v2_mean": 0.2202,
+        "paired_delta_mean": 0.0189,
+        "image_level_95ci": [
+          0.0044,
+          0.0321
+        ]
+      },
+      "InsightFace_buffalo_l": {
+        "n_pairs": 40,
+        "v1_mean": 0.7408,
+        "v2_mean": 0.8397,
+        "paired_delta_mean": 0.0989,
+        "image_level_95ci": [
+          0.0551,
+          0.1396
+        ]
+      }
+    },
+    "v2_pearson_r_insightface_vs_judges": {
+      "Facenet512": 0.8881,
+      "SFace": 0.3939,
+      "GhostFaceNet": -0.3293,
+      "ArcFace": -0.1431,
+      "Ensemble_4Judge": 0.7439
+    }
+  },
+  "cross_scene_coherence": {
+    "v1": {
+      "four_judge_ensemble": {
+        "genuine_mean": 0.6161,
+        "genuine_diff_scene_mean": 0.5971,
+        "impostor_mean": 0.1801,
+        "coherence_ratio": 3.4207,
+        "diff_scene_coherence_ratio": 3.3152,
+        "separation_gap": 0.436
+      },
+      "per_model": {
+        "Facenet512": {
+          "genuine_mean": 0.7384,
+          "genuine_diff_scene_mean": 0.7003,
+          "impostor_mean": 0.1898,
+          "coherence_ratio": 3.8904,
+          "diff_scene_coherence_ratio": 3.6895,
+          "separation_gap": 0.5486,
+          "num_genuine_pairs": 155,
+          "num_genuine_diff_scene_pairs": 75,
+          "num_impostor_pairs": 625
+        },
+        "SFace": {
+          "genuine_mean": 0.5676,
+          "genuine_diff_scene_mean": 0.5545,
+          "impostor_mean": 0.1966,
+          "coherence_ratio": 2.8869,
+          "diff_scene_coherence_ratio": 2.8204,
+          "separation_gap": 0.371,
+          "num_genuine_pairs": 155,
+          "num_genuine_diff_scene_pairs": 75,
+          "num_impostor_pairs": 625
+        },
+        "GhostFaceNet": {
+          "genuine_mean": 0.5265,
+          "genuine_diff_scene_mean": 0.5248,
+          "impostor_mean": 0.1693,
+          "coherence_ratio": 3.1108,
+          "diff_scene_coherence_ratio": 3.1007,
+          "separation_gap": 0.3573,
+          "num_genuine_pairs": 155,
+          "num_genuine_diff_scene_pairs": 75,
+          "num_impostor_pairs": 625
+        },
+        "ArcFace": {
+          "genuine_mean": 0.6318,
+          "genuine_diff_scene_mean": 0.6087,
+          "impostor_mean": 0.1647,
+          "coherence_ratio": 3.8349,
+          "diff_scene_coherence_ratio": 3.695,
+          "separation_gap": 0.467,
+          "num_genuine_pairs": 155,
+          "num_genuine_diff_scene_pairs": 75,
+          "num_impostor_pairs": 625
+        },
+        "InsightFace_buffalo_l": {
+          "genuine_mean": 0.7105,
+          "genuine_diff_scene_mean": 0.6896,
+          "impostor_mean": 0.2359,
+          "coherence_ratio": 3.0114,
+          "diff_scene_coherence_ratio": 2.9229,
+          "separation_gap": 0.4746,
+          "num_genuine_pairs": 155,
+          "num_genuine_diff_scene_pairs": 75,
+          "num_impostor_pairs": 625
+        }
+      },
+      "detected_instances_per_character": {
+        "college_ebright": 10,
+        "james_wong": 5,
+        "mother": 5,
+        "teen_ebright": 10,
+        "young_ebright": 10
+      }
+    },
+    "v2": {
+      "four_judge_ensemble": {
+        "genuine_mean": 0.7631,
+        "genuine_diff_scene_mean": 0.7468,
+        "impostor_mean": 0.1998,
+        "coherence_ratio": 3.8192,
+        "diff_scene_coherence_ratio": 3.7379,
+        "separation_gap": 0.5633
+      },
+      "per_model": {
+        "Facenet512": {
+          "genuine_mean": 0.829,
+          "genuine_diff_scene_mean": 0.8155,
+          "impostor_mean": 0.1954,
+          "coherence_ratio": 4.2426,
+          "diff_scene_coherence_ratio": 4.1737,
+          "separation_gap": 0.6336,
+          "num_genuine_pairs": 155,
+          "num_genuine_diff_scene_pairs": 75,
+          "num_impostor_pairs": 625
+        },
+        "SFace": {
+          "genuine_mean": 0.7472,
+          "genuine_diff_scene_mean": 0.733,
+          "impostor_mean": 0.2169,
+          "coherence_ratio": 3.4449,
+          "diff_scene_coherence_ratio": 3.3793,
+          "separation_gap": 0.5303,
+          "num_genuine_pairs": 155,
+          "num_genuine_diff_scene_pairs": 75,
+          "num_impostor_pairs": 625
+        },
+        "GhostFaceNet": {
+          "genuine_mean": 0.7378,
+          "genuine_diff_scene_mean": 0.7218,
+          "impostor_mean": 0.1917,
+          "coherence_ratio": 3.8479,
+          "diff_scene_coherence_ratio": 3.7648,
+          "separation_gap": 0.546,
+          "num_genuine_pairs": 155,
+          "num_genuine_diff_scene_pairs": 75,
+          "num_impostor_pairs": 625
+        },
+        "ArcFace": {
+          "genuine_mean": 0.7383,
+          "genuine_diff_scene_mean": 0.717,
+          "impostor_mean": 0.1952,
+          "coherence_ratio": 3.7827,
+          "diff_scene_coherence_ratio": 3.6735,
+          "separation_gap": 0.5431,
+          "num_genuine_pairs": 155,
+          "num_genuine_diff_scene_pairs": 75,
+          "num_impostor_pairs": 625
+        },
+        "InsightFace_buffalo_l": {
+          "genuine_mean": 0.8399,
+          "genuine_diff_scene_mean": 0.8263,
+          "impostor_mean": 0.2151,
+          "coherence_ratio": 3.9041,
+          "diff_scene_coherence_ratio": 3.8411,
+          "separation_gap": 0.6248,
+          "num_genuine_pairs": 155,
+          "num_genuine_diff_scene_pairs": 75,
+          "num_impostor_pairs": 625
+        }
+      },
+      "detected_instances_per_character": {
+        "college_ebright": 10,
+        "james_wong": 5,
+        "mother": 5,
+        "teen_ebright": 10,
+        "young_ebright": 10
+      }
+    }
+  }
+}

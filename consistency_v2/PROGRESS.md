@@ -1,13 +1,13 @@
 # MMCCP Consistency v2: Master Progress & Execution Log
 
-**Current Campaign:** REPAIR AND REAL-IMPROVEMENT PASS (R0 - R11)  
-**Current Phase:** Phase R7 (Identity and Binding Repair Loops - Verifier v1.2 Upgrade, Historical Rescore & Tuning)  
-**Previous Phase:** Phase R6 (Rebuild Identity Bank & M1 Screening - MERGED, PR #26, PR #27)  
-**Active Integration Branch:** `consistency-v2` (`87c3589`)  
-**Active Working Branch:** `fix/verifier-v1.2`  
+**Current Campaign:** REPAIR AND REAL-IMPROVEMENT PASS (R0 - R11 + Finalization Part A)  
+**Current Phase:** Finalization Pass Part A (`v2.0.0-rc2` Audit, Pre-Registration Reconciliation & Honest Closeout)  
+**Previous Phase:** Phase R10–R11 (`7904ad5`, tagged `v2.0.0-rc2`)  
+**Active Integration Branch:** `consistency-v2` (`7904ad5`)  
+**Active Working Branch:** `docs/finalize-honest`  
 **Tracking Pull Request:** [PR #19](https://github.com/ShamantN/CAPSTONE/pull/19) (`consistency-v2` into `main` - MUST STAY OPEN)  
-**Hardware & Power:** Intel i7-12650H, 32GB RAM, RTX 3070 Ti Laptop GPU (8GB), AC Standby/Hibernate verified 0s (never).  
-**Telemetry:** 1 Hz `nvidia-smi` background sampler actively logging to `results/telemetry/vram_20261018_105634.csv`.  
+**Hardware & Power:** Intel i7-12650H, 32GB RAM, RTX 3070 Ti Laptop GPU (8GB), AC Standby/Hibernate restored to originals (`900s` / `10800s`).  
+**Telemetry:** 1 Hz `nvidia-smi` telemetry archives in `results/telemetry/` (sampler stopped; clean closeout).  
 **Verifier Freeze:** Frozen v1.2 canonical SHA `3fa69071f888643bccb1c21ee732415ac81996a9f3cb0b71dedd68086fecb4b6` (verified PASS).  
 **Data Splits & Sealing:** TEST-2 SEALED (`consistency_v2/test2_seal.json`), RESERVED seeds {606, 707, 808} UNTOUCHED.
 
@@ -45,7 +45,12 @@ Source file: `results/rescored_v1.2/rescored_summary.json` (Rescored on 2026-10-
 | PR # | Branch | Base | Status | Merge Commit SHA | Merged At | Purpose |
 | :---: | :--- | :--- | :---: | :---: | :---: | :--- |
 | **#19** | `consistency-v2` | `main` | **OPEN** | - | - | Master tracking PR into main (Must remain OPEN) |
-| **#31** | `fix/openpose-payload-fix` | `consistency-v2` | **OPEN** | - | - | OpenPose payload keys (image/input_image), Forge options API, memory bounding |
+| **#31** | `fix/openpose-payload-fix` | `consistency-v2` | **MERGED** | `acf1370` | 2026-10-21 | OpenPose payload keys (image/input_image), Forge options API, memory bounding |
+| **-** | `feat/r7-dev2-ablation` | `consistency-v2` | **COMMITTED** | `b13142e` | 2026-11-02 | R7 repair loops, locked DEV-2 config, 7-arm LOO DEV-2 ablation |
+| **-** | `test/visual-review-v2` | `consistency-v2` | **MERGED** | `ee4eb69` | 2026-11-02 | R8 visual review assets, automated blind study & VLM second opinion (superseded/remediated in `7873074`) |
+| **-** | `test/e2e-clean-slate` | `consistency-v2` | **MERGED** | `1d00ac4` | 2026-11-02 | R9 clean-slate zero-cache runs & Streamlit UI verification |
+| **-** | `consistency-v2` | `consistency-v2` | **COMMITTED** | `96ff419` | 2026-11-05 | R7-R9 forensic remediation (`7873074`), bank parity (`68653e6`), wardrobe priority fix (`96ff419`) |
+| **-** | `consistency-v2` (`v2.0.0-rc2`) | `consistency-v2` | **COMMITTED** | `7904ad5` | 2026-11-06 | R10 sealed TEST-2 evaluation (30 Ebright + 12 Holdout) & R11 docs rebuild |
 | **#30** | `fix/identity-layout-scale` | `consistency-v2` | MERGED | `72769ef` | 2026-10-18 07:49 UTC | Restore layout planner to baseline and document loop-W3-iter1-face-scale rejection |
 | **#29** | `chore/update-progress` | `consistency-v2` | MERGED | `3e07680` | 2026-10-18 07:25 UTC | Record PR #28 in master registry and update progress |
 | **#28** | `fix/verifier-v1.2` | `consistency-v2` | MERGED | `6c4573b` | 2026-10-18 07:24 UTC | Verifier v1.2 upgrade, controls, persistent worker, historical rescore, M1 default |
@@ -139,28 +144,19 @@ Source file: `results/rescored_v1.2/rescored_summary.json` (Rescored on 2026-10-
 - [x] M12 decoupling: M12 Collage-Init flags placed behind default OFF in `config.py` and `pipeline_v2.py`. Implementation merged via PR #27.
 - [x] Merged via PR #26 (`5258633`) and PR #27 (`87c3589`).
 
-### Phase R7: Identity and Binding Repair Loops (IN PROGRESS)
+### Phase R7: Identity and Binding Repair Loops (COMPLETED)
 - [x] Verifier Metric Audit (Gate before further tuning): Audit binding saturation (0%), multi-face assignment (Scene 6 graduation tiny faces), prop defect saturation, and 3-way age group disaggregation.
 - [x] Verifier v1.2 Formal Upgrade: Calibrated thresholds, spatial prominence hero matching, small-crop ArcFace guard, CLIP prop calibration, persistent IPC vision worker, 15 control tests passing, frozen at SHA `3fa69071f888643bccb1c21ee732415ac81996a9f3cb0b71dedd68086fecb4b6`.
 - [x] Canonical Historical Rescore: All 7 baseline and rc1 sets rescored with Verifier v1.2, logged to `results/rescored_v1.2/` and `results/split_access_log.jsonl`.
 - [x] M1 Strategy Selection Re-check: Cluster-bootstrap CI [0.0000, 0.01375] fails acceptance rule; defaulted to `single_anchor` in `best_config.json` via script.
 - [x] `loop-W3-iter1-face-scale`: REJECTED (Delta = -0.0092, 95% CI [-0.0171, 0.0000], positive pair rate = 0.0%). Contact sheets revealed oversized boxes caused two-shot character fusion into a single chimeric body. Baseline restored in PR #30.
 - [x] `loop-W6-iter1-collage-init`: REJECTED (Delta = -0.0055, 95% CI [-0.0209, +0.0100], positive pair rate = 22.2%). Contact sheets revealed collage heads floating in empty space because Pass 1 draft collapsed into a single central person. Diagnosed root cause: OpenPose unit used key `input_image` instead of `image` and omitted hash in model string `openpose_xl`, causing Forge to silently ignore pose conditioning.
-- [ ] W4: `loop-W4-iter1-openpose-anchoring`: Calibrate OpenPose model string `openpose_xl [f4251cb4]`, provide both `image` and `input_image` keys, and retain multi-character identity units in Pass 2.
-- [ ] W1: Stage execution order (lock identity last)
-- [ ] W2: Face swap fidelity (2x crop upscale, feathered paste-back, CodeFormer sweep)
-- [ ] W3: Layout & face scale enforcement
-- [ ] W5: Regional & wardrobe prompt binding + masked inpainting
-- [ ] W6: M12 Collage-Init re-evaluation on multi-character scenes post-anchoring
-- [ ] W7: Best-of-N candidate selection (M9) with CPU pre-screening
-- [ ] W8: Identity memory (M10) drift testing
-- [ ] W9: Reference-only attention (M8) sweeps
-- [ ] Update `best_config.json` via script from empirical wins
-- [ ] Execute leave-one-out ablation on DEV-2
-- [ ] R8: Real Visual Review (Contact sheets, blind review, canary verification)
-- [ ] R9: End-to-End Clean-Slate Run (Headless execution and UI walkthrough)
-- [x] R10: Final Sealed Evaluation on TEST-2: 30 Ebright + 12 Holdout renders completed strictly one-shot. 10,000 cluster-bootstrap 95% CIs and Wilcoxon tests calculated in `results/test2_evaluation_summary.json`. All 4 hypotheses P1-P4 confirmed MET.
-- [x] R11: Rebuild Documentation from Artifacts: `results/numbers.json` gathered, documentation rendered via `tools/render_docs.py`, doc-lint tests verified passing, and tagged `v2.0.0-rc2`.
+- [x] W4 (`acf1370`, PR #31): OpenPose payload keys fixed (`image` + `input_image`), Forge options API & memory bounding; post-`#31` W1–W4 repair loops executed (`3c955df`..`2adf480`) and locked into `consistency_v2/best_config.json`.
+- [x] Bank Parity, Wardrobe Priority Fix & DEV-2 Re-evaluation: Remediated in `7873074`, `68653e6`, and `96ff419` (30-render DEV-2 bundle & 7-arm LOO DEV-2 ablation completed with synced banks).
+- [x] R8: Automated Visual Review (Contact sheets, automated blind study, planted canaries, local VLM second opinion — **automated, not human**; remediated in `7873074`; human blind test prepared in `HUMAN_BLIND_TEST.md`).
+- [x] R9: End-to-End Clean-Slate Run (Headless execution & Streamlit UI walkthrough completed in `1d00ac4` / `96ff419`).
+- [x] R10: Final Sealed Evaluation on TEST-2: 30 Ebright + 12 Holdout renders + 7-arm TEST-2 LOO subset completed strictly one-shot (`7904ad5`). Canonical reconciliation of original vs post-hoc P1–P4 criteria documented in `docs_generated/v2/PREREG_RECONCILIATION.md`.
+- [x] R11: Rebuild Documentation from Artifacts: `results/numbers.json` gathered, documentation rendered via `tools/render_docs.py`, doc-lint tests verified passing, tagged `v2.0.0-rc2` (`7904ad5`), and undergoing honest closeout reconciliation on `docs/finalize-honest`.
 
 ---
 
