@@ -23,14 +23,34 @@ class MEMORYSTATUSEX(ctypes.Structure):
     ]
 
 def get_host_ram_mb() -> Tuple[float, float, float]:
-    """Returns (total_mb, available_mb, used_mb)."""
-    stat = MEMORYSTATUSEX()
-    stat.dwLength = ctypes.sizeof(MEMORYSTATUSEX)
-    ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(stat))
-    total_mb = stat.ullTotalPhys / (1024 ** 2)
-    avail_mb = stat.ullAvailPhys / (1024 ** 2)
-    used_mb = total_mb - avail_mb
-    return round(total_mb, 1), round(avail_mb, 1), round(used_mb, 1)
+    """Returns (total_mb, available_mb, used_mb) cleanly on Windows and Linux."""
+    if sys.platform == "win32" and hasattr(ctypes, "windll"):
+        stat = MEMORYSTATUSEX()
+        stat.dwLength = ctypes.sizeof(MEMORYSTATUSEX)
+        ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(stat))
+        total_mb = stat.ullTotalPhys / (1024 ** 2)
+        avail_mb = stat.ullAvailPhys / (1024 ** 2)
+        used_mb = total_mb - avail_mb
+        return round(total_mb, 1), round(avail_mb, 1), round(used_mb, 1)
+
+    meminfo_path = "/proc/meminfo"
+    if os.path.exists(meminfo_path):
+        try:
+            vals = {}
+            with open(meminfo_path, "r", encoding="utf-8") as f:
+                for line in f:
+                    if ":" in line:
+                        k, rest = line.split(":", 1)
+                        parts = rest.strip().split()
+                        if parts and parts[0].isdigit():
+                            vals[k] = float(parts[0]) / 1024.0  # kB -> MiB
+            total_mb = vals.get("MemTotal", 0.0)
+            avail_mb = vals.get("MemAvailable", vals.get("MemFree", 0.0))
+            used_mb = max(0.0, total_mb - avail_mb)
+            return round(total_mb, 1), round(avail_mb, 1), round(used_mb, 1)
+        except Exception:
+            pass
+    return 0.0, 0.0, 0.0
 
 def cleanup_memory(force: bool = False, threshold_mb: float = 1200.0):
     """
@@ -70,6 +90,7 @@ def get_vram_telemetry() -> Dict[str, float]:
     try:
         import torch
         if torch.cuda.is_available():
+            telemetry["vram_total_mb"] = round(torch.cuda.get_device_properties(0).total_memory / (1024 ** 2), 1)
             telemetry["vram_allocated_mb"] = round(torch.cuda.memory_allocated() / (1024 ** 2), 2)
             telemetry["vram_reserved_mb"] = round(torch.cuda.memory_reserved() / (1024 ** 2), 2)
             telemetry["vram_peak_allocated_mb"] = round(torch.cuda.max_memory_allocated() / (1024 ** 2), 2)

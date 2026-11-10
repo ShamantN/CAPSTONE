@@ -9,12 +9,12 @@ import cv2
 import numpy as np
 from PIL import Image
 
-# Ensure project root is on sys.path
-sys.path.insert(0, r"D:\5TH SEM\HACKATHON")
+from consistency_v2.runtime_paths import get_project_root, get_forge_url, configure_windows_forge_env
 
-_SD_SITE = r"C:\Stable-Diffusion\system\python\Lib\site-packages"
-if os.path.exists(_SD_SITE) and _SD_SITE not in sys.path:
-    sys.path.append(_SD_SITE)
+PROJECT_ROOT = get_project_root()
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+configure_windows_forge_env()
 
 from story_engine.schema import StorySpec, SceneSpec
 from story_engine.character_registry import CharacterRegistry
@@ -40,11 +40,11 @@ class GenerationOrchestrator:
         self,
         checkpoint_name: str = SD_MODELS["Juggernaut"],
         identity_engine: str = "ip_adapter",  # "ip_adapter", "instantid", "faceid"
-        base_url: str = "http://127.0.0.1:7860"
+        base_url: Optional[str] = None
     ):
         self.checkpoint_name = checkpoint_name
         self.identity_engine_type = identity_engine
-        self.client = ForgeClient(base_url=base_url)
+        self.client = ForgeClient(base_url=base_url or get_forge_url())
         self.registry = CharacterRegistry()
 
         # Initialize identity conditioner

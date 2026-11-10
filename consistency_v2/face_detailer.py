@@ -15,6 +15,7 @@ import requests
 from io import BytesIO
 from PIL import Image
 
+from consistency_v2.runtime_paths import get_forge_url
 from consistency_v2.layout_planner import CharacterLayoutBox
 from consistency_v2.identity_bank import IdentityBankManager
 from consistency_v2.identity_units import IdentityUnitManager, IdentityUnitConfig
@@ -46,8 +47,8 @@ class FaceDetailer:
     Resolves latent resolution bottlenecks for small faces in wide and medium shots.
     """
 
-    def __init__(self, forge_api_url: str = "http://127.0.0.1:7860"):
-        self.forge_api_url = forge_api_url.rstrip("/")
+    def __init__(self, forge_api_url: Optional[str] = None):
+        self.forge_api_url = (forge_api_url or get_forge_url()).rstrip("/")
         self.auditor = SceneAuditor()
 
     def build_face_mask(self, img_shape: Tuple[int, int, int], bbox: Dict[str, int], blur_radius: int = 21) -> np.ndarray:

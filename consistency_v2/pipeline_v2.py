@@ -25,6 +25,7 @@ from generation.forge_client import ForgeClient
 from experiments.memory_utils import vram_guard, get_vram_telemetry
 from metrics import decode_image_to_cv2, encode_image_to_base64, SD_MODELS
 
+from consistency_v2.runtime_paths import get_forge_url
 from consistency_v2.config import ConsistencyV2Config, RESERVED_SEEDS
 from consistency_v2.identity_bank import IdentityBankManager
 from consistency_v2.layout_planner import LayoutPlanner
@@ -51,11 +52,13 @@ class ConsistencyPipelineV2:
     def __init__(
         self,
         config: Optional[ConsistencyV2Config] = None,
-        base_url: str = "http://127.0.0.1:7860",
-        checkpoint_name: str = SD_MODELS["Juggernaut"]
+        base_url: Optional[str] = None,
+        checkpoint_name: str = SD_MODELS["Juggernaut"],
+        bank_root: Optional[Path] = None
     ):
         self.config = config or ConsistencyV2Config()
-        self.client = ForgeClient(base_url=base_url)
+        resolved_url = (base_url or get_forge_url()).rstrip("/")
+        self.client = ForgeClient(base_url=resolved_url)
         self.checkpoint_name = checkpoint_name
         self.registry = CharacterRegistry()
 
@@ -66,7 +69,7 @@ class ConsistencyPipelineV2:
             pass
 
         # Initialize sub-modules
-        self.bank_manager = IdentityBankManager()
+        self.bank_manager = IdentityBankManager(bank_root=bank_root)
         self.layout_planner = LayoutPlanner()
         self.regional_config = RegionalCoupleConfig(
             background_weight=self.config.regional_global_weight
@@ -78,7 +81,7 @@ class ConsistencyPipelineV2:
             instantid_ip_weight=self.config.instantid_ip_weight,
             instantid_kp_weight=self.config.instantid_keypoints_weight
         )
-        self.face_detailer = FaceDetailer(forge_api_url=base_url)
+        self.face_detailer = FaceDetailer(forge_api_url=resolved_url)
         self.detailer_config = FaceDetailerConfig(
             enabled=self.config.enable_face_detailer,
             face_size_threshold=300,
@@ -397,9 +400,10 @@ class ConsistencyPipelineV2:
                     })
 
             if swap_specs:
-                os.makedirs("consistency_v2/banks", exist_ok=True)
-                temp_in = "consistency_v2/banks/_temp_pre_swap.png"
-                temp_out = "consistency_v2/banks/_temp_post_swap.png"
+                swap_work_dir = Path(self.bank_manager.bank_root)
+                swap_work_dir.mkdir(parents=True, exist_ok=True)
+                temp_in = str(swap_work_dir / "_temp_pre_swap.png")
+                temp_out = str(swap_work_dir / "_temp_post_swap.png")
                 cv2.imwrite(temp_in, current_cv)
                 success = DirectFaceSwapper.execute_face_swap(
                     target_image_path=temp_in,

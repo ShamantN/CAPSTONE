@@ -8,12 +8,12 @@ from typing import Dict, Any, Optional, List, Tuple
 import cv2
 import numpy as np
 
-# Ensure project root is on sys.path
-sys.path.insert(0, r"D:\5TH SEM\HACKATHON")
+from consistency_v2.runtime_paths import get_project_root, get_forge_url, configure_windows_forge_env
 
-_SD_SITE = r"C:\Stable-Diffusion\system\python\Lib\site-packages"
-if os.path.exists(_SD_SITE) and _SD_SITE not in sys.path:
-    sys.path.append(_SD_SITE)
+PROJECT_ROOT = get_project_root()
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+configure_windows_forge_env()
 
 from metrics import decode_image_to_cv2, encode_image_to_base64
 
@@ -68,7 +68,7 @@ class TestAnchorManager:
                     }
                     import requests
                     try:
-                        r = requests.post("http://127.0.0.1:7860/sdapi/v1/txt2img", json=payload, timeout=120)
+                        r = requests.post(f"{get_forge_url()}/sdapi/v1/txt2img", json=payload, timeout=120)
                         if r.status_code == 200:
                             b64 = r.json()["images"][0]
                             registry.register_anchor(char_id, b64, age_key if age_key != "primary" else None)
@@ -99,7 +99,7 @@ class TestAnchorManager:
                     }
                     import requests
                     try:
-                        r = requests.post("http://127.0.0.1:7860/sdapi/v1/txt2img", json=payload, timeout=120)
+                        r = requests.post(f"{get_forge_url()}/sdapi/v1/txt2img", json=payload, timeout=120)
                         if r.status_code == 200:
                             b64 = r.json()["images"][0]
                             registry.register_anchor(char_id, b64, age_key if age_key != "primary" else None)

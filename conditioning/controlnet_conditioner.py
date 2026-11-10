@@ -5,6 +5,7 @@ Manages multi-unit ControlNet dispatch for OpenPose SDXL, Depth SDXL, Canny, and
 from typing import List, Dict, Any, Optional
 from pathlib import Path
 from experiments.controlnet_adapter import ControlSpec, ControlNetAdapter
+from consistency_v2.runtime_paths import get_forge_models_dir
 
 
 class ControlNetConditioner:
@@ -30,15 +31,16 @@ class ControlNetConditioner:
 
     @classmethod
     def is_model_on_disk(cls, model_key: str) -> bool:
+        cnet_dir = get_forge_models_dir() / "ControlNet"
         fn_map = {
-            "openpose": r"C:\Stable-Diffusion\webui\models\ControlNet\openpose_xl.safetensors",
-            "ip_adapter": r"C:\Stable-Diffusion\webui\models\ControlNet\ip-adapter_xl.safetensors",
-            "depth": r"C:\Stable-Diffusion\webui\models\ControlNet\depth_xl.safetensors",
-            "instantid": r"C:\Stable-Diffusion\webui\models\ControlNet\instantid_xl.safetensors",
-            "faceid": r"C:\Stable-Diffusion\webui\models\ControlNet\ip-adapter-faceid-plusv2_sdxl.bin"
+            "openpose": cnet_dir / "openpose_xl.safetensors",
+            "ip_adapter": cnet_dir / "ip-adapter_xl.safetensors",
+            "depth": cnet_dir / "depth_xl.safetensors",
+            "instantid": cnet_dir / "instantid_xl.safetensors",
+            "faceid": cnet_dir / "ip-adapter-faceid-plusv2_sdxl.bin",
         }
         p = fn_map.get(model_key)
-        return Path(p).exists() if p else False
+        return p.exists() if p else False
 
     @classmethod
     def create_openpose_spec(

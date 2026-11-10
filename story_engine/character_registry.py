@@ -8,12 +8,12 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-# Ensure project root is on sys.path
-sys.path.insert(0, r"D:\5TH SEM\HACKATHON")
+from consistency_v2.runtime_paths import get_project_root, configure_windows_forge_env
 
-_SD_SITE = r"C:\Stable-Diffusion\system\python\Lib\site-packages"
-if os.path.exists(_SD_SITE) and _SD_SITE not in sys.path:
-    sys.path.append(_SD_SITE)
+PROJECT_ROOT = get_project_root()
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+configure_windows_forge_env()
 
 from story_engine.schema import CharacterSpec, AgeState, StorySpec
 from metrics import (
@@ -72,9 +72,10 @@ class CharacterRegistry:
         """Retrieves CharacterSpec for a given character ID from storyboards."""
         if not hasattr(self, "_char_specs"):
             self._char_specs: Dict[str, CharacterSpec] = {}
+            sb_dir = PROJECT_ROOT / "storyboards"
             for s_file in [
-                Path(r"D:\5TH SEM\HACKATHON\storyboards\ebright.json"),
-                Path(r"D:\5TH SEM\HACKATHON\storyboards\generalization_benchmark.json")
+                sb_dir / "ebright.json",
+                sb_dir / "generalization_benchmark.json"
             ]:
                 if s_file.exists():
                     try:

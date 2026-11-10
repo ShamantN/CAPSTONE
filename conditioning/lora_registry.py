@@ -1,8 +1,9 @@
 """
 STAGE 16: LORA REGISTRY
 """
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 from pathlib import Path
+from consistency_v2.runtime_paths import get_forge_models_dir
 
 
 class LoRARegistry:
@@ -10,7 +11,8 @@ class LoRARegistry:
     Discovers, validates, and dynamically injects LoRA tokens into prompt strings.
     """
 
-    def __init__(self, lora_dir: Path = Path(r"C:\Stable-Diffusion\webui\models\Lora")):
+    def __init__(self, lora_dir: Optional[Path] = None):
+        self.lora_dir = lora_dir or (get_forge_models_dir() / "Lora")
         self.lora_dir = lora_dir
         self.available_loras: Dict[str, Path] = {}
         self.scan_loras()

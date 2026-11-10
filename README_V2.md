@@ -7,7 +7,8 @@
 > Documentation reconciled from `v2.0.0-rc2`: earlier `rc2` summaries omitted pre-registration shifts, mixed defect units (`per-scene` vs `per-face-instance`), overstated Holdout performance, and omitted whole-system VRAM excursions above `7.4 GB`. All metrics below are generated strictly from [`results/numbers.json`](file:///D:/5TH%20SEM/HACKATHON/results/numbers.json).
 
 ### Branch, Tag, Reproduction & Non-Repo Assets
-- **Recommended Branch / Tag:** Use branch `consistency-v2` (synced with `main`, containing reconciled closeout documentation) or tag `v2.0.0-rc3` (`consistency-v2` release candidate snapshot prior to the `main` conflict-resolution merge).
+- **Recommended Branch / Tag:** Use `main` (containing reconciled `v2.0.0` closeout) or tag `v2.0.0-rc3` (`consistency-v2` release candidate snapshot prior to `main` merge).
+- **Run From Scratch (New Machine, Linux & Google Colab):** Start at [docs/run/00_START_HERE.md](docs/run/00_START_HERE.md), run [tools/verify_setup.py](tools/verify_setup.py), or open the Colab notebook at [notebooks/MMCCP_Colab.ipynb](notebooks/MMCCP_Colab.ipynb).
 - **Reproduce Verification, Statistics & Docs (CPU / No GPU Required):**
   ```powershell
   my_app_env\Scripts\python.exe tools\check_freeze.py

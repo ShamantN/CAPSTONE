@@ -4,13 +4,14 @@ High-reliability HTTP client communicating with local Stable Diffusion Forge Web
 """
 import requests, json, base64, logging, time
 from typing import Dict, Any, List, Optional, Tuple
+from consistency_v2.runtime_paths import get_forge_url
 
 logger = logging.getLogger("MMCCP.ForgeClient")
 
 
 class ForgeClient:
-    def __init__(self, base_url: str = "http://127.0.0.1:7860"):
-        self.base_url = base_url.rstrip("/")
+    def __init__(self, base_url: Optional[str] = None):
+        self.base_url = (base_url or get_forge_url()).rstrip("/")
 
     def is_online(self) -> bool:
         try:

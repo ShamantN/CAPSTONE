@@ -16,6 +16,7 @@ import json
 import time
 import base64
 import argparse
+from typing import Optional
 
 if sys.platform == "win32":
     try:
@@ -28,28 +29,12 @@ import cv2
 import numpy as np
 from PIL import Image
 
-PROJECT_ROOT = Path(__file__).resolve().parent
+from consistency_v2.runtime_paths import get_project_root, configure_windows_forge_env
+
+PROJECT_ROOT = get_project_root()
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
-
-# DLL paths for Torch/CUDA on Windows
-_DLL_PATHS = [
-    r"C:\Stable-Diffusion\system\python\Library\bin",
-    r"C:\Stable-Diffusion\system\python\Lib\site-packages\torch\lib",
-    r"C:\Stable-Diffusion\system\python\Scripts",
-    r"C:\Stable-Diffusion\system\python"
-]
-for _p in _DLL_PATHS:
-    if os.path.exists(_p):
-        try:
-            os.add_dll_directory(_p)
-        except Exception:
-            pass
-        os.environ["PATH"] = _p + os.pathsep + os.environ.get("PATH", "")
-
-_SD_SITE = r"C:\Stable-Diffusion\system\python\Lib\site-packages"
-if os.path.exists(_SD_SITE) and _SD_SITE not in sys.path:
-    sys.path.append(_SD_SITE)
+configure_windows_forge_env()
 
 from metrics import (
     HARDCODED_CHARACTERS,
@@ -126,42 +111,62 @@ def run_v1_scratch(story_path: str = "storyboards/ebright.json"):
             print(f"     ✅ Scene {s_num} rendered in {elapsed_s:.1f}s")
 
 
-def run_v2_scratch(mode: str = "default", story_path: str = "storyboards/ebright.json"):
+def run_v2_scratch(
+    mode: str = "default",
+    story_path: str = "storyboards/ebright.json",
+    scene_num: Optional[int] = None,
+    seed: int = 11,
+):
     from consistency_v2.config import ConsistencyV2Config
     from consistency_v2.pipeline_v2 import ConsistencyPipelineV2
+    from consistency_v2.splits import assert_seed_allowed
     from story_engine.schema import StorySpec
 
+    assert_seed_allowed(seed)
+
     print("=" * 90)
-    print(f"  🌟 RUNNING MMCCP CONSISTENCY v2 (SOTA) - MODE: {mode.upper()}")
+    print(f"  🌟 RUNNING MMCCP CONSISTENCY v2 (SOTA) - MODE: {mode.upper()} | SEED: {seed}")
     print("=" * 90)
 
     cfg = ConsistencyV2Config(mode=mode)
-    pipeline = ConsistencyPipelineV2(config=cfg)
-    # Isolate cold-start scratch banks to prevent corrupting canonical consistency_v2/banks
-    scratch_bank_root = PROJECT_ROOT / 'experiments' / 'fresh_run_from_scratch' / 'banks'
+    cfg.validate_seed(seed)
+
+    # Isolate cold-start scratch banks BEFORE pipeline init so canonical consistency_v2/banks is never touched
+    scratch_bank_root = PROJECT_ROOT / "experiments" / "fresh_run_from_scratch" / "banks"
     scratch_bank_root.mkdir(parents=True, exist_ok=True)
-    from consistency_v2.identity_bank import IdentityBankManager
-    pipeline.bank_manager = IdentityBankManager(bank_root=scratch_bank_root)
+    pipeline = ConsistencyPipelineV2(config=cfg, bank_root=scratch_bank_root)
 
     # Load storyboard
     story_file = Path(story_path) if Path(story_path).is_absolute() else (PROJECT_ROOT / story_path)
     story = StorySpec.load_json(str(story_file))
 
-    # Check if character banks need bootstrapping from fresh visual DNA anchors
-    chars_to_bootstrap = list(story.characters.keys()) if isinstance(story.characters, dict) else [c.id for c in story.characters]
+    target_scenes = [s for s in story.scenes if scene_num is None or s.scene_number == scene_num]
+    if not target_scenes:
+        raise ValueError(f"Scene {scene_num} not found in {story_file}")
+
+    # Determine characters actually needed for target_scenes (or full story)
+    needed_cids = []
+    for sc in target_scenes:
+        for cid in (sc.characters_present or []):
+            if cid not in needed_cids:
+                needed_cids.append(cid)
+    chars_to_bootstrap = needed_cids if scene_num is not None else (
+        list(story.characters.keys()) if isinstance(story.characters, dict) else [c.id for c in story.characters]
+    )
     missing_banks = [cid for cid in chars_to_bootstrap if cid not in pipeline.bank_manager._banks]
     if missing_banks:
         print(f"  [BOOTSTRAP] Identity banks empty for {missing_banks}. Generating certified fresh anchors...")
         fresh_anchor_dir = PROJECT_ROOT / "experiments" / "fresh_run_from_scratch" / "anchors"
         fresh_anchor_dir.mkdir(parents=True, exist_ok=True)
         sd_checkpoint = SD_MODELS["Juggernaut"]
+        target_chars = [c for c in HARDCODED_CHARACTERS if c["id"] in missing_banks] or HARDCODED_CHARACTERS
         cache_data = ensure_visual_dna_anchors(
-            characters_db=HARDCODED_CHARACTERS,
+            characters_db=target_chars,
             cache_path=CACHE_FILE,
             sd_checkpoint=sd_checkpoint,
-            force_regenerate=True
+            force_regenerate=(scene_num is None)
         )
-        for char in HARDCODED_CHARACTERS:
+        for char in target_chars:
             cid = char["id"]
             b64 = cache_data.get(cid)
             if b64:
@@ -176,12 +181,16 @@ def run_v2_scratch(mode: str = "default", story_path: str = "storyboards/ebright
     output_dir.mkdir(parents=True, exist_ok=True)
 
     t0 = time.time()
-    results = pipeline.generate_story(
-        story=story,
-        output_dir=output_dir,
-        seed=11,
-        prefix="scene_"
-    )
+    results = []
+    for sc in target_scenes:
+        img_cv, meta = pipeline.generate_scene(story=story, scene=sc, seed=seed)
+        results.append((sc.scene_number, img_cv, meta))
+        if img_cv is not None:
+            img_path = output_dir / f"scene_{sc.scene_number}_seed_{seed}.png"
+            sidecar_path = output_dir / f"scene_{sc.scene_number}_seed_{seed}.json"
+            cv2.imwrite(str(img_path), img_cv)
+            with open(sidecar_path, "w", encoding="utf-8") as f:
+                json.dump(meta, f, indent=2)
     total_time = time.time() - t0
 
     print("\n" + "=" * 90)
@@ -203,7 +212,7 @@ def run_v2_scratch(mode: str = "default", story_path: str = "storyboards/ebright
     print("-" * 90)
 
     all_scores = []
-    for s_idx, (img_cv, meta) in enumerate(results, start=1):
+    for s_idx, img_cv, meta in results:
         if img_cv is not None:
             save_p = EDU_IMAGES_DIR / f"scene_{s_idx}.png"
             cv2.imwrite(str(save_p), img_cv)
@@ -261,11 +270,23 @@ def main():
         default="storyboards/ebright.json",
         help="Path to storyboard JSON specification"
     )
+    parser.add_argument(
+        "--scene",
+        type=int,
+        default=None,
+        help="Optional single scene number to render (for fast DEV smoke tests)"
+    )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=11,
+        help="Random seed (DEV splits only; reserved/TEST-2 seeds blocked)"
+    )
 
     args = parser.parse_args()
 
     if args.pipeline == "v2":
-        run_v2_scratch(mode=args.mode, story_path=args.story)
+        run_v2_scratch(mode=args.mode, story_path=args.story, scene_num=args.scene, seed=args.seed)
     else:
         run_v1_scratch(story_path=args.story)
 
