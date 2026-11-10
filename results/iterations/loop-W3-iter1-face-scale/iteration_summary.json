@@ -1,0 +1,162 @@
+{
+  "iteration_id": "loop-W3-iter1-face-scale",
+  "phase": "R7",
+  "branch": "fix/identity-layout-scale",
+  "hypothesis": "Elevating layout planner minimum face scale above 120px prevents ArcFace resolution collapse and restores identity match",
+  "change_desc": "Elevated face_width in compute_scale_params: medium 120->160px, wide 75->135px, close 180->220px",
+  "timestamp": "2026-10-18T07:46:29Z",
+  "metrics": {
+    "intervention_biometric_mean": 0.1989,
+    "baseline_biometric_mean": 0.2081,
+    "delta_mean": -0.0092,
+    "delta_95ci_cluster_bootstrap": [
+      -0.0171,
+      0.0
+    ],
+    "positive_pair_rate": 0.0,
+    "positive_pairs_count": 0,
+    "total_pairs_count": 18,
+    "mean_face_width_px": 210.2,
+    "baseline_face_width_px": 210.2,
+    "subgroup_deltas": {
+      "child": -0.0199,
+      "teen": 0.0,
+      "adult": -0.0051
+    }
+  },
+  "guardrails": {
+    "peak_vram_mb": 8192.0,
+    "zero_oom": true,
+    "avg_latency_sec": 25.6,
+    "guardrails_met": false
+  },
+  "decision": "REJECT",
+  "renders": [
+    {
+      "scene_number": 1,
+      "seed": 11,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "young_ebright",
+        "mother"
+      ],
+      "image_filename": "scene_1_seed_11.png",
+      "render_time_sec": 0.0
+    },
+    {
+      "scene_number": 1,
+      "seed": 23,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "young_ebright",
+        "mother"
+      ],
+      "image_filename": "scene_1_seed_23.png",
+      "render_time_sec": 0.0
+    },
+    {
+      "scene_number": 1,
+      "seed": 37,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "young_ebright",
+        "mother"
+      ],
+      "image_filename": "scene_1_seed_37.png",
+      "render_time_sec": 0.0
+    },
+    {
+      "scene_number": 2,
+      "seed": 11,
+      "shot_type": "Medium close-up",
+      "characters": [
+        "young_ebright"
+      ],
+      "image_filename": "scene_2_seed_11.png",
+      "render_time_sec": 0.0
+    },
+    {
+      "scene_number": 2,
+      "seed": 23,
+      "shot_type": "Medium close-up",
+      "characters": [
+        "young_ebright"
+      ],
+      "image_filename": "scene_2_seed_23.png",
+      "render_time_sec": 0.0
+    },
+    {
+      "scene_number": 2,
+      "seed": 37,
+      "shot_type": "Medium close-up",
+      "characters": [
+        "young_ebright"
+      ],
+      "image_filename": "scene_2_seed_37.png",
+      "render_time_sec": 0.0
+    },
+    {
+      "scene_number": 4,
+      "seed": 11,
+      "shot_type": "Over-the-shoulder shot",
+      "characters": [
+        "teen_ebright"
+      ],
+      "image_filename": "scene_4_seed_11.png",
+      "render_time_sec": 0.0
+    },
+    {
+      "scene_number": 4,
+      "seed": 23,
+      "shot_type": "Over-the-shoulder shot",
+      "characters": [
+        "teen_ebright"
+      ],
+      "image_filename": "scene_4_seed_23.png",
+      "render_time_sec": 57.06
+    },
+    {
+      "scene_number": 4,
+      "seed": 37,
+      "shot_type": "Over-the-shoulder shot",
+      "characters": [
+        "teen_ebright"
+      ],
+      "image_filename": "scene_4_seed_37.png",
+      "render_time_sec": 53.63
+    },
+    {
+      "scene_number": 5,
+      "seed": 11,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "college_ebright",
+        "james_wong"
+      ],
+      "image_filename": "scene_5_seed_11.png",
+      "render_time_sec": 66.13
+    },
+    {
+      "scene_number": 5,
+      "seed": 23,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "college_ebright",
+        "james_wong"
+      ],
+      "image_filename": "scene_5_seed_23.png",
+      "render_time_sec": 64.78
+    },
+    {
+      "scene_number": 5,
+      "seed": 37,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "college_ebright",
+        "james_wong"
+      ],
+      "image_filename": "scene_5_seed_37.png",
+      "render_time_sec": 65.54
+    }
+  ]
+}

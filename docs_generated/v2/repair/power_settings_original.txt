@@ -1,0 +1,17 @@
+# Windows Power Settings - Original Values Before Repair Pass
+# Captured via powercfg /query SCHEME_CURRENT SUB_SLEEP on 2026-10-15
+
+Power Scheme GUID: 381b4222-f694-41f0-9685-ff5bb260df2e (Balanced)
+Subgroup GUID: 238c9fa8-0aad-41ed-83f4-97be242c8f20 (Sleep / SUB_SLEEP)
+
+STANDBYIDLE (Sleep after):
+  AC Power Setting Index: 0x00000384 (900 seconds = 15 minutes)
+  DC Power Setting Index: 0x00000258 (600 seconds = 10 minutes)
+
+HIBERNATEIDLE (Hibernate after):
+  AC Power Setting Index: 0x00002a30 (10800 seconds = 180 minutes)
+  DC Power Setting Index: 0x00000e10 (3600 seconds = 60 minutes)
+
+# Restoration commands to run at the conclusion of the pass:
+# powercfg /change standby-timeout-ac 15
+# powercfg /change hibernate-timeout-ac 180

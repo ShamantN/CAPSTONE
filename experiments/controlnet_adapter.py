@@ -47,6 +47,7 @@ class ControlNetAdapter:
             "model": spec.model,
             "weight": spec.weight,
             "image": spec.image_b64,
+            "input_image": spec.image_b64,
             "guidance_start": spec.guidance_start,
             "guidance_end": spec.guidance_end,
             "control_mode": spec.control_mode,

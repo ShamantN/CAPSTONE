@@ -1,0 +1,226 @@
+{
+  "timestamp": "2026-10-21T05:55:06Z",
+  "dataset": "DEV-FAST (12 images, 18 face instances)",
+  "comparisons": {
+    "baseline_v1": {
+      "total_images": 12,
+      "total_faces": 18,
+      "presence_rate": 1.0,
+      "biometric_ensemble_mean": 0.31421111111111105,
+      "id_given_presence": 0.31421111111111105,
+      "rank1_accuracy": 0.7777777777777778,
+      "margin_mean": 0.02526666666666667,
+      "wardrobe_pass_rate": 0.2777777777777778,
+      "mean_face_width": 233.11111111111111,
+      "structural_defects": 1,
+      "structural_breakdown": {
+        "missing_people": 0,
+        "extra_people": 0,
+        "inverted": 1,
+        "melted": 0
+      },
+      "prop_defects": 28,
+      "age_groups": {
+        "child": {
+          "count": 6,
+          "bio_mean": 0.3568,
+          "rank1": 0.5,
+          "margin": 0.008316666666666668,
+          "mean_width": 284.5
+        },
+        "teen": {
+          "count": 3,
+          "bio_mean": 0.28863333333333335,
+          "rank1": 0.6666666666666666,
+          "margin": 0.006933333333333333,
+          "mean_width": 388.6666666666667
+        },
+        "adult": {
+          "count": 9,
+          "bio_mean": 0.2943444444444444,
+          "rank1": 1.0,
+          "margin": 0.04267777777777778,
+          "mean_width": 147.0
+        }
+      },
+      "size_bins": {
+        "small (<100px)": {
+          "count": 1,
+          "bio_mean": 0.3093,
+          "rank1": 1.0
+        },
+        "medium (100-180px)": {
+          "count": 9,
+          "bio_mean": 0.2756444444444444,
+          "rank1": 0.7777777777777778
+        },
+        "large (>180px)": {
+          "count": 8,
+          "bio_mean": 0.3582125,
+          "rank1": 0.75
+        }
+      }
+    },
+    "v2_broken_single_anchor": {
+      "total_images": 12,
+      "total_faces": 18,
+      "presence_rate": 0.6666666666666666,
+      "biometric_ensemble_mean": 0.20806666666666668,
+      "id_given_presence": 0.3121,
+      "rank1_accuracy": 0.2777777777777778,
+      "margin_mean": -0.3583277777777778,
+      "wardrobe_pass_rate": 0.1111111111111111,
+      "mean_face_width": 140.16666666666666,
+      "structural_defects": 6,
+      "structural_breakdown": {
+        "missing_people": 6,
+        "extra_people": 0,
+        "inverted": 0,
+        "melted": 0
+      },
+      "prop_defects": 37,
+      "age_groups": {
+        "child": {
+          "count": 6,
+          "bio_mean": 0.321,
+          "rank1": 0.16666666666666666,
+          "margin": -0.0904,
+          "mean_width": 172.16666666666666
+        },
+        "teen": {
+          "count": 3,
+          "bio_mean": 0.3275666666666667,
+          "rank1": 0.6666666666666666,
+          "margin": 0.02316666666666667,
+          "mean_width": 241.33333333333334
+        },
+        "adult": {
+          "count": 9,
+          "bio_mean": 0.09294444444444444,
+          "rank1": 0.2222222222222222,
+          "margin": -0.6641111111111111,
+          "mean_width": 85.11111111111111
+        }
+      },
+      "size_bins": {
+        "small (<100px)": {
+          "count": 6,
+          "bio_mean": 0.0,
+          "rank1": 0.0
+        },
+        "medium (100-180px)": {
+          "count": 3,
+          "bio_mean": 0.33946666666666664,
+          "rank1": 0.0
+        },
+        "large (>180px)": {
+          "count": 9,
+          "bio_mean": 0.3029777777777778,
+          "rank1": 0.5555555555555556
+        }
+      }
+    },
+    "bundle_iter3": {
+      "total_images": 12,
+      "total_faces": 18,
+      "presence_rate": 0.9444444444444444,
+      "biometric_ensemble_mean": 0.32771666666666666,
+      "id_given_presence": 0.3469941176470588,
+      "rank1_accuracy": 0.8888888888888888,
+      "margin_mean": 0.00440555555555555,
+      "wardrobe_pass_rate": 0.4444444444444444,
+      "mean_face_width": 128.0,
+      "structural_defects": 1,
+      "structural_breakdown": {
+        "missing_people": 1,
+        "extra_people": 0,
+        "inverted": 0,
+        "melted": 0
+      },
+      "prop_defects": 18,
+      "age_groups": {
+        "child": {
+          "count": 6,
+          "bio_mean": 0.29365,
+          "rank1": 0.8333333333333334,
+          "margin": 0.019233333333333335,
+          "mean_width": 160.16666666666666
+        },
+        "teen": {
+          "count": 3,
+          "bio_mean": 0.2513,
+          "rank1": 1.0,
+          "margin": 0.037733333333333334,
+          "mean_width": 171.33333333333334
+        },
+        "adult": {
+          "count": 9,
+          "bio_mean": 0.3759,
+          "rank1": 0.8888888888888888,
+          "margin": -0.01658888888888889,
+          "mean_width": 92.11111111111111
+        }
+      },
+      "size_bins": {
+        "small (<100px)": {
+          "count": 4,
+          "bio_mean": 0.25970000000000004,
+          "rank1": 0.75
+        },
+        "medium (100-180px)": {
+          "count": 12,
+          "bio_mean": 0.3515416666666667,
+          "rank1": 0.9166666666666666
+        },
+        "large (>180px)": {
+          "count": 2,
+          "bio_mean": 0.3208,
+          "rank1": 1.0
+        }
+      }
+    }
+  },
+  "statistical_tests": {
+    "image_bootstrap_paired_delta": {
+      "point_estimate": -0.0115,
+      "ci_95": [
+        -0.0728,
+        0.0513
+      ]
+    },
+    "scene_cluster_bootstrap": {
+      "point_estimate": -0.0115,
+      "ci_95": [
+        -0.0896,
+        0.0635
+      ]
+    }
+  },
+  "telemetry_audit": {
+    "claimed_peak_mb": 6476.0,
+    "recorded_summary_peak_mb": 7805.0,
+    "actual_exact_peak_mb": 8004.0,
+    "desktop_idle_baseline_mb": 854.0,
+    "forge_idle_baseline_mb": 2226.0,
+    "mean_vram_during_render_mb": 6739.5,
+    "seconds_above_7400mb": 157,
+    "total_render_duration_sec": 1638.1,
+    "latency_spill_evidence": "Scene 1 Seed 23 render took 186.8s (vs 114.4s on single-char Scene 2) due to CUDA memory thrashing as allocated VRAM reached 8004 MB (97.7% of 8192 MB capacity)."
+  },
+  "config_audit": {
+    "iteration_id": "loop-W3W4-iter3-closeup-scale-fidelity",
+    "mode": "fast",
+    "cfg_scale": 5.0,
+    "steps_pass1": 14,
+    "steps_pass2": 10,
+    "enable_face_detailer": false,
+    "codeformer_fidelity": 0.85,
+    "forge_options": {
+      "forge_inference_memory": 1024.0,
+      "xl_GPU_MB": 3200.0
+    },
+    "config_hash": "51a25afa0e338c5c",
+    "baseline_v1_mode": "v1 default (steps 25/15, CFG 5.5, no layout planner)",
+    "mode_alignment_finding": "iter3 was executed in fast mode (14/10 steps, detailer disabled, CFG 5.0) whereas Baseline v1 was rendered with 25/15 steps and CFG 5.5. Both broken v2 (single_anchor) and iter3 were rendered in fast mode."
+  }
+}

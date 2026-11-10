@@ -1,0 +1,65 @@
+{
+  "timestamp": "2026-10-16T06:42:26Z",
+  "dataset": "DEV-FAST (12 renders per condition)",
+  "results": {
+    "single_anchor": {
+      "mean_overall": 0.1744,
+      "mean_child": 0.1876,
+      "mean_adult": 0.1611,
+      "scores_by_render": [
+        0.1006,
+        0.1476,
+        0.0904,
+        0.1983,
+        0.2129,
+        0.3757,
+        0.1704,
+        0.2343,
+        0.2462,
+        0.0695,
+        0.1444,
+        0.1019
+      ]
+    },
+    "centroid": {
+      "mean_overall": 0.1788,
+      "mean_child": 0.1967,
+      "mean_adult": 0.1608,
+      "scores_by_render": [
+        0.1562,
+        0.147,
+        0.0904,
+        0.1983,
+        0.2129,
+        0.3757,
+        0.1704,
+        0.2322,
+        0.2462,
+        0.0695,
+        0.1444,
+        0.1019
+      ],
+      "delta_vs_single_anchor": 0.0044
+    },
+    "nearest_pose": {
+      "mean_overall": 0.1789,
+      "mean_child": 0.1967,
+      "mean_adult": 0.1611,
+      "scores_by_render": [
+        0.1562,
+        0.147,
+        0.0904,
+        0.1983,
+        0.2129,
+        0.3757,
+        0.1704,
+        0.2343,
+        0.2462,
+        0.0695,
+        0.1444,
+        0.1019
+      ],
+      "delta_vs_single_anchor": 0.0045
+    }
+  }
+}

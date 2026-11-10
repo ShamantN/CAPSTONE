@@ -1,0 +1,19 @@
+image_filename,scene_number,scene_title,character_id,age_group,is_child,is_teen,overall_pass,biometric_ensemble_score,rank1_correct,discrimination_margin,spatial_pass,observed_position,wardrobe_pass,wardrobe_delta_e,identity_at_position_pass,combined_binding_pass,seg_status,face_sharpness,face_width_px
+scene_1_seed_11.png,1,The Spark of Curiosity,young_ebright,child,True,False,False,0.3225,True,0.0483,True,left,True,36.86,False,False,seg_ok,1123.39,120
+scene_1_seed_11.png,1,The Spark of Curiosity,mother,adult,False,False,False,0.4633,True,0.0693,True,right,True,27.77,False,False,seg_ok,1508.84,116
+scene_1_seed_23.png,1,The Spark of Curiosity,young_ebright,child,True,False,False,0.3082,True,0.0569,True,left,False,54.33,False,False,seg_ok,1252.49,101
+scene_1_seed_23.png,1,The Spark of Curiosity,mother,adult,False,False,False,0.3212,True,0.1103,True,right,False,65.35,False,False,seg_ok,1493.98,116
+scene_1_seed_37.png,1,The Spark of Curiosity,young_ebright,child,True,False,False,0.3007,True,0.0162,True,left,False,59.58,False,False,seg_ok,1599.5,109
+scene_1_seed_37.png,1,The Spark of Curiosity,mother,adult,False,False,False,0.26,True,0.068,True,right,False,46.66,False,False,seg_ok,1504.33,109
+scene_2_seed_11.png,2,The Butterfly Basement,young_ebright,child,True,False,False,0.2954,True,0.013,True,center,False,53.72,False,False,seg_ok,1353.06,131
+scene_2_seed_23.png,2,The Butterfly Basement,young_ebright,child,True,False,False,0.3812,True,0.05,True,center,False,41.11,False,False,seg_ok,856.85,145
+scene_2_seed_37.png,2,The Butterfly Basement,young_ebright,child,True,False,False,0.2586,True,0.0175,True,center,False,58.57,False,False,seg_ok,508.05,162
+scene_4_seed_11.png,4,The Starling Experiment,teen_ebright,teen,False,True,False,0.2036,True,0.0032,True,center,False,47.92,False,False,seg_ok,642.6,135
+scene_4_seed_23.png,4,The Starling Experiment,teen_ebright,teen,False,True,False,0.2213,True,0.0261,True,center,False,47.23,False,False,seg_ok,755.45,126
+scene_4_seed_37.png,4,The Starling Experiment,teen_ebright,teen,False,True,False,0.1963,True,0.0259,True,center,True,24.15,False,False,seg_ok,956.56,121
+scene_5_seed_11.png,5,The Breakthrough at Harvard,college_ebright,adult,False,False,False,0.4984,True,0.0681,True,left,False,60.24,False,False,seg_ok,2196.71,101
+scene_5_seed_11.png,5,The Breakthrough at Harvard,james_wong,adult,False,False,False,0.4278,True,0.192,True,right,False,47.7,False,False,seg_ok,1173.6,96
+scene_5_seed_23.png,5,The Breakthrough at Harvard,college_ebright,adult,False,False,False,0.4183,True,0.0458,True,left,True,36.28,False,False,seg_ok,2048.11,97
+scene_5_seed_23.png,5,The Breakthrough at Harvard,james_wong,adult,False,False,False,0.3417,True,0.1644,True,right,True,25.35,False,False,seg_ok,1599.29,100
+scene_5_seed_37.png,5,The Breakthrough at Harvard,college_ebright,adult,False,False,False,0.3319,True,0.1226,True,left,True,30.02,False,False,seg_ok,1592.57,104
+scene_5_seed_37.png,5,The Breakthrough at Harvard,james_wong,adult,False,False,False,0.3212,True,0.136,True,right,True,37.48,False,False,seg_ok,1153.46,101

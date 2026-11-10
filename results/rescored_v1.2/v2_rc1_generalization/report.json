@@ -1,0 +1,1983 @@
+{
+  "verifier_version": "1.2",
+  "verifier_freeze_sha": "3fa69071f888643bccb1c21ee732415ac81996a9f3cb0b71dedd68086fecb4b6",
+  "detector_health": {
+    "retinaface": true,
+    "yolov8n": true,
+    "segformer": true,
+    "clip": true,
+    "dinov2": true,
+    "facenet512": true,
+    "sface": true,
+    "ghostfacenet": true,
+    "arcface": true,
+    "all_healthy": true
+  },
+  "images_evaluated_count": 15,
+  "total_face_instances": 21,
+  "summary_metrics": {
+    "biometric_ensemble_mean": 0.0,
+    "biometric_ensemble_std": 0.0,
+    "biometric_ensemble_95ci": [
+      0.0,
+      0.0
+    ],
+    "rank1_discrimination_accuracy": 0.0,
+    "discrimination_margin_mean": -0.5093,
+    "dinov2_mean_similarity": 0.3397,
+    "per_judge_means": {
+      "Facenet512": 0.0,
+      "SFace": 0.0,
+      "GhostFaceNet": 0.0,
+      "ArcFace": 0.0
+    },
+    "binding_decomposed": {
+      "spatial_position_pass_rate": 0.5714,
+      "wardrobe_palette_pass_rate": 0.4762,
+      "identity_at_position_pass_rate": 0.0,
+      "combined_binding_pass_rate": 0.0
+    },
+    "age_split_metrics": {
+      "child": {
+        "count": 0,
+        "biometric_ensemble_mean": 0.0,
+        "rank1_accuracy": 0.0,
+        "combined_binding_accuracy": 0.0,
+        "wardrobe_accuracy": 0.0
+      },
+      "teen": {
+        "count": 0,
+        "biometric_ensemble_mean": 0.0,
+        "rank1_accuracy": 0.0,
+        "combined_binding_accuracy": 0.0,
+        "wardrobe_accuracy": 0.0
+      },
+      "adult": {
+        "count": 21,
+        "biometric_ensemble_mean": 0.0,
+        "rank1_accuracy": 0.0,
+        "combined_binding_accuracy": 0.0,
+        "wardrobe_accuracy": 0.4762
+      }
+    },
+    "mean_defects_per_scene": 1.9333,
+    "seg_failed_count": 0
+  },
+  "comparative_significance": {},
+  "raw_biometric_ensemble_scores": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "per_scene_reports": [
+    {
+      "image_filename": "chrono_scene_1_seed_101.png",
+      "scene_number": 1,
+      "scene_title": "The Clockwork Observatory",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 2,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 196,
+            "too_small": false,
+            "sharpness_laplacian": 1030.38,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0537
+        },
+        "prop_checks": {
+          "required_pass": true,
+          "missing_required": [],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 1,
+        "defect_taxonomy_violations": [
+          "missing_people (found 1 faces, expected 2)"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 602,
+              "y": 91,
+              "w": 196,
+              "h": 245
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "elena_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 602,
+            "y": 91,
+            "w": 196,
+            "h": 245
+          },
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "SFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.3911,
+          "spatial_pass": false,
+          "observed_position": "center",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 43.45,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 196,
+          "face_sharpness": 1030.38,
+          "dinov2_similarity": 0.4696,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "marcus_thorne",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": null,
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "rank1_correct": false,
+          "discrimination_margin": -1.0,
+          "spatial_pass": false,
+          "observed_position": "missing",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 99.0,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "missing_face",
+          "face_width_px": 0,
+          "face_sharpness": 0.0,
+          "dinov2_similarity": 0.0,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\chrono_scene_1_seed_101_contact.png"
+    },
+    {
+      "image_filename": "chrono_scene_1_seed_202.png",
+      "scene_number": 1,
+      "scene_title": "The Clockwork Observatory",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 2,
+        "detected_faces_count": 2,
+        "detected_persons_yolo_count": 2,
+        "face_audits": [
+          {
+            "width_px": 115,
+            "too_small": false,
+            "sharpness_laplacian": 1131.8,
+            "is_blurry": false,
+            "melted_face_flag": false
+          },
+          {
+            "width_px": 106,
+            "too_small": false,
+            "sharpness_laplacian": 482.71,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.033
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "mahogany workbench",
+              "score": 0.1473
+            }
+          ],
+          "forbidden_pass": false,
+          "detected_forbidden": [
+            {
+              "prop": "modern plastic",
+              "score": 0.9204
+            },
+            {
+              "prop": "neon light",
+              "score": 0.8628
+            }
+          ]
+        },
+        "defect_count": 3,
+        "defect_taxonomy_violations": [
+          "required_prop_absent: mahogany workbench",
+          "forbidden_prop_present: modern plastic",
+          "forbidden_prop_present: neon light"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 647,
+              "y": 89,
+              "w": 115,
+              "h": 161
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          },
+          {
+            "bbox": {
+              "x": 437,
+              "y": 85,
+              "w": 106,
+              "h": 148
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "elena_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 437,
+            "y": 85,
+            "w": 106,
+            "h": 148
+          },
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "SFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.2142,
+          "spatial_pass": true,
+          "observed_position": "left",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 18.25,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 106,
+          "face_sharpness": 482.71,
+          "dinov2_similarity": 0.6239,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "marcus_thorne",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 647,
+            "y": 89,
+            "w": 115,
+            "h": 161
+          },
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "SFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.3627,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 13.83,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 115,
+          "face_sharpness": 1131.8,
+          "dinov2_similarity": 0.446,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\chrono_scene_1_seed_202_contact.png"
+    },
+    {
+      "image_filename": "chrono_scene_1_seed_303.png",
+      "scene_number": 1,
+      "scene_title": "The Clockwork Observatory",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 2,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 156,
+            "too_small": false,
+            "sharpness_laplacian": 518.43,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0261
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "brass armillary sphere",
+              "score": 0.2062
+            },
+            {
+              "prop": "mahogany workbench",
+              "score": 0.0127
+            }
+          ],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 3,
+        "defect_taxonomy_violations": [
+          "missing_people (found 1 faces, expected 2)",
+          "required_prop_absent: brass armillary sphere",
+          "required_prop_absent: mahogany workbench"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 551,
+              "y": 69,
+              "w": 156,
+              "h": 227
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "elena_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 551,
+            "y": 69,
+            "w": 156,
+            "h": 227
+          },
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "SFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.3187,
+          "spatial_pass": false,
+          "observed_position": "center",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 33.97,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 156,
+          "face_sharpness": 518.43,
+          "dinov2_similarity": 0.6201,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "marcus_thorne",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": null,
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "rank1_correct": false,
+          "discrimination_margin": -1.0,
+          "spatial_pass": false,
+          "observed_position": "missing",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 99.0,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "missing_face",
+          "face_width_px": 0,
+          "face_sharpness": 0.0,
+          "dinov2_similarity": 0.0,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\chrono_scene_1_seed_303_contact.png"
+    },
+    {
+      "image_filename": "chrono_scene_2_seed_101.png",
+      "scene_number": 2,
+      "scene_title": "The Gearworks Archive",
+      "scene_audit": {
+        "scene_passed": true,
+        "expected_faces": 1,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 262,
+            "too_small": false,
+            "sharpness_laplacian": 170.21,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0249
+        },
+        "prop_checks": {
+          "required_pass": true,
+          "missing_required": [],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 0,
+        "defect_taxonomy_violations": [],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 346,
+              "y": 191,
+              "w": 262,
+              "h": 290
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "elena_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 346,
+            "y": 191,
+            "w": 262,
+            "h": 290
+          },
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "SFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.5357,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 46.11,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 262,
+          "face_sharpness": 170.21,
+          "dinov2_similarity": 0.3218,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\chrono_scene_2_seed_101_contact.png"
+    },
+    {
+      "image_filename": "chrono_scene_2_seed_202.png",
+      "scene_number": 2,
+      "scene_title": "The Gearworks Archive",
+      "scene_audit": {
+        "scene_passed": true,
+        "expected_faces": 1,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 169,
+            "too_small": false,
+            "sharpness_laplacian": 252.82,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0818
+        },
+        "prop_checks": {
+          "required_pass": true,
+          "missing_required": [],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 0,
+        "defect_taxonomy_violations": [],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 467,
+              "y": 262,
+              "w": 169,
+              "h": 215
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "elena_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 467,
+            "y": 262,
+            "w": 169,
+            "h": 215
+          },
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "SFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.5331,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 6.34,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 169,
+          "face_sharpness": 252.82,
+          "dinov2_similarity": 0.355,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\chrono_scene_2_seed_202_contact.png"
+    },
+    {
+      "image_filename": "chrono_scene_2_seed_303.png",
+      "scene_number": 2,
+      "scene_title": "The Gearworks Archive",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 1,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 215,
+            "too_small": false,
+            "sharpness_laplacian": 93.35,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.1518
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "star map parchment",
+              "score": 0.058
+            }
+          ],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 1,
+        "defect_taxonomy_violations": [
+          "required_prop_absent: star map parchment"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 438,
+              "y": 199,
+              "w": 215,
+              "h": 264
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "elena_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 438,
+            "y": 199,
+            "w": 215,
+            "h": 264
+          },
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "SFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.4027,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 40.46,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 215,
+          "face_sharpness": 93.35,
+          "dinov2_similarity": 0.336,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\chrono_scene_2_seed_303_contact.png"
+    },
+    {
+      "image_filename": "chrono_scene_3_seed_101.png",
+      "scene_number": 3,
+      "scene_title": "The Dunesea Outpost",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 2,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 268,
+            "too_small": false,
+            "sharpness_laplacian": 351.24,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0709
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "brass navigational sextant",
+              "score": 0.01
+            }
+          ],
+          "forbidden_pass": false,
+          "detected_forbidden": [
+            {
+              "prop": "child",
+              "score": 0.9992
+            },
+            {
+              "prop": "modern car",
+              "score": 0.9224
+            },
+            {
+              "prop": "city skyline",
+              "score": 0.9687
+            }
+          ]
+        },
+        "defect_count": 5,
+        "defect_taxonomy_violations": [
+          "missing_people (found 1 faces, expected 2)",
+          "required_prop_absent: brass navigational sextant",
+          "forbidden_prop_present: child",
+          "forbidden_prop_present: modern car",
+          "forbidden_prop_present: city skyline"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 310,
+              "y": 158,
+              "w": 268,
+              "h": 371
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "elena_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 310,
+            "y": 158,
+            "w": 268,
+            "h": 371
+          },
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "SFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.3599,
+          "spatial_pass": true,
+          "observed_position": "left",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 32.48,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 268,
+          "face_sharpness": 351.24,
+          "dinov2_similarity": 0.4472,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "kenji_sato",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": null,
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "rank1_correct": false,
+          "discrimination_margin": -1.0,
+          "spatial_pass": false,
+          "observed_position": "missing",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 99.0,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "missing_face",
+          "face_width_px": 0,
+          "face_sharpness": 0.0,
+          "dinov2_similarity": 0.0,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\chrono_scene_3_seed_101_contact.png"
+    },
+    {
+      "image_filename": "chrono_scene_3_seed_202.png",
+      "scene_number": 3,
+      "scene_title": "The Dunesea Outpost",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 2,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 67,
+            "too_small": false,
+            "sharpness_laplacian": 1859.78,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.03
+        },
+        "prop_checks": {
+          "required_pass": true,
+          "missing_required": [],
+          "forbidden_pass": false,
+          "detected_forbidden": [
+            {
+              "prop": "child",
+              "score": 0.9982
+            },
+            {
+              "prop": "modern car",
+              "score": 0.7863
+            },
+            {
+              "prop": "city skyline",
+              "score": 0.8879
+            }
+          ]
+        },
+        "defect_count": 4,
+        "defect_taxonomy_violations": [
+          "missing_people (found 1 faces, expected 2)",
+          "forbidden_prop_present: child",
+          "forbidden_prop_present: modern car",
+          "forbidden_prop_present: city skyline"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 644,
+              "y": 130,
+              "w": 67,
+              "h": 122
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "elena_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 644,
+            "y": 130,
+            "w": 67,
+            "h": 122
+          },
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "SFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.5467,
+          "spatial_pass": false,
+          "observed_position": "center",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 71.24,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 67,
+          "face_sharpness": 1859.78,
+          "dinov2_similarity": 0.2893,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "kenji_sato",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": null,
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "rank1_correct": false,
+          "discrimination_margin": -1.0,
+          "spatial_pass": false,
+          "observed_position": "missing",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 99.0,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "missing_face",
+          "face_width_px": 0,
+          "face_sharpness": 0.0,
+          "dinov2_similarity": 0.0,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\chrono_scene_3_seed_202_contact.png"
+    },
+    {
+      "image_filename": "chrono_scene_3_seed_303.png",
+      "scene_number": 3,
+      "scene_title": "The Dunesea Outpost",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 2,
+        "detected_faces_count": 2,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 130,
+            "too_small": false,
+            "sharpness_laplacian": 822.36,
+            "is_blurry": false,
+            "melted_face_flag": false
+          },
+          {
+            "width_px": 39,
+            "too_small": true,
+            "sharpness_laplacian": 76.69,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0777
+        },
+        "prop_checks": {
+          "required_pass": true,
+          "missing_required": [],
+          "forbidden_pass": false,
+          "detected_forbidden": [
+            {
+              "prop": "child",
+              "score": 0.9947
+            },
+            {
+              "prop": "modern car",
+              "score": 0.716
+            },
+            {
+              "prop": "city skyline",
+              "score": 0.8965
+            }
+          ]
+        },
+        "defect_count": 3,
+        "defect_taxonomy_violations": [
+          "forbidden_prop_present: child",
+          "forbidden_prop_present: modern car",
+          "forbidden_prop_present: city skyline"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 547,
+              "y": 162,
+              "w": 130,
+              "h": 184
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          },
+          {
+            "bbox": {
+              "x": 706,
+              "y": 0,
+              "w": 39,
+              "h": 35
+            },
+            "confidence": 0.91,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "elena_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 547,
+            "y": 162,
+            "w": 130,
+            "h": 184
+          },
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "SFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.3501,
+          "spatial_pass": false,
+          "observed_position": "center",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 38.76,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 130,
+          "face_sharpness": 822.36,
+          "dinov2_similarity": 0.4473,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "kenji_sato",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": null,
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "rank1_correct": false,
+          "discrimination_margin": -1.0,
+          "spatial_pass": false,
+          "observed_position": "missing",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 99.0,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "missing_face",
+          "face_width_px": 0,
+          "face_sharpness": 0.0,
+          "dinov2_similarity": 0.0,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\chrono_scene_3_seed_303_contact.png"
+    },
+    {
+      "image_filename": "chrono_scene_4_seed_101.png",
+      "scene_number": 4,
+      "scene_title": "The Solarium Vault",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 1,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 2,
+        "face_audits": [
+          {
+            "width_px": 132,
+            "too_small": false,
+            "sharpness_laplacian": 257.65,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.2572
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "sandstone temple pillars",
+              "score": 0.0678
+            }
+          ],
+          "forbidden_pass": false,
+          "detected_forbidden": [
+            {
+              "prop": "glowing magic wand",
+              "score": 0.913
+            }
+          ]
+        },
+        "defect_count": 2,
+        "defect_taxonomy_violations": [
+          "required_prop_absent: sandstone temple pillars",
+          "forbidden_prop_present: glowing magic wand"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 457,
+              "y": 149,
+              "w": 132,
+              "h": 184
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "elena_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 457,
+            "y": 149,
+            "w": 132,
+            "h": 184
+          },
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "SFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.379,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 32.79,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 132,
+          "face_sharpness": 257.65,
+          "dinov2_similarity": 0.4249,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\chrono_scene_4_seed_101_contact.png"
+    },
+    {
+      "image_filename": "chrono_scene_4_seed_202.png",
+      "scene_number": 4,
+      "scene_title": "The Solarium Vault",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 1,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 58,
+            "too_small": true,
+            "sharpness_laplacian": 1122.24,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.1146
+        },
+        "prop_checks": {
+          "required_pass": true,
+          "missing_required": [],
+          "forbidden_pass": false,
+          "detected_forbidden": [
+            {
+              "prop": "glowing magic wand",
+              "score": 0.7435
+            }
+          ]
+        },
+        "defect_count": 1,
+        "defect_taxonomy_violations": [
+          "forbidden_prop_present: glowing magic wand"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 438,
+              "y": 172,
+              "w": 58,
+              "h": 78
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "elena_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 438,
+            "y": 172,
+            "w": 58,
+            "h": 78
+          },
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "SFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.3013,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 45.78,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 58,
+          "face_sharpness": 1122.24,
+          "dinov2_similarity": 0.3928,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\chrono_scene_4_seed_202_contact.png"
+    },
+    {
+      "image_filename": "chrono_scene_4_seed_303.png",
+      "scene_number": 4,
+      "scene_title": "The Solarium Vault",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 1,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 118,
+            "too_small": false,
+            "sharpness_laplacian": 393.16,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0056
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "golden astrolabe with crystal gears",
+              "score": 0.0088
+            },
+            {
+              "prop": "sandstone temple pillars",
+              "score": 0.0048
+            }
+          ],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 2,
+        "defect_taxonomy_violations": [
+          "required_prop_absent: golden astrolabe with crystal gears",
+          "required_prop_absent: sandstone temple pillars"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 455,
+              "y": 65,
+              "w": 118,
+              "h": 164
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "elena_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 455,
+            "y": 65,
+            "w": 118,
+            "h": 164
+          },
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "SFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.3128,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 24.98,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 118,
+          "face_sharpness": 393.16,
+          "dinov2_similarity": 0.4948,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\chrono_scene_4_seed_303_contact.png"
+    },
+    {
+      "image_filename": "chrono_scene_5_seed_101.png",
+      "scene_number": 5,
+      "scene_title": "The Council of Chronos",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 1,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 104,
+            "too_small": false,
+            "sharpness_laplacian": 1130.52,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0113
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "golden astrolabe",
+              "score": 0.0256
+            }
+          ],
+          "forbidden_pass": false,
+          "detected_forbidden": [
+            {
+              "prop": "casual t-shirt",
+              "score": 0.8425
+            }
+          ]
+        },
+        "defect_count": 2,
+        "defect_taxonomy_violations": [
+          "required_prop_absent: golden astrolabe",
+          "forbidden_prop_present: casual t-shirt"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 452,
+              "y": 210,
+              "w": 104,
+              "h": 140
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "elena_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 452,
+            "y": 210,
+            "w": 104,
+            "h": 140
+          },
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "SFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.2366,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 18.88,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 104,
+          "face_sharpness": 1130.52,
+          "dinov2_similarity": 0.5526,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\chrono_scene_5_seed_101_contact.png"
+    },
+    {
+      "image_filename": "chrono_scene_5_seed_202.png",
+      "scene_number": 5,
+      "scene_title": "The Council of Chronos",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 1,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 60,
+            "too_small": true,
+            "sharpness_laplacian": 1484.71,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.1133
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "golden astrolabe",
+              "score": 0.0088
+            }
+          ],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 1,
+        "defect_taxonomy_violations": [
+          "required_prop_absent: golden astrolabe"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 463,
+              "y": 212,
+              "w": 60,
+              "h": 79
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "elena_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 463,
+            "y": 212,
+            "w": 60,
+            "h": 79
+          },
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "SFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.1933,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 25.64,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 60,
+          "face_sharpness": 1484.71,
+          "dinov2_similarity": 0.4404,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\chrono_scene_5_seed_202_contact.png"
+    },
+    {
+      "image_filename": "chrono_scene_5_seed_303.png",
+      "scene_number": 5,
+      "scene_title": "The Council of Chronos",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 1,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 87,
+            "too_small": false,
+            "sharpness_laplacian": 1058.04,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0315
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "golden astrolabe",
+              "score": 0.0116
+            }
+          ],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 1,
+        "defect_taxonomy_violations": [
+          "required_prop_absent: golden astrolabe"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 500,
+              "y": 131,
+              "w": 87,
+              "h": 119
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "elena_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 500,
+            "y": 131,
+            "w": 87,
+            "h": 119
+          },
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "SFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0,
+              "centroid_similarity": 0.0,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.2564,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 23.7,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 87,
+          "face_sharpness": 1058.04,
+          "dinov2_similarity": 0.4713,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\chrono_scene_5_seed_303_contact.png"
+    }
+  ]
+}

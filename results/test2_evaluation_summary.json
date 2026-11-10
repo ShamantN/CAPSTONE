@@ -1,0 +1,1095 @@
+{
+  "analysis_timestamp": 1794293406.703791,
+  "n_bootstrap_resamples": 10000,
+  "bootstrap_random_seed": 42,
+  "ebright_evaluation": {
+    "split_name": "TEST-2 Ebright",
+    "sample_size_scenes": 30,
+    "sample_size_instances": 40,
+    "n_scene_clusters": 6,
+    "biometric_ensemble": {
+      "n_units": 40,
+      "v2_mean": 0.3147,
+      "v2_cluster_95ci": [
+        0.29,
+        0.3444
+      ],
+      "v2_image_95ci": [
+        0.2995,
+        0.3308
+      ],
+      "v1_mean": 0.3091,
+      "v1_cluster_95ci": [
+        0.2908,
+        0.3239
+      ],
+      "v1_image_95ci": [
+        0.2962,
+        0.322
+      ],
+      "paired_delta_mean": 0.0056,
+      "paired_delta_cluster_bootstrap_95ci": [
+        -0.0149,
+        0.0317
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        -0.0124,
+        0.0244
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": false,
+      "wilcoxon_signed_rank_W": 343.0,
+      "wilcoxon_p_value": 0.375381,
+      "v2_95ci": [
+        0.29,
+        0.3444
+      ],
+      "v1_95ci": [
+        0.2908,
+        0.3239
+      ]
+    },
+    "rank1_accuracy": {
+      "total_count": 40,
+      "v2_count": 32,
+      "v1_count": 26,
+      "v2_rate": 0.8,
+      "v2_cluster_95ci": [
+        0.5143,
+        0.9714
+      ],
+      "v2_image_95ci": [
+        0.6667,
+        0.9091
+      ],
+      "v1_rate": 0.65,
+      "paired_delta_rate": 0.15,
+      "paired_delta_cluster_bootstrap_95ci": [
+        0.0,
+        0.3333
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        0.0238,
+        0.2857
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": true,
+      "wilcoxon_signed_rank_W": 11.0,
+      "wilcoxon_p_value": 0.05778
+    },
+    "spatial_position_pass": {
+      "total_count": 40,
+      "v2_count": 39,
+      "v1_count": 40,
+      "v2_rate": 0.975,
+      "v2_cluster_95ci": [
+        0.9333,
+        1.0
+      ],
+      "v2_image_95ci": [
+        0.9231,
+        1.0
+      ],
+      "v1_rate": 1.0,
+      "paired_delta_rate": -0.025,
+      "paired_delta_cluster_bootstrap_95ci": [
+        -0.0667,
+        0.0
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        -0.0769,
+        0.0
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": false,
+      "wilcoxon_signed_rank_W": 0.0,
+      "wilcoxon_p_value": 1.0
+    },
+    "wardrobe_palette_pass": {
+      "total_count": 40,
+      "v2_count": 32,
+      "v1_count": 18,
+      "v2_rate": 0.8,
+      "v2_cluster_95ci": [
+        0.4857,
+        0.9778
+      ],
+      "v2_image_95ci": [
+        0.6579,
+        0.9111
+      ],
+      "v1_rate": 0.45,
+      "paired_delta_rate": 0.35,
+      "paired_delta_cluster_bootstrap_95ci": [
+        0.2,
+        0.4857
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        0.225,
+        0.4762
+      ],
+      "significant_by_cluster_ci": true,
+      "significant_by_image_ci": true,
+      "wilcoxon_signed_rank_W": 0.0,
+      "wilcoxon_p_value": 0.000183
+    },
+    "identity_at_position_pass": {
+      "total_count": 40,
+      "v2_count": 0,
+      "v1_count": 0,
+      "v2_rate": 0.0,
+      "v2_cluster_95ci": [
+        0.0,
+        0.0
+      ],
+      "v2_image_95ci": [
+        0.0,
+        0.0
+      ],
+      "v1_rate": 0.0,
+      "paired_delta_rate": 0.0,
+      "paired_delta_cluster_bootstrap_95ci": [
+        0.0,
+        0.0
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        0.0,
+        0.0
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": false,
+      "wilcoxon_signed_rank_W": 0.0,
+      "wilcoxon_p_value": 1.0
+    },
+    "combined_binding_pass": {
+      "total_count": 40,
+      "v2_count": 0,
+      "v1_count": 0,
+      "v2_rate": 0.0,
+      "v2_cluster_95ci": [
+        0.0,
+        0.0
+      ],
+      "v2_image_95ci": [
+        0.0,
+        0.0
+      ],
+      "v1_rate": 0.0,
+      "paired_delta_rate": 0.0,
+      "paired_delta_cluster_bootstrap_95ci": [
+        0.0,
+        0.0
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        0.0,
+        0.0
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": false,
+      "wilcoxon_signed_rank_W": 0.0,
+      "wilcoxon_p_value": 1.0
+    },
+    "defects_per_scene": {
+      "n_units": 30,
+      "v2_mean": 1.5,
+      "v2_cluster_95ci": [
+        0.7667,
+        2.3
+      ],
+      "v2_image_95ci": [
+        1.0667,
+        1.9667
+      ],
+      "v1_mean": 3.0667,
+      "v1_cluster_95ci": [
+        1.6,
+        4.4333
+      ],
+      "v1_image_95ci": [
+        2.4,
+        3.7667
+      ],
+      "paired_delta_mean": -1.5667,
+      "paired_delta_cluster_bootstrap_95ci": [
+        -3.2,
+        -0.1333
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        -2.3667,
+        -0.7667
+      ],
+      "significant_by_cluster_ci": true,
+      "significant_by_image_ci": true,
+      "wilcoxon_signed_rank_W": 39.5,
+      "wilcoxon_p_value": 0.001453
+    },
+    "defects_per_instance_weighted": {
+      "n_units": 40,
+      "v2_mean": 1.525,
+      "v2_cluster_95ci": [
+        0.725,
+        2.325
+      ],
+      "v2_image_95ci": [
+        1.0732,
+        2.0
+      ],
+      "v1_mean": 2.575,
+      "v1_cluster_95ci": [
+        1.2667,
+        4.3429
+      ],
+      "v1_image_95ci": [
+        1.8864,
+        3.3824
+      ],
+      "paired_delta_mean": -1.05,
+      "paired_delta_cluster_bootstrap_95ci": [
+        -3.0,
+        0.12
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        -1.9189,
+        -0.2857
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": true,
+      "wilcoxon_signed_rank_W": 107.0,
+      "wilcoxon_p_value": 0.009014
+    },
+    "age_disaggregated": {
+      "adult": {
+        "count": 20,
+        "v2_biometric_mean": 0.328,
+        "v1_biometric_mean": 0.329,
+        "delta_biometric_mean": -0.001,
+        "delta_biometric_cluster_95ci": [
+          -0.055,
+          0.0472
+        ],
+        "delta_biometric_image_95ci": [
+          -0.0329,
+          0.0298
+        ],
+        "v2_rank1_rate": 0.9,
+        "v2_rank1_count": 18,
+        "v1_rank1_rate": 0.8,
+        "v1_rank1_count": 16,
+        "v2_wardrobe_rate": 0.7,
+        "v2_wardrobe_count": 14,
+        "v1_wardrobe_rate": 0.5,
+        "v1_wardrobe_count": 10
+      },
+      "teen": {
+        "count": 10,
+        "v2_biometric_mean": 0.3139,
+        "v1_biometric_mean": 0.2778,
+        "delta_biometric_mean": 0.036,
+        "delta_biometric_cluster_95ci": [
+          0.0308,
+          0.0412
+        ],
+        "delta_biometric_image_95ci": [
+          0.023,
+          0.0503
+        ],
+        "v2_rank1_rate": 1.0,
+        "v2_rank1_count": 10,
+        "v1_rank1_rate": 1.0,
+        "v1_rank1_count": 10,
+        "v2_wardrobe_rate": 1.0,
+        "v2_wardrobe_count": 10,
+        "v1_wardrobe_rate": 0.4,
+        "v1_wardrobe_count": 4
+      },
+      "child": {
+        "count": 10,
+        "v2_biometric_mean": 0.2889,
+        "v1_biometric_mean": 0.3006,
+        "delta_biometric_mean": -0.0117,
+        "delta_biometric_cluster_95ci": [
+          -0.0236,
+          0.0002
+        ],
+        "delta_biometric_image_95ci": [
+          -0.0426,
+          0.0234
+        ],
+        "v2_rank1_rate": 0.4,
+        "v2_rank1_count": 4,
+        "v1_rank1_rate": 0.0,
+        "v1_rank1_count": 0,
+        "v2_wardrobe_rate": 0.8,
+        "v2_wardrobe_count": 8,
+        "v1_wardrobe_rate": 0.4,
+        "v1_wardrobe_count": 4
+      }
+    }
+  },
+  "holdout_evaluation": {
+    "split_name": "TEST-2 Holdout",
+    "sample_size_scenes": 12,
+    "sample_size_instances": 24,
+    "n_scene_clusters": 4,
+    "biometric_ensemble": {
+      "n_units": 24,
+      "v2_mean": 0.2596,
+      "v2_cluster_95ci": [
+        0.1214,
+        0.401
+      ],
+      "v2_image_95ci": [
+        0.178,
+        0.362
+      ],
+      "v1_mean": 0.2758,
+      "v1_cluster_95ci": [
+        0.2074,
+        0.3634
+      ],
+      "v1_image_95ci": [
+        0.2328,
+        0.3295
+      ],
+      "paired_delta_mean": -0.0162,
+      "paired_delta_cluster_bootstrap_95ci": [
+        -0.092,
+        0.0661
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        -0.0633,
+        0.0412
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": false,
+      "wilcoxon_signed_rank_W": 109.0,
+      "wilcoxon_p_value": 0.82126,
+      "v2_95ci": [
+        0.1214,
+        0.401
+      ],
+      "v1_95ci": [
+        0.2074,
+        0.3634
+      ]
+    },
+    "rank1_accuracy": {
+      "total_count": 24,
+      "v2_count": 13,
+      "v1_count": 15,
+      "v2_rate": 0.5417,
+      "v2_cluster_95ci": [
+        0.1212,
+        1.0
+      ],
+      "v2_image_95ci": [
+        0.2857,
+        0.85
+      ],
+      "v1_rate": 0.625,
+      "paired_delta_rate": -0.0833,
+      "paired_delta_cluster_bootstrap_95ci": [
+        -0.2727,
+        0.125
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        -0.2085,
+        0.0871
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": false,
+      "wilcoxon_signed_rank_W": 2.5,
+      "wilcoxon_p_value": 0.317311
+    },
+    "spatial_position_pass": {
+      "total_count": 24,
+      "v2_count": 21,
+      "v1_count": 19,
+      "v2_rate": 0.875,
+      "v2_cluster_95ci": [
+        0.7273,
+        1.0
+      ],
+      "v2_image_95ci": [
+        0.7778,
+        1.0
+      ],
+      "v1_rate": 0.7917,
+      "paired_delta_rate": 0.0833,
+      "paired_delta_cluster_bootstrap_95ci": [
+        0.0,
+        0.1429
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        0.0,
+        0.1923
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": false,
+      "wilcoxon_signed_rank_W": 0.0,
+      "wilcoxon_p_value": 1.0
+    },
+    "wardrobe_palette_pass": {
+      "total_count": 24,
+      "v2_count": 9,
+      "v1_count": 10,
+      "v2_rate": 0.375,
+      "v2_cluster_95ci": [
+        0.0909,
+        0.8
+      ],
+      "v2_image_95ci": [
+        0.2069,
+        0.5792
+      ],
+      "v1_rate": 0.4167,
+      "paired_delta_rate": -0.0417,
+      "paired_delta_cluster_bootstrap_95ci": [
+        -0.2593,
+        0.4667
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        -0.2308,
+        0.2105
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": false,
+      "wilcoxon_signed_rank_W": 12.0,
+      "wilcoxon_p_value": 0.705457
+    },
+    "identity_at_position_pass": {
+      "total_count": 24,
+      "v2_count": 0,
+      "v1_count": 0,
+      "v2_rate": 0.0,
+      "v2_cluster_95ci": [
+        0.0,
+        0.0
+      ],
+      "v2_image_95ci": [
+        0.0,
+        0.0
+      ],
+      "v1_rate": 0.0,
+      "paired_delta_rate": 0.0,
+      "paired_delta_cluster_bootstrap_95ci": [
+        0.0,
+        0.0
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        0.0,
+        0.0
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": false,
+      "wilcoxon_signed_rank_W": 0.0,
+      "wilcoxon_p_value": 1.0
+    },
+    "combined_binding_pass": {
+      "total_count": 24,
+      "v2_count": 0,
+      "v1_count": 0,
+      "v2_rate": 0.0,
+      "v2_cluster_95ci": [
+        0.0,
+        0.0
+      ],
+      "v2_image_95ci": [
+        0.0,
+        0.0
+      ],
+      "v1_rate": 0.0,
+      "paired_delta_rate": 0.0,
+      "paired_delta_cluster_bootstrap_95ci": [
+        0.0,
+        0.0
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        0.0,
+        0.0
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": false,
+      "wilcoxon_signed_rank_W": 0.0,
+      "wilcoxon_p_value": 1.0
+    },
+    "defects_per_scene": {
+      "n_units": 12,
+      "v2_mean": 1.25,
+      "v2_cluster_95ci": [
+        0.6667,
+        1.6667
+      ],
+      "v2_image_95ci": [
+        0.8333,
+        1.6667
+      ],
+      "v1_mean": 1.9167,
+      "v1_cluster_95ci": [
+        0.8333,
+        2.9167
+      ],
+      "v1_image_95ci": [
+        1.25,
+        2.5833
+      ],
+      "paired_delta_mean": -0.6667,
+      "paired_delta_cluster_bootstrap_95ci": [
+        -2.3333,
+        0.8333
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        -1.6667,
+        0.3333
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": false,
+      "wilcoxon_signed_rank_W": 17.0,
+      "wilcoxon_p_value": 0.324219
+    },
+    "defects_per_instance_weighted": {
+      "n_units": 24,
+      "v2_mean": 1.4167,
+      "v2_cluster_95ci": [
+        0.8667,
+        1.6667
+      ],
+      "v2_image_95ci": [
+        1.0435,
+        1.7407
+      ],
+      "v1_mean": 1.7917,
+      "v1_cluster_95ci": [
+        0.7619,
+        2.6667
+      ],
+      "v1_image_95ci": [
+        1.1818,
+        2.375
+      ],
+      "paired_delta_mean": -0.375,
+      "paired_delta_cluster_bootstrap_95ci": [
+        -1.8333,
+        0.7143
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        -1.16,
+        0.4167
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": false,
+      "wilcoxon_signed_rank_W": 73.0,
+      "wilcoxon_p_value": 0.360669
+    },
+    "age_disaggregated": {
+      "adult": {
+        "count": 15,
+        "v2_biometric_mean": 0.2274,
+        "v1_biometric_mean": 0.21,
+        "delta_biometric_mean": 0.0175,
+        "delta_biometric_cluster_95ci": [
+          -0.014,
+          0.05
+        ],
+        "delta_biometric_image_95ci": [
+          -0.0103,
+          0.0514
+        ],
+        "v2_rank1_rate": 0.4667,
+        "v2_rank1_count": 7,
+        "v1_rank1_rate": 0.4,
+        "v1_rank1_count": 6,
+        "v2_wardrobe_rate": 0.4,
+        "v2_wardrobe_count": 6,
+        "v1_wardrobe_rate": 0.5333,
+        "v1_wardrobe_count": 8
+      },
+      "child": {
+        "count": 9,
+        "v2_biometric_mean": 0.3132,
+        "v1_biometric_mean": 0.3854,
+        "delta_biometric_mean": -0.0723,
+        "delta_biometric_cluster_95ci": [
+          -0.3143,
+          0.0982
+        ],
+        "delta_biometric_image_95ci": [
+          -0.1963,
+          0.0432
+        ],
+        "v2_rank1_rate": 0.6667,
+        "v2_rank1_count": 6,
+        "v1_rank1_rate": 1.0,
+        "v1_rank1_count": 9,
+        "v2_wardrobe_rate": 0.3333,
+        "v2_wardrobe_count": 3,
+        "v1_wardrobe_rate": 0.2222,
+        "v1_wardrobe_count": 2
+      }
+    }
+  },
+  "combined_evaluation": {
+    "split_name": "TEST-2 Combined",
+    "sample_size_scenes": 42,
+    "sample_size_instances": 64,
+    "n_scene_clusters": 10,
+    "biometric_ensemble": {
+      "n_units": 64,
+      "v2_mean": 0.294,
+      "v2_cluster_95ci": [
+        0.2243,
+        0.3505
+      ],
+      "v2_image_95ci": [
+        0.2564,
+        0.33
+      ],
+      "v1_mean": 0.2966,
+      "v1_cluster_95ci": [
+        0.2595,
+        0.3276
+      ],
+      "v1_image_95ci": [
+        0.2752,
+        0.3176
+      ],
+      "paired_delta_mean": -0.0026,
+      "paired_delta_cluster_bootstrap_95ci": [
+        -0.039,
+        0.033
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        -0.0252,
+        0.0211
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": false,
+      "wilcoxon_signed_rank_W": 808.0,
+      "wilcoxon_p_value": 0.323333,
+      "v2_95ci": [
+        0.2243,
+        0.3505
+      ],
+      "v1_95ci": [
+        0.2595,
+        0.3276
+      ]
+    },
+    "rank1_accuracy": {
+      "total_count": 64,
+      "v2_count": 45,
+      "v1_count": 41,
+      "v2_rate": 0.7031,
+      "v2_cluster_95ci": [
+        0.4285,
+        0.9286
+      ],
+      "v2_image_95ci": [
+        0.5593,
+        0.8438
+      ],
+      "v1_rate": 0.6406,
+      "paired_delta_rate": 0.0625,
+      "paired_delta_cluster_bootstrap_95ci": [
+        -0.1053,
+        0.2388
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        -0.0462,
+        0.1774
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": false,
+      "wilcoxon_signed_rank_W": 37.5,
+      "wilcoxon_p_value": 0.285049
+    },
+    "spatial_position_pass": {
+      "total_count": 64,
+      "v2_count": 60,
+      "v1_count": 59,
+      "v2_rate": 0.9375,
+      "v2_cluster_95ci": [
+        0.8507,
+        1.0
+      ],
+      "v2_image_95ci": [
+        0.8841,
+        0.9839
+      ],
+      "v1_rate": 0.9219,
+      "paired_delta_rate": 0.0156,
+      "paired_delta_cluster_bootstrap_95ci": [
+        -0.0323,
+        0.069
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        -0.0333,
+        0.069
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": false,
+      "wilcoxon_signed_rank_W": 2.0,
+      "wilcoxon_p_value": 0.563703
+    },
+    "wardrobe_palette_pass": {
+      "total_count": 64,
+      "v2_count": 41,
+      "v1_count": 28,
+      "v2_rate": 0.6406,
+      "v2_cluster_95ci": [
+        0.3698,
+        0.875
+      ],
+      "v2_image_95ci": [
+        0.5,
+        0.7833
+      ],
+      "v1_rate": 0.4375,
+      "paired_delta_rate": 0.2031,
+      "paired_delta_cluster_bootstrap_95ci": [
+        0.0,
+        0.4074
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        0.0704,
+        0.3448
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": true,
+      "wilcoxon_signed_rank_W": 44.0,
+      "wilcoxon_p_value": 0.004556
+    },
+    "identity_at_position_pass": {
+      "total_count": 64,
+      "v2_count": 0,
+      "v1_count": 0,
+      "v2_rate": 0.0,
+      "v2_cluster_95ci": [
+        0.0,
+        0.0
+      ],
+      "v2_image_95ci": [
+        0.0,
+        0.0
+      ],
+      "v1_rate": 0.0,
+      "paired_delta_rate": 0.0,
+      "paired_delta_cluster_bootstrap_95ci": [
+        0.0,
+        0.0
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        0.0,
+        0.0
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": false,
+      "wilcoxon_signed_rank_W": 0.0,
+      "wilcoxon_p_value": 1.0
+    },
+    "combined_binding_pass": {
+      "total_count": 64,
+      "v2_count": 0,
+      "v1_count": 0,
+      "v2_rate": 0.0,
+      "v2_cluster_95ci": [
+        0.0,
+        0.0
+      ],
+      "v2_image_95ci": [
+        0.0,
+        0.0
+      ],
+      "v1_rate": 0.0,
+      "paired_delta_rate": 0.0,
+      "paired_delta_cluster_bootstrap_95ci": [
+        0.0,
+        0.0
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        0.0,
+        0.0
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": false,
+      "wilcoxon_signed_rank_W": 0.0,
+      "wilcoxon_p_value": 1.0
+    },
+    "defects_per_scene": {
+      "n_units": 42,
+      "v2_mean": 1.4286,
+      "v2_cluster_95ci": [
+        0.9,
+        2.0435
+      ],
+      "v2_image_95ci": [
+        1.0952,
+        1.7619
+      ],
+      "v1_mean": 2.7381,
+      "v1_cluster_95ci": [
+        1.6316,
+        3.8333
+      ],
+      "v1_image_95ci": [
+        2.1667,
+        3.2857
+      ],
+      "paired_delta_mean": -1.3095,
+      "paired_delta_cluster_bootstrap_95ci": [
+        -2.55,
+        -0.1579
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        -1.9524,
+        -0.6429
+      ],
+      "significant_by_cluster_ci": true,
+      "significant_by_image_ci": true,
+      "wilcoxon_signed_rank_W": 105.0,
+      "wilcoxon_p_value": 0.000877
+    },
+    "defects_per_instance_weighted": {
+      "n_units": 64,
+      "v2_mean": 1.4844,
+      "v2_cluster_95ci": [
+        0.9661,
+        2.0167
+      ],
+      "v2_image_95ci": [
+        1.1746,
+        1.806
+      ],
+      "v1_mean": 2.2812,
+      "v1_cluster_95ci": [
+        1.3648,
+        3.3962
+      ],
+      "v1_image_95ci": [
+        1.7714,
+        2.8136
+      ],
+      "paired_delta_mean": -0.7969,
+      "paired_delta_cluster_bootstrap_95ci": [
+        -2.0,
+        0.0715
+      ],
+      "paired_delta_image_bootstrap_95ci": [
+        -1.4032,
+        -0.2222
+      ],
+      "significant_by_cluster_ci": false,
+      "significant_by_image_ci": true,
+      "wilcoxon_signed_rank_W": 347.0,
+      "wilcoxon_p_value": 0.007147
+    },
+    "age_disaggregated": {
+      "adult": {
+        "count": 35,
+        "v2_biometric_mean": 0.2849,
+        "v1_biometric_mean": 0.278,
+        "delta_biometric_mean": 0.0069,
+        "delta_biometric_cluster_95ci": [
+          -0.021,
+          0.0342
+        ],
+        "delta_biometric_image_95ci": [
+          -0.0158,
+          0.0305
+        ],
+        "v2_rank1_rate": 0.7143,
+        "v2_rank1_count": 25,
+        "v1_rank1_rate": 0.6286,
+        "v1_rank1_count": 22,
+        "v2_wardrobe_rate": 0.5714,
+        "v2_wardrobe_count": 20,
+        "v1_wardrobe_rate": 0.5143,
+        "v1_wardrobe_count": 18
+      },
+      "teen": {
+        "count": 10,
+        "v2_biometric_mean": 0.3139,
+        "v1_biometric_mean": 0.2778,
+        "delta_biometric_mean": 0.036,
+        "delta_biometric_cluster_95ci": [
+          0.0308,
+          0.0412
+        ],
+        "delta_biometric_image_95ci": [
+          0.023,
+          0.0503
+        ],
+        "v2_rank1_rate": 1.0,
+        "v2_rank1_count": 10,
+        "v1_rank1_rate": 1.0,
+        "v1_rank1_count": 10,
+        "v2_wardrobe_rate": 1.0,
+        "v2_wardrobe_count": 10,
+        "v1_wardrobe_rate": 0.4,
+        "v1_wardrobe_count": 4
+      },
+      "child": {
+        "count": 19,
+        "v2_biometric_mean": 0.3004,
+        "v1_biometric_mean": 0.3408,
+        "delta_biometric_mean": -0.0404,
+        "delta_biometric_cluster_95ci": [
+          -0.1665,
+          0.0404
+        ],
+        "delta_biometric_image_95ci": [
+          -0.1082,
+          0.0164
+        ],
+        "v2_rank1_rate": 0.5263,
+        "v2_rank1_count": 10,
+        "v1_rank1_rate": 0.4737,
+        "v1_rank1_count": 9,
+        "v2_wardrobe_rate": 0.5789,
+        "v2_wardrobe_count": 11,
+        "v1_wardrobe_rate": 0.3158,
+        "v1_wardrobe_count": 6
+      }
+    }
+  },
+  "hypothesis_scorecard": {
+    "rule_provenance": "PRE_REGISTERED_BEFORE_TEST2_UNSEAL (Steps 10828 / 14704)",
+    "P1": {
+      "hypothesis": "P1 (Original): Delta Re-ID (Biometric Ensemble & Rank-1) > 0 with 95% CI lower bound > 0",
+      "status": "NOT MET",
+      "ebright_bio_delta": 0.0056,
+      "ebright_bio_cluster_95ci": [
+        -0.0149,
+        0.0317
+      ],
+      "ebright_bio_image_95ci": [
+        -0.0124,
+        0.0244
+      ],
+      "ebright_rank1_delta": 0.15,
+      "ebright_rank1_cluster_95ci": [
+        0.0,
+        0.3333
+      ],
+      "ebright_rank1_image_95ci": [
+        0.0238,
+        0.2857
+      ],
+      "holdout_bio_delta": -0.0162,
+      "holdout_bio_cluster_95ci": [
+        -0.092,
+        0.0661
+      ],
+      "holdout_bio_image_95ci": [
+        -0.0633,
+        0.0412
+      ],
+      "holdout_rank1_delta": -0.0833,
+      "combined_bio_delta": -0.0026,
+      "combined_bio_cluster_95ci": [
+        -0.039,
+        0.033
+      ],
+      "combined_bio_image_95ci": [
+        -0.0252,
+        0.0211
+      ],
+      "combined_rank1_delta": 0.0625,
+      "ebright_bio_ci_gt0_cluster": false,
+      "ebright_bio_ci_gt0_image": false,
+      "ebright_rank1_ci_gt0_cluster": false,
+      "ebright_rank1_ci_gt0_image": true,
+      "rationale": "Ebright Biometric Ensemble Delta = +0.0056 (cluster 95% CI [-0.0149, 0.0317], image 95% CI [-0.0124, 0.0244], Wilcoxon p=0.3754); Holdout Delta = -0.0162 (cluster CI [-0.092, 0.0661]); Combined Delta = -0.0026 (cluster CI [-0.039, 0.033]). Lower bound <= 0 across splits."
+    },
+    "P2": {
+      "hypothesis": "P2 (Original): Spatial assignment pass rate >= 90.0%",
+      "status": "NOT MET",
+      "ebright_met": true,
+      "holdout_met": false,
+      "combined_met": true,
+      "ebright_rate": 0.975,
+      "ebright_counts": "39/40",
+      "holdout_rate": 0.875,
+      "holdout_counts": "21/24",
+      "combined_rate": 0.9375,
+      "combined_counts": "60/64",
+      "rationale": "Ebright Spatial Pass = 97.5% (39/40, >=90% MET) and Combined = 93.75% (60/64, >=90%), but Holdout Spatial Pass = 87.5% (21/24, <90% NOT MET due to missing 3rd character on all 3 Scene 4 renders)."
+    },
+    "P3": {
+      "hypothesis": "P3 (Original): Wardrobe Delta-E pass rate >= 60.0%",
+      "status": "NOT MET",
+      "ebright_met": true,
+      "holdout_met": false,
+      "combined_met": true,
+      "ebright_rate": 0.8,
+      "ebright_counts": "32/40",
+      "holdout_rate": 0.375,
+      "holdout_counts": "9/24",
+      "combined_rate": 0.6406,
+      "combined_counts": "41/64",
+      "rationale": "Ebright Wardrobe Pass = 80.0% (32/40, >=60% MET) and Combined = 64.06% (41/64, >=60%), but Holdout Wardrobe Pass = 37.5% (9/24, <60% NOT MET vs v1 41.7%)."
+    },
+    "P4": {
+      "hypothesis": "P4 (Original): Engineering (Peak VRAM <= 7.4 GB, 0 OOMs, 0 extra YOLO persons)",
+      "status": "NOT MET",
+      "whole_system_peak_vram_mb": 7984.0,
+      "idle_desktop_baseline_mb": 973.0,
+      "process_attributable_delta_peak_mb": 7011.0,
+      "seconds_above_7400_mb": 52,
+      "seconds_above_7577_6_mib": 29,
+      "oom_count": 0,
+      "extra_yolo_detector_flagged_v2_total": 1,
+      "extra_yolo_detector_flagged_v2_ebright": 1,
+      "extra_yolo_detector_flagged_v2_holdout": 0,
+      "verifier_yolo_gt_expected_total": 2,
+      "rationale": "Whole-system Peak VRAM = 7984 MiB (7.797 GiB > 7400 MB / 7577.6 MiB target; 52s > 7400 MiB; 29s > 7577.6 MiB), while process-attributable delta (max - 973 MiB idle) = 7011 MiB (6.847 GiB), 0 OOMs, and extra_person_detector.py (conf=0.40) flagged 1/42 extra YOLO persons (v2 Ebright scene_5_seed_1202.png; Verifier YOLO also flagged scene_2_seed_1303.png)."
+    },
+    "strict_all_splits_met_count": 0,
+    "overall_scorecard_verdict": "ORIGINAL PRE-REGISTRATION: 0/4 STRICT ALL-SPLIT RULES MET (P1 NOT MET; P2/P3 MET on Ebright & Combined only, NOT MET on Holdout; P4 NOT MET)"
+  },
+  "post_hoc_redefined_scorecard_rc2": {
+    "rule_provenance": "POST_HOC_REDEFINED_IN_7904AD5_AFTER_INSPECTING_TEST2_SCORES (INVALID AS PRE-REGISTRATION)",
+    "P1": {
+      "hypothesis": "P1 (Post-Hoc rc2): Non-inferiority (delta >= 0 and cluster CI low > -0.03)",
+      "status": "MET",
+      "measured_delta": 0.0056,
+      "cluster_bootstrap_95ci": [
+        -0.0149,
+        0.0317
+      ],
+      "wilcoxon_p_value": 0.375381,
+      "rationale": "Post-hoc non-inferiority gate on Ebright Bio: Delta=+0.0056 vs v1 0.3091->0.3147, cluster CI [-0.0149, 0.0317], p=0.3754."
+    },
+    "P2": {
+      "hypothesis": "P2 (Post-Hoc rc2): Ebright Rank-1 >= 75%",
+      "status": "MET",
+      "measured_v2_rate": 0.8,
+      "measured_v1_rate": 0.65,
+      "measured_delta": 0.15,
+      "rationale": "Post-hoc Rank-1 gate replaced original P2 Spatial rule: Ebright Rank-1 65.0%->80.0% (32/40, >=75%)."
+    },
+    "P3": {
+      "hypothesis": "P3 (Post-Hoc rc2): Ebright Spatial >= 90%, Ebright Wardrobe >= 75%, Instance-wt defects < 0",
+      "status": "MET",
+      "primary_metrics": {
+        "spatial_pass_rate": 0.975,
+        "wardrobe_pass_rate": 0.8,
+        "defects_delta_instance_weighted": -1.05,
+        "defects_delta_per_scene": -1.5667
+      },
+      "rationale": "Post-hoc Ebright-only gate omitted Holdout Wardrobe (37.5%): Spatial=97.5%, Wardrobe=80.0%, scene defects delta=-1.57/scene (instance-wt -1.05)."
+    },
+    "P4": {
+      "hypothesis": "P4 (Post-Hoc rc2): Holdout Spatial >= 80%, Scene Defects <= 2.0, Bio >= 0.25",
+      "status": "MET",
+      "primary_metrics": {
+        "holdout_bio_mean": 0.2596,
+        "holdout_spatial_rate": 0.875,
+        "holdout_defects_per_scene": 1.25,
+        "holdout_defects_instance_weighted": 1.4167
+      },
+      "rationale": "Post-hoc OOD gate replaced original P4 Engineering/VRAM/YOLO rule and lowered Spatial bar from 90% to 80%: Spatial=87.5%, scene defects=1.25, bio=0.2596."
+    },
+    "overall_scorecard_verdict": "POST-HOC RC2 RULES: 4/4 (INVALID AS PRE-REGISTRATION)"
+  }
+}

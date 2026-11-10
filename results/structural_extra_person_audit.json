@@ -1,0 +1,362 @@
+{
+  "datasets": {
+    "Baseline v1 (DEV-FAST subset)": {
+      "label": "Baseline v1 (DEV-FAST subset)",
+      "directory": "D:\\5TH SEM\\HACKATHON\\results\\baseline_v1\\dev_full",
+      "total_images": 18,
+      "flagged_count": 0,
+      "flagged_rate": 0.0,
+      "flagged_images": []
+    },
+    "v2@72769ef (Broken v2 DEV-FAST)": {
+      "label": "v2@72769ef (Broken v2 DEV-FAST)",
+      "directory": "D:\\5TH SEM\\HACKATHON\\results\\m1_screening\\single_anchor",
+      "total_images": 12,
+      "flagged_count": 0,
+      "flagged_rate": 0.0,
+      "flagged_images": []
+    },
+    "Bundle iter3 (DEV-FAST)": {
+      "label": "Bundle iter3 (DEV-FAST)",
+      "directory": "D:\\5TH SEM\\HACKATHON\\results\\iterations\\loop-W3W4-iter3-closeup-scale-fidelity\\renders",
+      "total_images": 12,
+      "flagged_count": 0,
+      "flagged_rate": 0.0,
+      "flagged_images": []
+    },
+    "Baseline v1 (DEV-2)": {
+      "label": "Baseline v1 (DEV-2)",
+      "directory": "D:\\5TH SEM\\HACKATHON\\results\\baseline_v1\\dev2",
+      "total_images": 30,
+      "flagged_count": 3,
+      "flagged_rate": 0.1,
+      "flagged_images": [
+        {
+          "filename": "scene_1_seed_202.png",
+          "scene": 1,
+          "seed": 202,
+          "expected": 2,
+          "detected_persons_yolo": 3,
+          "extra_count": 1,
+          "person_boxes": [
+            {
+              "x": 1,
+              "y": 133,
+              "w": 716,
+              "h": 650
+            },
+            {
+              "x": 761,
+              "y": 145,
+              "w": 454,
+              "h": 633
+            },
+            {
+              "x": 449,
+              "y": 0,
+              "w": 421,
+              "h": 273
+            }
+          ]
+        },
+        {
+          "filename": "scene_1_seed_505.png",
+          "scene": 1,
+          "seed": 505,
+          "expected": 2,
+          "detected_persons_yolo": 3,
+          "extra_count": 1,
+          "person_boxes": [
+            {
+              "x": 4,
+              "y": 74,
+              "w": 668,
+              "h": 698
+            },
+            {
+              "x": 626,
+              "y": 217,
+              "w": 590,
+              "h": 575
+            },
+            {
+              "x": 603,
+              "y": 92,
+              "w": 167,
+              "h": 197
+            }
+          ]
+        },
+        {
+          "filename": "scene_3_seed_202.png",
+          "scene": 3,
+          "seed": 202,
+          "expected": 1,
+          "detected_persons_yolo": 2,
+          "extra_count": 1,
+          "person_boxes": [
+            {
+              "x": 45,
+              "y": 60,
+              "w": 965,
+              "h": 960
+            },
+            {
+              "x": 218,
+              "y": 126,
+              "w": 726,
+              "h": 898
+            }
+          ]
+        }
+      ]
+    },
+    "v2-rc1 (DEV-2)": {
+      "label": "v2-rc1 (DEV-2)",
+      "directory": "D:\\5TH SEM\\HACKATHON\\results\\v2_default\\test",
+      "total_images": 30,
+      "flagged_count": 5,
+      "flagged_rate": 0.1667,
+      "flagged_images": [
+        {
+          "filename": "scene_6_seed_101.png",
+          "scene": 6,
+          "seed": 101,
+          "expected": 1,
+          "detected_persons_yolo": 2,
+          "extra_count": 1,
+          "person_boxes": [
+            {
+              "x": 241,
+              "y": 125,
+              "w": 726,
+              "h": 897
+            },
+            {
+              "x": 950,
+              "y": 898,
+              "w": 73,
+              "h": 125
+            }
+          ]
+        },
+        {
+          "filename": "scene_6_seed_202.png",
+          "scene": 6,
+          "seed": 202,
+          "expected": 1,
+          "detected_persons_yolo": 8,
+          "extra_count": 7,
+          "person_boxes": [
+            {
+              "x": 333,
+              "y": 120,
+              "w": 446,
+              "h": 904
+            },
+            {
+              "x": 882,
+              "y": 825,
+              "w": 86,
+              "h": 114
+            },
+            {
+              "x": 941,
+              "y": 838,
+              "w": 80,
+              "h": 100
+            },
+            {
+              "x": 731,
+              "y": 833,
+              "w": 92,
+              "h": 110
+            },
+            {
+              "x": 219,
+              "y": 840,
+              "w": 76,
+              "h": 80
+            },
+            {
+              "x": 289,
+              "y": 825,
+              "w": 94,
+              "h": 98
+            },
+            {
+              "x": 181,
+              "y": 824,
+              "w": 59,
+              "h": 93
+            },
+            {
+              "x": 818,
+              "y": 841,
+              "w": 94,
+              "h": 98
+            }
+          ]
+        },
+        {
+          "filename": "scene_6_seed_303.png",
+          "scene": 6,
+          "seed": 303,
+          "expected": 1,
+          "detected_persons_yolo": 5,
+          "extra_count": 4,
+          "person_boxes": [
+            {
+              "x": 230,
+              "y": 98,
+              "w": 557,
+              "h": 926
+            },
+            {
+              "x": 0,
+              "y": 810,
+              "w": 182,
+              "h": 213
+            },
+            {
+              "x": 186,
+              "y": 824,
+              "w": 126,
+              "h": 199
+            },
+            {
+              "x": 119,
+              "y": 828,
+              "w": 83,
+              "h": 195
+            },
+            {
+              "x": 892,
+              "y": 819,
+              "w": 131,
+              "h": 204
+            }
+          ]
+        },
+        {
+          "filename": "scene_6_seed_404.png",
+          "scene": 6,
+          "seed": 404,
+          "expected": 1,
+          "detected_persons_yolo": 8,
+          "extra_count": 7,
+          "person_boxes": [
+            {
+              "x": 303,
+              "y": 98,
+              "w": 440,
+              "h": 925
+            },
+            {
+              "x": 657,
+              "y": 771,
+              "w": 118,
+              "h": 252
+            },
+            {
+              "x": 180,
+              "y": 792,
+              "w": 157,
+              "h": 231
+            },
+            {
+              "x": 762,
+              "y": 743,
+              "w": 261,
+              "h": 280
+            },
+            {
+              "x": 886,
+              "y": 751,
+              "w": 137,
+              "h": 271
+            },
+            {
+              "x": 11,
+              "y": 718,
+              "w": 296,
+              "h": 305
+            },
+            {
+              "x": 270,
+              "y": 834,
+              "w": 69,
+              "h": 187
+            },
+            {
+              "x": 0,
+              "y": 675,
+              "w": 223,
+              "h": 348
+            }
+          ]
+        },
+        {
+          "filename": "scene_6_seed_505.png",
+          "scene": 6,
+          "seed": 505,
+          "expected": 1,
+          "detected_persons_yolo": 4,
+          "extra_count": 3,
+          "person_boxes": [
+            {
+              "x": 149,
+              "y": 147,
+              "w": 627,
+              "h": 876
+            },
+            {
+              "x": 2,
+              "y": 876,
+              "w": 189,
+              "h": 147
+            },
+            {
+              "x": 857,
+              "y": 867,
+              "w": 125,
+              "h": 156
+            },
+            {
+              "x": 749,
+              "y": 857,
+              "w": 129,
+              "h": 166
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "scene_1_seed_11_foreground_audit": {
+    "file": "D:\\5TH SEM\\HACKATHON\\results\\iterations\\loop-W3W4-iter3-closeup-scale-fidelity\\renders\\scene_1_seed_11.png",
+    "expected": 2,
+    "detected_persons_yolo": 2,
+    "flagged_extra": false,
+    "persons": [
+      {
+        "bbox": {
+          "x": 694,
+          "y": 1,
+          "w": 346,
+          "h": 503
+        },
+        "confidence": 0.841
+      },
+      {
+        "bbox": {
+          "x": 126,
+          "y": 29,
+          "w": 356,
+          "h": 474
+        },
+        "confidence": 0.818
+      }
+    ]
+  }
+}

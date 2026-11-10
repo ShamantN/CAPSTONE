@@ -1,0 +1,25 @@
+image_filename,scene_number,scene_title,character_id,age_group,is_child,is_teen,overall_pass,biometric_ensemble_score,rank1_correct,discrimination_margin,spatial_pass,observed_position,wardrobe_pass,wardrobe_delta_e,identity_at_position_pass,combined_binding_pass,seg_status,face_sharpness,face_width_px
+scene_1_seed_1101.png,1,The Obsidian Relic,elena_child,child,True,False,False,0.4797,True,0.2348,True,center,True,33.05,False,False,seg_ok,192.44,179
+scene_1_seed_1202.png,1,The Obsidian Relic,elena_child,child,True,False,False,0.4628,True,0.2452,True,center,True,17.07,False,False,seg_ok,161.35,199
+scene_1_seed_1303.png,1,The Obsidian Relic,elena_child,child,True,False,False,0.4193,True,0.2412,True,center,True,16.45,False,False,seg_ok,229.42,174
+scene_2_seed_1101.png,2,Mentorship in the Archive,dr_marcus_vance,adult,False,False,False,0.3202,True,0.1957,True,left,True,1.01,False,False,seg_ok,1554.76,102
+scene_2_seed_1101.png,2,Mentorship in the Archive,elena_child,child,True,False,False,0.3975,True,0.2548,True,right,False,57.25,False,False,seg_ok,1098.85,96
+scene_2_seed_1202.png,2,Mentorship in the Archive,dr_marcus_vance,adult,False,False,False,0.3206,True,0.2512,True,left,True,5.11,False,False,seg_ok,1537.24,102
+scene_2_seed_1202.png,2,Mentorship in the Archive,elena_child,child,True,False,False,0.4657,True,0.2715,True,right,False,40.39,False,False,seg_ok,685.96,107
+scene_2_seed_1303.png,2,Mentorship in the Archive,dr_marcus_vance,adult,False,False,False,0.3601,True,0.2029,True,left,True,15.0,False,False,seg_ok,2038.36,100
+scene_2_seed_1303.png,2,Mentorship in the Archive,elena_child,child,True,False,False,0.3823,True,0.2471,True,right,False,60.71,False,False,seg_ok,907.33,97
+scene_3_seed_1101.png,3,The Botanical Conservatory,clara_thorn,adult,False,False,False,0.2542,False,-0.0089,True,left,False,48.45,False,False,seg_ok,1344.58,92
+scene_3_seed_1101.png,3,The Botanical Conservatory,dr_marcus_vance,adult,False,False,False,0.428,True,0.2992,True,right,True,26.67,False,False,seg_ok,1398.59,79
+scene_3_seed_1202.png,3,The Botanical Conservatory,clara_thorn,adult,False,False,False,0.2142,True,0.004,True,left,False,47.95,False,False,seg_ok,1467.66,81
+scene_3_seed_1202.png,3,The Botanical Conservatory,dr_marcus_vance,adult,False,False,False,0.3856,True,0.264,True,right,True,17.27,False,False,seg_ok,3897.41,75
+scene_3_seed_1303.png,3,The Botanical Conservatory,clara_thorn,adult,False,False,False,0.2524,False,-0.0163,True,left,False,48.08,False,False,seg_ok,2399.64,85
+scene_3_seed_1303.png,3,The Botanical Conservatory,dr_marcus_vance,adult,False,False,False,0.3952,True,0.1524,True,right,True,9.19,False,False,seg_ok,1432.73,86
+scene_4_seed_1101.png,4,The Expedition Assembled,clara_thorn,adult,False,False,False,0.1751,False,-0.0032,True,left,False,41.04,False,False,seg_ok,1076.73,118
+scene_4_seed_1101.png,4,The Expedition Assembled,elena_child,child,True,False,False,0.0349,False,-0.2093,True,right,False,70.34,False,False,seg_ok,802.2,114
+scene_4_seed_1101.png,4,The Expedition Assembled,dr_marcus_vance,adult,False,False,False,0.0,False,-1.0,False,missing,False,99.0,False,False,missing_face,0.0,0
+scene_4_seed_1202.png,4,The Expedition Assembled,clara_thorn,adult,False,False,False,0.1557,False,-0.0067,True,left,False,46.0,False,False,seg_ok,972.95,113
+scene_4_seed_1202.png,4,The Expedition Assembled,elena_child,child,True,False,False,0.0882,False,-0.1417,True,right,False,52.47,False,False,seg_ok,719.51,118
+scene_4_seed_1202.png,4,The Expedition Assembled,dr_marcus_vance,adult,False,False,False,0.0,False,-1.0,False,missing,False,99.0,False,False,missing_face,0.0,0
+scene_4_seed_1303.png,4,The Expedition Assembled,clara_thorn,adult,False,False,False,0.1501,False,-0.0247,True,left,False,47.72,False,False,seg_ok,1023.09,115
+scene_4_seed_1303.png,4,The Expedition Assembled,elena_child,child,True,False,False,0.0881,False,-0.1844,True,right,False,64.23,False,False,seg_ok,1108.26,114
+scene_4_seed_1303.png,4,The Expedition Assembled,dr_marcus_vance,adult,False,False,False,0.0,False,-1.0,False,missing,False,99.0,False,False,missing_face,0.0,0

@@ -65,3 +65,12 @@ class ForgeClient:
         except Exception as e:
             logger.error(f"img2img exception: {e}")
             return None, {"error": str(e)}
+
+    def set_options(self, options: Dict[str, Any]) -> bool:
+        url = f"{self.base_url}/sdapi/v1/options"
+        try:
+            r = requests.post(url, json=options, timeout=30)
+            return r.status_code == 200
+        except Exception as e:
+            logger.error(f"set_options exception: {e}")
+            return False

@@ -1,0 +1,2156 @@
+{
+  "verifier_version": "1.2",
+  "verifier_freeze_sha": "3fa69071f888643bccb1c21ee732415ac81996a9f3cb0b71dedd68086fecb4b6",
+  "detector_health": {
+    "retinaface": true,
+    "yolov8n": true,
+    "segformer": true,
+    "clip": true,
+    "dinov2": true,
+    "facenet512": true,
+    "sface": true,
+    "ghostfacenet": true,
+    "arcface": true,
+    "all_healthy": true
+  },
+  "images_evaluated_count": 12,
+  "total_face_instances": 24,
+  "summary_metrics": {
+    "biometric_ensemble_mean": 0.2758,
+    "biometric_ensemble_std": 0.1321,
+    "biometric_ensemble_95ci": [
+      0.222,
+      0.3272
+    ],
+    "rank1_discrimination_accuracy": 0.625,
+    "discrimination_margin_mean": -0.0268,
+    "dinov2_mean_similarity": 0.3646,
+    "per_judge_means": {
+      "Facenet512": 0.4793,
+      "SFace": 0.1078,
+      "GhostFaceNet": 0.0547,
+      "ArcFace": 0.028
+    },
+    "binding_decomposed": {
+      "spatial_position_pass_rate": 0.7917,
+      "wardrobe_palette_pass_rate": 0.4167,
+      "identity_at_position_pass_rate": 0.0,
+      "combined_binding_pass_rate": 0.0
+    },
+    "age_split_metrics": {
+      "child": {
+        "count": 9,
+        "biometric_ensemble_mean": 0.3854,
+        "rank1_accuracy": 1.0,
+        "combined_binding_accuracy": 0.0,
+        "wardrobe_accuracy": 0.2222
+      },
+      "teen": {
+        "count": 0,
+        "biometric_ensemble_mean": 0.0,
+        "rank1_accuracy": 0.0,
+        "combined_binding_accuracy": 0.0,
+        "wardrobe_accuracy": 0.0
+      },
+      "adult": {
+        "count": 15,
+        "biometric_ensemble_mean": 0.21,
+        "rank1_accuracy": 0.4,
+        "combined_binding_accuracy": 0.0,
+        "wardrobe_accuracy": 0.5333
+      }
+    },
+    "mean_defects_per_scene": 1.9167,
+    "seg_failed_count": 0
+  },
+  "comparative_significance": {},
+  "raw_biometric_ensemble_scores": [
+    0.3671,
+    0.3571,
+    0.3429,
+    0.3333,
+    0.4208,
+    0.3118,
+    0.3658,
+    0.3105,
+    0.461,
+    0.1579,
+    0.2926,
+    0.2109,
+    0.3082,
+    0.254,
+    0.4057,
+    0.1626,
+    0.4165,
+    0.0,
+    0.1847,
+    0.3265,
+    0.0,
+    0.2174,
+    0.4111,
+    0.0
+  ],
+  "per_scene_reports": [
+    {
+      "image_filename": "scene_1_relic_seed_1101.png",
+      "scene_number": 1,
+      "scene_title": "The Obsidian Relic",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 1,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 451,
+            "too_small": false,
+            "sharpness_laplacian": 41.51,
+            "is_blurry": true,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.3092
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "obsidian compass",
+              "score": 0.084
+            },
+            {
+              "prop": "wooden desk",
+              "score": 0.0779
+            }
+          ],
+          "forbidden_pass": false,
+          "detected_forbidden": [
+            {
+              "prop": "modern smartphones",
+              "score": 0.7236
+            }
+          ]
+        },
+        "defect_count": 3,
+        "defect_taxonomy_violations": [
+          "required_prop_absent: obsidian compass",
+          "required_prop_absent: wooden desk",
+          "forbidden_prop_present: modern smartphones"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 278,
+              "y": 237,
+              "w": 451,
+              "h": 611
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "elena_child",
+          "age_group": "child",
+          "is_child": true,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 278,
+            "y": 237,
+            "w": 451,
+            "h": 611
+          },
+          "biometric_ensemble_score": 0.3671,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.6625,
+              "centroid_similarity": 0.6625,
+              "threshold": 0.2,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.1471,
+              "centroid_similarity": 0.1471,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.1008,
+              "centroid_similarity": 0.1008,
+              "threshold": 0.15,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0039,
+              "centroid_similarity": 0.0039,
+              "threshold": 0.22,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.1743,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 72.11,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 451,
+          "face_sharpness": 41.51,
+          "dinov2_similarity": 0.4616,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_1_relic_seed_1101_contact.png"
+    },
+    {
+      "image_filename": "scene_1_relic_seed_1202.png",
+      "scene_number": 1,
+      "scene_title": "The Obsidian Relic",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 1,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 479,
+            "too_small": false,
+            "sharpness_laplacian": 31.68,
+            "is_blurry": true,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.2968
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "obsidian compass",
+              "score": 0.2108
+            },
+            {
+              "prop": "wooden desk",
+              "score": 0.1212
+            }
+          ],
+          "forbidden_pass": false,
+          "detected_forbidden": [
+            {
+              "prop": "modern smartphones",
+              "score": 0.9486
+            },
+            {
+              "prop": "laptops",
+              "score": 0.9092
+            }
+          ]
+        },
+        "defect_count": 4,
+        "defect_taxonomy_violations": [
+          "required_prop_absent: obsidian compass",
+          "required_prop_absent: wooden desk",
+          "forbidden_prop_present: modern smartphones",
+          "forbidden_prop_present: laptops"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 259,
+              "y": 208,
+              "w": 479,
+              "h": 630
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "elena_child",
+          "age_group": "child",
+          "is_child": true,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 259,
+            "y": 208,
+            "w": 479,
+            "h": 630
+          },
+          "biometric_ensemble_score": 0.3571,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.7109,
+              "centroid_similarity": 0.7109,
+              "threshold": 0.2,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.0695,
+              "centroid_similarity": 0.0695,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.1128,
+              "centroid_similarity": 0.1128,
+              "threshold": 0.15,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0332,
+              "centroid_similarity": 0.0332,
+              "threshold": 0.22,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.1847,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 63.84,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 479,
+          "face_sharpness": 31.68,
+          "dinov2_similarity": 0.4338,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_1_relic_seed_1202_contact.png"
+    },
+    {
+      "image_filename": "scene_1_relic_seed_1303.png",
+      "scene_number": 1,
+      "scene_title": "The Obsidian Relic",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 1,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 429,
+            "too_small": false,
+            "sharpness_laplacian": 51.31,
+            "is_blurry": true,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.1764
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "obsidian compass",
+              "score": 0.0525
+            },
+            {
+              "prop": "wooden desk",
+              "score": 0.0198
+            }
+          ],
+          "forbidden_pass": false,
+          "detected_forbidden": [
+            {
+              "prop": "modern smartphones",
+              "score": 0.8677
+            }
+          ]
+        },
+        "defect_count": 3,
+        "defect_taxonomy_violations": [
+          "required_prop_absent: obsidian compass",
+          "required_prop_absent: wooden desk",
+          "forbidden_prop_present: modern smartphones"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 287,
+              "y": 171,
+              "w": 429,
+              "h": 584
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "elena_child",
+          "age_group": "child",
+          "is_child": true,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 287,
+            "y": 171,
+            "w": 429,
+            "h": 584
+          },
+          "biometric_ensemble_score": 0.3429,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.6505,
+              "centroid_similarity": 0.6505,
+              "threshold": 0.2,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.1296,
+              "centroid_similarity": 0.1296,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0887,
+              "centroid_similarity": 0.0887,
+              "threshold": 0.15,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": -0.036,
+              "centroid_similarity": -0.036,
+              "threshold": 0.22,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.1389,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 71.31,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 429,
+          "face_sharpness": 51.31,
+          "dinov2_similarity": 0.3916,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_1_relic_seed_1303_contact.png"
+    },
+    {
+      "image_filename": "scene_2_mentorship_seed_1101.png",
+      "scene_number": 2,
+      "scene_title": "Mentorship in the Archive",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 2,
+        "detected_faces_count": 2,
+        "detected_persons_yolo_count": 2,
+        "face_audits": [
+          {
+            "width_px": 323,
+            "too_small": false,
+            "sharpness_laplacian": 190.39,
+            "is_blurry": false,
+            "melted_face_flag": false
+          },
+          {
+            "width_px": 242,
+            "too_small": false,
+            "sharpness_laplacian": 223.67,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.4564
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "astronomical star map",
+              "score": 0.0009
+            }
+          ],
+          "forbidden_pass": false,
+          "detected_forbidden": [
+            {
+              "prop": "modern electronics",
+              "score": 0.9173
+            }
+          ]
+        },
+        "defect_count": 2,
+        "defect_taxonomy_violations": [
+          "required_prop_absent: astronomical star map",
+          "forbidden_prop_present: modern electronics"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 210,
+              "y": 113,
+              "w": 323,
+              "h": 457
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          },
+          {
+            "bbox": {
+              "x": 936,
+              "y": 144,
+              "w": 242,
+              "h": 322
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "dr_marcus_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 210,
+            "y": 113,
+            "w": 323,
+            "h": 457
+          },
+          "biometric_ensemble_score": 0.3333,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.6164,
+              "centroid_similarity": 0.6164,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.1622,
+              "centroid_similarity": 0.1622,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0592,
+              "centroid_similarity": 0.0592,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0383,
+              "centroid_similarity": 0.0383,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.1336,
+          "spatial_pass": true,
+          "observed_position": "left",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 23.28,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 323,
+          "face_sharpness": 190.39,
+          "dinov2_similarity": 0.477,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "elena_child",
+          "age_group": "child",
+          "is_child": true,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 936,
+            "y": 144,
+            "w": 242,
+            "h": 322
+          },
+          "biometric_ensemble_score": 0.4208,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.7216,
+              "centroid_similarity": 0.7216,
+              "threshold": 0.2,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.2753,
+              "centroid_similarity": 0.2753,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0965,
+              "centroid_similarity": 0.0965,
+              "threshold": 0.15,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": -0.0107,
+              "centroid_similarity": -0.0107,
+              "threshold": 0.22,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.2189,
+          "spatial_pass": true,
+          "observed_position": "right",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 74.52,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 242,
+          "face_sharpness": 223.67,
+          "dinov2_similarity": 0.4103,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_2_mentorship_seed_1101_contact.png"
+    },
+    {
+      "image_filename": "scene_2_mentorship_seed_1202.png",
+      "scene_number": 2,
+      "scene_title": "Mentorship in the Archive",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 2,
+        "detected_faces_count": 2,
+        "detected_persons_yolo_count": 3,
+        "face_audits": [
+          {
+            "width_px": 259,
+            "too_small": false,
+            "sharpness_laplacian": 317.85,
+            "is_blurry": false,
+            "melted_face_flag": false
+          },
+          {
+            "width_px": 259,
+            "too_small": false,
+            "sharpness_laplacian": 242.93,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.1111
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "astronomical star map",
+              "score": 0.0059
+            }
+          ],
+          "forbidden_pass": false,
+          "detected_forbidden": [
+            {
+              "prop": "modern electronics",
+              "score": 0.8558
+            }
+          ]
+        },
+        "defect_count": 2,
+        "defect_taxonomy_violations": [
+          "required_prop_absent: astronomical star map",
+          "forbidden_prop_present: modern electronics"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 196,
+              "y": 108,
+              "w": 259,
+              "h": 371
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          },
+          {
+            "bbox": {
+              "x": 711,
+              "y": 219,
+              "w": 259,
+              "h": 355
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "dr_marcus_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 196,
+            "y": 108,
+            "w": 259,
+            "h": 371
+          },
+          "biometric_ensemble_score": 0.3118,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.5478,
+              "centroid_similarity": 0.5478,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.2229,
+              "centroid_similarity": 0.2229,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": -0.0358,
+              "centroid_similarity": -0.0358,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0363,
+              "centroid_similarity": 0.0363,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.206,
+          "spatial_pass": true,
+          "observed_position": "left",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 7.75,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 259,
+          "face_sharpness": 317.85,
+          "dinov2_similarity": 0.3996,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "elena_child",
+          "age_group": "child",
+          "is_child": true,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 711,
+            "y": 219,
+            "w": 259,
+            "h": 355
+          },
+          "biometric_ensemble_score": 0.3658,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.6978,
+              "centroid_similarity": 0.6978,
+              "threshold": 0.2,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.2471,
+              "centroid_similarity": 0.2471,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0404,
+              "centroid_similarity": 0.0404,
+              "threshold": 0.15,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": -0.0442,
+              "centroid_similarity": -0.0442,
+              "threshold": 0.22,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.288,
+          "spatial_pass": true,
+          "observed_position": "right",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 22.84,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 259,
+          "face_sharpness": 242.93,
+          "dinov2_similarity": 0.4148,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_2_mentorship_seed_1202_contact.png"
+    },
+    {
+      "image_filename": "scene_2_mentorship_seed_1303.png",
+      "scene_number": 2,
+      "scene_title": "Mentorship in the Archive",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 2,
+        "detected_faces_count": 2,
+        "detected_persons_yolo_count": 2,
+        "face_audits": [
+          {
+            "width_px": 322,
+            "too_small": false,
+            "sharpness_laplacian": 72.01,
+            "is_blurry": true,
+            "melted_face_flag": false
+          },
+          {
+            "width_px": 331,
+            "too_small": false,
+            "sharpness_laplacian": 176.61,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0595
+        },
+        "prop_checks": {
+          "required_pass": true,
+          "missing_required": [],
+          "forbidden_pass": false,
+          "detected_forbidden": [
+            {
+              "prop": "modern electronics",
+              "score": 0.9383
+            }
+          ]
+        },
+        "defect_count": 1,
+        "defect_taxonomy_violations": [
+          "forbidden_prop_present: modern electronics"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 659,
+              "y": 96,
+              "w": 322,
+              "h": 433
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          },
+          {
+            "bbox": {
+              "x": 151,
+              "y": 81,
+              "w": 331,
+              "h": 464
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "dr_marcus_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 151,
+            "y": 81,
+            "w": 331,
+            "h": 464
+          },
+          "biometric_ensemble_score": 0.3105,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.5969,
+              "centroid_similarity": 0.5969,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.1591,
+              "centroid_similarity": 0.1591,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0235,
+              "centroid_similarity": 0.0235,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0518,
+              "centroid_similarity": 0.0518,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.1022,
+          "spatial_pass": true,
+          "observed_position": "left",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 18.38,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 331,
+          "face_sharpness": 176.61,
+          "dinov2_similarity": 0.3833,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "elena_child",
+          "age_group": "child",
+          "is_child": true,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 659,
+            "y": 96,
+            "w": 322,
+            "h": 433
+          },
+          "biometric_ensemble_score": 0.461,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.6531,
+              "centroid_similarity": 0.6531,
+              "threshold": 0.2,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.2112,
+              "centroid_similarity": 0.2112,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.1747,
+              "centroid_similarity": 0.1747,
+              "threshold": 0.15,
+              "passed": true
+            },
+            "ArcFace": {
+              "max_similarity": 0.029,
+              "centroid_similarity": 0.029,
+              "threshold": 0.22,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.1661,
+          "spatial_pass": true,
+          "observed_position": "right",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 64.62,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 322,
+          "face_sharpness": 72.01,
+          "dinov2_similarity": 0.4343,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_2_mentorship_seed_1303_contact.png"
+    },
+    {
+      "image_filename": "scene_3_conservatory_seed_1101.png",
+      "scene_number": 3,
+      "scene_title": "The Botanical Conservatory",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 2,
+        "detected_faces_count": 2,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 197,
+            "too_small": false,
+            "sharpness_laplacian": 333.25,
+            "is_blurry": false,
+            "melted_face_flag": false
+          },
+          {
+            "width_px": 196,
+            "too_small": false,
+            "sharpness_laplacian": 522.46,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0519
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "botanical foliage",
+              "score": 0.0222
+            }
+          ],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 1,
+        "defect_taxonomy_violations": [
+          "required_prop_absent: botanical foliage"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 328,
+              "y": 132,
+              "w": 197,
+              "h": 267
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          },
+          {
+            "bbox": {
+              "x": 731,
+              "y": 124,
+              "w": 196,
+              "h": 259
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "clara_thorn",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 328,
+            "y": 132,
+            "w": 197,
+            "h": 267
+          },
+          "biometric_ensemble_score": 0.1579,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.3011,
+              "centroid_similarity": 0.3011,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.0248,
+              "centroid_similarity": 0.0248,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": -0.0166,
+              "centroid_similarity": -0.0166,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0139,
+              "centroid_similarity": 0.0139,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.0452,
+          "spatial_pass": true,
+          "observed_position": "left",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 46.69,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 197,
+          "face_sharpness": 333.25,
+          "dinov2_similarity": 0.3931,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "dr_marcus_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 731,
+            "y": 124,
+            "w": 196,
+            "h": 259
+          },
+          "biometric_ensemble_score": 0.2926,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.5856,
+              "centroid_similarity": 0.5856,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.1701,
+              "centroid_similarity": 0.1701,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": -0.0028,
+              "centroid_similarity": -0.0028,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0408,
+              "centroid_similarity": 0.0408,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.1411,
+          "spatial_pass": true,
+          "observed_position": "right",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 24.9,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 196,
+          "face_sharpness": 522.46,
+          "dinov2_similarity": 0.3832,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_3_conservatory_seed_1101_contact.png"
+    },
+    {
+      "image_filename": "scene_3_conservatory_seed_1202.png",
+      "scene_number": 3,
+      "scene_title": "The Botanical Conservatory",
+      "scene_audit": {
+        "scene_passed": true,
+        "expected_faces": 2,
+        "detected_faces_count": 2,
+        "detected_persons_yolo_count": 2,
+        "face_audits": [
+          {
+            "width_px": 190,
+            "too_small": false,
+            "sharpness_laplacian": 754.95,
+            "is_blurry": false,
+            "melted_face_flag": false
+          },
+          {
+            "width_px": 275,
+            "too_small": false,
+            "sharpness_laplacian": 153.6,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.009
+        },
+        "prop_checks": {
+          "required_pass": true,
+          "missing_required": [],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 0,
+        "defect_taxonomy_violations": [],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 834,
+              "y": 221,
+              "w": 190,
+              "h": 260
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          },
+          {
+            "bbox": {
+              "x": 524,
+              "y": 62,
+              "w": 275,
+              "h": 385
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "clara_thorn",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 524,
+            "y": 62,
+            "w": 275,
+            "h": 385
+          },
+          "biometric_ensemble_score": 0.2109,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.2737,
+              "centroid_similarity": 0.2737,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.0339,
+              "centroid_similarity": 0.0339,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": -0.0089,
+              "centroid_similarity": -0.0089,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.1193,
+              "centroid_similarity": 0.1193,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.0748,
+          "spatial_pass": false,
+          "observed_position": "center",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 36.73,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 275,
+          "face_sharpness": 153.6,
+          "dinov2_similarity": 0.3888,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "dr_marcus_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 834,
+            "y": 221,
+            "w": 190,
+            "h": 260
+          },
+          "biometric_ensemble_score": 0.3082,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.4413,
+              "centroid_similarity": 0.4413,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.1828,
+              "centroid_similarity": 0.1828,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0176,
+              "centroid_similarity": 0.0176,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0805,
+              "centroid_similarity": 0.0805,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.2034,
+          "spatial_pass": true,
+          "observed_position": "right",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 10.54,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 190,
+          "face_sharpness": 754.95,
+          "dinov2_similarity": 0.4023,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_3_conservatory_seed_1202_contact.png"
+    },
+    {
+      "image_filename": "scene_3_conservatory_seed_1303.png",
+      "scene_number": 3,
+      "scene_title": "The Botanical Conservatory",
+      "scene_audit": {
+        "scene_passed": true,
+        "expected_faces": 2,
+        "detected_faces_count": 2,
+        "detected_persons_yolo_count": 2,
+        "face_audits": [
+          {
+            "width_px": 216,
+            "too_small": false,
+            "sharpness_laplacian": 254.98,
+            "is_blurry": false,
+            "melted_face_flag": false
+          },
+          {
+            "width_px": 290,
+            "too_small": false,
+            "sharpness_laplacian": 149.53,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0121
+        },
+        "prop_checks": {
+          "required_pass": true,
+          "missing_required": [],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 0,
+        "defect_taxonomy_violations": [],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 801,
+              "y": 104,
+              "w": 216,
+              "h": 303
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          },
+          {
+            "bbox": {
+              "x": 361,
+              "y": 110,
+              "w": 290,
+              "h": 383
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "clara_thorn",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 361,
+            "y": 110,
+            "w": 290,
+            "h": 383
+          },
+          "biometric_ensemble_score": 0.254,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.3129,
+              "centroid_similarity": 0.3129,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": -0.0182,
+              "centroid_similarity": -0.0182,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0992,
+              "centroid_similarity": 0.0992,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0906,
+              "centroid_similarity": 0.0906,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.1324,
+          "spatial_pass": true,
+          "observed_position": "left",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 37.77,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 290,
+          "face_sharpness": 149.53,
+          "dinov2_similarity": 0.3926,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "dr_marcus_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 801,
+            "y": 104,
+            "w": 216,
+            "h": 303
+          },
+          "biometric_ensemble_score": 0.4057,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.6073,
+              "centroid_similarity": 0.6073,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.2383,
+              "centroid_similarity": 0.2383,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0296,
+              "centroid_similarity": 0.0296,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.1479,
+              "centroid_similarity": 0.1479,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.1525,
+          "spatial_pass": true,
+          "observed_position": "right",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 15.16,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 216,
+          "face_sharpness": 254.98,
+          "dinov2_similarity": 0.4161,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_3_conservatory_seed_1303_contact.png"
+    },
+    {
+      "image_filename": "scene_4_expedition_seed_1101.png",
+      "scene_number": 4,
+      "scene_title": "The Expedition Assembled",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 3,
+        "detected_faces_count": 2,
+        "detected_persons_yolo_count": 2,
+        "face_audits": [
+          {
+            "width_px": 159,
+            "too_small": false,
+            "sharpness_laplacian": 727.66,
+            "is_blurry": false,
+            "melted_face_flag": false
+          },
+          {
+            "width_px": 261,
+            "too_small": false,
+            "sharpness_laplacian": 269.96,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.018
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "bronze observatory table",
+              "score": 0.0951
+            }
+          ],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 2,
+        "defect_taxonomy_violations": [
+          "missing_people (found 2 faces, expected 3)",
+          "required_prop_absent: bronze observatory table"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 831,
+              "y": 264,
+              "w": 159,
+              "h": 207
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          },
+          {
+            "bbox": {
+              "x": 291,
+              "y": 178,
+              "w": 261,
+              "h": 356
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "clara_thorn",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 291,
+            "y": 178,
+            "w": 261,
+            "h": 356
+          },
+          "biometric_ensemble_score": 0.1626,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.3881,
+              "centroid_similarity": 0.3881,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": -0.0268,
+              "centroid_similarity": -0.0268,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0071,
+              "centroid_similarity": 0.0071,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0114,
+              "centroid_similarity": 0.0114,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.0395,
+          "spatial_pass": true,
+          "observed_position": "left",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 44.99,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 261,
+          "face_sharpness": 269.96,
+          "dinov2_similarity": 0.4165,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "elena_child",
+          "age_group": "child",
+          "is_child": true,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 831,
+            "y": 264,
+            "w": 159,
+            "h": 207
+          },
+          "biometric_ensemble_score": 0.4165,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.6877,
+              "centroid_similarity": 0.6877,
+              "threshold": 0.2,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.1479,
+              "centroid_similarity": 0.1479,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.1932,
+              "centroid_similarity": 0.1932,
+              "threshold": 0.15,
+              "passed": true
+            },
+            "ArcFace": {
+              "max_similarity": -0.0012,
+              "centroid_similarity": -0.0012,
+              "threshold": 0.22,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.2036,
+          "spatial_pass": false,
+          "observed_position": "right",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 59.8,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 159,
+          "face_sharpness": 727.66,
+          "dinov2_similarity": 0.4556,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "dr_marcus_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": null,
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "rank1_correct": false,
+          "discrimination_margin": -1.0,
+          "spatial_pass": false,
+          "observed_position": "missing",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 99.0,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "missing_face",
+          "face_width_px": 0,
+          "face_sharpness": 0.0,
+          "dinov2_similarity": 0.0,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_4_expedition_seed_1101_contact.png"
+    },
+    {
+      "image_filename": "scene_4_expedition_seed_1202.png",
+      "scene_number": 4,
+      "scene_title": "The Expedition Assembled",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 3,
+        "detected_faces_count": 2,
+        "detected_persons_yolo_count": 2,
+        "face_audits": [
+          {
+            "width_px": 205,
+            "too_small": false,
+            "sharpness_laplacian": 381.97,
+            "is_blurry": false,
+            "melted_face_flag": false
+          },
+          {
+            "width_px": 195,
+            "too_small": false,
+            "sharpness_laplacian": 344.09,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.056
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "bronze observatory table",
+              "score": 0.0271
+            }
+          ],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 2,
+        "defect_taxonomy_violations": [
+          "missing_people (found 2 faces, expected 3)",
+          "required_prop_absent: bronze observatory table"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 656,
+              "y": 235,
+              "w": 205,
+              "h": 271
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          },
+          {
+            "bbox": {
+              "x": 273,
+              "y": 246,
+              "w": 195,
+              "h": 252
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "clara_thorn",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 273,
+            "y": 246,
+            "w": 195,
+            "h": 252
+          },
+          "biometric_ensemble_score": 0.1847,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.3583,
+              "centroid_similarity": 0.3583,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": -0.0298,
+              "centroid_similarity": -0.0298,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0541,
+              "centroid_similarity": 0.0541,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": -0.0119,
+              "centroid_similarity": -0.0119,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.008,
+          "spatial_pass": true,
+          "observed_position": "left",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 38.37,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 195,
+          "face_sharpness": 344.09,
+          "dinov2_similarity": 0.4733,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "elena_child",
+          "age_group": "child",
+          "is_child": true,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 656,
+            "y": 235,
+            "w": 205,
+            "h": 271
+          },
+          "biometric_ensemble_score": 0.3265,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.7474,
+              "centroid_similarity": 0.7474,
+              "threshold": 0.2,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.1309,
+              "centroid_similarity": 0.1309,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0499,
+              "centroid_similarity": 0.0499,
+              "threshold": 0.15,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": -0.0419,
+              "centroid_similarity": -0.0419,
+              "threshold": 0.22,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.1851,
+          "spatial_pass": true,
+          "observed_position": "right",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 24.46,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 205,
+          "face_sharpness": 381.97,
+          "dinov2_similarity": 0.4542,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "dr_marcus_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": null,
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "rank1_correct": false,
+          "discrimination_margin": -1.0,
+          "spatial_pass": false,
+          "observed_position": "missing",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 99.0,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "missing_face",
+          "face_width_px": 0,
+          "face_sharpness": 0.0,
+          "dinov2_similarity": 0.0,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_4_expedition_seed_1202_contact.png"
+    },
+    {
+      "image_filename": "scene_4_expedition_seed_1303.png",
+      "scene_number": 4,
+      "scene_title": "The Expedition Assembled",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 3,
+        "detected_faces_count": 2,
+        "detected_persons_yolo_count": 2,
+        "face_audits": [
+          {
+            "width_px": 329,
+            "too_small": false,
+            "sharpness_laplacian": 116.0,
+            "is_blurry": false,
+            "melted_face_flag": false
+          },
+          {
+            "width_px": 241,
+            "too_small": false,
+            "sharpness_laplacian": 144.57,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.002
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "bronze observatory table",
+              "score": 0.0062
+            }
+          ],
+          "forbidden_pass": false,
+          "detected_forbidden": [
+            {
+              "prop": "weapons",
+              "score": 0.8065
+            }
+          ]
+        },
+        "defect_count": 3,
+        "defect_taxonomy_violations": [
+          "missing_people (found 2 faces, expected 3)",
+          "required_prop_absent: bronze observatory table",
+          "forbidden_prop_present: weapons"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 329,
+              "y": 160,
+              "w": 329,
+              "h": 426
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          },
+          {
+            "bbox": {
+              "x": 727,
+              "y": 233,
+              "w": 241,
+              "h": 317
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "clara_thorn",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 329,
+            "y": 160,
+            "w": 329,
+            "h": 426
+          },
+          "biometric_ensemble_score": 0.2174,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.269,
+              "centroid_similarity": 0.269,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.0056,
+              "centroid_similarity": 0.0056,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0637,
+              "centroid_similarity": 0.0637,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0748,
+              "centroid_similarity": 0.0748,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.0471,
+          "spatial_pass": true,
+          "observed_position": "left",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 46.48,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 329,
+          "face_sharpness": 116.0,
+          "dinov2_similarity": 0.3941,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "elena_child",
+          "age_group": "child",
+          "is_child": true,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 727,
+            "y": 233,
+            "w": 241,
+            "h": 317
+          },
+          "biometric_ensemble_score": 0.4111,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.6732,
+              "centroid_similarity": 0.6732,
+              "threshold": 0.2,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.1029,
+              "centroid_similarity": 0.1029,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.165,
+              "centroid_similarity": 0.165,
+              "threshold": 0.15,
+              "passed": true
+            },
+            "ArcFace": {
+              "max_similarity": 0.0466,
+              "centroid_similarity": 0.0466,
+              "threshold": 0.22,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.2046,
+          "spatial_pass": true,
+          "observed_position": "right",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 62.32,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 241,
+          "face_sharpness": 144.57,
+          "dinov2_similarity": 0.3749,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "dr_marcus_vance",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": null,
+          "biometric_ensemble_score": 0.0,
+          "biometric_pass": false,
+          "rank1_correct": false,
+          "discrimination_margin": -1.0,
+          "spatial_pass": false,
+          "observed_position": "missing",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 99.0,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "missing_face",
+          "face_width_px": 0,
+          "face_sharpness": 0.0,
+          "dinov2_similarity": 0.0,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_4_expedition_seed_1303_contact.png"
+    }
+  ]
+}

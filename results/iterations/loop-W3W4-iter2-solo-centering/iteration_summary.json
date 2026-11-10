@@ -1,0 +1,162 @@
+{
+  "iteration_id": "loop-W3W4-iter2-solo-centering",
+  "phase": "R7",
+  "branch": "fix/identity-layout-scale",
+  "hypothesis": "Elevating solo shot composition (cy=0.46, face_width=160px) with upper_body_front pose and relaxing OpenPose guidance to 0.55 eliminates ceiling head clipping and restores adult/teen facial resolution, boosting positive pair rate >=70% and cluster bootstrap CI lower bound above 0.",
+  "change_desc": "Add upper_body_front pose template to layout_planner.py, elevate solo shot centering (cy=0.46), set shot-aware scale params (face_width=160px for close/shoulder shots), auto-detect upper_body_front with guidance_end=0.55 in pipeline_v2.py, and lower cfg_scale to 5.0.",
+  "timestamp": "2026-10-18T13:41:18Z",
+  "metrics": {
+    "intervention_biometric_mean": 0.3262,
+    "baseline_biometric_mean": 0.2081,
+    "delta_mean": 0.1181,
+    "delta_95ci_cluster_bootstrap": [
+      -0.0973,
+      0.2259
+    ],
+    "positive_pair_rate": 0.6111,
+    "positive_pairs_count": 11,
+    "total_pairs_count": 18,
+    "mean_face_width_px": 116.1,
+    "baseline_face_width_px": 210.2,
+    "subgroup_deltas": {
+      "child": -0.0099,
+      "teen": -0.1205,
+      "adult": 0.283
+    }
+  },
+  "guardrails": {
+    "peak_vram_mb": 7680.0,
+    "zero_oom": true,
+    "avg_latency_sec": 63.2,
+    "guardrails_met": false
+  },
+  "decision": "REJECT",
+  "renders": [
+    {
+      "scene_number": 1,
+      "seed": 11,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "young_ebright",
+        "mother"
+      ],
+      "image_filename": "scene_1_seed_11.png",
+      "render_time_sec": 75.18
+    },
+    {
+      "scene_number": 1,
+      "seed": 23,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "young_ebright",
+        "mother"
+      ],
+      "image_filename": "scene_1_seed_23.png",
+      "render_time_sec": 74.68
+    },
+    {
+      "scene_number": 1,
+      "seed": 37,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "young_ebright",
+        "mother"
+      ],
+      "image_filename": "scene_1_seed_37.png",
+      "render_time_sec": 73.16
+    },
+    {
+      "scene_number": 2,
+      "seed": 11,
+      "shot_type": "Medium close-up",
+      "characters": [
+        "young_ebright"
+      ],
+      "image_filename": "scene_2_seed_11.png",
+      "render_time_sec": 51.66
+    },
+    {
+      "scene_number": 2,
+      "seed": 23,
+      "shot_type": "Medium close-up",
+      "characters": [
+        "young_ebright"
+      ],
+      "image_filename": "scene_2_seed_23.png",
+      "render_time_sec": 52.2
+    },
+    {
+      "scene_number": 2,
+      "seed": 37,
+      "shot_type": "Medium close-up",
+      "characters": [
+        "young_ebright"
+      ],
+      "image_filename": "scene_2_seed_37.png",
+      "render_time_sec": 52.0
+    },
+    {
+      "scene_number": 4,
+      "seed": 11,
+      "shot_type": "Over-the-shoulder shot",
+      "characters": [
+        "teen_ebright"
+      ],
+      "image_filename": "scene_4_seed_11.png",
+      "render_time_sec": 52.77
+    },
+    {
+      "scene_number": 4,
+      "seed": 23,
+      "shot_type": "Over-the-shoulder shot",
+      "characters": [
+        "teen_ebright"
+      ],
+      "image_filename": "scene_4_seed_23.png",
+      "render_time_sec": 52.57
+    },
+    {
+      "scene_number": 4,
+      "seed": 37,
+      "shot_type": "Over-the-shoulder shot",
+      "characters": [
+        "teen_ebright"
+      ],
+      "image_filename": "scene_4_seed_37.png",
+      "render_time_sec": 52.27
+    },
+    {
+      "scene_number": 5,
+      "seed": 11,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "college_ebright",
+        "james_wong"
+      ],
+      "image_filename": "scene_5_seed_11.png",
+      "render_time_sec": 75.0
+    },
+    {
+      "scene_number": 5,
+      "seed": 23,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "college_ebright",
+        "james_wong"
+      ],
+      "image_filename": "scene_5_seed_23.png",
+      "render_time_sec": 73.32
+    },
+    {
+      "scene_number": 5,
+      "seed": 37,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "college_ebright",
+        "james_wong"
+      ],
+      "image_filename": "scene_5_seed_37.png",
+      "render_time_sec": 73.37
+    }
+  ]
+}

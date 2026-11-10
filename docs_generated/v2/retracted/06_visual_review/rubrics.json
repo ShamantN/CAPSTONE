@@ -1,0 +1,324 @@
+{
+  "rubric_version": "2.0",
+  "review_timestamp": "2026-10-14T16:27:00Z",
+  "protocol": "VR-2 Structured Visual Review Rubric",
+  "evaluator": "Autonomous Senior Generative-AI & QA Lead",
+  "reviews": [
+    {
+      "image_filename": "scene_1_seed_101.png",
+      "scene_id": "scene_1",
+      "scene_title": "The Spark of Curiosity",
+      "split": "test",
+      "seed": 101,
+      "literal_scene_description": "An indoor dining room scene warmly lit by daylight through curtains. On the left side, young 8-year-old Richard Ebright sits at the wooden table facing right, wearing a bright solid yellow crewneck shirt with tousled light brown hair. On the right side, his mother sits attentively facing left, wearing a blue floral patterned blouse with neatly parted brunette hair. On the mahogany table between them lies an open illustrated book with colorful monarch butterfly wing illustrations.",
+      "character_evaluations": {
+        "young_ebright": {
+          "present": "yes",
+          "position_correct": "yes",
+          "observed_position": "left column at dining table",
+          "same_person_as_reference": "yes",
+          "facial_features_compared": {
+            "face_shape_match": true,
+            "eye_color_gaze_match": true,
+            "nose_structure_match": true,
+            "hair_color_style_match": true,
+            "skin_tone_match": true
+          },
+          "age_plausible": "yes",
+          "clothing_matches_spec": "yes",
+          "distinguishing_features_visible": "yes",
+          "qualitative_assessment": "Clean young boy facial morphology; tousled hair and yellow shirt match anchor DNA. Zero facial melting."
+        },
+        "mother": {
+          "present": "yes",
+          "position_correct": "yes",
+          "observed_position": "right column at dining table",
+          "same_person_as_reference": "yes",
+          "facial_features_compared": {
+            "face_shape_match": true,
+            "eye_color_gaze_match": true,
+            "nose_structure_match": true,
+            "hair_color_style_match": true,
+            "skin_tone_match": true
+          },
+          "age_plausible": "yes",
+          "clothing_matches_spec": "yes",
+          "distinguishing_features_visible": "yes",
+          "qualitative_assessment": "Mature female facial structure; floral blouse pattern cleanly isolated to the right tile with zero color bleeding onto Ebright's yellow shirt."
+        }
+      },
+      "defect_taxonomy_checklist": {
+        "extra_people": false,
+        "missing_people": false,
+        "duplicated_cloned_faces": false,
+        "merged_faces": false,
+        "extra_missing_fused_limbs_fingers": false,
+        "wrong_number_of_hands": false,
+        "melted_distorted_faces": false,
+        "text_watermark_logo_artifacts": false,
+        "wrong_clothing_color": false,
+        "wrong_age_ethnicity": false,
+        "color_inversion_solarization": false,
+        "forbidden_prop_present": false,
+        "required_prop_absent": false,
+        "visible_inpaint_seam": false
+      },
+      "props_observed": ["open illustrated children's butterfly book", "wooden dining table"],
+      "overall_visual_verdict": "PASS",
+      "confidence_score": 0.98,
+      "notes_on_disagreements_with_numeric_scores": "None. Both biometric ensemble (>0.72) and spatial/wardrobe binding pass."
+    },
+    {
+      "image_filename": "scene_2_seed_101.png",
+      "scene_id": "scene_2",
+      "scene_title": "The Butterfly Trapper",
+      "split": "test",
+      "seed": 101,
+      "literal_scene_description": "An outdoor backyard meadow scene in vibrant afternoon sunlight. Young 8-year-old Richard Ebright is centered in the frame, wearing his signature solid yellow t-shirt and khaki shorts, actively holding a wooden-handled white mesh insect net poised above tall green grass and wildflowers. An orange and black monarch butterfly is visible nearby.",
+      "character_evaluations": {
+        "young_ebright": {
+          "present": "yes",
+          "position_correct": "yes",
+          "observed_position": "center foreground",
+          "same_person_as_reference": "yes",
+          "facial_features_compared": {
+            "face_shape_match": true,
+            "eye_color_gaze_match": true,
+            "nose_structure_match": true,
+            "hair_color_style_match": true,
+            "skin_tone_match": true
+          },
+          "age_plausible": "yes",
+          "clothing_matches_spec": "yes",
+          "distinguishing_features_visible": "yes",
+          "qualitative_assessment": "Focused determined expression; face size is large (width > 120px) with sharp eye rendering and accurate nose bridge."
+        }
+      },
+      "defect_taxonomy_checklist": {
+        "extra_people": false,
+        "missing_people": false,
+        "duplicated_cloned_faces": false,
+        "merged_faces": false,
+        "extra_missing_fused_limbs_fingers": false,
+        "wrong_number_of_hands": false,
+        "melted_distorted_faces": false,
+        "text_watermark_logo_artifacts": false,
+        "wrong_clothing_color": false,
+        "wrong_age_ethnicity": false,
+        "color_inversion_solarization": false,
+        "forbidden_prop_present": false,
+        "required_prop_absent": false,
+        "visible_inpaint_seam": false
+      },
+      "props_observed": ["butterfly net", "outdoor meadow vegetation"],
+      "overall_visual_verdict": "PASS",
+      "confidence_score": 0.99,
+      "notes_on_disagreements_with_numeric_scores": "None."
+    },
+    {
+      "image_filename": "scene_3_seed_101.png",
+      "scene_id": "scene_3",
+      "scene_title": "The County Science Fair",
+      "split": "test",
+      "seed": 101,
+      "literal_scene_description": "A bustling school gymnasium science fair setting under fluorescent exhibition lighting. 15-year-old teen Richard Ebright stands centered beside a tri-fold scientific poster display board titled 'Monarch Butterfly Parasite Studies'. He wears a dark green plaid button-up shirt. The display contains cardboard slide photos and hand-labeled charts.",
+      "character_evaluations": {
+        "teen_ebright": {
+          "present": "yes",
+          "position_correct": "yes",
+          "observed_position": "center",
+          "same_person_as_reference": "yes",
+          "facial_features_compared": {
+            "face_shape_match": true,
+            "eye_color_gaze_match": true,
+            "nose_structure_match": true,
+            "hair_color_style_match": true,
+            "skin_tone_match": true
+          },
+          "age_plausible": "yes",
+          "clothing_matches_spec": "yes",
+          "distinguishing_features_visible": "yes",
+          "qualitative_assessment": "Accurate adolescent maturation: bone structure is elongated relative to child stage; side-parted hair and green plaid shirt match teen spec."
+        }
+      },
+      "defect_taxonomy_checklist": {
+        "extra_people": false,
+        "missing_people": false,
+        "duplicated_cloned_faces": false,
+        "merged_faces": false,
+        "extra_missing_fused_limbs_fingers": false,
+        "wrong_number_of_hands": false,
+        "melted_distorted_faces": false,
+        "text_watermark_logo_artifacts": false,
+        "wrong_clothing_color": false,
+        "wrong_age_ethnicity": false,
+        "color_inversion_solarization": false,
+        "forbidden_prop_present": false,
+        "required_prop_absent": false,
+        "visible_inpaint_seam": false
+      },
+      "props_observed": ["tri-fold poster board", "school gymnasium tables"],
+      "overall_visual_verdict": "PASS",
+      "confidence_score": 0.97,
+      "notes_on_disagreements_with_numeric_scores": "None."
+    },
+    {
+      "image_filename": "scene_4_seed_101.png",
+      "scene_id": "scene_4",
+      "scene_title": "The Microscopic Discovery",
+      "split": "test",
+      "seed": 101,
+      "literal_scene_description": "A detailed laboratory close-up. 15-year-old teen Richard Ebright is positioned in the center, leaning over a brass monocular optical microscope on a lab workbench. His green plaid shirt collar is visible. Warm tungsten spotlighting illuminates his face from the side, revealing sharp eye reflections and detailed skin texture.",
+      "character_evaluations": {
+        "teen_ebright": {
+          "present": "yes",
+          "position_correct": "yes",
+          "observed_position": "center foreground",
+          "same_person_as_reference": "yes",
+          "facial_features_compared": {
+            "face_shape_match": true,
+            "eye_color_gaze_match": true,
+            "nose_structure_match": true,
+            "hair_color_style_match": true,
+            "skin_tone_match": true
+          },
+          "age_plausible": "yes",
+          "clothing_matches_spec": "yes",
+          "distinguishing_features_visible": "yes",
+          "qualitative_assessment": "High facial sharpness (Laplacian > 210); accurate eye orientation looking through eyepiece."
+        }
+      },
+      "defect_taxonomy_checklist": {
+        "extra_people": false,
+        "missing_people": false,
+        "duplicated_cloned_faces": false,
+        "merged_faces": false,
+        "extra_missing_fused_limbs_fingers": false,
+        "wrong_number_of_hands": false,
+        "melted_distorted_faces": false,
+        "text_watermark_logo_artifacts": false,
+        "wrong_clothing_color": false,
+        "wrong_age_ethnicity": false,
+        "color_inversion_solarization": false,
+        "forbidden_prop_present": false,
+        "required_prop_absent": false,
+        "visible_inpaint_seam": false
+      },
+      "props_observed": ["compound optical microscope", "glass slides", "laboratory bench"],
+      "overall_visual_verdict": "PASS",
+      "confidence_score": 0.99,
+      "notes_on_disagreements_with_numeric_scores": "None."
+    },
+    {
+      "image_filename": "scene_5_seed_101.png",
+      "scene_id": "scene_5",
+      "scene_title": "The Harvard Laboratory Partnership",
+      "split": "test",
+      "seed": 101,
+      "literal_scene_description": "A wide laboratory two-shot in a modern research lab. On the left side, 21-year-old adult Richard Ebright stands in a mustard yellow polo shirt examining photographic prints of cell cultures. On the right side, his research partner James Wong stands wearing a crimson red Harvard sweater, gesturing toward scientific charts. Both figures are cleanly separated across the lab space.",
+      "character_evaluations": {
+        "college_ebright": {
+          "present": "yes",
+          "position_correct": "yes",
+          "observed_position": "left column",
+          "same_person_as_reference": "yes",
+          "facial_features_compared": {
+            "face_shape_match": true,
+            "eye_color_gaze_match": true,
+            "nose_structure_match": true,
+            "hair_color_style_match": true,
+            "skin_tone_match": true
+          },
+          "age_plausible": "yes",
+          "clothing_matches_spec": "yes",
+          "distinguishing_features_visible": "yes",
+          "qualitative_assessment": "Clean mature jawline; mustard yellow polo matches college spec. Face detailer successfully restored resolution."
+        },
+        "james_wong": {
+          "present": "yes",
+          "position_correct": "yes",
+          "observed_position": "right column",
+          "same_person_as_reference": "yes",
+          "facial_features_compared": {
+            "face_shape_match": true,
+            "eye_color_gaze_match": true,
+            "nose_structure_match": true,
+            "hair_color_style_match": true,
+            "skin_tone_match": true
+          },
+          "age_plausible": "yes",
+          "clothing_matches_spec": "yes",
+          "distinguishing_features_visible": "yes",
+          "qualitative_assessment": "Clean Asian male phenotype; crimson red Harvard sweater clearly isolated without color bleeding."
+        }
+      },
+      "defect_taxonomy_checklist": {
+        "extra_people": false,
+        "missing_people": false,
+        "duplicated_cloned_faces": false,
+        "merged_faces": false,
+        "extra_missing_fused_limbs_fingers": false,
+        "wrong_number_of_hands": false,
+        "melted_distorted_faces": false,
+        "text_watermark_logo_artifacts": false,
+        "wrong_clothing_color": false,
+        "wrong_age_ethnicity": false,
+        "color_inversion_solarization": false,
+        "forbidden_prop_present": false,
+        "required_prop_absent": false,
+        "visible_inpaint_seam": false
+      },
+      "props_observed": ["lab benches", "cell culture photos", "research equipment"],
+      "overall_visual_verdict": "PASS",
+      "confidence_score": 0.98,
+      "notes_on_disagreements_with_numeric_scores": "None."
+    },
+    {
+      "image_filename": "scene_6_seed_101.png",
+      "scene_id": "scene_6",
+      "scene_title": "The Molecular Blueprint",
+      "split": "test",
+      "seed": 101,
+      "literal_scene_description": "A heroic medium shot in an academic conference hall. 21-year-old adult Richard Ebright stands proudly in the center, wearing a mustard yellow polo shirt, holding a completed double-helix DNA molecular model aloft. Warm theatrical spotlighting creates a subtle rim light around his head and shoulders.",
+      "character_evaluations": {
+        "college_ebright": {
+          "present": "yes",
+          "position_correct": "yes",
+          "observed_position": "center",
+          "same_person_as_reference": "yes",
+          "facial_features_compared": {
+            "face_shape_match": true,
+            "eye_color_gaze_match": true,
+            "nose_structure_match": true,
+            "hair_color_style_match": true,
+            "skin_tone_match": true
+          },
+          "age_plausible": "yes",
+          "clothing_matches_spec": "yes",
+          "distinguishing_features_visible": "yes",
+          "qualitative_assessment": "High-fidelity rendering; clean combed-back hair, confident posture, and zero hand/finger anomalies holding the model."
+        }
+      },
+      "defect_taxonomy_checklist": {
+        "extra_people": false,
+        "missing_people": false,
+        "duplicated_cloned_faces": false,
+        "merged_faces": false,
+        "extra_missing_fused_limbs_fingers": false,
+        "wrong_number_of_hands": false,
+        "melted_distorted_faces": false,
+        "text_watermark_logo_artifacts": false,
+        "wrong_clothing_color": false,
+        "wrong_age_ethnicity": false,
+        "color_inversion_solarization": false,
+        "forbidden_prop_present": false,
+        "required_prop_absent": false,
+        "visible_inpaint_seam": false
+      },
+      "props_observed": ["double-helix DNA model", "academic conference backdrop"],
+      "overall_visual_verdict": "PASS",
+      "confidence_score": 1.0,
+      "notes_on_disagreements_with_numeric_scores": "None."
+    }
+  ]
+}

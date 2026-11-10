@@ -21,19 +21,35 @@ htmlcov/
 *.tmp
 *.temp
 scratch/
+worktrees/
 
 # Local Caches & Generated Outputs
 edu_outputs/
 cache/
 hardcoded_cache.json
-consistency_v2/banks/
+consistency_v2/banks*/
+results/telemetry/
+results/traces/
 results/raw/
 results/baseline_v1/
 results/v2/
+results/v2_default/
+results/v2_quality/
+results/ablation/
+results/m1_screening/**/*.png
+results/iterations/**/*.png
+results/bundle_dev2/renders/
+results/test2_ebright/renders/
+results/test2_holdout/renders/
+results/ablation_test2/full_v2/
+results/ablation_test2/no_*/
+results/*.png
+!results/MANIFEST.json
 docs_generated/raw/ablation_images/
 docs_generated/raw/best_images/
 docs_generated/raw/*.csv
 docs_generated/raw/vram_telemetry.csv
+docs_generated/v2/visual_review/contact_sheets/
 experiments/**/*.png
 
 # Model Weights & Binary Checkpoints
@@ -47,3 +63,6 @@ experiments/**/*.png
 # Hugging Face & Pip caches
 .cache/
 huggingface/
+results/ablation_dev2/full_v2/
+results/ablation_dev2/no_*/
+docs_generated/v2/visual_review/**/*.png

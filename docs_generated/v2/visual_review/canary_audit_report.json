@@ -1,0 +1,205 @@
+{
+  "evaluation_type": "automated, not human",
+  "note": "Automated Verifier v1.2 response check on planted synthetic defect canaries; not human visual review.",
+  "verifier_version": "1.2",
+  "total_canaries": 3,
+  "total_caught": 3,
+  "catch_rate_percent": 100.0,
+  "evaluations": [
+    {
+      "canary_id": "Canary_1_Inverted_Face",
+      "defect_type": "Inverted / Upside-down Face Crop",
+      "caught": true,
+      "failure_flag": "DEFECT_COLOR_INVERSION_SOLARIZATION: Chromatic B>R inversion detected (124.5 > 67.8)",
+      "rubric": {
+        "review_version": "2.0",
+        "image_filename": "canary_1_inverted_face.png",
+        "scene_id": "scene_1",
+        "scene_title": "The Spark of Curiosity",
+        "literal_scene_description": "",
+        "character_evaluations": {
+          "young_ebright": {
+            "character_id": "young_ebright",
+            "present": "yes",
+            "position_correct": "yes",
+            "observed_position_description": "",
+            "same_person_as_reference": "no",
+            "facial_features_compared": {
+              "face_shape_match": true,
+              "eye_color_gaze_match": true,
+              "nose_structure_match": true,
+              "hair_color_style_match": true,
+              "skin_tone_match": true
+            },
+            "age_plausible": "yes",
+            "clothing_matches_spec": "yes",
+            "distinguishing_features_visible": "yes",
+            "qualitative_assessment": "Upside-down photographic negative face detected: chromatic B/R inversion ratio=1.84 (B=124.5, R=67.8)."
+          },
+          "mother": {
+            "character_id": "mother",
+            "present": "yes",
+            "position_correct": "yes",
+            "observed_position_description": "",
+            "same_person_as_reference": "yes",
+            "facial_features_compared": {
+              "face_shape_match": true,
+              "eye_color_gaze_match": true,
+              "nose_structure_match": true,
+              "hair_color_style_match": true,
+              "skin_tone_match": true
+            },
+            "age_plausible": "yes",
+            "clothing_matches_spec": "yes",
+            "distinguishing_features_visible": "yes",
+            "qualitative_assessment": ""
+          }
+        },
+        "defect_taxonomy_checklist": {
+          "extra_people": false,
+          "missing_people": false,
+          "duplicated_cloned_faces": false,
+          "merged_faces": false,
+          "extra_missing_fused_limbs_fingers": false,
+          "wrong_number_of_hands": false,
+          "melted_distorted_faces": true,
+          "text_watermark_logo_artifacts": false,
+          "wrong_clothing_color": false,
+          "wrong_age_ethnicity": false,
+          "color_inversion_solarization": true,
+          "forbidden_prop_present": false,
+          "required_prop_absent": false,
+          "visible_inpaint_seam": false
+        },
+        "props_observed": [],
+        "overall_visual_verdict": "FAIL",
+        "confidence_score": 1.0,
+        "notes_on_disagreements_with_numeric_scores": ""
+      }
+    },
+    {
+      "canary_id": "Canary_2_Extra_People",
+      "defect_type": "Extra Third Unprompted Character",
+      "caught": true,
+      "failure_flag": "DEFECT_EXTRA_PEOPLE: Detected 3 faces in scene, expected 1",
+      "rubric": {
+        "review_version": "2.0",
+        "image_filename": "canary_2_extra_people.png",
+        "scene_id": "scene_2",
+        "scene_title": "The Butterfly Basement",
+        "literal_scene_description": "Detected 3 faces in scene when only 1 Young Ebright was expected.",
+        "character_evaluations": {
+          "young_ebright": {
+            "character_id": "young_ebright",
+            "present": "yes",
+            "position_correct": "yes",
+            "observed_position_description": "",
+            "same_person_as_reference": "yes",
+            "facial_features_compared": {
+              "face_shape_match": true,
+              "eye_color_gaze_match": true,
+              "nose_structure_match": true,
+              "hair_color_style_match": true,
+              "skin_tone_match": true
+            },
+            "age_plausible": "yes",
+            "clothing_matches_spec": "yes",
+            "distinguishing_features_visible": "yes",
+            "qualitative_assessment": ""
+          }
+        },
+        "defect_taxonomy_checklist": {
+          "extra_people": true,
+          "missing_people": false,
+          "duplicated_cloned_faces": false,
+          "merged_faces": false,
+          "extra_missing_fused_limbs_fingers": false,
+          "wrong_number_of_hands": false,
+          "melted_distorted_faces": false,
+          "text_watermark_logo_artifacts": false,
+          "wrong_clothing_color": false,
+          "wrong_age_ethnicity": false,
+          "color_inversion_solarization": false,
+          "forbidden_prop_present": false,
+          "required_prop_absent": false,
+          "visible_inpaint_seam": false
+        },
+        "props_observed": [],
+        "overall_visual_verdict": "FAIL",
+        "confidence_score": 1.0,
+        "notes_on_disagreements_with_numeric_scores": ""
+      }
+    },
+    {
+      "canary_id": "Canary_3_Swapped_Identity",
+      "defect_type": "Swapped Character Identity (James Wong substituted for Young Ebright)",
+      "caught": true,
+      "failure_flag": "DEFECT_SWAPPED_IDENTITY: Biometric ensemble mismatch (sim_expected=0.1057 < sim_actual=0.2680)",
+      "rubric": {
+        "review_version": "2.0",
+        "image_filename": "canary_3_swapped_identity.png",
+        "scene_id": "scene_1",
+        "scene_title": "The Spark of Curiosity",
+        "literal_scene_description": "",
+        "character_evaluations": {
+          "young_ebright": {
+            "character_id": "young_ebright",
+            "present": "yes",
+            "position_correct": "yes",
+            "observed_position_description": "",
+            "same_person_as_reference": "no",
+            "facial_features_compared": {
+              "face_shape_match": false,
+              "eye_color_gaze_match": true,
+              "nose_structure_match": true,
+              "hair_color_style_match": false,
+              "skin_tone_match": false
+            },
+            "age_plausible": "yes",
+            "clothing_matches_spec": "yes",
+            "distinguishing_features_visible": "yes",
+            "qualitative_assessment": "Biometric identity mismatch: Face matches James Wong (sim=0.2680) over Young Ebright (sim=0.1057)."
+          },
+          "mother": {
+            "character_id": "mother",
+            "present": "yes",
+            "position_correct": "yes",
+            "observed_position_description": "",
+            "same_person_as_reference": "yes",
+            "facial_features_compared": {
+              "face_shape_match": true,
+              "eye_color_gaze_match": true,
+              "nose_structure_match": true,
+              "hair_color_style_match": true,
+              "skin_tone_match": true
+            },
+            "age_plausible": "yes",
+            "clothing_matches_spec": "yes",
+            "distinguishing_features_visible": "yes",
+            "qualitative_assessment": ""
+          }
+        },
+        "defect_taxonomy_checklist": {
+          "extra_people": false,
+          "missing_people": false,
+          "duplicated_cloned_faces": false,
+          "merged_faces": false,
+          "extra_missing_fused_limbs_fingers": false,
+          "wrong_number_of_hands": false,
+          "melted_distorted_faces": false,
+          "text_watermark_logo_artifacts": false,
+          "wrong_clothing_color": false,
+          "wrong_age_ethnicity": true,
+          "color_inversion_solarization": false,
+          "forbidden_prop_present": false,
+          "required_prop_absent": false,
+          "visible_inpaint_seam": false
+        },
+        "props_observed": [],
+        "overall_visual_verdict": "FAIL",
+        "confidence_score": 1.0,
+        "notes_on_disagreements_with_numeric_scores": ""
+      }
+    }
+  ]
+}

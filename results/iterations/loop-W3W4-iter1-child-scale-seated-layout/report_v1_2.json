@@ -1,0 +1,1834 @@
+{
+  "verifier_version": "1.2",
+  "verifier_freeze_sha": "3fa69071f888643bccb1c21ee732415ac81996a9f3cb0b71dedd68086fecb4b6",
+  "detector_health": {
+    "retinaface": true,
+    "yolov8n": true,
+    "segformer": true,
+    "clip": true,
+    "dinov2": true,
+    "facenet512": true,
+    "sface": true,
+    "ghostfacenet": true,
+    "arcface": true,
+    "all_healthy": true
+  },
+  "images_evaluated_count": 12,
+  "total_face_instances": 18,
+  "summary_metrics": {
+    "biometric_ensemble_mean": 0.3309,
+    "biometric_ensemble_std": 0.0752,
+    "biometric_ensemble_95ci": [
+      0.2991,
+      0.3714
+    ],
+    "rank1_discrimination_accuracy": 0.7778,
+    "discrimination_margin_mean": 0.0409,
+    "dinov2_mean_similarity": 0.5063,
+    "per_judge_means": {
+      "Facenet512": 0.6402,
+      "SFace": 0.1088,
+      "GhostFaceNet": 0.0314,
+      "ArcFace": 0.125
+    },
+    "binding_decomposed": {
+      "spatial_position_pass_rate": 1.0,
+      "wardrobe_palette_pass_rate": 0.3333,
+      "identity_at_position_pass_rate": 0.0,
+      "combined_binding_pass_rate": 0.0
+    },
+    "age_split_metrics": {
+      "child": {
+        "count": 6,
+        "biometric_ensemble_mean": 0.2892,
+        "rank1_accuracy": 0.5,
+        "combined_binding_accuracy": 0.0,
+        "wardrobe_accuracy": 0.1667
+      },
+      "teen": {
+        "count": 3,
+        "biometric_ensemble_mean": 0.2654,
+        "rank1_accuracy": 1.0,
+        "combined_binding_accuracy": 0.0,
+        "wardrobe_accuracy": 0.3333
+      },
+      "adult": {
+        "count": 9,
+        "biometric_ensemble_mean": 0.3805,
+        "rank1_accuracy": 0.8889,
+        "combined_binding_accuracy": 0.0,
+        "wardrobe_accuracy": 0.4444
+      }
+    },
+    "mean_defects_per_scene": 1.0833,
+    "seg_failed_count": 0
+  },
+  "comparative_significance": {
+    "wilcoxon_w_statistic": 44.0,
+    "p_value": 0.0736846923828125,
+    "statistically_significant_p05": false
+  },
+  "raw_biometric_ensemble_scores": [
+    0.2992,
+    0.4861,
+    0.3105,
+    0.34,
+    0.2714,
+    0.2718,
+    0.2725,
+    0.3075,
+    0.2739,
+    0.3047,
+    0.2309,
+    0.2606,
+    0.5247,
+    0.3871,
+    0.3886,
+    0.3692,
+    0.3067,
+    0.3499
+  ],
+  "per_scene_reports": [
+    {
+      "image_filename": "scene_1_seed_11.png",
+      "scene_number": 1,
+      "scene_title": "The Spark of Curiosity",
+      "scene_audit": {
+        "scene_passed": true,
+        "expected_faces": 2,
+        "detected_faces_count": 2,
+        "detected_persons_yolo_count": 2,
+        "face_audits": [
+          {
+            "width_px": 119,
+            "too_small": false,
+            "sharpness_laplacian": 1484.26,
+            "is_blurry": false,
+            "melted_face_flag": false
+          },
+          {
+            "width_px": 117,
+            "too_small": false,
+            "sharpness_laplacian": 1524.9,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0151
+        },
+        "prop_checks": {
+          "required_pass": true,
+          "missing_required": [],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 0,
+        "defect_taxonomy_violations": [],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 283,
+              "y": 108,
+              "w": 119,
+              "h": 148
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          },
+          {
+            "bbox": {
+              "x": 860,
+              "y": 45,
+              "w": 117,
+              "h": 148
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "young_ebright",
+          "age_group": "child",
+          "is_child": true,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 283,
+            "y": 108,
+            "w": 119,
+            "h": 148
+          },
+          "biometric_ensemble_score": 0.2992,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.669,
+              "centroid_similarity": 0.669,
+              "threshold": 0.2,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.0714,
+              "centroid_similarity": 0.0714,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": -0.111,
+              "centroid_similarity": -0.111,
+              "threshold": 0.15,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.1063,
+              "centroid_similarity": 0.1063,
+              "threshold": 0.22,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.0066,
+          "spatial_pass": true,
+          "observed_position": "left",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 37.74,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 119,
+          "face_sharpness": 1484.26,
+          "dinov2_similarity": 0.4725,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "mother",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 860,
+            "y": 45,
+            "w": 117,
+            "h": 148
+          },
+          "biometric_ensemble_score": 0.4861,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.5519,
+              "centroid_similarity": 0.5519,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.1259,
+              "centroid_similarity": 0.1259,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.1566,
+              "centroid_similarity": 0.1566,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.3014,
+              "centroid_similarity": 0.3014,
+              "threshold": 0.25,
+              "passed": true
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.1431,
+          "spatial_pass": true,
+          "observed_position": "right",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 23.99,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 117,
+          "face_sharpness": 1524.9,
+          "dinov2_similarity": 0.4427,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_1_seed_11_contact.png"
+    },
+    {
+      "image_filename": "scene_1_seed_23.png",
+      "scene_number": 1,
+      "scene_title": "The Spark of Curiosity",
+      "scene_audit": {
+        "scene_passed": true,
+        "expected_faces": 2,
+        "detected_faces_count": 2,
+        "detected_persons_yolo_count": 2,
+        "face_audits": [
+          {
+            "width_px": 116,
+            "too_small": false,
+            "sharpness_laplacian": 1651.48,
+            "is_blurry": false,
+            "melted_face_flag": false
+          },
+          {
+            "width_px": 102,
+            "too_small": false,
+            "sharpness_laplacian": 1419.93,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0259
+        },
+        "prop_checks": {
+          "required_pass": true,
+          "missing_required": [],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 0,
+        "defect_taxonomy_violations": [],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 814,
+              "y": 39,
+              "w": 116,
+              "h": 150
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          },
+          {
+            "bbox": {
+              "x": 290,
+              "y": 116,
+              "w": 102,
+              "h": 138
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "young_ebright",
+          "age_group": "child",
+          "is_child": true,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 290,
+            "y": 116,
+            "w": 102,
+            "h": 138
+          },
+          "biometric_ensemble_score": 0.3105,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.6938,
+              "centroid_similarity": 0.6938,
+              "threshold": 0.2,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.125,
+              "centroid_similarity": 0.125,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": -0.0261,
+              "centroid_similarity": -0.0261,
+              "threshold": 0.15,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0656,
+              "centroid_similarity": 0.0656,
+              "threshold": 0.22,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.0464,
+          "spatial_pass": true,
+          "observed_position": "left",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 56.32,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 102,
+          "face_sharpness": 1419.93,
+          "dinov2_similarity": 0.5495,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "mother",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 814,
+            "y": 39,
+            "w": 116,
+            "h": 150
+          },
+          "biometric_ensemble_score": 0.34,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.6176,
+              "centroid_similarity": 0.6176,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.0908,
+              "centroid_similarity": 0.0908,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0541,
+              "centroid_similarity": 0.0541,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.1328,
+              "centroid_similarity": 0.1328,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.101,
+          "spatial_pass": true,
+          "observed_position": "right",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 66.48,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 116,
+          "face_sharpness": 1651.48,
+          "dinov2_similarity": 0.5246,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_1_seed_23_contact.png"
+    },
+    {
+      "image_filename": "scene_1_seed_37.png",
+      "scene_number": 1,
+      "scene_title": "The Spark of Curiosity",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 2,
+        "detected_faces_count": 2,
+        "detected_persons_yolo_count": 3,
+        "face_audits": [
+          {
+            "width_px": 115,
+            "too_small": false,
+            "sharpness_laplacian": 1575.65,
+            "is_blurry": false,
+            "melted_face_flag": false
+          },
+          {
+            "width_px": 109,
+            "too_small": false,
+            "sharpness_laplacian": 1694.58,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0288
+        },
+        "prop_checks": {
+          "required_pass": true,
+          "missing_required": [],
+          "forbidden_pass": false,
+          "detected_forbidden": [
+            {
+              "prop": "beard on child",
+              "score": 0.7476
+            }
+          ]
+        },
+        "defect_count": 1,
+        "defect_taxonomy_violations": [
+          "forbidden_prop_present: beard on child"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 278,
+              "y": 122,
+              "w": 115,
+              "h": 140
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          },
+          {
+            "bbox": {
+              "x": 821,
+              "y": 48,
+              "w": 109,
+              "h": 141
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "young_ebright",
+          "age_group": "child",
+          "is_child": true,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 278,
+            "y": 122,
+            "w": 115,
+            "h": 140
+          },
+          "biometric_ensemble_score": 0.2714,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.7391,
+              "centroid_similarity": 0.7391,
+              "threshold": 0.2,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.0514,
+              "centroid_similarity": 0.0514,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": -0.0361,
+              "centroid_similarity": -0.0361,
+              "threshold": 0.15,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0581,
+              "centroid_similarity": 0.0581,
+              "threshold": 0.22,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.0162,
+          "spatial_pass": true,
+          "observed_position": "left",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 51.74,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 115,
+          "face_sharpness": 1575.65,
+          "dinov2_similarity": 0.4924,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "mother",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 821,
+            "y": 48,
+            "w": 109,
+            "h": 141
+          },
+          "biometric_ensemble_score": 0.2718,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.5711,
+              "centroid_similarity": 0.5711,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.0569,
+              "centroid_similarity": 0.0569,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0261,
+              "centroid_similarity": 0.0261,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0857,
+              "centroid_similarity": 0.0857,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.0658,
+          "spatial_pass": true,
+          "observed_position": "right",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 49.18,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 109,
+          "face_sharpness": 1694.58,
+          "dinov2_similarity": 0.5553,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_1_seed_37_contact.png"
+    },
+    {
+      "image_filename": "scene_2_seed_11.png",
+      "scene_number": 2,
+      "scene_title": "The Butterfly Basement",
+      "scene_audit": {
+        "scene_passed": true,
+        "expected_faces": 1,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 252,
+            "too_small": false,
+            "sharpness_laplacian": 153.36,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.274
+        },
+        "prop_checks": {
+          "required_pass": true,
+          "missing_required": [],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 0,
+        "defect_taxonomy_violations": [],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 392,
+              "y": 0,
+              "w": 252,
+              "h": 234
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "young_ebright",
+          "age_group": "child",
+          "is_child": true,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 392,
+            "y": 0,
+            "w": 252,
+            "h": 234
+          },
+          "biometric_ensemble_score": 0.2725,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.6812,
+              "centroid_similarity": 0.6812,
+              "threshold": 0.2,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.1103,
+              "centroid_similarity": 0.1103,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": -0.011,
+              "centroid_similarity": -0.011,
+              "threshold": 0.15,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.017,
+              "centroid_similarity": 0.017,
+              "threshold": 0.22,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.0912,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 45.88,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 252,
+          "face_sharpness": 153.36,
+          "dinov2_similarity": 0.4673,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_2_seed_11_contact.png"
+    },
+    {
+      "image_filename": "scene_2_seed_23.png",
+      "scene_number": 2,
+      "scene_title": "The Butterfly Basement",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 1,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 154,
+            "too_small": false,
+            "sharpness_laplacian": 629.69,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.2169
+        },
+        "prop_checks": {
+          "required_pass": true,
+          "missing_required": [],
+          "forbidden_pass": false,
+          "detected_forbidden": [
+            {
+              "prop": "teenager",
+              "score": 0.9737
+            }
+          ]
+        },
+        "defect_count": 1,
+        "defect_taxonomy_violations": [
+          "forbidden_prop_present: teenager"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 440,
+              "y": 0,
+              "w": 154,
+              "h": 161
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "young_ebright",
+          "age_group": "child",
+          "is_child": true,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 440,
+            "y": 0,
+            "w": 154,
+            "h": 161
+          },
+          "biometric_ensemble_score": 0.3075,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.7747,
+              "centroid_similarity": 0.7747,
+              "threshold": 0.2,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.1206,
+              "centroid_similarity": 0.1206,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0152,
+              "centroid_similarity": 0.0152,
+              "threshold": 0.15,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0203,
+              "centroid_similarity": 0.0203,
+              "threshold": 0.22,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.0292,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 59.17,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 154,
+          "face_sharpness": 629.69,
+          "dinov2_similarity": 0.5603,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_2_seed_23_contact.png"
+    },
+    {
+      "image_filename": "scene_2_seed_37.png",
+      "scene_number": 2,
+      "scene_title": "The Butterfly Basement",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 1,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 166,
+            "too_small": false,
+            "sharpness_laplacian": 482.59,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0712
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "wire mesh butterfly cages",
+              "score": 0.0375
+            },
+            {
+              "prop": "monarch butterflies",
+              "score": 0.0824
+            }
+          ],
+          "forbidden_pass": false,
+          "detected_forbidden": [
+            {
+              "prop": "teenager",
+              "score": 0.9974
+            },
+            {
+              "prop": "adult man",
+              "score": 0.9895
+            },
+            {
+              "prop": "beard",
+              "score": 0.7653
+            },
+            {
+              "prop": "stubble",
+              "score": 0.7516
+            }
+          ]
+        },
+        "defect_count": 6,
+        "defect_taxonomy_violations": [
+          "required_prop_absent: wire mesh butterfly cages",
+          "required_prop_absent: monarch butterflies",
+          "forbidden_prop_present: teenager",
+          "forbidden_prop_present: adult man",
+          "forbidden_prop_present: beard",
+          "forbidden_prop_present: stubble"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 439,
+              "y": 0,
+              "w": 166,
+              "h": 168
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "young_ebright",
+          "age_group": "child",
+          "is_child": true,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 439,
+            "y": 0,
+            "w": 166,
+            "h": 168
+          },
+          "biometric_ensemble_score": 0.2739,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.7541,
+              "centroid_similarity": 0.7541,
+              "threshold": 0.2,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.0606,
+              "centroid_similarity": 0.0606,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0045,
+              "centroid_similarity": 0.0045,
+              "threshold": 0.15,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0425,
+              "centroid_similarity": 0.0425,
+              "threshold": 0.22,
+              "passed": false
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.0244,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 40.34,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 166,
+          "face_sharpness": 482.59,
+          "dinov2_similarity": 0.5333,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_2_seed_37_contact.png"
+    },
+    {
+      "image_filename": "scene_4_seed_11.png",
+      "scene_number": 4,
+      "scene_title": "The Starling Experiment",
+      "scene_audit": {
+        "scene_passed": true,
+        "expected_faces": 1,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 127,
+            "too_small": false,
+            "sharpness_laplacian": 639.21,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0309
+        },
+        "prop_checks": {
+          "required_pass": true,
+          "missing_required": [],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 0,
+        "defect_taxonomy_violations": [],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 447,
+              "y": 124,
+              "w": 127,
+              "h": 157
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "teen_ebright",
+          "age_group": "teen",
+          "is_child": false,
+          "is_teen": true,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 447,
+            "y": 124,
+            "w": 127,
+            "h": 157
+          },
+          "biometric_ensemble_score": 0.3047,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.6893,
+              "centroid_similarity": 0.6893,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.1687,
+              "centroid_similarity": 0.1687,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": -0.004,
+              "centroid_similarity": -0.004,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0333,
+              "centroid_similarity": 0.0333,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.0387,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 42.91,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 127,
+          "face_sharpness": 639.21,
+          "dinov2_similarity": 0.4645,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_4_seed_11_contact.png"
+    },
+    {
+      "image_filename": "scene_4_seed_23.png",
+      "scene_number": 4,
+      "scene_title": "The Starling Experiment",
+      "scene_audit": {
+        "scene_passed": true,
+        "expected_faces": 1,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 118,
+            "too_small": false,
+            "sharpness_laplacian": 1037.42,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0424
+        },
+        "prop_checks": {
+          "required_pass": true,
+          "missing_required": [],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 0,
+        "defect_taxonomy_violations": [],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 453,
+              "y": 118,
+              "w": 118,
+              "h": 162
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "teen_ebright",
+          "age_group": "teen",
+          "is_child": false,
+          "is_teen": true,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 453,
+            "y": 118,
+            "w": 118,
+            "h": 162
+          },
+          "biometric_ensemble_score": 0.2309,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.624,
+              "centroid_similarity": 0.624,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.079,
+              "centroid_similarity": 0.079,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": -0.0371,
+              "centroid_similarity": -0.0371,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": -0.0325,
+              "centroid_similarity": -0.0325,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.0212,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 50.18,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 118,
+          "face_sharpness": 1037.42,
+          "dinov2_similarity": 0.5067,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_4_seed_23_contact.png"
+    },
+    {
+      "image_filename": "scene_4_seed_37.png",
+      "scene_number": 4,
+      "scene_title": "The Starling Experiment",
+      "scene_audit": {
+        "scene_passed": true,
+        "expected_faces": 1,
+        "detected_faces_count": 1,
+        "detected_persons_yolo_count": 1,
+        "face_audits": [
+          {
+            "width_px": 115,
+            "too_small": false,
+            "sharpness_laplacian": 852.71,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0518
+        },
+        "prop_checks": {
+          "required_pass": true,
+          "missing_required": [],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 0,
+        "defect_taxonomy_violations": [],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 462,
+              "y": 114,
+              "w": 115,
+              "h": 160
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "teen_ebright",
+          "age_group": "teen",
+          "is_child": false,
+          "is_teen": true,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 462,
+            "y": 114,
+            "w": 115,
+            "h": 160
+          },
+          "biometric_ensemble_score": 0.2606,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.7001,
+              "centroid_similarity": 0.7001,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.099,
+              "centroid_similarity": 0.099,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": -0.0117,
+              "centroid_similarity": -0.0117,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0142,
+              "centroid_similarity": 0.0142,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.0099,
+          "spatial_pass": true,
+          "observed_position": "center",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 30.83,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 115,
+          "face_sharpness": 852.71,
+          "dinov2_similarity": 0.5102,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_4_seed_37_contact.png"
+    },
+    {
+      "image_filename": "scene_5_seed_11.png",
+      "scene_number": 5,
+      "scene_title": "The Breakthrough at Harvard",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 2,
+        "detected_faces_count": 2,
+        "detected_persons_yolo_count": 2,
+        "face_audits": [
+          {
+            "width_px": 97,
+            "too_small": false,
+            "sharpness_laplacian": 1175.68,
+            "is_blurry": false,
+            "melted_face_flag": false
+          },
+          {
+            "width_px": 102,
+            "too_small": false,
+            "sharpness_laplacian": 1860.76,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.029
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "plastic ball-and-stick molecular model",
+              "score": 0.0734
+            }
+          ],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 1,
+        "defect_taxonomy_violations": [
+          "required_prop_absent: plastic ball-and-stick molecular model"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 830,
+              "y": 61,
+              "w": 97,
+              "h": 128
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          },
+          {
+            "bbox": {
+              "x": 289,
+              "y": 54,
+              "w": 102,
+              "h": 135
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "college_ebright",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 289,
+            "y": 54,
+            "w": 102,
+            "h": 135
+          },
+          "biometric_ensemble_score": 0.5247,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.607,
+              "centroid_similarity": 0.607,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.1687,
+              "centroid_similarity": 0.1687,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.1642,
+              "centroid_similarity": 0.1642,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.3148,
+              "centroid_similarity": 0.3148,
+              "threshold": 0.25,
+              "passed": true
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.0892,
+          "spatial_pass": true,
+          "observed_position": "left",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 61.59,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 102,
+          "face_sharpness": 1860.76,
+          "dinov2_similarity": 0.5509,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "james_wong",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 830,
+            "y": 61,
+            "w": 97,
+            "h": 128
+          },
+          "biometric_ensemble_score": 0.3871,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.7842,
+              "centroid_similarity": 0.7842,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.1862,
+              "centroid_similarity": 0.1862,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0667,
+              "centroid_similarity": 0.0667,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0568,
+              "centroid_similarity": 0.0568,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.1769,
+          "spatial_pass": true,
+          "observed_position": "right",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 51.91,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 97,
+          "face_sharpness": 1175.68,
+          "dinov2_similarity": 0.6537,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_5_seed_11_contact.png"
+    },
+    {
+      "image_filename": "scene_5_seed_23.png",
+      "scene_number": 5,
+      "scene_title": "The Breakthrough at Harvard",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 2,
+        "detected_faces_count": 3,
+        "detected_persons_yolo_count": 2,
+        "face_audits": [
+          {
+            "width_px": 97,
+            "too_small": false,
+            "sharpness_laplacian": 1530.52,
+            "is_blurry": false,
+            "melted_face_flag": false
+          },
+          {
+            "width_px": 100,
+            "too_small": false,
+            "sharpness_laplacian": 1487.18,
+            "is_blurry": false,
+            "melted_face_flag": false
+          },
+          {
+            "width_px": 145,
+            "too_small": false,
+            "sharpness_laplacian": 1914.19,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0053
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "plastic ball-and-stick molecular model",
+              "score": 0.0021
+            },
+            {
+              "prop": "colorful atom balls",
+              "score": 0.2381
+            }
+          ],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 3,
+        "defect_taxonomy_violations": [
+          "extra_people (found 3 faces, expected 2)",
+          "required_prop_absent: plastic ball-and-stick molecular model",
+          "required_prop_absent: colorful atom balls"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 288,
+              "y": 57,
+              "w": 97,
+              "h": 128
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          },
+          {
+            "bbox": {
+              "x": 822,
+              "y": 65,
+              "w": 100,
+              "h": 130
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          },
+          {
+            "bbox": {
+              "x": 281,
+              "y": 409,
+              "w": 145,
+              "h": 175
+            },
+            "confidence": 0.97,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "college_ebright",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 281,
+            "y": 409,
+            "w": 145,
+            "h": 175
+          },
+          "biometric_ensemble_score": 0.3886,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.0839,
+              "centroid_similarity": 0.0839,
+              "threshold": 0.22,
+              "passed": false
+            },
+            "SFace": {
+              "max_similarity": -0.0296,
+              "centroid_similarity": -0.0296,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.1657,
+              "centroid_similarity": 0.1657,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.8554,
+              "centroid_similarity": 0.8554,
+              "threshold": 0.25,
+              "passed": true
+            }
+          },
+          "rank1_correct": false,
+          "discrimination_margin": -0.2489,
+          "spatial_pass": true,
+          "observed_position": "left",
+          "wardrobe_pass": false,
+          "wardrobe_delta_e": 65.98,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 145,
+          "face_sharpness": 1914.19,
+          "dinov2_similarity": 0.2033,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "james_wong",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 822,
+            "y": 65,
+            "w": 100,
+            "h": 130
+          },
+          "biometric_ensemble_score": 0.3692,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.7602,
+              "centroid_similarity": 0.7602,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.1811,
+              "centroid_similarity": 0.1811,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0458,
+              "centroid_similarity": 0.0458,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0629,
+              "centroid_similarity": 0.0629,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.1595,
+          "spatial_pass": true,
+          "observed_position": "right",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 21.86,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 100,
+          "face_sharpness": 1487.18,
+          "dinov2_similarity": 0.603,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_5_seed_23_contact.png"
+    },
+    {
+      "image_filename": "scene_5_seed_37.png",
+      "scene_number": 5,
+      "scene_title": "The Breakthrough at Harvard",
+      "scene_audit": {
+        "scene_passed": false,
+        "expected_faces": 2,
+        "detected_faces_count": 2,
+        "detected_persons_yolo_count": 2,
+        "face_audits": [
+          {
+            "width_px": 101,
+            "too_small": false,
+            "sharpness_laplacian": 1261.0,
+            "is_blurry": false,
+            "melted_face_flag": false
+          },
+          {
+            "width_px": 103,
+            "too_small": false,
+            "sharpness_laplacian": 1626.21,
+            "is_blurry": false,
+            "melted_face_flag": false
+          }
+        ],
+        "inversion_check": {
+          "is_inverted": false,
+          "inversion_probability": 0.0054
+        },
+        "prop_checks": {
+          "required_pass": false,
+          "missing_required": [
+            {
+              "prop": "plastic ball-and-stick molecular model",
+              "score": 0.0387
+            }
+          ],
+          "forbidden_pass": true,
+          "detected_forbidden": []
+        },
+        "defect_count": 1,
+        "defect_taxonomy_violations": [
+          "required_prop_absent: plastic ball-and-stick molecular model"
+        ],
+        "detected_faces": [
+          {
+            "bbox": {
+              "x": 829,
+              "y": 55,
+              "w": 101,
+              "h": 138
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          },
+          {
+            "bbox": {
+              "x": 289,
+              "y": 57,
+              "w": 103,
+              "h": 134
+            },
+            "confidence": 1.0,
+            "landmarks": {}
+          }
+        ]
+      },
+      "character_evaluations": [
+        {
+          "character_id": "college_ebright",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 289,
+            "y": 57,
+            "w": 103,
+            "h": 134
+          },
+          "biometric_ensemble_score": 0.3067,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.4734,
+              "centroid_similarity": 0.4734,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.1113,
+              "centroid_similarity": 0.1113,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0659,
+              "centroid_similarity": 0.0659,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0749,
+              "centroid_similarity": 0.0749,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.1024,
+          "spatial_pass": true,
+          "observed_position": "left",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 30.51,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 103,
+          "face_sharpness": 1626.21,
+          "dinov2_similarity": 0.4484,
+          "clip_i_similarity": 0.0
+        },
+        {
+          "character_id": "james_wong",
+          "age_group": "adult",
+          "is_child": false,
+          "is_teen": false,
+          "overall_pass": false,
+          "face_bbox": {
+            "x": 829,
+            "y": 55,
+            "w": 101,
+            "h": 138
+          },
+          "biometric_ensemble_score": 0.3499,
+          "biometric_pass": false,
+          "biometric_details": {
+            "Facenet512": {
+              "max_similarity": 0.749,
+              "centroid_similarity": 0.749,
+              "threshold": 0.22,
+              "passed": true
+            },
+            "SFace": {
+              "max_similarity": 0.1813,
+              "centroid_similarity": 0.1813,
+              "threshold": 0.24,
+              "passed": false
+            },
+            "GhostFaceNet": {
+              "max_similarity": 0.0369,
+              "centroid_similarity": 0.0369,
+              "threshold": 0.18,
+              "passed": false
+            },
+            "ArcFace": {
+              "max_similarity": 0.0403,
+              "centroid_similarity": 0.0403,
+              "threshold": 0.25,
+              "passed": false
+            }
+          },
+          "rank1_correct": true,
+          "discrimination_margin": 0.1532,
+          "spatial_pass": true,
+          "observed_position": "right",
+          "wardrobe_pass": true,
+          "wardrobe_delta_e": 37.48,
+          "identity_at_position_pass": false,
+          "combined_binding_pass": false,
+          "seg_status": "seg_ok",
+          "face_width_px": 101,
+          "face_sharpness": 1261.0,
+          "dinov2_similarity": 0.574,
+          "clip_i_similarity": 0.0
+        }
+      ],
+      "clone_alarms": [],
+      "contact_sheet_path": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\contact_sheets\\scene_5_seed_37_contact.png"
+    }
+  ]
+}

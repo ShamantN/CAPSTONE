@@ -56,17 +56,17 @@ class PromptBuilder:
                 if not outfit:
                     outfit = age_state.clothing_description if age_state and age_state.clothing_description else char.recurring_clothing
 
-                demo_str = f"((strictly {char.ethnicity}:1.45)), ({char.skin_tone} skin tone:1.35), ({char.face_shape} face:1.25)"
-                color_tokens = " and ".join([f"({col} garment:1.30)" for col in char.clothing_colors[:2]]) if char.clothing_colors else ""
+                demo_str = f"strictly {char.ethnicity}, {char.skin_tone} skin tone, {char.face_shape} face"
+                color_tokens = " and ".join([f"{col} garment" for col in char.clothing_colors[:2]]) if char.clothing_colors else ""
 
                 char_desc = (
-                    f"(({char.unique_token}:1.4)), centered in frame, {demo_str}, {age_val} years old {stage_val} {char.gender}, "
-                    f"wearing ({outfit}:1.30), {color_tokens}, {char.hair_color} hair ({char.hair_style}), clean face, detailed eyes"
+                    f"({char.unique_token}:1.15), centered in frame, {demo_str}, {age_val} years old {stage_val} {char.gender}, "
+                    f"wearing {outfit}, {color_tokens}, {char.hair_color} hair ({char.hair_style}), clean face, detailed eyes"
                 )
             else:
                 char_desc = f"a person in the scene"
 
-            master_pos = f"({active_style}:1.2), masterpiece, cinematic lighting, 8k resolution, highly detailed, {scene.action_description} BREAK {char_desc} BREAK Background: {env_desc}, {shot_info}."
+            master_pos = f"({active_style}:1.2), masterpiece, cinematic lighting, 8k resolution, highly detailed, solo portrait, strictly only 1 person, {scene.action_description}, {char_desc}, {env_desc}, {shot_info}."
             regional_meta = {"regional_active": False}
 
         else:
@@ -93,12 +93,12 @@ class PromptBuilder:
                     if not outfit:
                         outfit = age_state.clothing_description if age_state and age_state.clothing_description else char.recurring_clothing
 
-                    demo_str = f"((strictly {char.ethnicity}:1.45)), ({char.skin_tone} skin tone:1.35), ({char.face_shape} face:1.25)"
-                    color_tokens = " and ".join([f"({col} garment:1.30)" for col in char.clothing_colors[:2]]) if char.clothing_colors else ""
+                    demo_str = f"strictly {char.ethnicity}, {char.skin_tone} skin tone, {char.face_shape} face"
+                    color_tokens = " and ".join([f"{col} garment" for col in char.clothing_colors[:2]]) if char.clothing_colors else ""
 
                     c_desc = (
-                        f"(({char.unique_token}:1.4)), {pos_str}, {demo_str}, {age_val} years old {stage_val} {char.gender}, "
-                        f"wearing ({outfit}:1.30), {color_tokens}, {char.hair_color} hair, clean face, detailed eyes"
+                        f"({char.unique_token}:1.15), {pos_str}, {demo_str}, {age_val} years old {stage_val} {char.gender}, "
+                        f"wearing {outfit}, {color_tokens}, {char.hair_color} hair, clean face, detailed eyes"
                     )
                     regional_blocks.append(c_desc)
                     column_ratios.append("1")
@@ -116,13 +116,21 @@ class PromptBuilder:
         # 4. Master Negative Prompt Construction
         neg_parts = [story.global_negative_prompt]
         if scene.negative_prompt_additions:
-            neg_parts.append(scene.negative_prompt_additions)
+            # Strip paradoxical "empty" tokens (e.g., "empty hall") that cause the diffusion model to hallucinate crowds
+            clean_additions = ", ".join([
+                tok.strip() for tok in scene.negative_prompt_additions.split(",")
+                if "empty" not in tok.lower()
+            ])
+            if clean_additions:
+                neg_parts.append(clean_additions)
         if scene.forbidden_props:
             neg_parts.append(", ".join([f"no {p}" for p in scene.forbidden_props]))
 
-        # Multi-person specific negative guards
+        # Person count specific negative guards
         if num_chars >= 2:
-            neg_parts.append("solo, 1person, single person alone, identical faces, twin, clone, demographic bleed, merged bodies")
+            neg_parts.append("solo, 1person, single person alone, 3persons, 4persons, extra people, crowd, bystanders, background people, multiple people, group of people, extra faces, extra persons, identical faces, twin, clone, demographic bleed, merged bodies")
+        elif num_chars == 1:
+            neg_parts.append("2persons, 3persons, 4persons, 5persons, extra people, crowd, bystanders, background people, audience, spectators, other graduates, classmates, professors, multiple people, group of people, extra faces, extra persons, duplicate person, clone, merged bodies")
 
         master_neg = ", ".join([p for p in neg_parts if p.strip()])
 

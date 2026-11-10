@@ -1,0 +1,21 @@
+claim_id,file_and_line,claim_text,source_artifact_or_sha,status,action
+C01,docs_generated/v2/07_PPT_UPDATE.md:21,>25% Relative Face Identity Similarity (ArcFace/DeepFace),NONE,CONTRADICTED,Retract claim; replace with honest measured delta.
+C02,docs_generated/v2/07_PPT_UPDATE.md:22,Binding & Spatial Consistency: 25% to >95%,NONE,CONTRADICTED,Retract claim; Slide 4 shows 18.3%.
+C03,docs_generated/v2/07_PPT_UPDATE.md:23,>65% Reduction in Scene Hallucinations & Anatomical Defects,NONE,UNSUPPORTED,Retract claim; comparisons cross mismatched splits.
+C04,docs_generated/v2/07_PPT_UPDATE.md:24,Peak VRAM: 6.2 GB (Well within 8GB Hardware Limit),NONE,CONTRADICTED,Retract claim; smoke tests logged 7.1-7.3 GB.
+C05,docs_generated/v2/07_PPT_UPDATE.md:82,Biometric Mean (4-Judge Ensemble): 0.3822 vs v1 0.6190,results/v2_default/report.json,VERIFIED,Preserve as honest baseline deficit proof.
+C06,docs_generated/v2/07_PPT_UPDATE.md:83,Rank-1 Identification Accuracy: 67.5% (27/40) vs v1 95.8%,NONE,UNSUPPORTED,Retract 27/40 ratio; re-score with canonical verifier.
+C07,docs_generated/v2/07_PPT_UPDATE.md:84,Binding Pass Rate: 18.3% vs v1 25.0%,results/v2_default/report.json,VERIFIED,Preserve as proof of binding regression in rc1.
+C08,docs_generated/v2/07_PPT_UPDATE.md:85,Wardrobe Accuracy (CIELAB ΔE ≤ 18.0): 38.3% vs v1 25.0%,results/v2_default/report.json,UNSUPPORTED,Uncalibrated ΔE threshold; rescore in R2.
+C09,docs_generated/v2/07_PPT_UPDATE.md:86,Defects per Image: 0.37 vs v1 3.22,NONE,UNSUPPORTED,Cross-split comparison; rescore on paired splits.
+C10,docs_generated/v2/05_final_results.md:45,"Generalization Benchmark (Chrono-Archivists): Identity 0.7715, Binding 95.2%",NONE,UNSUPPORTED,No logged run or v1 baseline; retract.
+C11,docs_generated/v2/05_final_results.md:78,Ablation M4 Removal gives 0.5343 (+0.0909 over default 0.4434),results/ablation/no_m4/report.json,VERIFIED,Document that M4 removal raises identity in rc1.
+C12,docs_generated/v2/05_final_results.md:76,Ablation M2 Removal gives 0.6272 (+0.1838 over default 0.4434),results/ablation/no_m2/report.json,VERIFIED,Document that M2 removal raises identity in rc1.
+C13,docs_generated/v2/05_final_results.md:75,"Ablation M1, M5, M6, M7 removal and M8 addition all yield exactly 0.4434",results/ablation/report.json,VERIFIED,Prove toggles were unexecuted no-ops in rc1.
+C14,docs_generated/v2/06_visual_review/rubrics.json:1,All 30 test reviews PASS with 0.97-1.0 confidence and zero defects,NONE,FABRICATED,Retract completely; unviewed template output.
+C15,docs_generated/v2/04_loop_log.md:12,M1 to M10 DEV-FAST gains and commit hash 'D4A19B...',NONE,FABRICATED,Retract; invented hashes and unlogged scores.
+C16,docs_generated/v2/03_methods_implemented.md:30,M1 Multi-View Centroid gives +0.048 similarity gain,NONE,UNSUPPORTED,Retract; bank only had 2 views.
+C17,docs_generated/v2/03_methods_implemented.md:65,M2 Layout Planner adds 1.2s overhead,NONE,UNSUPPORTED,Retract; unsourced latency estimate.
+C18,docs_generated/v2/03_methods_implemented.md:110,M4 InstantID dual unit peak VRAM 5920 MB,NONE,UNSUPPORTED,Retract; contradicts smoke test 7.1GB.
+C19,docs_generated/v2/README_V2.md:40,Default mode latency 1.8 min / scene,NONE,UNSUPPORTED,Retract; actual render takes ~2.5-3.5 min.
+C20,docs_generated/v2/README_V2.md:41,Quality mode latency 4.2 min / scene,NONE,UNSUPPORTED,Retract; quality mode never executed.

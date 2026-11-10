@@ -1,0 +1,190 @@
+{
+  "evaluation_type": "human_blind_evaluation_pending",
+  "instructions": "Fill 'selected_option' with 'A', 'B', or 'tie' for each pair; fill 'predicted_character_id' with one of ['young_ebright', 'teen_ebright', 'college_ebright', 'mother', 'james_wong'] for each crop.",
+  "evaluator_name": "",
+  "date": "",
+  "ab_preference": {
+    "pair_01": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_02": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_03": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_04": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_05": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_06": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_07": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_08": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_09": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_10": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_11": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_12": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_13": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_14": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_15": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_16": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_17": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_18": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_19": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_20": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_21": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_22": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_23": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_24": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_25": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_26": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_27": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_28": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_29": {
+      "selected_option": "",
+      "notes": ""
+    },
+    "pair_30": {
+      "selected_option": "",
+      "notes": ""
+    }
+  },
+  "blind_reid": {
+    "crop_01": {
+      "predicted_character_id": ""
+    },
+    "crop_02": {
+      "predicted_character_id": ""
+    },
+    "crop_03": {
+      "predicted_character_id": ""
+    },
+    "crop_04": {
+      "predicted_character_id": ""
+    },
+    "crop_05": {
+      "predicted_character_id": ""
+    },
+    "crop_06": {
+      "predicted_character_id": ""
+    },
+    "crop_07": {
+      "predicted_character_id": ""
+    },
+    "crop_08": {
+      "predicted_character_id": ""
+    },
+    "crop_09": {
+      "predicted_character_id": ""
+    },
+    "crop_10": {
+      "predicted_character_id": ""
+    },
+    "crop_11": {
+      "predicted_character_id": ""
+    },
+    "crop_12": {
+      "predicted_character_id": ""
+    },
+    "crop_13": {
+      "predicted_character_id": ""
+    },
+    "crop_14": {
+      "predicted_character_id": ""
+    },
+    "crop_15": {
+      "predicted_character_id": ""
+    },
+    "crop_16": {
+      "predicted_character_id": ""
+    },
+    "crop_17": {
+      "predicted_character_id": ""
+    },
+    "crop_18": {
+      "predicted_character_id": ""
+    },
+    "crop_19": {
+      "predicted_character_id": ""
+    },
+    "crop_20": {
+      "predicted_character_id": ""
+    }
+  }
+}

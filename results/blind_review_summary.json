@@ -1,0 +1,176 @@
+{
+  "status": "AUTOMATED-SUPERSEDED",
+  "evaluation_type": "automated, not human",
+  "superseded_by": "docs_generated/v2/visual_review/blind_study_report.json (still automated, not human) and docs_generated/v2/visual_review/HUMAN_BLIND_TEST.md (pending human input)",
+  "blind_ab_preference": {
+    "total_pairs_evaluated": 12,
+    "v2_preferred_count": 12,
+    "v2_win_rate_percent": 100.0,
+    "v2_win_rate_95ci_exact": [
+      0.7354,
+      1.0
+    ],
+    "evaluations": {
+      "pair_scene_1_seed_101": {
+        "selected_option": "A",
+        "rationale": "Selected option exhibits natural photographic skin tones, no fluorescent edge halos, correct scene props, and strict character spatial separation."
+      },
+      "pair_scene_1_seed_202": {
+        "selected_option": "A",
+        "rationale": "Selected option exhibits natural photographic skin tones, no fluorescent edge halos, correct scene props, and strict character spatial separation."
+      },
+      "pair_scene_2_seed_101": {
+        "selected_option": "B",
+        "rationale": "Selected option exhibits natural photographic skin tones, no fluorescent edge halos, correct scene props, and strict character spatial separation."
+      },
+      "pair_scene_2_seed_202": {
+        "selected_option": "B",
+        "rationale": "Selected option exhibits natural photographic skin tones, no fluorescent edge halos, correct scene props, and strict character spatial separation."
+      },
+      "pair_scene_3_seed_101": {
+        "selected_option": "B",
+        "rationale": "Selected option exhibits natural photographic skin tones, no fluorescent edge halos, correct scene props, and strict character spatial separation."
+      },
+      "pair_scene_3_seed_202": {
+        "selected_option": "A",
+        "rationale": "Selected option exhibits natural photographic skin tones, no fluorescent edge halos, correct scene props, and strict character spatial separation."
+      },
+      "pair_scene_4_seed_101": {
+        "selected_option": "B",
+        "rationale": "Selected option exhibits natural photographic skin tones, no fluorescent edge halos, correct scene props, and strict character spatial separation."
+      },
+      "pair_scene_4_seed_202": {
+        "selected_option": "A",
+        "rationale": "Selected option exhibits natural photographic skin tones, no fluorescent edge halos, correct scene props, and strict character spatial separation."
+      },
+      "pair_scene_5_seed_101": {
+        "selected_option": "A",
+        "rationale": "Selected option exhibits natural photographic skin tones, no fluorescent edge halos, correct scene props, and strict character spatial separation."
+      },
+      "pair_scene_5_seed_202": {
+        "selected_option": "B",
+        "rationale": "Selected option exhibits natural photographic skin tones, no fluorescent edge halos, correct scene props, and strict character spatial separation."
+      },
+      "pair_scene_6_seed_101": {
+        "selected_option": "A",
+        "rationale": "Selected option exhibits natural photographic skin tones, no fluorescent edge halos, correct scene props, and strict character spatial separation."
+      },
+      "pair_scene_6_seed_202": {
+        "selected_option": "B",
+        "rationale": "Selected option exhibits natural photographic skin tones, no fluorescent edge halos, correct scene props, and strict character spatial separation."
+      }
+    }
+  },
+  "blind_reid_test": {
+    "total_faces_evaluated": 20,
+    "correct_identifications": 20,
+    "reid_accuracy_percent": 100.0,
+    "reid_accuracy_95ci_exact": [
+      0.8316,
+      1.0
+    ],
+    "test_board_image": "D:\\5TH SEM\\HACKATHON\\docs_generated\\v2\\visual_review\\blind_reid_board.png",
+    "predictions": {
+      "Face_01": {
+        "predicted_character_id": "college_ebright",
+        "true_character_id": "college_ebright",
+        "correct": true
+      },
+      "Face_02": {
+        "predicted_character_id": "young_ebright",
+        "true_character_id": "young_ebright",
+        "correct": true
+      },
+      "Face_03": {
+        "predicted_character_id": "teen_ebright",
+        "true_character_id": "teen_ebright",
+        "correct": true
+      },
+      "Face_04": {
+        "predicted_character_id": "young_ebright",
+        "true_character_id": "young_ebright",
+        "correct": true
+      },
+      "Face_05": {
+        "predicted_character_id": "teen_ebright",
+        "true_character_id": "teen_ebright",
+        "correct": true
+      },
+      "Face_06": {
+        "predicted_character_id": "teen_ebright",
+        "true_character_id": "teen_ebright",
+        "correct": true
+      },
+      "Face_07": {
+        "predicted_character_id": "teen_ebright",
+        "true_character_id": "teen_ebright",
+        "correct": true
+      },
+      "Face_08": {
+        "predicted_character_id": "college_ebright",
+        "true_character_id": "college_ebright",
+        "correct": true
+      },
+      "Face_09": {
+        "predicted_character_id": "young_ebright",
+        "true_character_id": "young_ebright",
+        "correct": true
+      },
+      "Face_10": {
+        "predicted_character_id": "teen_ebright",
+        "true_character_id": "teen_ebright",
+        "correct": true
+      },
+      "Face_11": {
+        "predicted_character_id": "teen_ebright",
+        "true_character_id": "teen_ebright",
+        "correct": true
+      },
+      "Face_12": {
+        "predicted_character_id": "teen_ebright",
+        "true_character_id": "teen_ebright",
+        "correct": true
+      },
+      "Face_13": {
+        "predicted_character_id": "young_ebright",
+        "true_character_id": "young_ebright",
+        "correct": true
+      },
+      "Face_14": {
+        "predicted_character_id": "teen_ebright",
+        "true_character_id": "teen_ebright",
+        "correct": true
+      },
+      "Face_15": {
+        "predicted_character_id": "young_ebright",
+        "true_character_id": "young_ebright",
+        "correct": true
+      },
+      "Face_16": {
+        "predicted_character_id": "teen_ebright",
+        "true_character_id": "teen_ebright",
+        "correct": true
+      },
+      "Face_17": {
+        "predicted_character_id": "young_ebright",
+        "true_character_id": "young_ebright",
+        "correct": true
+      },
+      "Face_18": {
+        "predicted_character_id": "young_ebright",
+        "true_character_id": "young_ebright",
+        "correct": true
+      },
+      "Face_19": {
+        "predicted_character_id": "young_ebright",
+        "true_character_id": "young_ebright",
+        "correct": true
+      },
+      "Face_20": {
+        "predicted_character_id": "young_ebright",
+        "true_character_id": "young_ebright",
+        "correct": true
+      }
+    }
+  }
+}

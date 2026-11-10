@@ -2,20 +2,27 @@
 ================================================================================
 MMCCP: RUN STORYBOARD COMPLETELY FROM SCRATCH (0 INITIAL ANCHORS)
 ================================================================================
-This script:
-1. Wipes all existing runtime anchor caches (starts at 0 anchors).
-2. Generates fresh Visual DNA character anchors from scratch via SDXL txt2img
-   using pure prompt specifications with Demographic Phenotype Locking.
-3. Renders the complete 6-Scene Storyboard using Two-Pass IP-Adapter +
-   ControlNet Depth + Regional BREAK + ReActor/CodeFormer.
-4. Executes real-time biometric & multimodal QA evaluation (ArcFace + CLIP-I + SSIM).
+Supports:
+--pipeline v1: Phase 3 baseline pipeline
+--pipeline v2: Consistency v2 SOTA pipeline (M1-M10)
+--mode fast|default|quality: execution mode presets
+--story: path to storyboard JSON specification
 ================================================================================
 """
 import os
 import sys
+import io
 import json
 import time
 import base64
+import argparse
+
+if sys.platform == "win32":
+    try:
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
+    except Exception:
+        pass
 from pathlib import Path
 import cv2
 import numpy as np
@@ -59,36 +66,26 @@ from metrics import (
     evaluate_multicharacter_scene,
     cleanup_memory
 )
-from app import render_phase3_scene
 
 
-def run_from_scratch():
+def run_v1_scratch(story_path: str = "storyboards/ebright.json"):
+    from app import render_phase3_scene
     print("=" * 90)
-    print("  🚀 MULTI-MODAL CHARACTER CONSISTENCY PIPELINE: RUNNING FROM SCRATCH (0 ANCHORS)")
+    print("  🚀 RUNNING BASELINE v1 FROM SCRATCH (0 INITIAL ANCHORS)")
     print("=" * 90)
 
-    # 1. Wipe cache to guarantee 0 anchors
     if CACHE_FILE.exists():
         try:
             CACHE_FILE.unlink()
             print(f"  [CACHE WIPED] Removed previous '{CACHE_FILE.name}'. Starting with 0 anchors.")
         except Exception as e:
             print(f"  [WARNING] Could not delete cache file: {e}")
-    else:
-        print("  [CLEAN SLATE] No cache file found. Active anchors = 0.")
 
-    # Create fresh anchor output folder for visual inspection
     fresh_anchor_dir = PROJECT_ROOT / "experiments" / "fresh_run_from_scratch" / "anchors"
     fresh_anchor_dir.mkdir(parents=True, exist_ok=True)
-    
     EDU_IMAGES_DIR.mkdir(parents=True, exist_ok=True)
 
-    # 2. Generate 5 Fresh Anchors from scratch
-    print("\n" + "-" * 90)
-    print("  PHASE 1: GENERATING 5 FRESH CHARACTER ANCHORS FROM SCRATCH VIA SDXL TXT2IMG")
-    print("-" * 90)
     t0_anchors = time.time()
-    
     sd_checkpoint = SD_MODELS["Juggernaut"]
     cache_data = ensure_visual_dna_anchors(
         characters_db=HARDCODED_CHARACTERS,
@@ -96,11 +93,9 @@ def run_from_scratch():
         sd_checkpoint=sd_checkpoint,
         force_regenerate=True
     )
-    
     elapsed_anchors = time.time() - t0_anchors
     print(f"  ✅ All 5 Fresh Character Anchors Generated in {elapsed_anchors:.1f}s!")
 
-    # Save PNGs for direct inspection
     for char in HARDCODED_CHARACTERS:
         cid = char["id"]
         b64 = cache_data.get(cid)
@@ -109,22 +104,12 @@ def run_from_scratch():
             if pil_img:
                 out_p = fresh_anchor_dir / f"{cid}_anchor.png"
                 pil_img.save(str(out_p))
-                print(f"     -> Saved anchor: {out_p.name}")
-
-    # 3. Generate 6 Storyboard Scenes using the fresh anchors
-    print("\n" + "-" * 90)
-    print("  PHASE 2: RENDERING 6-SCENE STORYBOARD USING FRESH ANCHORS")
-    print("-" * 90)
-    
-    rendered_panels = []
-    t0_scenes = time.time()
 
     for idx, scene in enumerate(HARDCODED_SCENES):
         s_num = scene["scene_number"]
         s_title = scene["title"]
         chars = scene["characters"]
         print(f"\n  [SCENE {s_num}/6] '{s_title}' (Characters: {chars})...")
-        
         t0_s = time.time()
         scene_cv, reports = render_phase3_scene(
             scene=scene,
@@ -135,28 +120,155 @@ def run_from_scratch():
             style="Cinematic Realistic"
         )
         elapsed_s = time.time() - t0_s
-
         if scene_cv is not None:
             save_p = EDU_IMAGES_DIR / f"scene_{s_num}.png"
             cv2.imwrite(str(save_p), scene_cv)
-            print(f"     ✅ Scene {s_num} rendered and saved to '{save_p.name}' ({elapsed_s:.1f}s)")
-            
-            for rep in reports:
-                print(f"        -> {rep.character_name}: ArcFace={rep.arcface_score:.4f} | CLIP-I={rep.clip_score:.4f} | Composite={rep.composite_score:.4f}")
-            
-            rendered_panels.append({
-                "scene": scene,
-                "reports": reports
-            })
-        else:
-            print(f"     ❌ Failed to render Scene {s_num}!")
+            print(f"     ✅ Scene {s_num} rendered in {elapsed_s:.1f}s")
 
-    total_time = time.time() - t0_anchors
-    print("\n" + "=" * 90)
-    print(f"  🎉 SCRATCH RUN COMPLETED SUCCESSFULLY IN {total_time/60:.1f} MINUTES!")
-    print(f"  All 6 scenes are available in: {EDU_IMAGES_DIR}")
+
+def run_v2_scratch(mode: str = "default", story_path: str = "storyboards/ebright.json"):
+    from consistency_v2.config import ConsistencyV2Config
+    from consistency_v2.pipeline_v2 import ConsistencyPipelineV2
+    from story_engine.schema import StorySpec
+
     print("=" * 90)
+    print(f"  🌟 RUNNING MMCCP CONSISTENCY v2 (SOTA) - MODE: {mode.upper()}")
+    print("=" * 90)
+
+    cfg = ConsistencyV2Config(mode=mode)
+    pipeline = ConsistencyPipelineV2(config=cfg)
+    # Isolate cold-start scratch banks to prevent corrupting canonical consistency_v2/banks
+    scratch_bank_root = PROJECT_ROOT / 'experiments' / 'fresh_run_from_scratch' / 'banks'
+    scratch_bank_root.mkdir(parents=True, exist_ok=True)
+    from consistency_v2.identity_bank import IdentityBankManager
+    pipeline.bank_manager = IdentityBankManager(bank_root=scratch_bank_root)
+
+    # Load storyboard
+    story_file = Path(story_path) if Path(story_path).is_absolute() else (PROJECT_ROOT / story_path)
+    story = StorySpec.load_json(str(story_file))
+
+    # Check if character banks need bootstrapping from fresh visual DNA anchors
+    chars_to_bootstrap = list(story.characters.keys()) if isinstance(story.characters, dict) else [c.id for c in story.characters]
+    missing_banks = [cid for cid in chars_to_bootstrap if cid not in pipeline.bank_manager._banks]
+    if missing_banks:
+        print(f"  [BOOTSTRAP] Identity banks empty for {missing_banks}. Generating certified fresh anchors...")
+        fresh_anchor_dir = PROJECT_ROOT / "experiments" / "fresh_run_from_scratch" / "anchors"
+        fresh_anchor_dir.mkdir(parents=True, exist_ok=True)
+        sd_checkpoint = SD_MODELS["Juggernaut"]
+        cache_data = ensure_visual_dna_anchors(
+            characters_db=HARDCODED_CHARACTERS,
+            cache_path=CACHE_FILE,
+            sd_checkpoint=sd_checkpoint,
+            force_regenerate=True
+        )
+        for char in HARDCODED_CHARACTERS:
+            cid = char["id"]
+            b64 = cache_data.get(cid)
+            if b64:
+                pil_img = decode_image_to_pil(b64)
+                if pil_img:
+                    out_p = fresh_anchor_dir / f"{cid}_anchor.png"
+                    pil_img.save(str(out_p))
+                    pipeline.bank_manager.initialize_character_bank(cid, [out_p])
+        print("  ✅ Identity banks initialized from fresh certified anchors!")
+
+    output_dir = PROJECT_ROOT / "edu_outputs" / f"v2_{mode}"
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    t0 = time.time()
+    results = pipeline.generate_story(
+        story=story,
+        output_dir=output_dir,
+        seed=11,
+        prefix="scene_"
+    )
+    total_time = time.time() - t0
+
+    print("\n" + "=" * 90)
+    print(f"  🎉 MMCCP v2 ({mode}) RENDERING COMPLETE IN {total_time/60:.2f} MINUTES!")
+    print(f"  Outputs saved in: {output_dir}")
+    print("=" * 90)
+
+    # Sync to EDU_IMAGES_DIR for Streamlit UI and evaluate consistency against fresh visual DNA
+    EDU_IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+    cache_data = {}
+    if CACHE_FILE.exists():
+        with open(CACHE_FILE, "r", encoding="utf-8") as f:
+            cache_data = json.load(f)
+
+    print("\n" + "=" * 90)
+    print("  📊 EVALUATING CONSISTENCY ON FRESHLY GENERATED VISUAL DNA")
+    print("=" * 90)
+    print(f"{'Scene':<10} | {'Character':<20} | {'ArcFace':<10} | {'CLIP-I':<10} | {'SSIM':<10} | {'Palette':<10} | {'Composite':<10}")
+    print("-" * 90)
+
+    all_scores = []
+    for s_idx, (img_cv, meta) in enumerate(results, start=1):
+        if img_cv is not None:
+            save_p = EDU_IMAGES_DIR / f"scene_{s_idx}.png"
+            cv2.imwrite(str(save_p), img_cv)
+
+            scene_hardcoded = next((s for s in HARDCODED_SCENES if s["scene_number"] == s_idx), None)
+            if scene_hardcoded and cache_data:
+                chars = scene_hardcoded.get("characters", [])
+                char_profiles = [c for c in HARDCODED_CHARACTERS if c["id"] in chars]
+                reports = []
+                if len(chars) > 1:
+                    reports, _ = evaluate_multicharacter_scene(
+                        anchors_map=cache_data,
+                        scene_input=img_cv,
+                        characters_info=char_profiles
+                    )
+                elif len(chars) == 1 and char_profiles:
+                    cid = chars[0]
+                    a_b64 = cache_data.get(cid)
+                    if a_b64:
+                        rep = evaluate_character_consistency(
+                            anchor_input=a_b64,
+                            scene_input=img_cv,
+                            char_id=cid,
+                            char_name=char_profiles[0]["name"]
+                        )
+                        reports = [rep]
+
+                for rep in reports:
+                    all_scores.append(rep.composite_score)
+                    print(f"{s_idx:<10} | {rep.character_name[:20]:<20} | {rep.arcface_score:<10.4f} | {rep.clip_score:<10.4f} | {rep.structural_score:<10.4f} | {rep.palette_score:<10.4f} | {rep.composite_score:<10.4f}")
+
+    if all_scores:
+        avg_comp = sum(all_scores) / len(all_scores)
+        print("=" * 90)
+        print(f"  🏆 OVERALL COMPOSITE CONSISTENCY SCORE: {avg_comp:.4f} ({avg_comp*100:.1f}%)")
+        print("=" * 90 + "\n")
+
+
+def main():
+    parser = argparse.ArgumentParser(description="MMCCP Storyboard Headless Runner")
+    parser.add_argument(
+        "--pipeline",
+        choices=["v1", "v2"],
+        default="v2",
+        help="Select pipeline architecture: 'v1' (baseline Phase 3) or 'v2' (Consistency v2 SOTA)"
+    )
+    parser.add_argument(
+        "--mode",
+        choices=["fast", "default", "quality"],
+        default="default",
+        help="Execution mode preset for v2 pipeline ('fast', 'default', 'quality')"
+    )
+    parser.add_argument(
+        "--story",
+        default="storyboards/ebright.json",
+        help="Path to storyboard JSON specification"
+    )
+
+    args = parser.parse_args()
+
+    if args.pipeline == "v2":
+        run_v2_scratch(mode=args.mode, story_path=args.story)
+    else:
+        run_v1_scratch(story_path=args.story)
 
 
 if __name__ == "__main__":
-    run_from_scratch()
+    main()

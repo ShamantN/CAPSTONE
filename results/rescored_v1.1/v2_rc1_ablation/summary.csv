@@ -1,0 +1,25 @@
+image_filename,scene_number,scene_title,character_id,is_child,overall_pass,biometric_ensemble_score,rank1_correct,discrimination_margin,spatial_pass,observed_position,wardrobe_pass,wardrobe_delta_e,identity_at_position_pass,combined_binding_pass,seg_status,face_sharpness,face_width_px
+m8_reference_only_scene_1_seed_101.png,1,The Spark of Curiosity,young_ebright,True,False,0.0,False,-0.0565,False,center,False,68.56,False,False,seg_ok,617.95,178
+m8_reference_only_scene_1_seed_101.png,1,The Spark of Curiosity,mother,False,False,0.0,False,-1.0,False,missing,False,99.0,False,False,missing_face,0.0,0
+m8_reference_only_scene_2_seed_101.png,2,The Butterfly Basement,young_ebright,True,False,0.1691,True,0.0985,True,center,False,48.79,False,False,seg_ok,189.05,215
+no_m1_bank_scene_1_seed_101.png,1,The Spark of Curiosity,young_ebright,True,False,0.0,False,-0.0565,False,center,False,68.56,False,False,seg_ok,617.95,178
+no_m1_bank_scene_1_seed_101.png,1,The Spark of Curiosity,mother,False,False,0.0,False,-1.0,False,missing,False,99.0,False,False,missing_face,0.0,0
+no_m1_bank_scene_2_seed_101.png,2,The Butterfly Basement,young_ebright,True,False,0.1691,True,0.0985,True,center,False,48.79,False,False,seg_ok,189.05,215
+no_m2_layout_scene_1_seed_101.png,1,The Spark of Curiosity,young_ebright,True,False,0.2055,True,0.0396,False,center,False,63.12,False,False,seg_ok,111.93,490
+no_m2_layout_scene_1_seed_101.png,1,The Spark of Curiosity,mother,False,False,0.0,False,-1.0,False,missing,False,99.0,False,False,missing_face,0.0,0
+no_m2_layout_scene_2_seed_101.png,2,The Butterfly Basement,young_ebright,True,False,0.2961,True,0.1536,True,center,True,32.05,False,False,seg_ok,148.26,442
+no_m3_couple_scene_1_seed_101.png,1,The Spark of Curiosity,young_ebright,True,False,0.0282,False,-0.0077,True,left,True,35.2,False,False,seg_ok,289.9,134
+no_m3_couple_scene_1_seed_101.png,1,The Spark of Curiosity,mother,False,False,0.1503,False,-0.0419,True,right,True,28.88,False,False,seg_ok,265.36,148
+no_m3_couple_scene_2_seed_101.png,2,The Butterfly Basement,young_ebright,True,False,0.1691,True,0.0985,True,center,False,48.79,False,False,seg_ok,189.05,215
+no_m4_instantid_scene_1_seed_101.png,1,The Spark of Curiosity,young_ebright,True,False,0.012,False,-0.1191,False,center,False,53.6,False,False,seg_ok,482.28,179
+no_m4_instantid_scene_1_seed_101.png,1,The Spark of Curiosity,mother,False,False,0.0,False,-1.0,False,missing,False,99.0,False,False,missing_face,0.0,0
+no_m4_instantid_scene_2_seed_101.png,2,The Butterfly Basement,young_ebright,True,False,0.1712,True,0.0974,True,center,False,47.88,False,False,seg_ok,203.51,215
+no_m5_swap_scene_1_seed_101.png,1,The Spark of Curiosity,young_ebright,True,False,0.0,False,-0.0565,False,center,False,68.56,False,False,seg_ok,617.95,178
+no_m5_swap_scene_1_seed_101.png,1,The Spark of Curiosity,mother,False,False,0.0,False,-1.0,False,missing,False,99.0,False,False,missing_face,0.0,0
+no_m5_swap_scene_2_seed_101.png,2,The Butterfly Basement,young_ebright,True,False,0.1691,True,0.0985,True,center,False,48.79,False,False,seg_ok,189.05,215
+no_m6_detailer_scene_1_seed_101.png,1,The Spark of Curiosity,young_ebright,True,False,0.0,False,-0.0565,False,center,False,68.56,False,False,seg_ok,617.95,178
+no_m6_detailer_scene_1_seed_101.png,1,The Spark of Curiosity,mother,False,False,0.0,False,-1.0,False,missing,False,99.0,False,False,missing_face,0.0,0
+no_m6_detailer_scene_2_seed_101.png,2,The Butterfly Basement,young_ebright,True,False,0.1691,True,0.0985,True,center,False,48.79,False,False,seg_ok,189.05,215
+no_m7_wardrobe_scene_1_seed_101.png,1,The Spark of Curiosity,young_ebright,True,False,0.0,False,-0.0565,False,center,False,68.56,False,False,seg_ok,617.95,178
+no_m7_wardrobe_scene_1_seed_101.png,1,The Spark of Curiosity,mother,False,False,0.0,False,-1.0,False,missing,False,99.0,False,False,missing_face,0.0,0
+no_m7_wardrobe_scene_2_seed_101.png,2,The Butterfly Basement,young_ebright,True,False,0.1691,True,0.0985,True,center,False,48.79,False,False,seg_ok,189.05,215

@@ -1,12 +1,19 @@
 # 🎬 Multi-Modal Character Consistency Pipeline (MMCCP)
 
-![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge&logo=python)
+> [!WARNING]
+> **NOTICE: PIPELINE v2 AND RECENT BENCHMARKS CURRENTLY UNDER REPAIR**  
+> Documentation associated with tag `v2.0.0-rc1` has been formally audited; ungrounded and contradicted claims have been retracted. See [`docs_generated/v2/RETRACTIONS.md`](docs_generated/v2/RETRACTIONS.md).  
+> The measuring suite (Verifier v1.1) and consistency pipeline (M1–M10) are currently undergoing rigorous re-calibration and loop-repair. Baseline v1 remains fully operational.
+
+> 🚀 **MMCCP v2.0 Architecture:** See [README_V2.md](docs_generated/v2/README_V2.md) for architectural details on Methods M1–M10.
+
+![Python](https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge&logo=python)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.28-FF4B4B?style=for-the-badge&logo=streamlit)
 ![Stable Diffusion](https://img.shields.io/badge/Stable_Diffusion-XL-5C5CFF?style=for-the-badge&logo=ai)
-![Google Gemini](https://img.shields.io/badge/Google_Gemini-2.5_Flash-8E75B2?style=for-the-badge&logo=google)
+![ControlNet](https://img.shields.io/badge/ControlNet-SDXL-brightgreen?style=for-the-badge)
 ![OpenCV](https://img.shields.io/badge/OpenCV-4.8.0-5C3EE8?style=for-the-badge&logo=opencv)
 
-A highly advanced, microservices-oriented architecture designed to solve the industry-wide problems of identity bleeding, prompt mixing, and temporal inconsistency in generative AI storyboarding. By orchestrating LLMs (Google Gemini) and Latent Diffusion (Stable Diffusion XL via Forge), MMCCP generates multi-character cinematic storyboards with absolute visual consistency.
+A highly advanced character consistency architecture designed to solve identity bleeding, prompt mixing, and temporal inconsistency in generative AI storyboarding. By orchestrating LLMs (Google Gemini) and Latent Diffusion (Stable Diffusion XL via Forge), MMCCP generates multi-character cinematic storyboards with absolute visual consistency.
 
 ---
 

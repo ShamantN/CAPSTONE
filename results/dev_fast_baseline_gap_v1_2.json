@@ -1,0 +1,266 @@
+{
+  "dataset": "DEV-FAST (Scenes 1, 2, 4, 5; Seeds 11, 23, 37)",
+  "verifier_version": "1.2",
+  "verifier_freeze_sha": "3fa69071f888643bccb1c21ee732415ac81996a9f3cb0b71dedd68086fecb4b6",
+  "n_instances": 18,
+  "v1_biometric_mean": 0.3142,
+  "v2_biometric_mean": 0.2081,
+  "delta_mean": -0.1061,
+  "delta_95ci_cluster_bootstrap": [
+    -0.1724,
+    -0.0082
+  ],
+  "v1_mean_face_width_px": 233.1,
+  "v2_mean_face_width_px": 210.2,
+  "scene_5_faces_detected": {
+    "v1_detected": 6,
+    "v2_detected": 3,
+    "expected": 6
+  },
+  "age_group_breakdown": {
+    "child": {
+      "n": 6,
+      "v1_mean": 0.3568,
+      "v2_mean": 0.321,
+      "delta_mean": -0.0358
+    },
+    "teen": {
+      "n": 3,
+      "v1_mean": 0.2886,
+      "v2_mean": 0.3276,
+      "delta_mean": 0.0389
+    },
+    "adult": {
+      "n": 9,
+      "v1_mean": 0.2943,
+      "v2_mean": 0.0929,
+      "delta_mean": -0.2014
+    }
+  },
+  "face_size_bin_breakdown": {
+    "tiny (<96px)": {
+      "n": 0,
+      "v1_mean": 0.0,
+      "v2_mean": 0.0,
+      "delta_mean": 0.0
+    },
+    "medium (96-150px)": {
+      "n": 5,
+      "v1_mean": 0.2976,
+      "v2_mean": 0.1142,
+      "delta_mean": -0.1834
+    },
+    "standard (150-300px)": {
+      "n": 7,
+      "v1_mean": 0.2826,
+      "v2_mean": 0.1477,
+      "delta_mean": -0.1349
+    },
+    "close_up (>300px)": {
+      "n": 6,
+      "v1_mean": 0.365,
+      "v2_mean": 0.3567,
+      "delta_mean": -0.0082
+    }
+  },
+  "paired_instances": [
+    {
+      "scene": 1,
+      "seed": 11,
+      "char": "mother",
+      "age": "adult",
+      "v1_bio": 0.2488,
+      "v2_bio": 0.0,
+      "delta_bio": -0.2488,
+      "v1_width": 155,
+      "v2_width": 0
+    },
+    {
+      "scene": 1,
+      "seed": 11,
+      "char": "young_ebright",
+      "age": "child",
+      "v1_bio": 0.2288,
+      "v2_bio": 0.1016,
+      "delta_bio": -0.1272,
+      "v1_width": 164,
+      "v2_width": 182
+    },
+    {
+      "scene": 1,
+      "seed": 23,
+      "char": "mother",
+      "age": "adult",
+      "v1_bio": 0.2055,
+      "v2_bio": 0.0,
+      "delta_bio": -0.2055,
+      "v1_width": 170,
+      "v2_width": 0
+    },
+    {
+      "scene": 1,
+      "seed": 23,
+      "char": "young_ebright",
+      "age": "child",
+      "v1_bio": 0.3117,
+      "v2_bio": 0.5084,
+      "delta_bio": 0.1967,
+      "v1_width": 184,
+      "v2_width": 187
+    },
+    {
+      "scene": 1,
+      "seed": 37,
+      "char": "mother",
+      "age": "adult",
+      "v1_bio": 0.2067,
+      "v2_bio": 0.0,
+      "delta_bio": -0.2067,
+      "v1_width": 137,
+      "v2_width": 0
+    },
+    {
+      "scene": 1,
+      "seed": 37,
+      "char": "young_ebright",
+      "age": "child",
+      "v1_bio": 0.2763,
+      "v2_bio": 0.1582,
+      "delta_bio": -0.1181,
+      "v1_width": 129,
+      "v2_width": 162
+    },
+    {
+      "scene": 2,
+      "seed": 11,
+      "char": "young_ebright",
+      "age": "child",
+      "v1_bio": 0.4426,
+      "v2_bio": 0.2976,
+      "delta_bio": -0.145,
+      "v1_width": 451,
+      "v2_width": 191
+    },
+    {
+      "scene": 2,
+      "seed": 23,
+      "char": "young_ebright",
+      "age": "child",
+      "v1_bio": 0.4638,
+      "v2_bio": 0.2852,
+      "delta_bio": -0.1786,
+      "v1_width": 344,
+      "v2_width": 171
+    },
+    {
+      "scene": 2,
+      "seed": 37,
+      "char": "young_ebright",
+      "age": "child",
+      "v1_bio": 0.4176,
+      "v2_bio": 0.575,
+      "delta_bio": 0.1574,
+      "v1_width": 435,
+      "v2_width": 140
+    },
+    {
+      "scene": 4,
+      "seed": 11,
+      "char": "teen_ebright",
+      "age": "teen",
+      "v1_bio": 0.2817,
+      "v2_bio": 0.2725,
+      "delta_bio": -0.0092,
+      "v1_width": 359,
+      "v2_width": 299
+    },
+    {
+      "scene": 4,
+      "seed": 23,
+      "char": "teen_ebright",
+      "age": "teen",
+      "v1_bio": 0.3046,
+      "v2_bio": 0.337,
+      "delta_bio": 0.0324,
+      "v1_width": 398,
+      "v2_width": 187
+    },
+    {
+      "scene": 4,
+      "seed": 37,
+      "char": "teen_ebright",
+      "age": "teen",
+      "v1_bio": 0.2796,
+      "v2_bio": 0.3732,
+      "delta_bio": 0.0936,
+      "v1_width": 409,
+      "v2_width": 238
+    },
+    {
+      "scene": 5,
+      "seed": 11,
+      "char": "college_ebright",
+      "age": "adult",
+      "v1_bio": 0.3093,
+      "v2_bio": 0.0898,
+      "delta_bio": -0.2195,
+      "v1_width": 98,
+      "v2_width": 192
+    },
+    {
+      "scene": 5,
+      "seed": 11,
+      "char": "james_wong",
+      "age": "adult",
+      "v1_bio": 0.3842,
+      "v2_bio": 0.0,
+      "delta_bio": -0.3842,
+      "v1_width": 108,
+      "v2_width": 0
+    },
+    {
+      "scene": 5,
+      "seed": 23,
+      "char": "college_ebright",
+      "age": "adult",
+      "v1_bio": 0.3641,
+      "v2_bio": 0.4236,
+      "delta_bio": 0.0595,
+      "v1_width": 203,
+      "v2_width": 269
+    },
+    {
+      "scene": 5,
+      "seed": 23,
+      "char": "james_wong",
+      "age": "adult",
+      "v1_bio": 0.2616,
+      "v2_bio": 0.0,
+      "delta_bio": -0.2616,
+      "v1_width": 158,
+      "v2_width": 0
+    },
+    {
+      "scene": 5,
+      "seed": 37,
+      "char": "college_ebright",
+      "age": "adult",
+      "v1_bio": 0.3114,
+      "v2_bio": 0.3231,
+      "delta_bio": 0.0117,
+      "v1_width": 138,
+      "v2_width": 305
+    },
+    {
+      "scene": 5,
+      "seed": 37,
+      "char": "james_wong",
+      "age": "adult",
+      "v1_bio": 0.3575,
+      "v2_bio": 0.0,
+      "delta_bio": -0.3575,
+      "v1_width": 156,
+      "v2_width": 0
+    }
+  ]
+}

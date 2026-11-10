@@ -1,0 +1,211 @@
+{
+  "iteration_id": "loop-W3W4-iter3-closeup-scale-fidelity",
+  "phase": "R7",
+  "branch": "fix/identity-layout-scale",
+  "hypothesis": "Elevating close-up and shoulder shot scale (fig_height=1150px, face_width=220px, cy=0.58), boosting CodeFormer fidelity to 0.85, and capping Forge GPU memory to 3800MB recovers Teen Ebright facial resolution (178px vs 135px) and maintains peak VRAM <= 6.5 GB, pushing positive pairs >= 72% and passing acceptance.",
+  "change_desc": "Expand close-up scale parameters to fig_height=1150px and face_width=220px in layout_planner.py, center single close-up framing at cy=0.58, set codeformer_fidelity=0.85 in config.py, set Forge xl_GPU_MB=3800MB with empty_cache between passes in pipeline_v2.py.",
+  "timestamp": "2026-10-18T14:46:06Z",
+  "metrics": {
+    "intervention_biometric_mean": 0.3277,
+    "baseline_biometric_mean": 0.2081,
+    "delta_mean": 0.1196,
+    "delta_95ci_cluster_bootstrap": [
+      -0.0782,
+      0.2212
+    ],
+    "positive_pair_rate": 0.6667,
+    "positive_pairs_count": 12,
+    "total_pairs_count": 18,
+    "mean_face_width_px": 135.5,
+    "baseline_face_width_px": 210.2,
+    "subgroup_deltas": {
+      "child": -0.0273,
+      "teen": -0.0763,
+      "adult": 0.283
+    },
+    "corrected_baseline_v1_mean": 0.31421111111111105,
+    "corrected_delta_vs_v1": 0.0135,
+    "image_bootstrap_95ci_vs_v1": [
+      -0.0728,
+      0.0513
+    ],
+    "scene_cluster_bootstrap_95ci_vs_v1": [
+      -0.0896,
+      0.0635
+    ],
+    "subgroup_deltas_vs_v1": {
+      "child": -0.0631,
+      "teen": -0.0373,
+      "adult": 0.0816
+    }
+  },
+  "guardrails": {
+    "peak_vram_mb": 7805.0,
+    "zero_oom": true,
+    "avg_latency_sec": 136.6,
+    "guardrails_met": false
+  },
+  "decision": "REJECT",
+  "renders": [
+    {
+      "scene_number": 1,
+      "seed": 11,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "young_ebright",
+        "mother"
+      ],
+      "image_filename": "scene_1_seed_11.png",
+      "render_time_sec": 156.22
+    },
+    {
+      "scene_number": 1,
+      "seed": 23,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "young_ebright",
+        "mother"
+      ],
+      "image_filename": "scene_1_seed_23.png",
+      "render_time_sec": 186.76
+    },
+    {
+      "scene_number": 1,
+      "seed": 37,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "young_ebright",
+        "mother"
+      ],
+      "image_filename": "scene_1_seed_37.png",
+      "render_time_sec": 132.75
+    },
+    {
+      "scene_number": 2,
+      "seed": 11,
+      "shot_type": "Medium close-up",
+      "characters": [
+        "young_ebright"
+      ],
+      "image_filename": "scene_2_seed_11.png",
+      "render_time_sec": 114.38
+    },
+    {
+      "scene_number": 2,
+      "seed": 23,
+      "shot_type": "Medium close-up",
+      "characters": [
+        "young_ebright"
+      ],
+      "image_filename": "scene_2_seed_23.png",
+      "render_time_sec": 123.62
+    },
+    {
+      "scene_number": 2,
+      "seed": 37,
+      "shot_type": "Medium close-up",
+      "characters": [
+        "young_ebright"
+      ],
+      "image_filename": "scene_2_seed_37.png",
+      "render_time_sec": 101.29
+    },
+    {
+      "scene_number": 4,
+      "seed": 11,
+      "shot_type": "Over-the-shoulder shot",
+      "characters": [
+        "teen_ebright"
+      ],
+      "image_filename": "scene_4_seed_11.png",
+      "render_time_sec": 98.77
+    },
+    {
+      "scene_number": 4,
+      "seed": 23,
+      "shot_type": "Over-the-shoulder shot",
+      "characters": [
+        "teen_ebright"
+      ],
+      "image_filename": "scene_4_seed_23.png",
+      "render_time_sec": 126.8
+    },
+    {
+      "scene_number": 4,
+      "seed": 37,
+      "shot_type": "Over-the-shoulder shot",
+      "characters": [
+        "teen_ebright"
+      ],
+      "image_filename": "scene_4_seed_37.png",
+      "render_time_sec": 110.17
+    },
+    {
+      "scene_number": 5,
+      "seed": 11,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "college_ebright",
+        "james_wong"
+      ],
+      "image_filename": "scene_5_seed_11.png",
+      "render_time_sec": 156.28
+    },
+    {
+      "scene_number": 5,
+      "seed": 23,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "college_ebright",
+        "james_wong"
+      ],
+      "image_filename": "scene_5_seed_23.png",
+      "render_time_sec": 177.4
+    },
+    {
+      "scene_number": 5,
+      "seed": 37,
+      "shot_type": "Wide two-shot",
+      "characters": [
+        "college_ebright",
+        "james_wong"
+      ],
+      "image_filename": "scene_5_seed_37.png",
+      "render_time_sec": 153.63
+    }
+  ],
+  "original_flawed_baseline_note": "Original baseline 0.2081 was broken v2 (single_anchor) in fast mode. Corrected baseline is genuine Baseline v1 (0.3142) under Verifier v1.2.",
+  "baseline_comparison": {
+    "baseline_biometric_mean": 0.31421111111111105,
+    "baseline_face_width_px": 233.1,
+    "baseline_avg_latency_sec": 134.1,
+    "baseline_peak_vram_mb": 6098.0
+  },
+  "telemetry_audit": {
+    "claimed_peak_mb": 6476.0,
+    "recorded_summary_peak_mb": 7805.0,
+    "actual_exact_peak_mb": 8004.0,
+    "desktop_idle_baseline_mb": 854.0,
+    "forge_idle_baseline_mb": 2226.0,
+    "mean_vram_during_render_mb": 6739.5,
+    "seconds_above_7400mb": 157,
+    "total_render_duration_sec": 1638.1,
+    "latency_spill_evidence": "Scene 1 Seed 23 render took 186.8s (vs 114.4s on single-char Scene 2) due to CUDA memory thrashing as allocated VRAM reached 8004 MB (97.7% of 8192 MB capacity)."
+  },
+  "config_audit": {
+    "iteration_id": "loop-W3W4-iter3-closeup-scale-fidelity",
+    "mode": "fast",
+    "cfg_scale": 5.0,
+    "steps_pass1": 14,
+    "steps_pass2": 10,
+    "enable_face_detailer": false,
+    "codeformer_fidelity": 0.85,
+    "forge_options": {
+      "forge_inference_memory": 1024.0,
+      "xl_GPU_MB": 3200.0
+    },
+    "config_hash": "51a25afa0e338c5c",
+    "baseline_v1_mode": "v1 default (steps 25/15, CFG 5.5, no layout planner)",
+    "mode_alignment_finding": "iter3 was executed in fast mode (14/10 steps, detailer disabled, CFG 5.0) whereas Baseline v1 was rendered with 25/15 steps and CFG 5.5. Both broken v2 (single_anchor) and iter3 were rendered in fast mode."
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "seal_version": "1.0",
+  "sealed_at_utc": "2026-10-15T07:00:00Z",
+  "status": "SEALED",
+  "storyboard": {
+    "story_id": "holdout_expedition_aurora",
+    "title": "Project Aurora: The Polar Discovery",
+    "relative_path": "storyboards/holdout_v2.json",
+    "sha256": "79d14f063c66bdfba3fdb4d69ad56fda1d18df3cc53e161f0102761c8b13383b",
+    "characters": [
+      "elena_child",
+      "dr_marcus_vance",
+      "clara_thorn"
+    ],
+    "scenes": [
+      "scene_1_relic",
+      "scene_2_mentorship",
+      "scene_3_laboratory",
+      "scene_4_breakthrough"
+    ]
+  },
+  "splits": {
+    "DEV_FAST": {
+      "scenes": [1, 2, 4, 5],
+      "seeds": [11, 23, 37],
+      "purpose": "Screening only with reduced steps (Pass 1 @ 14, Pass 2 @ 10)"
+    },
+    "DEV_FULL": {
+      "scenes": [1, 2, 3, 4, 5, 6],
+      "seeds": [11, 23, 37],
+      "purpose": "Full-step development evaluation on Ebright"
+    },
+    "DEV_2": {
+      "ebright_scenes": [1, 2, 3, 4, 5, 6],
+      "ebright_seeds": [101, 202, 303, 404, 505],
+      "chrono_seeds": [101, 202, 303],
+      "purpose": "Former test split, unblinded, now used for tuning, composition checks, and leave-one-out"
+    },
+    "TEST_2": {
+      "ebright_scenes": [1, 2, 3, 4, 5, 6],
+      "ebright_seeds": [1101, 1202, 1303, 1404, 1505],
+      "holdout_scenes": [1, 2, 3, 4],
+      "holdout_seeds": [1101, 1202, 1303],
+      "total_eval_renders": 42,
+      "purpose": "SEALED held-out evaluation touched strictly ONCE in Phase R10"
+    },
+    "RESERVED": {
+      "seeds": [606, 707, 808],
+      "purpose": "FORBIDDEN seeds, never used in any dev, test, tuning, or debugging run"
+    }
+  },
+  "provenance": {
+    "baseline_v1_commit": "cf12f7f5255fa6ba7b2e95a940c95029e083c260",
+    "baseline_v1_tag": "baseline-v1",
+    "verifier_frozen_tag": "verifier-v1.1-frozen",
+    "verifier_freeze_sha256": "ee3b29d5a3511f1bad0efed114b079d4c4478beeeafd6c13b9053ebb99c9b8ac"
+  },
+  "access_policy": {
+    "guard_function": "consistency_v2.splits.assert_split_allowed",
+    "guard_env_var": "ALLOW_TEST2=1",
+    "audit_log": "results/split_access_log.jsonl",
+    "rule": "Access to TEST_2 is strictly prohibited prior to Phase R10 final sealed evaluation. Any unauthorized access is an irrecoverable protocol violation."
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "conditions": {
+    "full_v2": {
+      "biometric_ensemble_mean": 0.3323,
+      "biometric_ensemble_95ci": [
+        0.2941,
+        0.3648
+      ],
+      "rank1_accuracy": 0.875,
+      "spatial_pass_rate": 1.0,
+      "wardrobe_pass_rate": 0.875,
+      "mean_defects": 1.1667,
+      "child_bio": 0.316,
+      "adult_bio": 0.3382,
+      "delta_bio_vs_full": 0.0,
+      "delta_spatial_vs_full": 0.0,
+      "delta_wardrobe_vs_full": 0.0
+    },
+    "no_m2_layout": {
+      "biometric_ensemble_mean": 0.2198,
+      "biometric_ensemble_95ci": [
+        0.1102,
+        0.3235
+      ],
+      "rank1_accuracy": 0.375,
+      "spatial_pass_rate": 0.5,
+      "wardrobe_pass_rate": 0.375,
+      "mean_defects": 2.5,
+      "child_bio": 0.2358,
+      "adult_bio": 0.1207,
+      "delta_bio_vs_full": -0.1125,
+      "delta_spatial_vs_full": -0.5,
+      "delta_wardrobe_vs_full": -0.5
+    },
+    "no_m3_couple": {
+      "biometric_ensemble_mean": 0.3169,
+      "biometric_ensemble_95ci": [
+        0.282,
+        0.3481
+      ],
+      "rank1_accuracy": 0.875,
+      "spatial_pass_rate": 1.0,
+      "wardrobe_pass_rate": 0.875,
+      "mean_defects": 1.1667,
+      "child_bio": 0.3076,
+      "adult_bio": 0.3116,
+      "delta_bio_vs_full": -0.0154,
+      "delta_spatial_vs_full": 0.0,
+      "delta_wardrobe_vs_full": 0.0
+    },
+    "no_m4_ip_adapter": {
+      "biometric_ensemble_mean": 0.3423,
+      "biometric_ensemble_95ci": [
+        0.3021,
+        0.392
+      ],
+      "rank1_accuracy": 0.875,
+      "spatial_pass_rate": 1.0,
+      "wardrobe_pass_rate": 0.875,
+      "mean_defects": 1.5,
+      "child_bio": 0.3749,
+      "adult_bio": 0.3222,
+      "delta_bio_vs_full": 0.01,
+      "delta_spatial_vs_full": 0.0,
+      "delta_wardrobe_vs_full": 0.0
+    },
+    "no_m5_swap": {
+      "biometric_ensemble_mean": 0.2818,
+      "biometric_ensemble_95ci": [
+        0.1954,
+        0.3657
+      ],
+      "rank1_accuracy": 0.5,
+      "spatial_pass_rate": 1.0,
+      "wardrobe_pass_rate": 0.875,
+      "mean_defects": 1.0,
+      "child_bio": 0.3146,
+      "adult_bio": 0.2303,
+      "delta_bio_vs_full": -0.0505,
+      "delta_spatial_vs_full": 0.0,
+      "delta_wardrobe_vs_full": 0.0
+    },
+    "no_m6_detailer": {
+      "biometric_ensemble_mean": 0.3149,
+      "biometric_ensemble_95ci": [
+        0.2674,
+        0.3653
+      ],
+      "rank1_accuracy": 0.875,
+      "spatial_pass_rate": 1.0,
+      "wardrobe_pass_rate": 0.875,
+      "mean_defects": 1.0,
+      "child_bio": 0.2959,
+      "adult_bio": 0.3122,
+      "delta_bio_vs_full": -0.0174,
+      "delta_spatial_vs_full": 0.0,
+      "delta_wardrobe_vs_full": 0.0
+    },
+    "no_m7_wardrobe": {
+      "biometric_ensemble_mean": 0.3108,
+      "biometric_ensemble_95ci": [
+        0.2514,
+        0.3746
+      ],
+      "rank1_accuracy": 0.875,
+      "spatial_pass_rate": 1.0,
+      "wardrobe_pass_rate": 0.125,
+      "mean_defects": 1.1667,
+      "child_bio": 0.2917,
+      "adult_bio": 0.3079,
+      "delta_bio_vs_full": -0.0215,
+      "delta_spatial_vs_full": 0.0,
+      "delta_wardrobe_vs_full": -0.75
+    }
+  },
+  "full_v2_baseline": {
+    "biometric_ensemble_mean": 0.3323,
+    "biometric_ensemble_95ci": [
+      0.2941,
+      0.3648
+    ],
+    "rank1_accuracy": 0.875,
+    "spatial_pass_rate": 1.0,
+    "wardrobe_pass_rate": 0.875,
+    "mean_defects": 1.1667,
+    "child_bio": 0.316,
+    "adult_bio": 0.3382
+  }
+}
