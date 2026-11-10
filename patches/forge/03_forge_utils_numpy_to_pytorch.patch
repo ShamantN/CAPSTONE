@@ -1,0 +1,17 @@
+diff --git a/modules_forge/utils.py b/modules_forge/utils.py
+index 55ff845b..d1eb1813 100644
+--- a/modules_forge/utils.py
++++ b/modules_forge/utils.py
+@@ -80,6 +80,12 @@ def pytorch_to_numpy(x):
+ @torch.no_grad()
+ @torch.inference_mode()
+ def numpy_to_pytorch(x):
++    if isinstance(x, dict):
++        x = x.get('image', list(x.values())[0] if len(x) > 0 else None)
++    if isinstance(x, torch.Tensor):
++        return x
++    if x is None:
++        return torch.zeros((1, 512, 512, 3), dtype=torch.float32)
+     y = x.astype(np.float32) / 255.0
+     y = y[None]
+     y = np.ascontiguousarray(y.copy())

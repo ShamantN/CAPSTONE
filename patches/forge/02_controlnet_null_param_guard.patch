@@ -1,0 +1,22 @@
+diff --git a/extensions-builtin/sd_forge_controlnet/scripts/controlnet.py b/extensions-builtin/sd_forge_controlnet/scripts/controlnet.py
+index 353601b5..103b983d 100644
+--- a/extensions-builtin/sd_forge_controlnet/scripts/controlnet.py
++++ b/extensions-builtin/sd_forge_controlnet/scripts/controlnet.py
+@@ -558,13 +558,15 @@ class ControlNetForForgeOfficial(scripts.Script):
+     @torch.no_grad()
+     def process_before_every_sampling(self, p, *args, **kwargs):
+         for i, unit in enumerate(self.get_enabled_units(args)):
+-            self.process_unit_before_every_sampling(p, unit, self.current_params[i], *args, **kwargs)
++            if i in self.current_params:
++                self.process_unit_before_every_sampling(p, unit, self.current_params[i], *args, **kwargs)
+         return
+ 
+     @torch.no_grad()
+     def postprocess_batch_list(self, p, pp, *args, **kwargs):
+         for i, unit in enumerate(self.get_enabled_units(args)):
+-            self.process_unit_after_every_sampling(p, unit, self.current_params[i], pp, *args, **kwargs)
++            if i in self.current_params:
++                self.process_unit_after_every_sampling(p, unit, self.current_params[i], pp, *args, **kwargs)
+         return
+ 
+     def postprocess(self, p, processed, *args):
