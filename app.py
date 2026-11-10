@@ -28,29 +28,12 @@ from pathlib import Path
 from typing import Dict, List, Tuple, Optional, Any, Union
 from dataclasses import dataclass, asdict
 
-# Resolve project path
-PROJECT_ROOT = Path(__file__).resolve().parent
+from consistency_v2.runtime_paths import get_project_root, get_forge_url, get_forge_dir, configure_windows_forge_env
+
+PROJECT_ROOT = get_project_root()
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
-
-# DLL paths for Torch/CUDA on Windows
-_DLL_PATHS = [
-    r"C:\Stable-Diffusion\system\python\Library\bin",
-    r"C:\Stable-Diffusion\system\python\Lib\site-packages\torch\lib",
-    r"C:\Stable-Diffusion\system\python\Scripts",
-    r"C:\Stable-Diffusion\system\python"
-]
-for _p in _DLL_PATHS:
-    if os.path.exists(_p):
-        try:
-            os.add_dll_directory(_p)
-        except Exception:
-            pass
-        os.environ["PATH"] = _p + os.pathsep + os.environ["PATH"]
-
-_SD_SITE = r"C:\Stable-Diffusion\system\python\Lib\site-packages"
-if os.path.exists(_SD_SITE) and _SD_SITE not in sys.path:
-    sys.path.append(_SD_SITE)
+configure_windows_forge_env()
 
 import cv2
 import numpy as np
@@ -681,10 +664,12 @@ def render_app_ui():
     except Exception:
         sd_online = False
 
+    active_forge_url = get_forge_url()
     if sd_online:
-        st.success("🟢 **Stable Diffusion Forge Online** (`http://127.0.0.1:7860`). Real SDXL rendering engine active!")
+        st.success(f"🟢 **Stable Diffusion Forge Online** (`{active_forge_url}`). Real SDXL rendering engine active!")
     else:
-        st.warning("⚠️ **Stable Diffusion Forge Offline** (`http://127.0.0.1:7860`). Currently displaying synthetic benchmark mockups. To generate real AI cinematic panels with SDXL, double-click `C:\\Stable-Diffusion\\run.bat`.")
+        launcher_hint = str(get_forge_dir() / ("run.bat" if sys.platform == "win32" else "webui.sh"))
+        st.warning(f"⚠️ **Stable Diffusion Forge Offline** (`{active_forge_url}`). Currently displaying synthetic benchmark mockups. To generate real AI cinematic panels with SDXL, launch Forge (`{launcher_hint}`).")
 
     # Sidebar controls
     with st.sidebar:

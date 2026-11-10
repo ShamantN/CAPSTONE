@@ -13,29 +13,13 @@ import cv2
 import numpy as np
 from PIL import Image
 
+from consistency_v2.runtime_paths import get_project_root, configure_windows_forge_env
+
 # Ensure project root & system DLLs are loaded
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = get_project_root()
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
-
-_DLL_PATHS = [
-    r"C:\Stable-Diffusion\system\python\Library\bin",
-    r"C:\Stable-Diffusion\system\python\Lib\site-packages\torch\lib",
-    r"C:\Stable-Diffusion\system\python\Scripts",
-    r"C:\Stable-Diffusion\system\python"
-]
-for _p in _DLL_PATHS:
-    if os.path.exists(_p):
-        try:
-            os.add_dll_directory(_p)
-        except Exception:
-            pass
-        if _p not in os.environ.get("PATH", ""):
-            os.environ["PATH"] = _p + os.pathsep + os.environ.get("PATH", "")
-
-_SD_SITE = r"C:\Stable-Diffusion\system\python\Lib\site-packages"
-if os.path.exists(_SD_SITE) and _SD_SITE not in sys.path:
-    sys.path.append(_SD_SITE)
+configure_windows_forge_env()
 
 import torch
 from transformers import BlipProcessor, BlipForConditionalGeneration, CLIPProcessor, CLIPModel

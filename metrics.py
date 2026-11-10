@@ -46,24 +46,12 @@ os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 os.environ['GRPC_VERBOSITY'] = 'ERROR'
 os.environ['GLOG_minloglevel'] = '2'
 
-# Resolve CUDA / Torch DLL directories for Windows
-_DLL_PATHS = [
-    r"C:\Stable-Diffusion\system\python\Library\bin",
-    r"C:\Stable-Diffusion\system\python\Lib\site-packages\torch\lib",
-    r"C:\Stable-Diffusion\system\python\Scripts",
-    r"C:\Stable-Diffusion\system\python"
-]
-for _p in _DLL_PATHS:
-    if os.path.exists(_p):
-        try:
-            os.add_dll_directory(_p)
-        except Exception:
-            pass
-        os.environ["PATH"] = _p + os.pathsep + os.environ["PATH"]
+_REPO_ROOT = Path(__file__).resolve().parent
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
+from consistency_v2.runtime_paths import get_project_root, get_forge_url, configure_windows_forge_env
 
-_SD_SITE = r"C:\Stable-Diffusion\system\python\Lib\site-packages"
-if os.path.exists(_SD_SITE) and _SD_SITE not in sys.path:
-    sys.path.append(_SD_SITE)
+configure_windows_forge_env()
 
 import cv2
 import numpy as np
@@ -133,13 +121,14 @@ except ImportError:
 # ==============================================================================
 # DIRECTORY & CONSTANTS CONFIGURATION
 # ==============================================================================
-EDU_OUTPUT_DIR = Path("edu_outputs")
+_PROJECT_ROOT = get_project_root()
+EDU_OUTPUT_DIR = _PROJECT_ROOT / "edu_outputs"
 EDU_IMAGES_DIR = EDU_OUTPUT_DIR / "images"
 EDU_IMAGES_DIR.mkdir(parents=True, exist_ok=True)
-CACHE_FILE = Path("hardcoded_cache.json")
+CACHE_FILE = _PROJECT_ROOT / "hardcoded_cache.json"
 
 # SD Forge API Configuration
-SD_API_URL = "http://127.0.0.1:7860/sdapi/v1"
+SD_API_URL = f"{get_forge_url()}/sdapi/v1"
 SD_TXT2IMG_ENDPOINT = f"{SD_API_URL}/txt2img"
 SD_IMG2IMG_ENDPOINT = f"{SD_API_URL}/img2img"
 SD_OPTIONS_ENDPOINT = f"{SD_API_URL}/options"

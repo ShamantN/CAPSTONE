@@ -16,6 +16,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+from consistency_v2.runtime_paths import get_project_root
 from consistency_v2.verify.biometric_ensemble import BiometricEnsemble
 from consistency_v2.verify.scene_auditor import SceneAuditor
 from consistency_v2.verify.binding_checker import BindingChecker
@@ -28,10 +29,10 @@ class IdentityBankManager:
 
     def __init__(
         self,
-        bank_root: Path = PROJECT_ROOT / "consistency_v2" / "banks",
+        bank_root: Optional[Path] = None,
         calibration_path: Optional[Path] = None
     ):
-        self.bank_root = bank_root
+        self.bank_root = Path(bank_root) if bank_root is not None else (get_project_root() / "consistency_v2" / "banks")
         self.bank_root.mkdir(parents=True, exist_ok=True)
         self.calib_path = calibration_path or (PROJECT_ROOT / "consistency_v2" / "verify" / "calibration.json")
         self.ensemble = BiometricEnsemble(calibration_path=self.calib_path)

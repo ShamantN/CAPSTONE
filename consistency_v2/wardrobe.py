@@ -15,9 +15,11 @@ from pathlib import Path
 import cv2
 import numpy as np
 
+from consistency_v2.runtime_paths import get_forge_python
+
 logger = logging.getLogger("MMCCP.WardrobeLock")
 
-FORGE_PYTHON = Path(r"C:\Stable-Diffusion\system\python\python.exe")
+FORGE_PYTHON = get_forge_python()
 
 # Standard CIELAB reference colors matching the verification suite
 REFERENCE_LAB_COLORS = {

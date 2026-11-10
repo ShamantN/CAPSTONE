@@ -11,9 +11,13 @@ import os
 import json
 import base64
 import logging
+import tempfile
+import shutil
 import requests
+from pathlib import Path
 from PIL import Image
 from io import BytesIO
+from consistency_v2.runtime_paths import get_forge_url, get_forge_models_dir, get_forge_python
 
 logger = logging.getLogger("MMCCP.FaceSwap")
 
@@ -90,6 +94,7 @@ target_img_path = sys.argv[1]
 swap_specs_json = sys.argv[2]
 out_img_path = sys.argv[3]
 crop_upscale = sys.argv[4].lower() == "true" if len(sys.argv) > 4 else False
+models_root = sys.argv[5] if len(sys.argv) > 5 else os.path.expanduser("~/.insightface")
 
 with open(swap_specs_json, "r", encoding="utf-8") as f:
     swap_specs = json.load(f)
@@ -97,10 +102,15 @@ with open(swap_specs_json, "r", encoding="utf-8") as f:
 target_bgr = cv2.imread(target_img_path)
 h, w = target_bgr.shape[:2]
 
-app = FaceAnalysis(name="buffalo_l", root=r"C:\Stable-Diffusion\webui\models", providers=["CPUExecutionProvider"])
+buffalo_root = models_root if os.path.isdir(os.path.join(models_root, "models", "buffalo_l")) else os.path.expanduser("~/.insightface")
+app = FaceAnalysis(name="buffalo_l", root=buffalo_root, providers=["CPUExecutionProvider"])
 app.prepare(ctx_id=0, det_size=(640, 640))
 
-swapper_path = r"C:\Stable-Diffusion\webui\models\insightface\inswapper_128.onnx"
+swapper_candidates = [
+    os.path.join(models_root, "insightface", "inswapper_128.onnx"),
+    os.path.expanduser("~/.insightface/inswapper_128.onnx"),
+]
+swapper_path = next((p for p in swapper_candidates if os.path.isfile(p)), swapper_candidates[0])
 swapper = insightface.model_zoo.get_model(swapper_path, providers=["CPUExecutionProvider"])
 
 target_faces = app.get(target_bgr)
@@ -178,35 +188,26 @@ cv2.imwrite(out_img_path, result_bgr)
         codeformer_fidelity: float = 0.65,
         codeformer_visibility: float = 0.75,
         crop_upscale: bool = False,
-        forge_api_url: str = "http://127.0.0.1:7860",
-        forge_python_exe: str = r"C:\Stable-Diffusion\system\python\python.exe"
+        forge_api_url: Optional[str] = None,
+        forge_python_exe: Optional[str] = None,
+        models_root: Optional[str] = None
     ) -> bool:
         """
         Executes layout-bound face swap and post-processes with CodeFormer face restoration.
-
-        Args:
-            target_image_path: Path to input rendered image.
-            swap_specs: List of dicts specifying character_id, target_zone, and source_path.
-            out_image_path: Destination path for final image.
-            codeformer_fidelity: CodeFormer restoration fidelity (0.0 to 1.0).
-            codeformer_visibility: CodeFormer blend visibility (0.0 to 1.0).
-            crop_upscale: If True, crops and upscales target face 2x before swap with feathered paste-back.
-            forge_api_url: Stable Diffusion Forge WebUI API base URL.
-            forge_python_exe: Path to Forge's embedded Python.
-
-        Returns:
-            bool: True if swap and restoration succeeded, False otherwise.
         """
         if not os.path.exists(target_image_path):
             logger.error(f"Target image not found: {target_image_path}")
             return False
 
-        # Create temporary worker and specs files
-        worker_path = "consistency_v2/banks/_temp_swapper_worker.py"
-        specs_path = "consistency_v2/banks/_temp_swap_specs.json"
-        raw_swapped_path = "consistency_v2/banks/_temp_swapped_raw.png"
+        resolved_url = (forge_api_url or get_forge_url()).rstrip("/")
+        resolved_python = str(forge_python_exe or get_forge_python())
+        resolved_models_root = str(models_root or get_forge_models_dir())
 
-        os.makedirs("consistency_v2/banks", exist_ok=True)
+        temp_dir = tempfile.mkdtemp(prefix="mmccp_swap_")
+        worker_path = os.path.join(temp_dir, "_temp_swapper_worker.py")
+        specs_path = os.path.join(temp_dir, "_temp_swap_specs.json")
+        raw_swapped_path = os.path.join(temp_dir, "_temp_swapped_raw.png")
+
         with open(worker_path, "w", encoding="utf-8") as f:
             f.write(cls.WORKER_TEMPLATE)
 
@@ -216,12 +217,13 @@ cv2.imwrite(out_img_path, result_bgr)
         try:
             logger.info("Executing inswapper_128 worker on CPU...")
             res = subprocess.run([
-                forge_python_exe,
+                resolved_python,
                 worker_path,
                 target_image_path,
                 specs_path,
                 raw_swapped_path,
-                str(crop_upscale)
+                str(crop_upscale),
+                resolved_models_root
             ], capture_output=True, text=True, timeout=120)
 
             if res.returncode != 0 or not os.path.exists(raw_swapped_path):
@@ -240,7 +242,7 @@ cv2.imwrite(out_img_path, result_bgr)
                 "upscaling_resize": 1.0
             }
 
-            resp = requests.post(f"{forge_api_url.rstrip('/')}/sdapi/v1/extra-single-image", json=payload, timeout=60)
+            resp = requests.post(f"{resolved_url}/sdapi/v1/extra-single-image", json=payload, timeout=60)
             if resp.status_code == 200 and "image" in resp.json():
                 restored_bytes = base64.b64decode(resp.json()["image"])
                 with open(out_image_path, "wb") as f:
@@ -258,9 +260,4 @@ cv2.imwrite(out_img_path, result_bgr)
             logger.error(f"Face swap execution exception: {e}")
             return False
         finally:
-            for p in [worker_path, specs_path, raw_swapped_path]:
-                if os.path.exists(p):
-                    try:
-                        os.remove(p)
-                    except OSError:
-                        pass
+            shutil.rmtree(temp_dir, ignore_errors=True)
