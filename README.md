@@ -1,11 +1,10 @@
 # 🎬 Multi-Modal Character Consistency Pipeline (MMCCP)
 
-> [!WARNING]
-> **NOTICE: PIPELINE v2 AND RECENT BENCHMARKS CURRENTLY UNDER REPAIR**  
-> Documentation associated with tag `v2.0.0-rc1` has been formally audited; ungrounded and contradicted claims have been retracted. See [`docs_generated/v2/RETRACTIONS.md`](docs_generated/v2/RETRACTIONS.md).  
-> The measuring suite (Verifier v1.1) and consistency pipeline (M1–M10) are currently undergoing rigorous re-calibration and loop-repair. Baseline v1 remains fully operational.
-
-> 🚀 **MMCCP v2.0 Architecture:** See [README_V2.md](docs_generated/v2/README_V2.md) for architectural details on Methods M1–M10.
+> **MMCCP v2.0 (Reconciled `v2.0.0-rc3` on `main`):**
+> - **Technical Scorecard & Honest Limitations:** [`README_V2.md`](README_V2.md)
+> - **Run From Scratch Guides (Windows / Linux / Colab):** [`docs/run/00_START_HERE.md`](docs/run/00_START_HERE.md)
+> - **Google Colab Notebook:** [`notebooks/MMCCP_Colab.ipynb`](notebooks/MMCCP_Colab.ipynb) *(status: `UNTESTED` live in Colab; see checklist in [`docs/run/03_GOOGLE_COLAB.md`](docs/run/03_GOOGLE_COLAB.md))*
+> - **Preflight Verification Tool:** `python tools/verify_setup.py`
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge&logo=python)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.28-FF4B4B?style=for-the-badge&logo=streamlit)
@@ -52,25 +51,35 @@ The core innovation of the MMCCP lies in its surgical manipulation of latent spa
 ## ⚙️ Installation & Setup
 
 ### Prerequisites
-* Python 3.9+
-* SD WebUI Forge (Running locally on port 7860 with `--api` enabled)
-* Required SD Extensions: ControlNet (IP-Adapter XL), ReActor
+### Prerequisites (v2.0)
+* **Python 3.10.6** (`py -3.10` on Windows) + NVIDIA GPU (`>= 8 GB` VRAM recommended)
+* **Stable Diffusion WebUI Forge** running on `--api --xformers` (`http://127.0.0.1:7860`)
+* Required Extensions: `adetailer`, `sd-forge-couple`, `sd-webui-controlnet`, `sd-webui-reactor`
+* See [`docs/run/04_MODELS_AND_DOWNLOADS.md`](docs/run/04_MODELS_AND_DOWNLOADS.md) for verified URLs, destinations, and SHA-256 checksums.
 
-### Environment Setup
+### Quickstart (See [`docs/run/01_NEW_MACHINE_WINDOWS.md`](docs/run/01_NEW_MACHINE_WINDOWS.md) for Full Walkthrough)
 1. **Clone the repository:**
-   ```bash
+   ```powershell
    git clone https://github.com/ShamantN/CAPSTONE.git
    cd CAPSTONE
    ```
-2. **Install dependencies:**
-   ```bash
-   pip install streamlit google-generativeai pillow requests opencv-python deepface tf-keras numpy
+2. **Create a Python 3.10 virtual environment & install CUDA PyTorch + requirements:**
+   ```powershell
+   py -3.10 -m venv venv
+   .\venv\Scripts\Activate.ps1
+   pip install torch==2.3.1 torchvision==0.18.1 --index-url https://download.pytorch.org/whl/cu121
+   pip install xformers==0.0.27 --index-url https://download.pytorch.org/whl/cu121
+   pip install -r requirements.txt
    ```
-3. **Run the Forge API:**
-   Ensure your Stable Diffusion Forge instance is running with the `--api` flag enabled on `http://127.0.0.1:7860`.
-4. **Launch the Streamlit Interface:**
-   ```bash
-   streamlit run cap.py
+3. **Hydrate canonical banks, verify setup & run preflight (`--mode new-machine`):**
+   ```powershell
+   python tools\verify_setup.py --mode new-machine --fix-hints
+   python tools\sync_canonical_banks.py
+   ```
+4. **Render from zero cache or launch the 4-Tab Streamlit Studio UI:**
+   ```powershell
+   python run_from_scratch.py --pipeline v2 --mode fast --story storyboards\ebright.json --scene 1 --seed 11
+   python -m streamlit run app.py
    ```
 
 ---
