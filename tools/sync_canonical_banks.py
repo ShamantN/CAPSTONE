@@ -41,11 +41,33 @@ CHAR_ANCHOR_MAP = {
     "clara_thorn": HOLDOUT_ANCHORS_DIR / "clara_thorn_ground_truth.png",
 }
 
+def _hydrate_missing_ground_truth_pngs() -> None:
+    """Extracts tracked base64 JSON anchors into *_ground_truth.png if gitignored PNGs are absent on fresh clones."""
+    sources = [
+        (ANCHORS_DIR / "ground_truth_anchors.json", ANCHORS_DIR),
+        (HOLDOUT_ANCHORS_DIR / "holdout_anchors.json", HOLDOUT_ANCHORS_DIR),
+    ]
+    for json_path, out_dir in sources:
+        if not json_path.exists():
+            continue
+        with open(json_path, "r", encoding="utf-8") as f:
+            b64_map = json.load(f)
+        out_dir.mkdir(parents=True, exist_ok=True)
+        for cid, b64_str in b64_map.items():
+            target = CHAR_ANCHOR_MAP.get(cid) or (out_dir / f"{cid}_ground_truth.png")
+            if target.exists() and target.stat().st_size > 0:
+                continue
+            payload = b64_str.split(",", 1)[1] if isinstance(b64_str, str) and b64_str.startswith("data:image") else b64_str
+            target.write_bytes(base64.b64decode(payload))
+            print(f"[Hydrate] Extracted missing ground-truth PNG from {json_path.name} -> {target.name}")
+
+
 def main():
     print("=" * 80)
     print("  SYNCHRONIZING CANONICAL GROUND-TRUTH ANCHORS TO consistency_v2/banks")
     print("=" * 80)
 
+    _hydrate_missing_ground_truth_pngs()
     ensemble = BiometricEnsemble()
     auditor = SceneAuditor()
 

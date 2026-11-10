@@ -29,14 +29,14 @@ mtcnn>=1.0.0
 gdown>=5.0.0
 
 # Vision Transformers, SegFormer Wardrobe Lock, CLIP, DINOv2 & YOLO
-transformers>=4.40.0
-ultralytics>=8.0.0
-open-clip-torch>=2.20.0
-huggingface-hub>=0.23.0
+transformers>=4.40.0,<5.0.0
+ultralytics>=8.0.0,<8.5.0
+open-clip-torch>=2.20.0,<3.0.0
+huggingface-hub>=0.23.0,<1.0.0
 safetensors>=0.4.0
 
 # Optional LLM Story Analyzer (cap.py / story_analyzer.py)
-google-generativeai>=0.8.0
+google-generativeai>=0.8.5,<0.9.0
 
 # Network, Serialization & Utilities
 requests>=2.31.0
@@ -48,6 +48,9 @@ python-dotenv>=1.0.0
 # Testing & Validation
 pytest>=7.0.0
 
-# PyTorch (on Windows, install CUDA build first before pip install -r requirements.txt)
-torch>=2.1.0
-torchvision>=0.16.0
+# Note: PyTorch / torchvision are intentionally excluded from this PyPI list so
+# `pip install -r requirements.txt` never overwrites an existing CUDA build with
+# PyPI CPU wheels. On fresh Windows installs, install CUDA PyTorch first:
+#   pip install torch==2.3.1 torchvision==0.18.1 --index-url https://download.pytorch.org/whl/cu121
+# For CPU-only Verifier installations (no GPU), run:
+#   pip install torch==2.3.1 torchvision==0.18.1
