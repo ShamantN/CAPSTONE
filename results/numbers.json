@@ -6,7 +6,7 @@
     "verifier_version": "1.2",
     "verifier_freeze_sha": "3fa69071f888643bccb1c21ee732415ac81996a9f3cb0b71dedd68086fecb4b6",
     "git_info": {
-      "commit": "0a44e506cb95f9de04ec7b9b3bac85d2899d597d",
+      "commit": "589be65fabf3e8fa90ba8774c6e9160761e44578",
       "branch": "finalize/v2.0.0"
     },
     "target_hardware": "NVIDIA RTX 3070 Ti Laptop GPU (8GB VRAM)",

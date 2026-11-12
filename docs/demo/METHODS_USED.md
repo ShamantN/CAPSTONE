@@ -8,7 +8,7 @@
 - **Forge Flags:** `--api --xformers --cuda-malloc` (NVIDIA RTX 3070 Ti Laptop GPU, `8192` MiB VRAM)
 - **Active `ConsistencyV2Config` Hash:** `73d4c8d9a3d8` *(selected after Scene 1 seed `4211` A/B check confirmed `enable_crop_upscale_swap=True` eliminated swap seams)*
 
-## Method Matrix (`M1 – M11` & Auxiliary Controls)
+## Method Matrix (`M1 – M12` & Auxiliary Controls)
 
 | Method / Setting | Status | Parameter Values | Rationale / Note |
 | :--- | :--- | :--- | :--- |

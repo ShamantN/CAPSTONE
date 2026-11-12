@@ -41,7 +41,7 @@ python -m unittest tests\test_docs_numbers.py
 Expected results:
 - `tools/check_freeze.py` exits `0` (`Version 1.2`).
 - `tools/audit_test2_isolation.py` exits `0`.
-- `unittest discover` runs `76+` tests with `0` failures.
+- `unittest discover` runs `83` tests with `0` failures (`76` baseline + blind-scorer & claim-linter suites).
 - `tests/test_docs_numbers.py` verifies every metric across `README_V2.md` and `docs_generated/v2/*.md` matches `results/numbers.json`.
 
 ---
@@ -60,7 +60,7 @@ python tools\render_dev2_bundle.py
 python tools\score_ablation_dev2.py
 
 # Or run an end-to-end 1-scene smoke test from scratch
-python run_from_scratch.py --pipeline v2 --mode default --max-scenes 1 --seed 11
+python run_from_scratch.py --pipeline v2 --mode default --scene 1 --seed 11
 ```
 
 ---
