@@ -304,7 +304,7 @@ sequenceDiagram
      $$\text{Sim}(C_i, f_j) = \frac{\mathbf{e}_{C_i} \cdot \mathbf{e}_{f_j}}{\|\mathbf{e}_{C_i}\|_2 \|\mathbf{e}_{f_j}\|_2}$$
      Constructs the cost matrix by negating normalized similarity values:
      $$\text{Cost}[i, j] = -\text{clamp}\left(\frac{\text{Sim}(C_i, f_j) + 1.0}{2.0}, 0.0, 1.0\right)$$
-  3. **Hungarian Optimization:** Solves the optimal 1-to-1 character assignment via `scipy.optimize.linear_sum_assignment(Cost)`. This guarantees that in complex multi-character scenes, Character A and Character B are matched to their true visual counterparts without index collisions or arbitrary position bias.
+  3. **Hungarian Optimization:** Computes the optimal 1-to-1 character assignment via `scipy.optimize.linear_sum_assignment(Cost)`. This guarantees that in complex multi-character scenes, Character A and Character B are matched to their true visual counterparts without index collisions or arbitrary position bias.
   4. **Quad-Modal Scoring:** Computes the composite metric:
      $$\mathbf{S}_{\text{Composite}} = 0.45 \cdot S_{\text{ArcFace}} + 0.25 \cdot S_{\text{CLIP-I}} + 0.15 \cdot S_{\text{SSIM}} + 0.15 \cdot S_{\text{Palette}}$$
   5. **Zero-Face Dynamic Reweighting:** If no faces are detected (e.g., an establishing shot of a laboratory building or backyard), $S_{\text{ArcFace}}$ is zeroed, and weights are dynamically normalized over the remaining three non-facial metrics:

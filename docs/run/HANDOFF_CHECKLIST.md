@@ -42,6 +42,6 @@
 > 6. Holdout Scene 4 failed all `3` seeds because M2/M3/M5 currently hard-cap at **2 characters per scene** (dropping the 3rd person).
 > 7. Combined `spatial + identity + wardrobe` binding read **`0.0%` for both v1 and v2** under frozen `v1.2` calibration, and scoring is partly circular (`InsightFace 0.8397 vs 0.7408`).
 > 8. Zero OOMs occurred (`7011 MiB` / `6.847 GiB` process delta), though whole-system VRAM reached **`7984 MiB` (`7.797 GiB`)**, exceeding the `7.4 GB` ceiling for `52s`.
-> 9. `no_m4_ip_adapter` slightly outperformed `full_v2` in single-seed ablations (`0.3373 vs 0.3269` on TEST-2, `0.3423 vs 0.3323` on DEV-2), making M4 removal a top candidate for `v2.1`.
+> 9. In single-seed ablations (`TEST-2` arm is post-hoc exploratory after unsealing; not used to tune `v2.0`), `no_m4_ip_adapter` slightly exceeded `full_v2` on 4-judge Bio inside `0.03` noise (`0.3373 vs 0.3269` on `TEST-2`, `0.3423 vs 0.3323` on `DEV-2`) while losing `Facenet512`/`DINOv2` — making M4 a **candidate for a multi-seed re-test in `v2.1`**, and `M10` is ON with no ablation arm.
 > 10. All code/verifier/split audits pass cleanly (`PR #35` adds reproducible fresh-clone guides, preflight tooling, and recommended Forge patches; only human blind review & optional Colab validation remain unexecuted).
 

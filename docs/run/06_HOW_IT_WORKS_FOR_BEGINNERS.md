@@ -55,19 +55,21 @@ Final Panel PNG + JSON Sidecar ──► Evaluated offline on CPU by Frozen Veri
 
 ## Which Modules Are ON vs OFF in Release `v2.0.0-rc3` (`consistency_v2/best_config.json`)
 
+> **Module Count Summary:** **`8` of `12` numbered methods ON** (`M1`, `M2`, `M3`, `M4` IP-Adapter Plus-Face, `M5`, `M6`, `M7`, `M10`), **`4` OFF** (`M8`, `M9`, `M11`, `M12`), plus the **`M4b` Dual InstantID sub-option OFF**.
+
 | Module | Flag in `best_config.json` | State | Plain-English Reason |
 | :--- | :--- | :---: | :--- |
 | **M1** Identity Bank | `enable_identity_bank` (`single_anchor`) | **ON** | Stores canonical anchor + centroids; `single_anchor` selected in R6 because multi-view centroid CI touched zero |
 | **M2** OpenPose Layout | `enable_layout_planner` (`openpose_xl [f4251cb4]`, wt `0.70`) | **ON** | Prevents 2-person scenes from collapsing into 1 person; largest spatial helper in ablations |
 | **M3** Forge Couple | `enable_regional_couple` (`regional_global_weight: 0.40`) | **ON** | Partitions cross-attention spatially so character prompts stay on their own half of the frame |
-| **M4** IP-Adapter Plus-Face | `enable_ip_adapter_plus` (`wt: 0.55`) | **ON** | Guides Pass 1 facial likeness *(Note: single-seed ablations later showed `no_m4_ip_adapter` slightly beat `full_v2` on Bio; kept ON per frozen test-split rule, candidate to turn OFF in future `v2.1`)* |
+| **M4** IP-Adapter Plus-Face | `enable_ip_adapter_plus` (`wt: 0.55`) | **ON** | Guides Pass 1 facial likeness *(Note: removing M4 slightly edged `full_v2` on 4-judge Bio inside `0.03` noise in `DEV-2` & post-hoc exploratory `TEST-2` ablations while sharply dropping `Facenet512`/`DINOv2` -> **candidate for a multi-seed re-test in `v2.1`**)* |
 | **M4b** Dual InstantID | `enable_dual_instantid` | **OFF** | Too heavy (> 7.4 GB peak risk alongside OpenPose + IP-Adapter on 8 GB VRAM) |
 | **M5** Direct InsightFace Swap | `enable_reliable_face_swap` (`direct_insightface`, CodeFormer `0.85`) | **ON** | Biggest single contributor to facial Re-ID accuracy; runs `inswapper_128.onnx` on CPU to save VRAM |
 | **M6** Face Detailer | `enable_face_detailer` (`threshold: 300px`, `denoise: 0.28`, `steps: 20`) | **ON** (OFF in `fast`) | Restores crisp small faces in medium/wide shots before final M5 swap |
-| **M7** Wardrobe Lock | `enable_wardrobe_lock` (`Delta E <= 38.0`, `blend: 0.70`) | **ON** | Segments torso via SegFormer and pulls drifted clothing colors toward target CIELAB |
+| **M7** Wardrobe Lock | `enable_wardrobe_lock` (`Delta E <= 38.0`, `blend: 0.70`) | **ON** | Segments torso via SegFormer and pulls drifted clothing colors toward target CIELAB (`blend_strength=0.70` hardcoded; closed-loop with verifier check) |
 | **M8** Reference Attention | `enable_reference_attention` | **OFF** | Extra VRAM/latency without reliable DEV gain |
-| **M9** Best-of-N Healing | `enable_best_of_n` | **OFF** (`ON` in `quality`) | Generates 3 candidates per scene (3x slower); left off in default 8 GB mode |
-| **M10** Identity Memory | `enable_identity_memory` (`drift_guard_threshold: 0.75`) | **ON** (`0` promotions) | Guard intentionally set at `0.75` to block centroid poisoning; never triggered promotions |
+| **M9** Best-of-N Healing | `enable_best_of_n` | **OFF** | Left OFF in `best_config.json`, and **not executed inside `generate_scene()`** (`quality` mode only logs the flag) |
+| **M10** Identity Memory | `enable_identity_memory` (`drift_guard_threshold: 0.75`) | **ON** (`0` promotions) | ON in locked eval config with **no LOO ablation arm**, so **no empirical benefit is claimed** (guard at `0.75` triggered `0` promotions) |
 | **M11** Per-Character LoRA | `use_character_lora` | **OFF** | Deliberately out of scope (training-free requirement; seeds `{606,707,808}` reserved) |
 | **M12** Collage-Init | `enable_collage_init` | **OFF** | Tested in R7 (`loop-W6-iter1`) and **rejected** (`Delta = -0.0055`) due to floating-head artifacts |
 | **FreeU / CFG-Fix / PAG** | `enable_freeu`, `enable_dynamic_thresholding`, `enable_pag` | **ON / ON / OFF** | FreeU + DynamicThresholding keep contrast crisp at CFG `5.5`; PAG left OFF to avoid attention memory doubling |

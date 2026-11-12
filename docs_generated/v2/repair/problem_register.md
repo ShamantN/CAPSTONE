@@ -30,7 +30,7 @@
 | **B10** | B | Seed hygiene: old TEST seeds were observed, requiring re-basing | **VERIFIED-PROBLEM** | Old TEST seeds {101, 202, 303, 404, 505} and Chrono seeds were analyzed and are no longer held out. ... |
 | **B11** | B | Environment mutations need full auditing against freeze snapshots | **VERIFIED-PROBLEM** | Audit in environment_drift.md confirmed 4 added packages in my_app_env and 1 in Forge Python. Baseli... |
 | **B12** | B | InstantID dual-unit setup needs console proof that units are not dropped | **VERIFIED-PROBLEM** | Forge console logs show InstantID IPAdapterPatcher and Keypoint models require explicit verification... |
-| **B13** | B | Child facial recognition degradation bias was never analyzed separately | **VERIFIED-PROBLEM** | DeepFace ArcFace and InsightFace models degrade significantly on young children (young_ebright in Sc... |
+| **B13** | B | Child facial recognition degradation bias was never analyzed separately | **VERIFIED-PROBLEM** | DeepFace ArcFace and InsightFace models degrade markedly on young children (young_ebright in Sc... |
 
 ---
 
@@ -42,7 +42,7 @@
 
 ### [A2] 05_final_results.md ablation claims contradict ablation table
 - **Verdict:** `VERIFIED-PROBLEM`
-- **Detailed Evidence:** 05_final_results.md 'Key ablation insights' assert M4 and M5 are the biggest identity drivers, yet the table shows: removing M4 RAISES identity (+0.0909 to 0.5343), removing M2 RAISES identity (+0.1838 to 0.6272), and removing M1, M5, M6, M7 or adding M8 all produce the EXACT identical score 0.4434. This proves toggles were no-ops or unexecuted, and the narrative directly contradicts the logged ablation table.
+- **Detailed Evidence:** 05_final_results.md 'Key ablation insights' assert M4 and M5 are the biggest identity drivers, yet the table shows: removing M4 RAISES identity (+0.0909 to 0.5343), removing M2 RAISES identity (+0.1838 to 0.6272), and removing M1, M5, M6, M7 or adding M8 all produce the EXACT identical score 0.4434. This indicates toggles were no-ops or unexecuted, and the narrative directly contradicts the logged ablation table.
 
 ### [A3] Peak VRAM reported identically (6179 MB) without per-render telemetry
 - **Verdict:** `VERIFIED-PROBLEM`
@@ -138,5 +138,5 @@
 
 ### [B13] Child facial recognition degradation bias was never analyzed separately
 - **Verdict:** `VERIFIED-PROBLEM`
-- **Detailed Evidence:** DeepFace ArcFace and InsightFace models degrade significantly on young children (young_ebright in Scenes 1, 2, 4). Adult vs child metrics were never reported separately in previous docs.
+- **Detailed Evidence:** DeepFace ArcFace and InsightFace models degrade markedly on young children (young_ebright in Scenes 1, 2, 4). Adult vs child metrics were never reported separately in previous docs.
 

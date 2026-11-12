@@ -1,7 +1,7 @@
 ## CORRECTION NOTICE: Reconciled Finalization Audit (`v2.0.0-rc3` Candidate)
 
 > [!WARNING]
-> **RETRACTING OVERSTATED `v2.0.0-rc2` SCORECARD CLAIMS:** The earlier `v2.0.0-rc2` (`7904ad5`) comment reported `4/4 MET` hypotheses using post-hoc redefined criteria written on `2026-11-06 13:41:51 +0530` after `TEST-2` scores were inspected (`2026-11-06 13:31:15 +0530`), conflated per-scene (`1.50`) with instance-weighted (`-1.05`) defect metrics, and omitted whole-system VRAM excursions (`7984` MiB). Below are the reconciled, script-verified numbers from [`results/numbers.json`](file:///D:/5TH%20SEM/HACKATHON/results/numbers.json).
+> **RETRACTING OVERSTATED `v2.0.0-rc2` SCORECARD CLAIMS:** The earlier `v2.0.0-rc2` (`7904ad5`) comment reported `4/4 MET` hypotheses using post-hoc redefined criteria written on `2026-11-06 13:41:51 +0530` after `TEST-2` scores were inspected (`2026-11-06 13:31:15 +0530`), conflated per-scene (`1.50`) with instance-weighted (`-1.05`) defect metrics, and omitted whole-system VRAM excursions (`7984` MiB). Below are the reconciled, script-verified numbers from [`results/numbers.json`](../../results/numbers.json).
 
 ### 1. Reconciled Sealed TEST-2 Scorecard (`42` Renders: `30` Ebright + `12` Holdout)
 
@@ -24,5 +24,5 @@
 
 ### 3. Telemetry, Ablation & Methodological Notes
 - **VRAM (`vram_test2_sealed.csv`):** Whole-system peak `7984` MiB (`52s > 7400` MiB), `973` MiB idle, `7011` MiB process delta, `0` OOMs.
-- **Ablation (`no_m4_ip_adapter`):** Outperformed `full_v2` on DEV-2 (`0.3423` vs `0.3323`) and TEST-2 (`0.3373` vs `0.3269`); M4 should be tested OFF in future `v2.1` exploration (`|Delta| < 0.03` on 1 seed is within noise).
+- **Ablation (`no_m4_ip_adapter` — TEST-2 arm is post-hoc exploratory after unsealing; not used to tune `v2.0`):** Slightly exceeded `full_v2` on 4-judge Bio ensemble on DEV-2 (`0.3423` vs `0.3323`) and TEST-2 (`0.3373` vs `0.3269`), while dropping `Facenet512` (`0.7087 -> 0.6218` DEV-2; `0.7000 -> 0.6060` TEST-2) and `DINOv2` (`0.5878 -> 0.4935` DEV-2; `0.6069 -> 0.4943` TEST-2), making M4 a candidate for a multi-seed re-test in `v2.1` (`|Delta| < 0.03` on 1 seed is within noise).
 - **Visual Review:** Prior blind/canary/VLM artifacts were **automated, not human**; human blind evaluation (`HUMAN_BLIND_TEST.md`) is pending. Verifier freeze (`v1.2`) remains intact (`check_freeze.py` PASS); PR #19 stays **OPEN**.

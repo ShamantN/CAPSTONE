@@ -4,10 +4,10 @@
 **Reconciled Closeout (`v2.0.0-rc3` Candidate) — Honest Artifact-Backed State**
 
 > [!NOTE]
-> Documentation reconciled from `v2.0.0-rc2`: earlier `rc2` summaries omitted pre-registration shifts, mixed defect units (`per-scene` vs `per-face-instance`), overstated Holdout performance, and omitted whole-system VRAM excursions above `7.4 GB`. All metrics below are generated strictly from [`results/numbers.json`](file:///D:/5TH%20SEM/HACKATHON/results/numbers.json).
+> Documentation reconciled from `v2.0.0-rc2`: earlier `rc2` summaries omitted pre-registration shifts, mixed defect units (`per-scene` vs `per-face-instance`), overstated Holdout performance, and omitted whole-system VRAM excursions above `7.4 GB`. All metrics below are generated strictly from [`results/numbers.json`](results/numbers.json).
 
 ### Branch, Tag, Reproduction & Non-Repo Assets
-- **Recommended Branch / Tag:** Use `main` (containing reconciled `v2.0.0` closeout) or tag `v2.0.0-rc3` (`consistency-v2` release candidate snapshot prior to `main` merge).
+- **Recommended Branch / Tag:** Use `main` (post-merge), `finalize/v2.0.0` (closeout PR #37), or tag `v2.0.0-rc3` (`consistency-v2` release candidate snapshot).
 - **Run From Scratch (New Machine, Linux & Google Colab):** Start at [docs/run/00_START_HERE.md](docs/run/00_START_HERE.md), run [tools/verify_setup.py](tools/verify_setup.py), or open the Colab notebook at [notebooks/MMCCP_Colab.ipynb](notebooks/MMCCP_Colab.ipynb).
 - **Reproduce Verification, Statistics & Docs (CPU / No GPU Required):**
   ```powershell
@@ -56,13 +56,13 @@ Evaluated one-shot on **TEST-2** across `42` renders (`30` Ebright / `40` faces;
 - **Ebright:** Identity shows parity with Baseline v1 (`Delta Bio = +0.0056`, scene-cluster 95% CI `[-0.0149, +0.0317]`, image 95% CI `[-0.0124, +0.0244]`, Wilcoxon `W=343.0`, `p=0.3754`); **Rank-1** improved (`+15.0%`, image 95% CI `[+2.4%, +28.6%]` excludes 0, whereas 6-cluster CI `[+0.0%, +33.3%]` includes 0, `p=0.0578`); **Wardrobe** improved (`+35.0%`, cluster CI `[+20.0%, +48.6%]` and image CI `[+22.5%, +47.6%]` both exclude 0, `W=0.0`, `p=0.000183`); **Defects per scene** dropped `51.1%` (`3.07 -> 1.50`, `Delta = -1.57`, cluster CI `[-3.20, -0.13]` and image CI `[-2.37, -0.77]` both exclude 0, `W=39.5`, `p=0.001453`).
 - **Holdout:** MMCCP v2 was **not better than Baseline v1** (`Bio Delta = -0.0162`, `Rank-1 Delta = -8.3%`, `Wardrobe Delta = -4.2%`, `Defects/Scene Delta = -0.67`, all CIs include 0). Spatial pass (`87.5%`, `21/24`) fell below `90.0%` because Scene 4 (`3` expected characters) rendered only `2` characters on all `3` seeds.
 - **Unmeasurable Combined Binding Gate:** `identity_at_position_pass_rate` and `combined_binding_pass_rate` are **`0.0%`** (`0/40` Ebright, `0/24` Holdout) for **both** Baseline v1 and MMCCP v2 due to strict multi-judge ensemble calibration, making combined binding unmeasurable under Verifier v1.2.
-- **Partial Scoring Circularity:** Verifier anchor references are identical to M4/M5 source anchors; InsightFace similarity reflects swap alignment more strongly than independent judges (Section 6 of [`07_measured_results.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/07_measured_results.md)).
+- **Partial Scoring Circularity:** Verifier anchor references are identical to M4/M5 source anchors; InsightFace similarity reflects swap alignment more strongly than independent judges (Section 6 of [`07_measured_results.md`](docs_generated/v2/07_measured_results.md)).
 
 ---
 
 ## 2. Original Pre-Registered Scorecard (`P1`–`P4`)
 
-Full forensic comparison in [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/PREREG_RECONCILIATION.md):
+Full forensic comparison in [`PREREG_RECONCILIATION.md`](docs_generated/v2/PREREG_RECONCILIATION.md):
 - **Overall Original Verdict:** **`0/4` strict all-split original rules satisfied** (`0/4` `MET` across all required TEST-2 splits; `P2` and `P3` pass on Ebright & Combined only while failing Holdout).
 1. **`P1 (Original): Delta Re-ID (Biometric Ensemble & Rank-1) > 0 with 95% CI lower bound > 0` — [`NOT MET`]** (`Ebright Biometric Ensemble Delta = +0.0056 (cluster 95% CI [-0.0149, 0.0317], image 95% CI [-0.0124, 0.0244], Wilcoxon p=0.3754); Holdout Delta = -0.0162 (cluster CI [-0.092, 0.0661]); Combined Delta = -0.0026 (cluster CI [-0.039, 0.033]). Lower bound <= 0 across splits.`)
 2. **`P2 (Original): Spatial assignment pass rate >= 90.0%` — [`NOT MET`]** (`Ebright Spatial Pass = 97.5% (39/40, >=90% MET) and Combined = 93.75% (60/64, >=90%), but Holdout Spatial Pass = 87.5% (21/24, <90% NOT MET due to missing 3rd character on all 3 Scene 4 renders).`)
@@ -71,10 +71,11 @@ Full forensic comparison in [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HA
 
 ---
 
-## 3. Leave-One-Out Ablation (`6` Scenes, `8` Faces, TEST-2 Seed `1101`)
+## 3. Leave-One-Out Ablation (`6` Scenes, `8` Faces, TEST-2 Seed `1101` — Post-Hoc Exploratory Ablation After Unsealing)
 
 > [!WARNING]
-> Deltas smaller than `~0.03` on a single seed (`n=8` faces) lie within single-seed diffusion noise. Notably, **`no_m4_ip_adapter` outperformed `full_v2`** on **both** DEV-2 (`0.3423` vs `0.3323`) and TEST-2 (`0.3373` vs `0.3269`), supporting disabling M4 in future work (`v2.1`) without modifying the frozen `v2.0` configuration.
+> **Provenance (`TEST-2` Ablation):** Post-hoc exploratory ablation on `TEST-2` after unsealing (`tools/run_sealed_test2.py`, PID `1608`, `2026-11-06T05:45:11Z`, scored `13:38:16 +0530` prior to inspection); **not used to tune `v2.0`** (`consistency_v2/best_config.json` unchanged since `2026-11-03`).  
+> **Noise Band & Balanced M4 Readout:** Deltas smaller than `~0.03` on a single seed (`n=8` faces) lie within single-seed diffusion noise. While `no_m4_ip_adapter` edged out `full_v2` on 4-judge biometric ensemble on `DEV-2` (`0.3423` vs `0.3323`) and `TEST-2` (`0.3373` vs `0.3269`), removing M4 sharply dropped `Facenet512` (`0.7087 -> 0.6218` DEV-2; `0.7000 -> 0.6060` TEST-2) and `DINOv2` (`0.5878 -> 0.4935` DEV-2; `0.6069 -> 0.4943` TEST-2) and increased DEV-2 defects (`1.17 -> 1.50`), making M4 a **candidate for a multi-seed re-test in `v2.1`** rather than an unconditional disable.
 
 | Arm | Bio Mean | Rank-1 | Spatial | Wardrobe | Defects/Scene | `Delta Bio vs Full` | Mean Pixel Diff vs Full |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -92,4 +93,4 @@ Full forensic comparison in [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HA
 - **Sealed TEST-2 VRAM (`8112` 1 Hz samples):** Whole-system peak = **`7984` MiB** (`7.797` GiB / `7.984` GB; exceeds `7.4 GB` ceiling: `52`s > `7400` MiB, `29`s > `7577.6` MiB across `36` episodes). Idle-desktop pre-render baseline = `973` MiB (`32` samples), giving `7011` MiB (`6.847` GiB) process-attributable delta (`0` OOMs).
 - **Combined 9 Telemetry CSVs (`9` files, `157357` samples):** Overall peak `8005` MiB, `p99 = 7442.0` MiB, `1838`s > `7400` MiB.
 - **Extra YOLO Person Detector (`conf=0.40`):** Flagged `1/42` v2 TEST-2 renders (`scene_5_seed_1202.png`: `3` vs `2` expected) vs `2/42` in v1 (`scene_1_seed_1202.png` + `scene_2_mentorship_seed_1202.png`).
-- **Visual Review:** Prior DEV-2 blind A/B (`10/12` = `83.33%`), Re-ID (`20/20`), canary (`3/3`), and VLM checks were **automated, not human**. Human TEST-2 Ebright blind evaluation protocol is staged in [`HUMAN_BLIND_TEST.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/visual_review/HUMAN_BLIND_TEST.md) (status: `PENDING_HUMAN_INPUT`).
+- **Visual Review:** Prior DEV-2 blind A/B (`10/12` = `83.33%`), Re-ID (`20/20`), canary (`3/3`), and VLM checks were **automated, not human**. Human TEST-2 Ebright blind evaluation protocol is staged in [`HUMAN_BLIND_TEST.md`](docs_generated/v2/visual_review/HUMAN_BLIND_TEST.md) (status: `PENDING_HUMAN_INPUT`).

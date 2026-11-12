@@ -76,6 +76,36 @@ def _compute_stage_diffs(tracer_data: Dict[str, Any]) -> Dict[str, float]:
     return out
 
 
+def _extract_m4_comparison(ablation_dir: Path) -> Dict[str, Any]:
+    """Extract full full_v2 vs no_m4_ip_adapter judge, DINOv2, spatial, wardrobe & defect balance."""
+    out: Dict[str, Any] = {}
+    for arm in ("full_v2", "no_m4_ip_adapter"):
+        rep = _read_json(ablation_dir / arm / "report.json")
+        sm = rep.get("summary_metrics", {})
+        pjm = sm.get("per_judge_means", {})
+        bd = sm.get("binding_decomposed", {})
+        out[arm] = {
+            "biometric_ensemble_mean": sm.get("biometric_ensemble_mean"),
+            "Facenet512": pjm.get("Facenet512"),
+            "SFace": pjm.get("SFace"),
+            "GhostFaceNet": pjm.get("GhostFaceNet"),
+            "ArcFace": pjm.get("ArcFace"),
+            "dinov2_mean_similarity": sm.get("dinov2_mean_similarity"),
+            "rank1_discrimination_accuracy": sm.get("rank1_discrimination_accuracy"),
+            "spatial_position_pass_rate": bd.get("spatial_position_pass_rate"),
+            "wardrobe_palette_pass_rate": bd.get("wardrobe_palette_pass_rate"),
+            "mean_defects_per_scene": sm.get("mean_defects_per_scene"),
+        }
+    f_d = out.get("full_v2", {})
+    n_d = out.get("no_m4_ip_adapter", {})
+    deltas: Dict[str, Any] = {}
+    for k in f_d:
+        if f_d.get(k) is not None and n_d.get(k) is not None:
+            deltas[k] = round(float(n_d[k]) - float(f_d[k]), 4)
+    out["delta_no_m4_minus_full"] = deltas
+    return out
+
+
 def _ablation_meta(tracer_data: Dict[str, Any], report_data: Dict[str, Any]) -> Dict[str, Any]:
     full = tracer_data.get("conditions", {}).get("full_v2", {})
     renders = full.get("renders", {})
@@ -556,14 +586,18 @@ def collect_numbers() -> Dict[str, Any]:
         },
         "test2_ablation": {
             **_ablation_meta(t2_tracer, t2_eb_rep),
+            "unseal_pid": 1608,
+            "provenance_note": "post-hoc exploratory ablation on TEST-2 after unsealing (tools/run_sealed_test2.py PID 1608 at 2026-11-06T05:45:11Z; scored 13:38:16 +0530 before inspection); not used to tune v2.0",
             "conditions": t2_ablation.get("conditions", {}),
             "stage_diffs": _compute_stage_diffs(t2_tracer),
+            "m4_comparison": _extract_m4_comparison(PROJECT_ROOT / "results" / "ablation_test2"),
         },
         "dev2_bundle": dev2_v2,
         "dev2_ablation": {
             **_ablation_meta(dev2_tracer, dev2_bundle),
             "conditions": dev2_ablation.get("conditions", {}),
             "stage_diffs": _compute_stage_diffs(dev2_tracer),
+            "m4_comparison": _extract_m4_comparison(PROJECT_ROOT / "results" / "ablation_dev2"),
         },
         "telemetry": vram_stats,
         "automated_visual_review": {

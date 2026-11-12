@@ -693,7 +693,11 @@ def render_app_ui():
                 v2_m1 = st.toggle("M1: Multi-Reference Identity Bank", value=True)
                 v2_m2 = st.toggle("M2: Layout Planner (OpenPose + Boxes)", value=True)
                 v2_m3 = st.toggle("M3: True Regional (Forge Couple)", value=True)
-                v2_m4 = st.toggle("M4: Dual InstantID + IP-Adapter Plus", value=True)
+                v2_m4 = st.toggle(
+                    "M4b: Dual InstantID ControlNet (OFF in locked v2.0; IP-Adapter Plus remains ON)",
+                    value=False,
+                    help="Enables Dual InstantID ControlNet (M4b). Locked v2.0 keeps M4b OFF and IP-Adapter Plus-Face (M4) ON.",
+                )
                 v2_m5 = st.toggle("M5: Reliable Face Transplant (InsightFace)", value=True)
                 v2_m6 = st.toggle("M6: Identity Face Detailer", value=(v2_mode != "fast"))
                 v2_m7 = st.toggle("M7: Wardrobe & Palette Lock (CIELAB)", value=True)

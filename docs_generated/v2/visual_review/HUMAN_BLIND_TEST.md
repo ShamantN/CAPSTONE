@@ -11,7 +11,7 @@
 
 Inspect each side-by-side composite image in `docs_generated/v2/visual_review/human_blind_ab/<pair_id>_blind.png`.
 For each pair, judge BOTH **character identity consistency** and **overall visual quality**, and record `"A"`, `"B"`, or `"tie"` under `ab_preference.<pair_id>.selected_option` in:
-- [`docs_generated/v2/visual_review/blind_predictions_human.json`](file:///D:/5TH SEM/HACKATHON/docs_generated/v2/visual_review/blind_predictions_human.json)
+- [`docs_generated/v2/visual_review/blind_predictions_human.json`](blind_predictions_human.json)
 
 | Pair ID | Blind Composite Path |
 | :--- | :--- |
@@ -87,4 +87,10 @@ For each `crop_01` .. `crop_20`, fill `blind_reid.<crop_id>.predicted_character_
 
 ## Next Step (Scoring Only After Human Return)
 
-Once `blind_predictions_human.json` is filled by a human evaluator, score it against the sealed key in `scratch/sealed_keys/human_test2_ebright/`.
+Once `blind_predictions_human.json` is completely filled by a human evaluator, score it against the sealed key in `scratch/sealed_keys/human_test2_ebright/` with:
+
+```powershell
+my_app_env\Scripts\python.exe tools\score_human_blind_test.py
+```
+
+If any `selected_option` or `predicted_character_id` entry is blank, the scorer exits with code `2` (`PENDING_HUMAN_INPUT`) without unblinding or writing a report.

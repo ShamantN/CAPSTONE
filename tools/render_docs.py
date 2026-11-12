@@ -112,11 +112,13 @@ def render_all():
     t2_abl_meta = N["test2_ablation"]
     t2_abl = t2_abl_meta["conditions"]
     t2_diffs = t2_abl_meta["stage_diffs"]
+    t2_m4 = t2_abl_meta.get("m4_comparison", {})
 
     d2_b = N["dev2_bundle"]
     d2_v1 = t2["v1_baselines"]["dev2"]
     d2_abl_meta = N["dev2_ablation"]
     d2_abl = d2_abl_meta["conditions"]
+    d2_m4 = d2_abl_meta.get("m4_comparison", {})
 
     telem = N["telemetry"]
     telem_9 = telem["combined_9_csvs"]
@@ -144,10 +146,10 @@ def render_all():
 **Reconciled Closeout (`v2.0.0-rc3` Candidate) — Honest Artifact-Backed State**
 
 > [!NOTE]
-> Documentation reconciled from `v2.0.0-rc2`: earlier `rc2` summaries omitted pre-registration shifts, mixed defect units (`per-scene` vs `per-face-instance`), overstated Holdout performance, and omitted whole-system VRAM excursions above `{pc['p4_vram_limit_gb']} GB`. All metrics below are generated strictly from [`results/numbers.json`](file:///D:/5TH%20SEM/HACKATHON/results/numbers.json).
+> Documentation reconciled from `v2.0.0-rc2`: earlier `rc2` summaries omitted pre-registration shifts, mixed defect units (`per-scene` vs `per-face-instance`), overstated Holdout performance, and omitted whole-system VRAM excursions above `{pc['p4_vram_limit_gb']} GB`. All metrics below are generated strictly from [`results/numbers.json`](results/numbers.json).
 
 ### Branch, Tag, Reproduction & Non-Repo Assets
-- **Recommended Branch / Tag:** Use `main` (containing reconciled `v2.0.0` closeout) or tag `v2.0.0-rc3` (`consistency-v2` release candidate snapshot prior to `main` merge).
+- **Recommended Branch / Tag:** Use `main` (post-merge), `finalize/v2.0.0` (closeout PR #37), or tag `v2.0.0-rc3` (`consistency-v2` release candidate snapshot).
 - **Run From Scratch (New Machine, Linux & Google Colab):** Start at [docs/run/00_START_HERE.md](docs/run/00_START_HERE.md), run [tools/verify_setup.py](tools/verify_setup.py), or open the Colab notebook at [notebooks/MMCCP_Colab.ipynb](notebooks/MMCCP_Colab.ipynb).
 - **Reproduce Verification, Statistics & Docs (CPU / No GPU Required):**
   ```powershell
@@ -196,13 +198,13 @@ Evaluated one-shot on **TEST-2** across `{comb['images_count']}` renders (`{eb['
 - **Ebright:** Identity shows parity with Baseline v1 (`Delta Bio = {d_eb['delta_bio']:+.4f}`, scene-cluster 95% CI `{_fmt_ci(d_eb['delta_bio_cluster_95ci'])}`, image 95% CI `{_fmt_ci(d_eb['delta_bio_image_95ci'])}`, Wilcoxon `W={d_eb['delta_bio_wilcoxon_w']:.1f}`, `p={d_eb['delta_bio_wilcoxon_p']:.4f}`); **Rank-1** improved (`{d_eb['delta_rank1']*100:+.1f}%`, image 95% CI `{_fmt_ci(d_eb['delta_rank1_image_95ci'], 1, True)}` excludes 0, whereas 6-cluster CI `{_fmt_ci(d_eb['delta_rank1_cluster_95ci'], 1, True)}` includes 0, `p={d_eb['delta_rank1_wilcoxon_p']:.4f}`); **Wardrobe** improved (`{d_eb['delta_wardrobe']*100:+.1f}%`, cluster CI `{_fmt_ci(d_eb['delta_wardrobe_cluster_95ci'], 1, True)}` and image CI `{_fmt_ci(d_eb['delta_wardrobe_image_95ci'], 1, True)}` both exclude 0, `W={d_eb['delta_wardrobe_wilcoxon_w']:.1f}`, `p={d_eb['delta_wardrobe_wilcoxon_p']:.6f}`); **Defects per scene** dropped `{derived['ebright_defects_per_scene_pct_reduction']:.1f}%` (`{v1_eb['mean_defects_per_scene']:.2f} -> {eb['mean_defects_per_scene']:.2f}`, `Delta = {d_eb['delta_defects_per_scene']:+.2f}`, cluster CI `{_fmt_ci(d_eb['delta_defects_per_scene_cluster_95ci'], 2)}` and image CI `{_fmt_ci(d_eb['delta_defects_per_scene_image_95ci'], 2)}` both exclude 0, `W={d_eb['delta_defects_per_scene_wilcoxon_w']:.1f}`, `p={d_eb['delta_defects_per_scene_wilcoxon_p']:.6f}`).
 - **Holdout:** MMCCP v2 was **not better than Baseline v1** (`Bio Delta = {d_ho['delta_bio']:+.4f}`, `Rank-1 Delta = {d_ho['delta_rank1']*100:+.1f}%`, `Wardrobe Delta = {d_ho['delta_wardrobe']*100:+.1f}%`, `Defects/Scene Delta = {d_ho['delta_defects_per_scene']:+.2f}`, all CIs include 0). Spatial pass (`{ho['spatial_pass_rate']*100:.1f}%`, `{ho['spatial_v2_count']}/{ho['spatial_total_count']}`) fell below `{pc['p2_spatial_threshold_pct']:.1f}%` because Scene 4 (`3` expected characters) rendered only `2` characters on all `{len(exp_cases.get('holdout_scene_4', []))}` seeds.
 - **Unmeasurable Combined Binding Gate:** `identity_at_position_pass_rate` and `combined_binding_pass_rate` are **`0.0%`** (`0/{eb['faces_count']}` Ebright, `0/{ho['faces_count']}` Holdout) for **both** Baseline v1 and MMCCP v2 due to strict multi-judge ensemble calibration, making combined binding unmeasurable under Verifier v{meta['verifier_version']}.
-- **Partial Scoring Circularity:** Verifier anchor references are identical to M4/M5 source anchors; InsightFace similarity reflects swap alignment more strongly than independent judges (Section 6 of [`07_measured_results.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/07_measured_results.md)).
+- **Partial Scoring Circularity:** Verifier anchor references are identical to M4/M5 source anchors; InsightFace similarity reflects swap alignment more strongly than independent judges (Section 6 of [`07_measured_results.md`](docs_generated/v2/07_measured_results.md)).
 
 ---
 
 ## 2. Original Pre-Registered Scorecard (`P1`–`P4`)
 
-Full forensic comparison in [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/PREREG_RECONCILIATION.md):
+Full forensic comparison in [`PREREG_RECONCILIATION.md`](docs_generated/v2/PREREG_RECONCILIATION.md):
 - **Overall Original Verdict:** **`{orig_sc['strict_all_splits_met_count']}/4` strict all-split original rules satisfied** (`0/4` `MET` across all required TEST-2 splits; `P2` and `P3` pass on Ebright & Combined only while failing Holdout).
 1. **`{orig_sc['P1']['hypothesis']}` — [`{orig_sc['P1']['status']}`]** (`{orig_sc['P1']['rationale']}`)
 2. **`{orig_sc['P2']['hypothesis']}` — [`{orig_sc['P2']['status']}`]** (`{orig_sc['P2']['rationale']}`)
@@ -211,10 +213,11 @@ Full forensic comparison in [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HA
 
 ---
 
-## 3. Leave-One-Out Ablation (`{t2_abl_meta['sample_size_scenes']}` Scenes, `{t2_abl_meta['sample_size_faces']}` Faces, TEST-2 Seed `{t2_abl_meta['seed']}`)
+## 3. Leave-One-Out Ablation (`{t2_abl_meta['sample_size_scenes']}` Scenes, `{t2_abl_meta['sample_size_faces']}` Faces, TEST-2 Seed `{t2_abl_meta['seed']}` — Post-Hoc Exploratory Ablation After Unsealing)
 
 > [!WARNING]
-> Deltas smaller than `~{pc['ablation_noise_band']:.2f}` on a single seed (`n={t2_abl_meta['sample_size_faces']}` faces) lie within single-seed diffusion noise. Notably, **`no_m4_ip_adapter` outperformed `full_v2`** on **both** DEV-2 (`{d2_abl['no_m4_ip_adapter']['biometric_ensemble_mean']:.4f}` vs `{d2_abl['full_v2']['biometric_ensemble_mean']:.4f}`) and TEST-2 (`{t2_abl['no_m4_ip_adapter']['biometric_ensemble_mean']:.4f}` vs `{t2_abl['full_v2']['biometric_ensemble_mean']:.4f}`), supporting disabling M4 in future work (`v2.1`) without modifying the frozen `v2.0` configuration.
+> **Provenance (`TEST-2` Ablation):** Post-hoc exploratory ablation on `TEST-2` after unsealing (`tools/run_sealed_test2.py`, PID `1608`, `2026-11-06T05:45:11Z`, scored `13:38:16 +0530` prior to inspection); **not used to tune `v2.0`** (`consistency_v2/best_config.json` unchanged since `2026-11-03`).  
+> **Noise Band & Balanced M4 Readout:** Deltas smaller than `~{pc['ablation_noise_band']:.2f}` on a single seed (`n={t2_abl_meta['sample_size_faces']}` faces) lie within single-seed diffusion noise. While `no_m4_ip_adapter` edged out `full_v2` on 4-judge biometric ensemble on `DEV-2` (`{d2_abl['no_m4_ip_adapter']['biometric_ensemble_mean']:.4f}` vs `{d2_abl['full_v2']['biometric_ensemble_mean']:.4f}`) and `TEST-2` (`{t2_abl['no_m4_ip_adapter']['biometric_ensemble_mean']:.4f}` vs `{t2_abl['full_v2']['biometric_ensemble_mean']:.4f}`), removing M4 sharply dropped `Facenet512` (`{d2_m4['full_v2']['Facenet512']:.4f} -> {d2_m4['no_m4_ip_adapter']['Facenet512']:.4f}` DEV-2; `{t2_m4['full_v2']['Facenet512']:.4f} -> {t2_m4['no_m4_ip_adapter']['Facenet512']:.4f}` TEST-2) and `DINOv2` (`{d2_m4['full_v2']['dinov2_mean_similarity']:.4f} -> {d2_m4['no_m4_ip_adapter']['dinov2_mean_similarity']:.4f}` DEV-2; `{t2_m4['full_v2']['dinov2_mean_similarity']:.4f} -> {t2_m4['no_m4_ip_adapter']['dinov2_mean_similarity']:.4f}` TEST-2) and increased DEV-2 defects (`{d2_m4['full_v2']['mean_defects_per_scene']:.2f} -> {d2_m4['no_m4_ip_adapter']['mean_defects_per_scene']:.2f}`), making M4 a **candidate for a multi-seed re-test in `v2.1`** rather than an unconditional disable.
 
 | Arm | Bio Mean | Rank-1 | Spatial | Wardrobe | Defects/Scene | `Delta Bio vs Full` | Mean Pixel Diff vs Full |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -232,7 +235,7 @@ Full forensic comparison in [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HA
 - **Sealed TEST-2 VRAM (`{telem['samples_count']}` 1 Hz samples):** Whole-system peak = **`{telem['peak_vram_mb']}` MiB** (`{telem['peak_vram_gib']:.3f}` GiB / `{telem['peak_vram_gb_decimal']:.3f}` GB; exceeds `{pc['p4_vram_limit_gb']} GB` ceiling: `{telem['seconds_above_7400_mb']}`s > `{pc['p4_vram_limit_mb']:.0f}` MiB, `{telem['seconds_above_7577_6_mib']}`s > `{pc['p4_vram_limit_mib']:.1f}` MiB across `{telem['excursion_episodes_count']}` episodes). Idle-desktop pre-render baseline = `{telem['idle_desktop_baseline_mb']:.0f}` MiB (`{telem['idle_sample_count']}` samples), giving `{telem['process_attributable_delta_peak_mb']:.0f}` MiB (`{telem['process_attributable_delta_peak_gib']:.3f}` GiB) process-attributable delta (`0` OOMs).
 - **Combined 9 Telemetry CSVs (`{telem_9['files_count']}` files, `{telem_9['samples_count']}` samples):** Overall peak `{telem_9['max_mb']:.0f}` MiB, `p99 = {telem_9['p99_mb']:.1f}` MiB, `{telem_9['seconds_above_7400_mb']}`s > `{pc['p4_vram_limit_mb']:.0f}` MiB.
 - **Extra YOLO Person Detector (`conf=0.40`):** Flagged `{total_extra_v2}/{comb['images_count']}` v2 TEST-2 renders (`scene_5_seed_1202.png`: `3` vs `2` expected) vs `{total_extra_v1}/{comb['images_count']}` in v1 (`scene_1_seed_1202.png` + `scene_2_mentorship_seed_1202.png`).
-- **Visual Review:** Prior DEV-2 blind A/B (`{blind_ab['ab_v2_wins']}/{blind_ab['ab_total_pairs']}` = `{blind_ab['ab_v2_win_rate']*100:.2f}%`), Re-ID (`{blind_ab['reid_correct']}/{blind_ab['reid_total_crops']}`), canary (`{canary['total_caught']}/{canary['total_canaries']}`), and VLM checks were **automated, not human**. Human TEST-2 Ebright blind evaluation protocol is staged in [`HUMAN_BLIND_TEST.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/visual_review/HUMAN_BLIND_TEST.md) (status: `{avr['human_blind_test_status']}`).
+- **Visual Review:** Prior DEV-2 blind A/B (`{blind_ab['ab_v2_wins']}/{blind_ab['ab_total_pairs']}` = `{blind_ab['ab_v2_win_rate']*100:.2f}%`), Re-ID (`{blind_ab['reid_correct']}/{blind_ab['reid_total_crops']}`), canary (`{canary['total_caught']}/{canary['total_canaries']}`), and VLM checks were **automated, not human**. Human TEST-2 Ebright blind evaluation protocol is staged in [`HUMAN_BLIND_TEST.md`](docs_generated/v2/visual_review/HUMAN_BLIND_TEST.md) (status: `{avr['human_blind_test_status']}`).
 """
     (PROJECT_ROOT / "README_V2.md").write_text(readme_v2, encoding="utf-8")
     print("[OK] Rendered README_V2.md")
@@ -243,7 +246,7 @@ Full forensic comparison in [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HA
     reconcil_md = f"""# Pre-Registration Reconciliation & Hypothesis Audit (TEST-2)
 
 **Verifier Version:** Frozen `v{meta['verifier_version']}` (`SHA: {meta['verifier_freeze_sha'][:16]}...`)  
-**Scope:** Reconciles the original R10 pre-registered hypotheses (`P1`–`P4`) defined before unsealing `TEST-2` against the post-hoc rules committed in `7904ad5` (`tools/compute_test2_statistics.py`). All metrics below are generated strictly from [`results/numbers.json`](file:///D:/5TH%20SEM/HACKATHON/results/numbers.json).
+**Scope:** Reconciles the original R10 pre-registered hypotheses (`P1`–`P4`) defined before unsealing `TEST-2` against the post-hoc rules committed in `7904ad5` (`tools/compute_test2_statistics.py`). All metrics below are generated strictly from [`results/numbers.json`](../../results/numbers.json).
 
 ---
 
@@ -362,7 +365,7 @@ Defect unit definitions:
 
 ## 2. Original Pre-Registered Scorecard (`P1`–`P4`)
 
-See full table and post-hoc reconciliation in [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/PREREG_RECONCILIATION.md):
+See full table and post-hoc reconciliation in [`PREREG_RECONCILIATION.md`](PREREG_RECONCILIATION.md):
 - **`{orig_sc['P1']['hypothesis']}` — [`{orig_sc['P1']['status']}`]**: {orig_sc['P1']['rationale']}
 - **`{orig_sc['P2']['hypothesis']}` — [`{orig_sc['P2']['status']}`]**: {orig_sc['P2']['rationale']}
 - **`{orig_sc['P3']['hypothesis']}` — [`{orig_sc['P3']['status']}`]**: {orig_sc['P3']['rationale']}
@@ -370,9 +373,12 @@ See full table and post-hoc reconciliation in [`PREREG_RECONCILIATION.md`](file:
 
 ---
 
-## 3. Leave-One-Out Ablation Tables (TEST-2 Seed `{t2_abl_meta['seed']}` & DEV-2 Seed `{d2_abl_meta['seed']}`)
+## 3. Leave-One-Out Ablation Tables (TEST-2 Seed `{t2_abl_meta['seed']}` [Post-Hoc Exploratory After Unsealing] & DEV-2 Seed `{d2_abl_meta['seed']}`)
 
-Single-seed (`n={t2_abl_meta['sample_size_faces']}` faces) biometric deltas smaller than `~{pc['ablation_noise_band']:.2f}` are within diffusion seed noise. On **both** DEV-2 and TEST-2, `no_m4_ip_adapter` exceeded `full_v2`, motivating disabling M4 IP-Adapter Plus in `v2.1` exploration while keeping frozen `v2.0` intact.
+> [!NOTE]
+> **Provenance:** The `TEST-2` ablation arm is a **post-hoc exploratory ablation on `TEST-2` after unsealing; not used to tune `v2.0`** (executed once inside `tools/run_sealed_test2.py` PID `1608`, `2026-11-06T05:45:11Z`, scored `13:38:16 +0530` prior to `13:38:50 +0530` score inspection; `consistency_v2/best_config.json` unchanged since `2026-11-03`).
+
+Single-seed (`n={t2_abl_meta['sample_size_faces']}` faces) biometric deltas smaller than `~{pc['ablation_noise_band']:.2f}` are within diffusion seed noise. On **both** DEV-2 and TEST-2, `no_m4_ip_adapter` slightly exceeded `full_v2` on 4-judge Bio ensemble (`+0.0100` DEV-2, `+0.0104` TEST-2), **while losing** sharply on `Facenet512` (`{d2_m4['full_v2']['Facenet512']:.4f} -> {d2_m4['no_m4_ip_adapter']['Facenet512']:.4f}` DEV-2; `{t2_m4['full_v2']['Facenet512']:.4f} -> {t2_m4['no_m4_ip_adapter']['Facenet512']:.4f}` TEST-2) and `DINOv2` (`{d2_m4['full_v2']['dinov2_mean_similarity']:.4f} -> {d2_m4['no_m4_ip_adapter']['dinov2_mean_similarity']:.4f}` DEV-2; `{t2_m4['full_v2']['dinov2_mean_similarity']:.4f} -> {t2_m4['no_m4_ip_adapter']['dinov2_mean_similarity']:.4f}` TEST-2) and adding DEV-2 defects (`{d2_m4['full_v2']['mean_defects_per_scene']:.2f} -> {d2_m4['no_m4_ip_adapter']['mean_defects_per_scene']:.2f}`), making M4 a **candidate for a multi-seed re-test in `v2.1`** while keeping frozen `v2.0` intact. (Note: `M10` Identity Memory is ON in locked eval config with no LOO ablation arm, so no empirical benefit is claimed for `M10`.)
 
 | Arm | TEST-2 Bio (`n={t2_abl_meta['sample_size_faces']}`) | TEST-2 `Delta Bio` | TEST-2 Pixel Diff | DEV-2 Bio (`n={d2_abl_meta['sample_size_faces']}`) | DEV-2 `Delta Bio` |
 | :--- | :---: | :---: | :---: | :---: | :---: |
@@ -423,7 +429,7 @@ All images below were inspected directly with the image viewer before reading th
 
 ## 7. Visual Review Status (`automated, not human`)
 - Prior Phase R8 evaluations on DEV-2 (`{blind_ab['ab_v2_wins']}/{blind_ab['ab_total_pairs']}` blind A/B preference = `{blind_ab['ab_v2_win_rate']*100:.2f}%`, `p={blind_ab['ab_p_value']:.4f}`; `{blind_ab['reid_correct']}/{blind_ab['reid_total_crops']}` blind crop Re-ID; `{canary['total_caught']}/{canary['total_canaries']}` planted canaries; VLM `kappa` proxy) are **automated, not human** evaluations (`blind_review_summary.json` / `blind_evaluation_report.md` marked `AUTOMATED-SUPERSEDED`).
-- Human TEST-2 Ebright blind test is staged awaiting user scoring in [`HUMAN_BLIND_TEST.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/visual_review/HUMAN_BLIND_TEST.md) and [`blind_predictions_human.json`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/visual_review/blind_predictions_human.json).
+- Human TEST-2 Ebright blind test is staged awaiting user scoring in [`HUMAN_BLIND_TEST.md`](visual_review/HUMAN_BLIND_TEST.md) and [`blind_predictions_human.json`](visual_review/blind_predictions_human.json).
 """
     (PROJECT_ROOT / "docs_generated" / "v2" / "07_measured_results.md").write_text(measured_md, encoding="utf-8")
     print("[OK] Rendered docs_generated/v2/07_measured_results.md")
@@ -448,7 +454,7 @@ All images below were inspected directly with the image viewer before reading th
 4. **Original Pre-Registered Hypotheses (`P1`–`P4`):**
    - Strict all-split verdict: **`{orig_sc['strict_all_splits_met_count']}/4` MET** (`P1` NOT MET; `P2`/`P3` pass Ebright `{eb['spatial_pass_rate']*100:.1f}%`/`{eb['wardrobe_pass_rate']*100:.1f}%` and Combined `{comb['spatial_pass_rate']*100:.2f}%`/`{comb['wardrobe_pass_rate']*100:.2f}%` only, failing Holdout; `P4` NOT MET).
 5. **Known Limits & Future Work:**
-   - `identity_at_position` & `combined_binding` = `0.0%` for both v1 & v2; LOO ablations show `no_m4_ip_adapter` outperformed `full_v2` on DEV-2 & TEST-2; prior visual review checks were **automated, not human** (human TEST-2 blind test pending).
+   - `identity_at_position` & `combined_binding` = `0.0%` for both v1 & v2; post-hoc exploratory ablations (not used to tune `v2.0`) show `no_m4_ip_adapter` slightly exceeded `full_v2` on 4-judge Bio inside `0.03` noise while dropping `Facenet512`/`DINOv2` (candidate for a multi-seed re-test in `v2.1`); `M10` is ON with no ablation arm; prior visual review checks were **automated, not human** (human TEST-2 blind test pending).
 """
     (PROJECT_ROOT / "docs_generated" / "v2" / "07_PPT_UPDATE.md").write_text(ppt_update, encoding="utf-8")
 
@@ -476,13 +482,13 @@ All images below were inspected directly with the image viewer before reading th
 
     spark_notes = f"""# MMCCP v2.0 Spark Notes for Defense / Review (Reconciled)
 
-- **What MMCCP v2.0 Does:** Training-free conditioning & refinement pipeline (`M1` Bank, `M2` OpenPose Layout, `M3` Regional Couple, `M4` IP-Adapter Plus, `M5` Direct InsightFace Swap, `M6` Adaptive Face Detailer, `M7` CIELAB Wardrobe Lock).
+- **What MMCCP v2.0 Does:** Training-free conditioning & refinement pipeline (`8` of `12` numbered methods ON: `M1` Bank, `M2` OpenPose Layout, `M3` Regional Couple, `M4` IP-Adapter Plus, `M5` Direct InsightFace Swap, `M6` Adaptive Face Detailer, `M7` CIELAB Wardrobe Lock, `M10` Identity Memory [unablated]; `4` OFF: `M8`, `M9`, `M11`, `M12`, plus `M4b` Dual InstantID sub-option OFF).
 - **What Actually Improved on Sealed TEST-2 Ebright (`n={eb['images_count']}` scenes):**
   - Biometric similarity was at parity with Baseline v1 (`{v1_eb['biometric_ensemble_mean']:.4f} -> {eb['biometric_ensemble_mean']:.4f}`, `Delta = {d_eb['delta_bio']:+.4f}`, CI crosses 0), while **Rank-1 identity disambiguation** rose `{v1_eb['rank1_accuracy']*100:.1f}% -> {eb['rank1_accuracy']*100:.1f}%` (`{eb['rank1_v2_count']}/{eb['rank1_total_count']}` vs `{eb['rank1_v1_count']}/{eb['rank1_total_count']}`, image CI `{_fmt_ci(d_eb['delta_rank1_image_95ci'], 1, True)}`), **Wardrobe pass rate** rose `{v1_eb['wardrobe_pass_rate']*100:.1f}% -> {eb['wardrobe_pass_rate']*100:.1f}%` (`p={d_eb['delta_wardrobe_wilcoxon_p']:.6f}`), and **scene-level defects** dropped `{v1_eb['mean_defects_per_scene']:.2f} -> {eb['mean_defects_per_scene']:.2f}` (`-{derived['ebright_defects_per_scene_pct_reduction']:.1f}%`, `p={d_eb['delta_defects_per_scene_wilcoxon_p']:.6f}`).
 - **Where v2.0 Fell Short (Honest Defense Takeaways):**
   - **Holdout (`n={ho['images_count']}` scenes):** v2 was not better than v1 (`Bio {ho['biometric_ensemble_mean']:.4f} vs {v1_ho['biometric_ensemble_mean']:.4f}`, `Rank-1 {ho['rank1_accuracy']*100:.1f}% vs {v1_ho['rank1_accuracy']*100:.1f}%`, `Wardrobe {ho['wardrobe_pass_rate']*100:.1f}% vs {v1_ho['wardrobe_pass_rate']*100:.1f}%`), and `M2`/`M3`/`M5` dropped the 3rd character on all `{len(exp_cases.get('holdout_scene_4', []))}` Holdout Scene 4 renders (`Spatial = {ho['spatial_pass_rate']*100:.1f}% < {pc['p2_spatial_threshold_pct']:.1f}%`).
   - **Pre-Registration (`{orig_sc['strict_all_splits_met_count']}/4` strict):** Only `P2` Spatial & `P3` Wardrobe passed on Ebright alone; original `P1`, Holdout `P2`/`P3`, and `P4` (`{telem['peak_vram_mb']}` MiB whole-system peak > `{pc['p4_vram_limit_gb']} GB`, `{total_extra_v2}/{comb['images_count']}` extra YOLO person) were `NOT MET`.
-  - **Methodology Caveats:** `combined_binding = {eb['combined_binding_pass_rate']*100:.1f}%` in both v1 and v2; `no_m4_ip_adapter` outperformed `full_v2` on DEV-2 & TEST-2 (`recommend M4 OFF in v2.1`); prior blind checks were **automated, not human**; scoring shares InsightFace anchor family with `M5`.
+  - **Methodology Caveats:** `combined_binding = {eb['combined_binding_pass_rate']*100:.1f}%` in both v1 and v2; post-hoc exploratory ablations (not used to tune `v2.0`) show `no_m4_ip_adapter` slightly edged `full_v2` on 4-judge Bio inside `0.03` noise while sharply dropping `Facenet512`/`DINOv2` (candidate for a multi-seed re-test in `v2.1`); `M10` has no ablation arm; `M7` recolours toward the same `clothing_colors` target checked by `wardrobe_pass_rate`; prior blind checks were **automated, not human**; scoring shares InsightFace anchor family with `M5`.
 """
     (PROJECT_ROOT / "docs_generated" / "v2" / "SPARK_NOTES.md").write_text(spark_notes, encoding="utf-8")
 
@@ -492,7 +498,7 @@ All images below were inspected directly with the image viewer before reading th
     pr19_comment = f"""## CORRECTION NOTICE: Reconciled Finalization Audit (`v2.0.0-rc3` Candidate)
 
 > [!WARNING]
-> **RETRACTING OVERSTATED `v2.0.0-rc2` SCORECARD CLAIMS:** The earlier `v2.0.0-rc2` (`{tl['rc2_commit']}`) comment reported `4/4 MET` hypotheses using post-hoc redefined criteria written on `{tl['compute_test2_statistics_authored_ist']}` after `TEST-2` scores were inspected (`{tl['first_v2_test2_score_ist']}`), conflated per-scene (`{eb['mean_defects_per_scene']:.2f}`) with instance-weighted (`{d_eb['delta_defects_per_instance_weighted']:+.2f}`) defect metrics, and omitted whole-system VRAM excursions (`{telem['peak_vram_mb']}` MiB). Below are the reconciled, script-verified numbers from [`results/numbers.json`](file:///D:/5TH%20SEM/HACKATHON/results/numbers.json).
+> **RETRACTING OVERSTATED `v2.0.0-rc2` SCORECARD CLAIMS:** The earlier `v2.0.0-rc2` (`{tl['rc2_commit']}`) comment reported `4/4 MET` hypotheses using post-hoc redefined criteria written on `{tl['compute_test2_statistics_authored_ist']}` after `TEST-2` scores were inspected (`{tl['first_v2_test2_score_ist']}`), conflated per-scene (`{eb['mean_defects_per_scene']:.2f}`) with instance-weighted (`{d_eb['delta_defects_per_instance_weighted']:+.2f}`) defect metrics, and omitted whole-system VRAM excursions (`{telem['peak_vram_mb']}` MiB). Below are the reconciled, script-verified numbers from [`results/numbers.json`](../../results/numbers.json).
 
 ### 1. Reconciled Sealed TEST-2 Scorecard (`{comb['images_count']}` Renders: `{eb['images_count']}` Ebright + `{ho['images_count']}` Holdout)
 
@@ -515,7 +521,7 @@ All images below were inspected directly with the image viewer before reading th
 
 ### 3. Telemetry, Ablation & Methodological Notes
 - **VRAM (`vram_test2_sealed.csv`):** Whole-system peak `{telem['peak_vram_mb']}` MiB (`{telem['seconds_above_7400_mb']}s > {pc['p4_vram_limit_mb']:.0f}` MiB), `{telem['idle_desktop_baseline_mb']:.0f}` MiB idle, `{telem['process_attributable_delta_peak_mb']:.0f}` MiB process delta, `{pc['p4_max_ooms']}` OOMs.
-- **Ablation (`no_m4_ip_adapter`):** Outperformed `full_v2` on DEV-2 (`{d2_abl['no_m4_ip_adapter']['biometric_ensemble_mean']:.4f}` vs `{d2_abl['full_v2']['biometric_ensemble_mean']:.4f}`) and TEST-2 (`{t2_abl['no_m4_ip_adapter']['biometric_ensemble_mean']:.4f}` vs `{t2_abl['full_v2']['biometric_ensemble_mean']:.4f}`); M4 should be tested OFF in future `v2.1` exploration (`|Delta| < {pc['ablation_noise_band']:.2f}` on 1 seed is within noise).
+- **Ablation (`no_m4_ip_adapter` — TEST-2 arm is post-hoc exploratory after unsealing; not used to tune `v2.0`):** Slightly exceeded `full_v2` on 4-judge Bio ensemble on DEV-2 (`{d2_abl['no_m4_ip_adapter']['biometric_ensemble_mean']:.4f}` vs `{d2_abl['full_v2']['biometric_ensemble_mean']:.4f}`) and TEST-2 (`{t2_abl['no_m4_ip_adapter']['biometric_ensemble_mean']:.4f}` vs `{t2_abl['full_v2']['biometric_ensemble_mean']:.4f}`), while dropping `Facenet512` (`{d2_m4['full_v2']['Facenet512']:.4f} -> {d2_m4['no_m4_ip_adapter']['Facenet512']:.4f}` DEV-2; `{t2_m4['full_v2']['Facenet512']:.4f} -> {t2_m4['no_m4_ip_adapter']['Facenet512']:.4f}` TEST-2) and `DINOv2` (`{d2_m4['full_v2']['dinov2_mean_similarity']:.4f} -> {d2_m4['no_m4_ip_adapter']['dinov2_mean_similarity']:.4f}` DEV-2; `{t2_m4['full_v2']['dinov2_mean_similarity']:.4f} -> {t2_m4['no_m4_ip_adapter']['dinov2_mean_similarity']:.4f}` TEST-2), making M4 a candidate for a multi-seed re-test in `v2.1` (`|Delta| < {pc['ablation_noise_band']:.2f}` on 1 seed is within noise).
 - **Visual Review:** Prior blind/canary/VLM artifacts were **automated, not human**; human blind evaluation (`HUMAN_BLIND_TEST.md`) is pending. Verifier freeze (`v{meta['verifier_version']}`) remains intact (`check_freeze.py` PASS); PR #19 stays **OPEN**.
 """
     (PROJECT_ROOT / "docs_generated" / "v2" / "PR19_FINAL_COMMENT.md").write_text(pr19_comment, encoding="utf-8")
@@ -535,11 +541,18 @@ All images below were inspected directly with the image viewer before reading th
         )
         new_banner = (
             "> [!NOTE]\n"
+            "> **ARCHITECTURE REFERENCE ONLY:** Quantitative results, pre-registration reconciliation, and closeout caveats live in root [`README_V2.md`](../../README_V2.md), [`07_measured_results.md`](07_measured_results.md), and [`PREREG_RECONCILIATION.md`](PREREG_RECONCILIATION.md).\n"
+            "> All `v2.0.0-rc1` and `v2.0.0-rc2` overstatements have been retracted and reconciled under Frozen Verifier v1.2."
+        )
+        old_abs_banner = (
+            "> [!NOTE]\n"
             "> **ARCHITECTURE REFERENCE ONLY:** Quantitative results, pre-registration reconciliation, and closeout caveats live in root [`README_V2.md`](file:///D:/5TH%20SEM/HACKATHON/README_V2.md), [`07_measured_results.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/07_measured_results.md), and [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/PREREG_RECONCILIATION.md).\n"
             "> All `v2.0.0-rc1` and `v2.0.0-rc2` overstatements have been retracted and reconciled under Frozen Verifier v1.2."
         )
         if old_banner in dr_txt:
             docs_readme_path.write_text(dr_txt.replace(old_banner, new_banner), encoding="utf-8")
+        elif old_abs_banner in dr_txt:
+            docs_readme_path.write_text(dr_txt.replace(old_abs_banner, new_banner), encoding="utf-8")
 
     print("[OK] Rendered all 7 documentation artifacts strictly from results/numbers.json")
 

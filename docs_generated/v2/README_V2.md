@@ -1,13 +1,13 @@
 # Multi-Modal Character Consistency Pipeline (MMCCP) v2
 
 > [!NOTE]
-> **ARCHITECTURE REFERENCE ONLY:** Quantitative results, pre-registration reconciliation, and closeout caveats live in root [`README_V2.md`](file:///D:/5TH%20SEM/HACKATHON/README_V2.md), [`07_measured_results.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/07_measured_results.md), and [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/PREREG_RECONCILIATION.md).
+> **ARCHITECTURE REFERENCE ONLY:** Quantitative results, pre-registration reconciliation, and closeout caveats live in root [`README_V2.md`](../../README_V2.md), [`07_measured_results.md`](07_measured_results.md), and [`PREREG_RECONCILIATION.md`](PREREG_RECONCILIATION.md).
 > All `v2.0.0-rc1` and `v2.0.0-rc2` overstatements have been retracted and reconciled under Frozen Verifier v1.2.
 
 **PES University Capstone Phase 3 — Project ID:** `PW26_CGM_02`  
 **GitHub Repository:** [https://github.com/ShamantN/CAPSTONE.git](https://github.com/ShamantN/CAPSTONE.git)  
-**Integration Branch:** `consistency-v2`  
-**Tags:** `baseline-v1`, `verifier-frozen`, `v2.0.0-rc1` (superseded), `pre-repair-snapshot`  
+**Active Branches:** `main` (reconciled baseline/docs), `consistency-v2` (integration history), `finalize/v2.0.0` (PR #37 closeout)  
+**Tags:** `baseline-v1`, `verifier-frozen`, `verifier-v1.1-frozen`, `verifier-v1.2-frozen`, `test2-sealed`, `v2.0.0-rc1` (superseded), `v2.0.0-rc2` (retracted scorecard), `v2.0.0-rc3`, `pre-repair-snapshot`  
 
 ---
 
@@ -28,56 +28,58 @@ cmd.exe /c "cd /d C:\Stable-Diffusion && run.bat"
 
 ### Launch Streamlit Visual Studio
 ```powershell
-& "D:\5TH SEM\HACKATHON\my_app_env\Scripts\streamlit.exe" run app.py --server.port 8501
+my_app_env\Scripts\streamlit.exe run app.py --server.port 8501
 ```
-Open your browser to `http://localhost:8501`. Select **Consistency v2 (MMCCP)** in the sidebar to enable methods M1 through M10.
+Open your browser to `http://localhost:8501`. Under **⚙️ Pipeline Configuration** -> **Pipeline Architecture:** in the left sidebar, select **`v2 (Consistency v2 SOTA)`** to configure `ConsistencyV2Config`.
 
 ### Run Headless Pipeline from CLI
 ```powershell
 # Run single scene in Default mode
-& "D:\5TH SEM\HACKATHON\my_app_env\Scripts\python.exe" run_from_scratch.py --pipeline v2 --mode default --story storyboards/ebright.json
+my_app_env\Scripts\python.exe run_from_scratch.py --pipeline v2 --mode default --story storyboards/ebright.json
 
 # Run in Fast screening mode (reduced steps, no detailer)
-& "D:\5TH SEM\HACKATHON\my_app_env\Scripts\python.exe" run_from_scratch.py --pipeline v2 --mode fast --story storyboards/ebright.json
+my_app_env\Scripts\python.exe run_from_scratch.py --pipeline v2 --mode fast --story storyboards/ebright.json
 
-# Run in Quality mode (Best-of-N selection + Face Detailer)
-& "D:\5TH SEM\HACKATHON\my_app_env\Scripts\python.exe" run_from_scratch.py --pipeline v2 --mode quality --story storyboards/ebright.json
+# Run in Quality mode (configures higher steps; note best-of-N config flag is not looped inside generate_scene)
+my_app_env\Scripts\python.exe run_from_scratch.py --pipeline v2 --mode quality --story storyboards/ebright.json
 ```
 
 ---
 
-## 2. Pipeline Execution Modes
+## 2. Pipeline Execution Modes (`8` of `12` Numbered Methods ON, `4` OFF, `M4b` Sub-Option OFF — Verified in `consistency_v2/config.py` & `consistency_v2/best_config.json`)
+
+> Locked `v2.0` (`default` mode): `8` of `12` numbered methods ON (`M1, M2, M3, M4 IP-Adapter Plus-Face, M5, M6, M7, M10` [unablated]), `4` OFF (`M8, M9, M11, M12`), plus `M4b` Dual InstantID sub-option OFF.
 
 | Parameter | Fast Mode (`--mode fast`) | Default Mode (`--mode default`) | Quality Mode (`--mode quality`) |
 | :--- | :--- | :--- | :--- |
-| **Pass 1 Steps (txt2img)** | 14 steps | 20 steps | 25 steps |
-| **Pass 2 Steps (img2img)** | 10 steps | 15 steps | 18 steps |
-| **M1: Identity Bank** | Active (Centroid) | Active (Nearest Pose/Scale) | Active (Nearest Pose/Scale) |
-| **M2: Layout Planner** | Active (OpenPose) | Active (OpenPose + Depth) | Active (OpenPose + Depth) |
+| **Pass 1 Steps (`txt2img`)** | `14` steps | `20` steps | `25` steps |
+| **Pass 2 Steps (`img2img`)** | `10` steps | `15` steps | `18` steps |
+| **M1: Identity Bank** | Active (`pose_and_scale`) | Active (`pose_and_scale`) | Active (`pose_and_scale`) |
+| **M2: Layout Planner** | Active (`OpenPose`) | Active (`OpenPose`) | Active (`OpenPose`) |
 | **M3: Regional Couple** | Active | Active | Active |
-| **M4: Dual InstantID** | Active ($w=0.55$) | Active ($w=0.65$) | Active ($w=0.70$) |
-| **M5: Reliable Swap** | Active (Direct InsightFace) | Active (Direct InsightFace) | Active (Direct InsightFace + CodeFormer) |
-| **M6: Face Detailer** | Disabled | Active ($denoise=0.35$) | Active ($denoise=0.38$, steps$=25$) |
-| **M7: Wardrobe Lock** | Disabled | Active ($\Delta E \le 38.0$) | Active ($\Delta E \le 35.0$) |
-| **M9: Best-of-N Selection** | Disabled ($N=1$) | Disabled ($N=1$) | Active ($N=3$, Screen + Heal) |
-| **M10: Identity Memory** | Disabled | Active | Active |
-| **Latency Budget** | $\approx 45$ seconds / scene | $\approx 1.8$ minutes / scene | $\approx 4.5$ minutes / scene |
-| **Peak VRAM Budget** | $\approx 5.4$ GB | $\approx 6.2$ GB | $\approx 6.4$ GB |
+| **M4: IP-Adapter Plus / InstantID** | IP-Adapter Plus (`0.55`), InstantID `OFF` | IP-Adapter Plus (`0.55`), InstantID `OFF` | IP-Adapter Plus (`0.55`), InstantID `OFF` |
+| **M5: Reliable Swap** | Active (`inswapper_128` + CodeFormer) | Active (`inswapper_128` + CodeFormer) | Active (`inswapper_128` + CodeFormer) |
+| **M6: Face Detailer** | Disabled | Active (`denoise=0.28`, `steps=20`) | Active (`denoise=0.28`, `steps=20`) |
+| **M7: Wardrobe Lock** | Active ($\Delta E \le 38.0$, `blend=0.70` in code) | Active ($\Delta E \le 38.0$, `blend=0.70` in code) | Active ($\Delta E \le 38.0$, `blend=0.70` in code) |
+| **M9: Best-of-N Flag** | Disabled | Disabled | `enable_best_of_n=True` (`3`, logged only; not executed in `generate_scene()`) |
+| **M10: Identity Memory** | Active (`0.75` threshold) | Active (`0.75` threshold) | Active (`0.75` threshold) |
+| **Measured Latency (`r9_clean_slate_telemetry`)** | Not separately timed | `93.72` seconds / scene | `114.38` seconds / scene |
+| **Measured Peak VRAM (`vram_test2_sealed.csv` / `r9`)** | Not separately profiled | `7984` MiB (`7.797` GiB) whole-system peak (`7011` MiB delta) | `7964` MiB (`7.777` GiB) observed across combined `r9` trace (not isolated to `--mode quality`) |
 
 ---
 
 ## 3. Rollback to Baseline Pipeline (v1)
 
-The v1 pipeline remains 100% intact and functional without any breaking modifications.
+The v1 pipeline remains intact and functional without any breaking modifications.
 
 ### In the Web UI (`app.py`):
-1. In the left sidebar, navigate to the **Pipeline Architecture** section.
-2. Select the **Consistency v1 (Baseline)** radio button.
-3. Click **Execute Storyboard Generation**.
+1. In the left sidebar under **⚙️ Pipeline Configuration**, navigate to the **Pipeline Architecture:** radio control.
+2. Select **`v1 (Baseline Phase 3)`**.
+3. Click **`⚡ Generate 6-Scene Storyboard with Phase 3 Enhancements`** (or **`⚡ Generate 6-Scene Storyboard with Consistency v2 (SOTA)`** when running `v2`).
 
 ### In the Headless CLI:
 ```powershell
-& "D:\5TH SEM\HACKATHON\my_app_env\Scripts\python.exe" run_from_scratch.py --pipeline v1 --story storyboards/ebright.json
+my_app_env\Scripts\python.exe run_from_scratch.py --pipeline v1 --story storyboards/ebright.json
 ```
 
 ---
@@ -86,14 +88,15 @@ The v1 pipeline remains 100% intact and functional without any breaking modifica
 
 - **Remote:** `https://github.com/ShamantN/CAPSTONE.git` (`origin`)
 - **Branches:**
-  - `main`: Production stable branch. Never committed to directly.
-  - `consistency-v2`: Long-lived integration branch containing all v2 code, verifier, tests, and documentation.
-  - `sync/local-baseline`: Baseline import branch with open PR #1 into `main`.
+  - `main`: Production stable branch (reconciled docs + PR #36). Never committed to directly.
+  - `consistency-v2`: Integration branch containing v2 code, verifier, tests, and documentation history.
+  - `finalize/v2.0.0`: Closeout PR #37 branch targeting `main`.
   - Feature branches: `feat/verifier` (PR #3), `fix/verifier-encoding` (PR #4), `feat/m1-identity-bank` (PR #5), `feat/m2-layout-planner` (PR #6), `feat/m3-regional-couple` (PR #7), `feat/m4-identity-units` (PR #9), `feat/m5-face-transplant` (PR #10), `feat/m6-face-detailer` (PR #11), `feat/m7-wardrobe-lock` (PR #12), `feat/m8-reference-only` (PR #13), `feat/m9-best-of-n-healing` (PR #14), `feat/m10-identity-memory` (PR #15), `feat/pipeline-v2-integration` (PR #16), `feat/ui-v2` (PR #17).
 - **Annotated Tags:**
   - `baseline-v1`: Initial code import and baseline measurement state.
-  - `verifier-frozen`: Deterministic verification suite frozen with SHA256 in `consistency_v2/verifier_freeze.json`.
-  - `v2.0.0-rc1`: Release candidate containing all accepted methods (M1–M10), full test reports, and review presentation materials.
+  - `verifier-frozen`, `verifier-v1.1-frozen`, `verifier-v1.2-frozen`: Deterministic verification suite frozen with SHA-256 in `consistency_v2/verifier_freeze.json`.
+  - `test2-sealed`: Sealed `TEST-2` snapshot prior to one-shot evaluation.
+  - `v2.0.0-rc1`, `v2.0.0-rc2`, `v2.0.0-rc3`: Release candidates (`rc2` post-hoc scorecard shifts formally retracted in `rc3`).
 
 ---
 
@@ -101,17 +104,15 @@ The v1 pipeline remains 100% intact and functional without any breaking modifica
 
 M11 was deliberately marked **OUT OF SCOPE** for this run to prioritize inference-time spatial binding, multi-reference identity conditioning, reliable face transplantation, and robust evaluation without the heavy computational and storage overhead of fine-tuning.
 
-A clean extension point has been preserved in the codebase so M11 can be added later without refactoring existing pipelines:
+A placeholder extension hook is present in config (`v2.1` would need to wire runtime loading):
 
-1. **Config Toggle:**
-   - In [`consistency_v2/config.py`](file:///D:/5TH%20SEM/HACKATHON/consistency_v2/config.py), the parameter `use_character_lora: bool = False` is already present. Setting `use_character_lora=True` in `best_config.json` will activate downstream LoRA loading.
-2. **LoRA Registry:**
-   - [`conditioning/lora_registry.py`](file:///D:/5TH%20SEM/HACKATHON/conditioning/lora_registry.py) remains fully functional and provides `resolve_character_lora(char_id)` to map character tokens to trained `.safetensors` files in `C:\Stable-Diffusion\webui\models\Lora\`.
+1. **Config Toggle (Placeholder Only in `v2.0`):**
+   - In [`consistency_v2/config.py`](../../consistency_v2/config.py), `use_character_lora: bool = False` exists as a configuration field, but `consistency_v2/pipeline_v2.py` does **not** currently read it at runtime; downstream LoRA prompt/unit wiring must be implemented in `v2.1`.
+2. **LoRA Registry Utility:**
+   - [`conditioning/lora_registry.py`](../../conditioning/lora_registry.py) defines `LoRARegistry(lora_dir)` with `scan_loras()` and `build_lora_prompt_string()` to enumerate `.safetensors` files under a Forge `models/Lora/` folder (pass `lora_dir` explicitly — passing `None` triggers an assignment bug in `__init__`).
 3. **Dedicated Held-Out Seeds for LoRA:**
    - The seeds **{606, 707, 808}** were strictly held out and reserved. They have **NEVER** been used for development, tuning, testing, or ablation in this run. A future LoRA training run can use these clean seeds to benchmark generalization on truly untouched random noise vectors.
-4. **Step-by-Step Training Guide:**
+4. **Planned Future Training Steps (`v2.1`):**
    - Install `kohya-ss/sd-scripts` or run LoRA training in a separate isolated venv.
-   - For each character, curate 15–25 high-resolution cropped portrait and full-body images from the M1 Identity Bank (`consistency_v2/banks/<char_id>/`).
-   - Train an SDXL rank-32 / alpha-16 LoRA with text encoder training using target trigger tokens (e.g., `Ebright_Y7K9`).
-   - Copy the resulting `<char_id>.safetensors` into `C:\Stable-Diffusion\webui\models\Lora/`.
-   - Update `conditioning/lora_registry.py` to register the file, and set `use_character_lora = True` in `consistency_v2/config.py`.
+   - Curate high-resolution cropped portrait and full-body images per character from the M1 Identity Bank (`consistency_v2/banks/<char_id>/`).
+   - Train an SDXL LoRA with trigger tokens, place `.safetensors` into `$FORGE_ROOT/webui/models/Lora/`, pass that path into `LoRARegistry(lora_dir=...)`, and wire `use_character_lora` inside `consistency_v2/pipeline_v2.py`.

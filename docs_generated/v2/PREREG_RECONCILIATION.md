@@ -1,7 +1,7 @@
 # Pre-Registration Reconciliation & Hypothesis Audit (TEST-2)
 
 **Verifier Version:** Frozen `v1.2` (`SHA: 3fa69071f888643b...`)  
-**Scope:** Reconciles the original R10 pre-registered hypotheses (`P1`–`P4`) defined before unsealing `TEST-2` against the post-hoc rules committed in `7904ad5` (`tools/compute_test2_statistics.py`). All metrics below are generated strictly from [`results/numbers.json`](file:///D:/5TH%20SEM/HACKATHON/results/numbers.json).
+**Scope:** Reconciles the original R10 pre-registered hypotheses (`P1`–`P4`) defined before unsealing `TEST-2` against the post-hoc rules committed in `7904ad5` (`tools/compute_test2_statistics.py`). All metrics below are generated strictly from [`results/numbers.json`](../../results/numbers.json).
 
 ---
 
