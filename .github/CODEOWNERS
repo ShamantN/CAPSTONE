@@ -1,0 +1,8 @@
+# Mandatory maintainer review for frozen evaluation, split boundaries, and canonical results
+/consistency_v2/verify/ @ShamantN
+/consistency_v2/verifier_freeze.json @ShamantN
+/consistency_v2/splits.py @ShamantN
+/results/split_access_log.jsonl @ShamantN
+/storyboards/holdout_v2.json @ShamantN
+/results/numbers.json @ShamantN
+
