@@ -6,7 +6,7 @@
     "verifier_version": "1.2",
     "verifier_freeze_sha": "3fa69071f888643bccb1c21ee732415ac81996a9f3cb0b71dedd68086fecb4b6",
     "git_info": {
-      "commit": "589be65fabf3e8fa90ba8774c6e9160761e44578",
+      "commit": "f9f72c623f9b93a7c08b4b4280809cf6947a665a",
       "branch": "finalize/v2.0.0"
     },
     "target_hardware": "NVIDIA RTX 3070 Ti Laptop GPU (8GB VRAM)",
@@ -1332,6 +1332,8 @@
     "sample_size_scenes": 6,
     "sample_size_faces": 8,
     "seed": 1101,
+    "unseal_pid": 1608,
+    "provenance_note": "post-hoc exploratory ablation on TEST-2 after unsealing (tools/run_sealed_test2.py PID 1608 at 2026-11-06T05:45:11Z; scored 13:38:16 +0530 before inspection); not used to tune v2.0",
     "conditions": {
       "full_v2": {
         "biometric_ensemble_mean": 0.3269,
@@ -1454,6 +1456,44 @@
       "no_m5_swap": 0.79,
       "no_m6_detailer": 0.44,
       "no_m7_wardrobe": 2.59
+    },
+    "m4_comparison": {
+      "full_v2": {
+        "biometric_ensemble_mean": 0.3269,
+        "Facenet512": 0.7,
+        "SFace": 0.1391,
+        "GhostFaceNet": 0.0342,
+        "ArcFace": 0.04,
+        "dinov2_mean_similarity": 0.6069,
+        "rank1_discrimination_accuracy": 0.875,
+        "spatial_position_pass_rate": 1.0,
+        "wardrobe_palette_pass_rate": 0.875,
+        "mean_defects_per_scene": 1.5
+      },
+      "no_m4_ip_adapter": {
+        "biometric_ensemble_mean": 0.3373,
+        "Facenet512": 0.606,
+        "SFace": 0.1556,
+        "GhostFaceNet": 0.0452,
+        "ArcFace": 0.0469,
+        "dinov2_mean_similarity": 0.4943,
+        "rank1_discrimination_accuracy": 0.875,
+        "spatial_position_pass_rate": 1.0,
+        "wardrobe_palette_pass_rate": 0.875,
+        "mean_defects_per_scene": 1.5
+      },
+      "delta_no_m4_minus_full": {
+        "biometric_ensemble_mean": 0.0104,
+        "Facenet512": -0.094,
+        "SFace": 0.0165,
+        "GhostFaceNet": 0.011,
+        "ArcFace": 0.0069,
+        "dinov2_mean_similarity": -0.1126,
+        "rank1_discrimination_accuracy": 0.0,
+        "spatial_position_pass_rate": 0.0,
+        "wardrobe_palette_pass_rate": 0.0,
+        "mean_defects_per_scene": 0.0
+      }
     }
   },
   "dev2_bundle": {
@@ -1614,6 +1654,44 @@
       "no_m5_swap": 19.96,
       "no_m6_detailer": 19.63,
       "no_m7_wardrobe": 22.44
+    },
+    "m4_comparison": {
+      "full_v2": {
+        "biometric_ensemble_mean": 0.3323,
+        "Facenet512": 0.7087,
+        "SFace": 0.1588,
+        "GhostFaceNet": 0.0343,
+        "ArcFace": 0.0312,
+        "dinov2_mean_similarity": 0.5878,
+        "rank1_discrimination_accuracy": 0.875,
+        "spatial_position_pass_rate": 1.0,
+        "wardrobe_palette_pass_rate": 0.875,
+        "mean_defects_per_scene": 1.1667
+      },
+      "no_m4_ip_adapter": {
+        "biometric_ensemble_mean": 0.3423,
+        "Facenet512": 0.6218,
+        "SFace": 0.1536,
+        "GhostFaceNet": 0.0548,
+        "ArcFace": 0.0441,
+        "dinov2_mean_similarity": 0.4935,
+        "rank1_discrimination_accuracy": 0.875,
+        "spatial_position_pass_rate": 1.0,
+        "wardrobe_palette_pass_rate": 0.875,
+        "mean_defects_per_scene": 1.5
+      },
+      "delta_no_m4_minus_full": {
+        "biometric_ensemble_mean": 0.01,
+        "Facenet512": -0.0869,
+        "SFace": -0.0052,
+        "GhostFaceNet": 0.0205,
+        "ArcFace": 0.0129,
+        "dinov2_mean_similarity": -0.0943,
+        "rank1_discrimination_accuracy": 0.0,
+        "spatial_position_pass_rate": 0.0,
+        "wardrobe_palette_pass_rate": 0.0,
+        "mean_defects_per_scene": 0.3333
+      }
     }
   },
   "telemetry": {

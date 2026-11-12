@@ -32,12 +32,25 @@ DEFAULT_FINAL_DIR = Path(r"D:\5TH SEM\_final")
 
 REPO_TARGET_DOCS = [
     "README.md",
+    "README_V2.md",
+    "CONTRIBUTING.md",
+    "docs/00_MASTER_INDEX.md",
     "docs/KNOWN_LIMITATIONS.md",
     "docs/REPRODUCIBILITY.md",
     "docs/demo/METHODS_USED.md",
+    "docs/maintainers/REPO_SETTINGS.md",
+    "docs/run/06_HOW_IT_WORKS_FOR_BEGINNERS.md",
+    "docs/run/HANDOFF_CHECKLIST.md",
+    "docs/run/LICENSES_AND_MODELS.md",
+    "docs/run/MAINTAINER_SETUP.md",
     "docs_generated/v2/README_V2.md",
     "docs_generated/v2/07_measured_results.md",
+    "docs_generated/v2/07_PPT_UPDATE.md",
+    "docs_generated/v2/PPT_FACT_SHEET.md",
+    "docs_generated/v2/PR19_FINAL_COMMENT.md",
     "docs_generated/v2/PREREG_RECONCILIATION.md",
+    "docs_generated/v2/SPARK_NOTES.md",
+    "docs_generated/v2/visual_review/HUMAN_BLIND_TEST.md",
 ]
 
 FINAL_TARGET_DOCS = [
@@ -153,7 +166,7 @@ def _is_number_backed(token: str, is_pct: bool, backed: Set[float]) -> bool:
     return False
 
 
-def lint_markdown_file(path: Path, backed: Set[float]) -> List[str]:
+def lint_markdown_file(path: Path, backed: Set[float], check_numbers: bool = True) -> List[str]:
     issues: List[str] = []
     text = path.read_text(encoding="utf-8")
     in_fence = False
@@ -166,14 +179,14 @@ def lint_markdown_file(path: Path, backed: Set[float]) -> List[str]:
         if in_fence:
             continue
 
-        # 1. Numeric token verification (decimals and percentages)
-        scan_line = _strip_non_prose_tokens(line)
-        # Skip inline code paths/tokens containing filenames or cli flags, keep pure numeric code spans
-        for match in re.finditer(r"(?<![A-Za-z0-9_.])(\d+\.\d+%?|\d+%)(?![A-Za-z0-9_.])", scan_line):
-            tok = match.group(1)
-            is_pct = tok.endswith("%")
-            if not _is_number_backed(tok, is_pct, backed):
-                issues.append(f"{path}:{lineno}: unbacked numeric token {tok!r} in line: {stripped[:120]}")
+        # 1. Numeric token verification (decimals and percentages) on strict claim deliverables
+        if check_numbers:
+            scan_line = _strip_non_prose_tokens(line)
+            for match in re.finditer(r"(?<![A-Za-z0-9_.])(\d+\.\d+%?|\d+%)(?![A-Za-z0-9_.])", scan_line):
+                tok = match.group(1)
+                is_pct = tok.endswith("%")
+                if not _is_number_backed(tok, is_pct, backed):
+                    issues.append(f"{path}:{lineno}: unbacked numeric token {tok!r} in line: {stripped[:120]}")
 
         # 2. Banned overstatement / wording checks (ignore backtick literals quoting forbidden terms)
         prose_no_ticks = re.sub(r"`[^`]*`", " ", line)
@@ -244,25 +257,46 @@ def run_lint(
         best_config=project_root / "consistency_v2" / "best_config.json",
     )
 
-    targets: List[Path] = []
+    strict_targets: List[Path] = []
     for rel in REPO_TARGET_DOCS:
-        p = project_root / rel
+        p = (project_root / rel).resolve()
         if p.exists():
-            targets.append(p)
+            strict_targets.append(p)
     if final_dir is not None and final_dir.exists():
         for name in FINAL_TARGET_DOCS:
-            p = final_dir / name
+            p = (final_dir / name).resolve()
             if p.exists():
-                targets.append(p)
+                strict_targets.append(p)
     if extra_files:
         for p in extra_files:
-            if p.exists() and p not in targets:
-                targets.append(p)
+            rp = p.resolve()
+            if rp.exists() and rp not in strict_targets:
+                strict_targets.append(rp)
+
+    strict_set = set(strict_targets)
+    prose_targets: List[Path] = []
+    for pat in ("docs/**/*.md", "docs_generated/v2/**/*.md"):
+        for p in sorted(project_root.glob(pat)):
+            if "retracted" in p.parts:
+                continue
+            rp = p.resolve()
+            if rp not in strict_set:
+                prose_targets.append(rp)
+    ch_log = (project_root / "CHANGELOG.md").resolve()
+    if ch_log.exists() and ch_log not in strict_set and ch_log not in prose_targets:
+        prose_targets.append(ch_log)
+    if final_dir is not None and final_dir.exists():
+        for p in sorted(final_dir.glob("*.md")):
+            rp = p.resolve()
+            if rp not in strict_set and rp not in prose_targets:
+                prose_targets.append(rp)
 
     issues: List[str] = check_structural_invariants(project_root, numbers_json)
-    for target in targets:
-        issues.extend(lint_markdown_file(target, backed))
-    return len(targets), issues
+    for target in strict_targets:
+        issues.extend(lint_markdown_file(target, backed, check_numbers=True))
+    for target in prose_targets:
+        issues.extend(lint_markdown_file(target, backed, check_numbers=False))
+    return len(strict_targets) + len(prose_targets), issues
 
 
 def main(argv: Optional[List[str]] = None) -> int:

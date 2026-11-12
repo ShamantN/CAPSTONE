@@ -6,7 +6,7 @@
 > [!IMPORTANT]
 > **No Model Weights Redistributed Here:** This repository contains **zero** binary model weights (`.safetensors`, `.onnx`, `.pth`, `.bin`, `.h5`, `.pt`). End users download all model files directly from upstream HuggingFace/GitHub sources under each author's license.
 >
-> **Repository Source Code License (`NO ROOT LICENSE FILE`):** No `LICENSE` file is included for MMCCP's own code (`LICENSE_FOR_OWN_CODE=""`). Absent an explicit open-source grant, standard copyright and **PES University capstone academic policy (all rights reserved unless later licensed by the authors & institution)** apply to the repository's original source code.
+> **Repository Source Code License (`NO ROOT LICENSE FILE`):** No `LICENSE` file is included for MMCCP's own code (`LICENSE_FOR_OWN_CODE=""`). Absent an explicit open-source grant, **standard default copyright applies; the university's IP policy has not been checked**.
 
 ---
 
@@ -43,6 +43,6 @@
 
 ## 3. Summary Checklist for Contributors
 
-1. **Academic / Research Use (Coursework, Reproducible Benchmarks):** Compatible for local academic research when respecting upstream non-commercial model notices (`InsightFace`, `CodeFormer`, dataset terms) and keeping weights unbundled.
+1. **Academic / Research Use (Coursework, Reproducible Benchmarks):** Compatible for local academic research when respecting upstream non-commercial model notices (`InsightFace`, `CodeFormer`, dataset terms) and keeping weights used or required by the pipeline external (fetched separately, never redistributed or bundled).
 2. **Public Fork / Redistribution:** **Never** mirror or commit any third-party weight binaries (`.safetensors`, `.onnx`, `.pth`, `.h5`, `.pt`, `.bin`) into Git or GitHub Releases. Link upstream sources via [`04_MODELS_AND_DOWNLOADS.md`](04_MODELS_AND_DOWNLOADS.md).
 3. **Commercial Deployment:** **Incompatible out of the box** — `InsightFace` (`inswapper_128`, `buffalo_l`) and `CodeFormer` (`S-Lab 1.0`) restrict to non-commercial research, `YOLOv8n` and `WebUI Forge` carry `AGPL-3.0`, `Juggernaut-XL` / `SDXL-Lightning` carry Open RAIL terms, and MMCCP's own repository has no commercial OSI `LICENSE`.

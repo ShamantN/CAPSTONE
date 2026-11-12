@@ -51,9 +51,12 @@ See full table and post-hoc reconciliation in [`PREREG_RECONCILIATION.md`](PRERE
 
 ---
 
-## 3. Leave-One-Out Ablation Tables (TEST-2 Seed `1101` & DEV-2 Seed `101`)
+## 3. Leave-One-Out Ablation Tables (TEST-2 Seed `1101` [Post-Hoc Exploratory After Unsealing] & DEV-2 Seed `101`)
 
-Single-seed (`n=8` faces) biometric deltas smaller than `~0.03` are within diffusion seed noise. On **both** DEV-2 and TEST-2, `no_m4_ip_adapter` exceeded `full_v2`, motivating disabling M4 IP-Adapter Plus in `v2.1` exploration while keeping frozen `v2.0` intact.
+> [!NOTE]
+> **Provenance:** The `TEST-2` ablation arm is a **post-hoc exploratory ablation on `TEST-2` after unsealing; not used to tune `v2.0`** (executed once inside `tools/run_sealed_test2.py` PID `1608`, `2026-11-06T05:45:11Z`, scored `13:38:16 +0530` prior to `13:38:50 +0530` score inspection; `consistency_v2/best_config.json` unchanged since `2026-11-03`).
+
+Single-seed (`n=8` faces) biometric deltas smaller than `~0.03` are within diffusion seed noise. On **both** DEV-2 and TEST-2, `no_m4_ip_adapter` slightly exceeded `full_v2` on 4-judge Bio ensemble (`+0.0100` DEV-2, `+0.0104` TEST-2), **while losing** sharply on `Facenet512` (`0.7087 -> 0.6218` DEV-2; `0.7000 -> 0.6060` TEST-2) and `DINOv2` (`0.5878 -> 0.4935` DEV-2; `0.6069 -> 0.4943` TEST-2) and adding DEV-2 defects (`1.17 -> 1.50`), making M4 a **candidate for a multi-seed re-test in `v2.1`** while keeping frozen `v2.0` intact. (Note: `M10` Identity Memory is ON in locked eval config with no LOO ablation arm, so no empirical benefit is claimed for `M10`.)
 
 | Arm | TEST-2 Bio (`n=8`) | TEST-2 `Delta Bio` | TEST-2 Pixel Diff | DEV-2 Bio (`n=8`) | DEV-2 `Delta Bio` |
 | :--- | :---: | :---: | :---: | :---: | :---: |

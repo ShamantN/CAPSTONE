@@ -8,7 +8,7 @@
 > [!IMPORTANT]
 > **Quick Navigation:**
 > - **Run From Scratch (Windows / Linux / Google Colab):** [`docs/run/00_START_HERE.md`](docs/run/00_START_HERE.md)
-> - **Preflight Environment Check:** `python tools/verify_setup.py`
+> - **Preflight Environment Check (with `my_app_env` active or explicit Windows path):** `my_app_env\Scripts\python.exe tools\verify_setup.py`
 > - **Colab Notebook (`UNTESTED` live):** [`notebooks/MMCCP_Colab.ipynb`](notebooks/MMCCP_Colab.ipynb) *(checklist in [`docs/run/03_GOOGLE_COLAB.md`](docs/run/03_GOOGLE_COLAB.md))*
 > - **Full Measured Scorecard & Statistical Audit:** [`README_V2.md`](README_V2.md) & [`docs_generated/v2/07_measured_results.md`](docs_generated/v2/07_measured_results.md)
 > - **Honest Limitations `(a)–(n)`:** [`docs/KNOWN_LIMITATIONS.md`](docs/KNOWN_LIMITATIONS.md)
@@ -28,21 +28,21 @@ MMCCP is a training-free, zero-shot multi-character storyboarding pipeline built
 
 ## 2. Architecture Modules (`M1–M12` Status in Frozen `v2.0`)
 
-Derived directly from [`consistency_v2/config.py`](consistency_v2/config.py), [`consistency_v2/best_config.json`](consistency_v2/best_config.json), and [`consistency_v2/pipeline_v2.py`](consistency_v2/pipeline_v2.py):
+In locked `v2.0` (`consistency_v2/config.py` + `consistency_v2/best_config.json`), **8 of 12 numbered methods are ON** (`M1`, `M2`, `M3`, `M4` IP-Adapter Plus-Face, `M5`, `M6`, `M7`, `M10`), **4 of 12 are OFF** (`M8`, `M9`, `M11`, `M12`), and the **`M4b` Dual InstantID sub-option is OFF**:
 
 | Module | Component | Default `v2.0` Config | Implementation / Empirical Note |
 | :--- | :--- | :---: | :--- |
 | **M1** | Multi-Reference Identity Bank (`identity_bank.py`) | **ON** | Stores certified canonical portrait embeddings & torso CIELAB vectors (`single_anchor` mode used in demo) |
 | **M2** | Programmatic Layout Planner (`layout_planner.py`) | **ON** | Non-overlapping boxes + OpenPose COCO-18 guidance; **capped at 2 characters max** |
 | **M3** | True Regional Conditioning (`regional.py`) | **ON** | `sd-forge-couple` 17-arg API (`regional_global_weight=0.40`); 2-column partition |
-| **M4** | Dual InstantID (`identity_units.py`) | **OFF** | `enable_dual_instantid=False` to avoid OpenPose spatial contention & VRAM overflow |
-| **M4** | IP-Adapter Plus-Face SDXL (`identity_units.py`) | **ON** (`0.55`) | Active in `v2.0`, though `no_m4_ip_adapter` outperformed `full_v2` in `DEV-2` & `TEST-2` ablations (`M4 OFF` recommended for `v2.1`) |
+| **M4b** | Dual InstantID sub-option (`identity_units.py`) | **OFF** | `enable_dual_instantid=False` to avoid OpenPose spatial contention & VRAM overflow |
+| **M4** | IP-Adapter Plus-Face SDXL (`identity_units.py`) | **ON** (`0.55`) | Active in `v2.0`; removing `M4` edged `full_v2` on 4-judge Bio inside `0.03` noise (`DEV-2` & post-hoc exploratory `TEST-2` ablation) while losing `Facenet512` & `DINOv2` -> **candidate for a multi-seed re-test in `v2.1`** |
 | **M5** | Direct InsightFace Face Transplant (`face_swap.py`) | **ON** | CPU `inswapper_128.onnx` + CodeFormer (`0.85` fidelity); `enable_crop_upscale_swap=False` in config |
 | **M6** | Adaptive Face Detailer (`face_detailer.py`) | **ON** | Padded face inpaint refinement (`denoise=0.28`, `steps=20`, `padding=48`) |
-| **M7** | Wardrobe & Palette Lock (`wardrobe.py`) | **ON** | SegFormer clothes mask + CIELAB transfer (`Delta E <= 38.0`, `blend_strength=0.70` code-locked; static studio attire only) |
+| **M7** | Wardrobe & Palette Lock (`wardrobe.py`) | **ON** | SegFormer clothes mask + CIELAB transfer toward canonical `clothing_colors` (`Delta E <= 38.0`, `blend_strength=0.70` code-locked; closed-loop with verifier check; static studio attire only) |
 | **M8** | Reference-Only Attention (`reference_unit.py`) | **OFF** | `enable_reference_attention=False` (avoids studio background bleed & VRAM growth) |
 | **M9** | Best-of-N & Healing (`candidates.py`, `healing_v2.py`) | **OFF** | `enable_best_of_n=False` in default mode and **not executed inside `generate_scene()`** |
-| **M10** | Cross-Scene Identity Memory (`identity_memory.py`) | **ON** | Drift-guarded (`0.75`) crop promotion enabled in default config (`OFF` during browser demo) |
+| **M10** | Cross-Scene Identity Memory (`identity_memory.py`) | **ON** | ON in locked eval config (`0.75` drift guard) and has **no LOO ablation arm**, so **no empirical benefit is claimed** (`OFF` during browser demo) |
 | **M11** | Character LoRA Training (`use_character_lora`) | **OFF** | Explicitly **OUT OF SCOPE** (`{606, 707, 808}` permanently quarantined) |
 | **M12** | Collage-Init Composition (`collage_init.py`) | **OFF** | Implemented & unit-tested; `enable_collage_init=False` in locked `v2.0` default config |
 
@@ -66,7 +66,7 @@ Evaluated **one-shot** under Frozen Verifier `v1.2` across `42` paired scenes (`
 
 ## 4. Summary of Key Limitations & Demo Assets
 
-- **Architectural & Evaluation Gaps:** Holdout 3-character Scene 4 drops its 3rd character (`(g)`), static studio `clothing_colors` overwrite graduation attire (`(h)`), Holdout unseen characters show parity/lag behind `v1` (`(c)`), InsightFace `buffalo_l` judge alignment introduces partial circularity (`(i)`), `no_m4_ip_adapter` outperformed `full_v2` in single-seed ablations (`(j)`), and human blind evaluation (`HUMAN_BLIND_TEST.md`) remains pending (`(k)`). Read all `14` items in **[`docs/KNOWN_LIMITATIONS.md`](docs/KNOWN_LIMITATIONS.md)**.
+- **Architectural & Evaluation Gaps:** Holdout 3-character Scene 4 drops its 3rd character (`(g)`), static studio `clothing_colors` overwrite graduation attire & `M7` wardrobe scoring is closed-loop on that target (`(h)`), Holdout unseen characters show parity/lag behind `v1` (`(c)`), InsightFace `buffalo_l` judge alignment introduces partial circularity (`(i)`), `no_m4_ip_adapter` slightly edged `full_v2` on 4-judge Bio inside `0.03` noise while losing `Facenet512`/`DINOv2` in `DEV-2` & post-hoc exploratory `TEST-2` ablations (`(j)`), `M10` has no ablation arm (`(j)`), and human blind evaluation (`HUMAN_BLIND_TEST.md`) remains pending (`(k)`). Read all `14` items in **[`docs/KNOWN_LIMITATIONS.md`](docs/KNOWN_LIMITATIONS.md)**.
 - **From-Scratch Browser Showcase (`DEMO ONLY`):** Sanitized method matrix and verifier scorecard from the local Ebright Scenes `1–5` browser demo live in [`docs/demo/METHODS_USED.md`](docs/demo/METHODS_USED.md) and [`docs/demo/scorecard.csv`](docs/demo/scorecard.csv).
 
 ---
@@ -74,5 +74,5 @@ Evaluated **one-shot** under Frozen Verifier `v1.2` across `42` paired scenes (`
 ## 5. Contributing, Licenses & Citation
 
 - **Contributing:** Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before opening any branch or PR (`check_freeze.py`, `audit_test2_isolation.py`, `secret_scan.py`, and `unittest` gates apply).
-- **Licenses:** No weights are redistributed here, and **no root `LICENSE` file exists for MMCCP's original code** (`LICENSE_FOR_OWN_CODE=""`; standard copyright & PES University academic rules apply). Third-party weights/dependencies include non-commercial (`InsightFace`, `CodeFormer`), `AGPL-3.0` (`WebUI Forge`, `YOLOv8n`), and Open RAIL terms — see [`docs/run/LICENSES_AND_MODELS.md`](docs/run/LICENSES_AND_MODELS.md).
+- **Licenses:** No weights are redistributed here, and **no root `LICENSE` file exists for MMCCP's original code** (`LICENSE_FOR_OWN_CODE=""`; standard default copyright applies and the university's IP policy has not been checked). Upstream dependencies/weights **used or required by the pipeline (not redistributed)** include non-commercial (`InsightFace`, `CodeFormer`), `AGPL-3.0` (`WebUI Forge`, `YOLOv8n`), and Open RAIL terms — see [`docs/run/LICENSES_AND_MODELS.md`](docs/run/LICENSES_AND_MODELS.md).
 - **Citation:** See [`CITATION.cff`](CITATION.cff).

@@ -17,7 +17,7 @@ from tools import lint_claims
 class TestLintClaims(unittest.TestCase):
     def test_repo_docs_pass_cleanly(self):
         scanned, issues = lint_claims.run_lint(PROJECT_ROOT, final_dir=None)
-        self.assertGreaterEqual(scanned, 7)
+        self.assertGreaterEqual(scanned, 20)
         self.assertEqual(issues, [])
 
     def test_catches_unbacked_metric_and_banned_overclaims(self):

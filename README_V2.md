@@ -71,10 +71,11 @@ Full forensic comparison in [`PREREG_RECONCILIATION.md`](docs_generated/v2/PRERE
 
 ---
 
-## 3. Leave-One-Out Ablation (`6` Scenes, `8` Faces, TEST-2 Seed `1101`)
+## 3. Leave-One-Out Ablation (`6` Scenes, `8` Faces, TEST-2 Seed `1101` — Post-Hoc Exploratory Ablation After Unsealing)
 
 > [!WARNING]
-> Deltas smaller than `~0.03` on a single seed (`n=8` faces) lie within single-seed diffusion noise. Notably, **`no_m4_ip_adapter` outperformed `full_v2`** on **both** DEV-2 (`0.3423` vs `0.3323`) and TEST-2 (`0.3373` vs `0.3269`), supporting disabling M4 in future work (`v2.1`) without modifying the frozen `v2.0` configuration.
+> **Provenance (`TEST-2` Ablation):** Post-hoc exploratory ablation on `TEST-2` after unsealing (`tools/run_sealed_test2.py`, PID `1608`, `2026-11-06T05:45:11Z`, scored `13:38:16 +0530` prior to inspection); **not used to tune `v2.0`** (`consistency_v2/best_config.json` unchanged since `2026-11-03`).  
+> **Noise Band & Balanced M4 Readout:** Deltas smaller than `~0.03` on a single seed (`n=8` faces) lie within single-seed diffusion noise. While `no_m4_ip_adapter` edged out `full_v2` on 4-judge biometric ensemble on `DEV-2` (`0.3423` vs `0.3323`) and `TEST-2` (`0.3373` vs `0.3269`), removing M4 sharply dropped `Facenet512` (`0.7087 -> 0.6218` DEV-2; `0.7000 -> 0.6060` TEST-2) and `DINOv2` (`0.5878 -> 0.4935` DEV-2; `0.6069 -> 0.4943` TEST-2) and increased DEV-2 defects (`1.17 -> 1.50`), making M4 a **candidate for a multi-seed re-test in `v2.1`** rather than an unconditional disable.
 
 | Arm | Bio Mean | Rank-1 | Spatial | Wardrobe | Defects/Scene | `Delta Bio vs Full` | Mean Pixel Diff vs Full |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |

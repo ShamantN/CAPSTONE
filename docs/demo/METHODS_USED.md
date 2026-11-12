@@ -10,12 +10,14 @@
 
 ## Method Matrix (`M1 – M12` & Auxiliary Controls)
 
+> **Demo Status Count:** `7` of `12` numbered methods ON (`M1–M7`), `5` OFF (`M8–M12`, because `M10` is disabled during the live browser demo to keep studio anchors immutable), plus `M4b` Dual InstantID sub-option OFF (`config.py`/`best_config.json` locked eval has `8` of `12` ON with `M10=True`).
+
 | Method / Setting | Status | Parameter Values | Rationale / Note |
 | :--- | :--- | :--- | :--- |
 | **M1: Identity Bank** | **ON** | `enable_identity_bank=True`, `bank_selection_metric="single_anchor"`, `1` curated studio anchor / char | Initialized from scratch via `anchors/final/*.png` after visual selection + 4-point gate. |
 | **M2: Layout Planner (OpenPose + Boxes)** | **ON** | `enable_layout_planner=True`, `openpose_model="openpose_xl [f4251cb4]"`, `openpose_weight=0.70`, `openpose_guidance_end=0.75` | Enforces distinct left/right multi-character silhouettes and framing. |
 | **M3: Regional Conditioning (Forge Couple)** | **ON** | `enable_regional_couple=True`, `regional_global_weight=0.40` | Isolates per-character prompts spatially in 2-character scenes. |
-| **M4: Dual InstantID** | **OFF** | `enable_dual_instantid=False` | Disabled per locked v2 preset to prevent spatial contention with OpenPose. |
+| **M4b: Dual InstantID (sub-option)** | **OFF** | `enable_dual_instantid=False` | Disabled per locked v2 preset to prevent spatial contention with OpenPose. |
 | **M4: IP-Adapter Plus-Face SDXL** | **ON** | `enable_ip_adapter_plus=True`, `ip-adapter-plus-face_sdxl_vit-h [368cf551]`, `ip_adapter_plus_weight=0.55` | Injects studio anchor facial geometry into Pass 1 diffusion. |
 | **M5: Reliable Face Transplant** | **ON** | `enable_reliable_face_swap=True`, `swap_backend="direct_insightface"`, `inswapper_128.onnx`, `codeformer_fidelity=0.85`, `enable_crop_upscale_swap=True` | Padded `2x` Lanczos crop alignment + `inswapper_128` + CodeFormer blend. |
 | **M6: Identity Face Detailer (ADetailer)** | **ON** | `enable_face_detailer=True`, `face_detailer_denoise=0.28`, `face_detailer_steps=20`, `face_detailer_padding=48` | Refines skin texture and eye sharpness after face swap. |

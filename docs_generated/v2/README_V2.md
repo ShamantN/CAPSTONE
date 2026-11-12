@@ -46,7 +46,9 @@ my_app_env\Scripts\python.exe run_from_scratch.py --pipeline v2 --mode quality -
 
 ---
 
-## 2. Pipeline Execution Modes (Verified in `consistency_v2/config.py`)
+## 2. Pipeline Execution Modes (`8` of `12` Numbered Methods ON, `4` OFF, `M4b` Sub-Option OFF — Verified in `consistency_v2/config.py` & `consistency_v2/best_config.json`)
+
+> Locked `v2.0` (`default` mode): `8` of `12` numbered methods ON (`M1, M2, M3, M4 IP-Adapter Plus-Face, M5, M6, M7, M10` [unablated]), `4` OFF (`M8, M9, M11, M12`), plus `M4b` Dual InstantID sub-option OFF.
 
 | Parameter | Fast Mode (`--mode fast`) | Default Mode (`--mode default`) | Quality Mode (`--mode quality`) |
 | :--- | :--- | :--- | :--- |

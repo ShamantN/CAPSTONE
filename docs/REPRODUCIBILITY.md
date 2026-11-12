@@ -7,7 +7,7 @@ This guide specifies exact commands, split boundaries, hardware parameters, and 
 ## 1. Non-Repository Assets (Where They Live)
 This repository tracks code, storyboards, preflight tools, verification JSON/CSV results, and markdown docs — **never** large model binaries, identity caches, or raw bulk render PNGs:
 - **SDXL / ControlNet / IP-Adapter / InsightFace / YOLO Weights:** Local WebUI Forge installation (default Windows path `C:\Stable-Diffusion\` or `FORGE_ROOT`) and HuggingFace/InsightFace user caches (`~/.cache/huggingface`, `~/.insightface`). Exact URLs, sizes, and SHA-256 checksums are in [`docs/run/04_MODELS_AND_DOWNLOADS.md`](run/04_MODELS_AND_DOWNLOADS.md).
-- **Forge Compatibility Patches:** [`patches/forge/`](../patches/forge/README.md), applied idempotently via `python tools/apply_forge_patches.py --apply`.
+- **Forge Compatibility Patches:** [`patches/forge/`](../patches/forge/README.md), applied idempotently via `my_app_env\Scripts\python.exe tools\apply_forge_patches.py --apply`.
 - **Generated Identity Banks & Cache (`gitignored`):** `consistency_v2/banks/` and `hardcoded_cache.json` (restored deterministically from committed ground-truth base64 JSONs in [`experiments/clean_run_ground_truth/anchors/`](../experiments/clean_run_ground_truth/anchors/)).
 - **Telemetry CSVs:** `results/telemetry/vram_*.csv` (`9` files, `157,357` samples total; sealed `TEST-2` trace = `vram_test2_sealed.csv`).
 
@@ -15,34 +15,35 @@ This repository tracks code, storyboards, preflight tools, verification JSON/CSV
 
 ## 2. Deterministic CPU-Only Reproduction (No GPU / No Forge Required)
 
-Run these commands from the repository root using Python `3.10` (`my_app_env\Scripts\python.exe` on Windows):
+Run these Windows PowerShell commands from the repository root using the project Python `3.10` virtual environment (`my_app_env\Scripts\python.exe`, or with `my_app_env` activated):
 
 ```powershell
 # 1. Verify Frozen Verifier v1.2 integrity (SHA: 3fa69071f888643b...)
-python tools\check_freeze.py
+my_app_env\Scripts\python.exe tools\check_freeze.py
 
 # 2. Verify TEST-2 & reserved seed isolation across Python code
-python tools\audit_test2_isolation.py
+my_app_env\Scripts\python.exe tools\audit_test2_isolation.py
 
 # 3. Restore canonical 8-character banks + verify 1.0000 cosine similarity
-python tools\sync_canonical_banks.py
+my_app_env\Scripts\python.exe tools\sync_canonical_banks.py
 
 # 4. Run full CPU unit test suite + verifier control suite
-python -m unittest discover -s tests -p "test_*.py"
-python -m unittest -v tests.verifier_controls.test_controls
+my_app_env\Scripts\python.exe -m unittest discover -s tests -p "test_*.py"
+my_app_env\Scripts\python.exe -m unittest -v tests.verifier_controls.test_controls
 
 # 5. Recompute paired statistics, collect results/numbers.json, re-render docs & lint numeric tokens
-python tools\compute_test2_statistics.py
-python tools\collect_numbers.py
-python tools\render_docs.py
-python -m unittest tests\test_docs_numbers.py
+my_app_env\Scripts\python.exe tools\compute_test2_statistics.py
+my_app_env\Scripts\python.exe tools\collect_numbers.py
+my_app_env\Scripts\python.exe tools\render_docs.py
+my_app_env\Scripts\python.exe -m unittest tests\test_docs_numbers.py
+my_app_env\Scripts\python.exe tools\lint_claims.py
 ```
 
 Expected results:
 - `tools/check_freeze.py` exits `0` (`Version 1.2`).
 - `tools/audit_test2_isolation.py` exits `0`.
-- `unittest discover` runs `83` tests with `0` failures (`76` baseline + blind-scorer & claim-linter suites).
-- `tests/test_docs_numbers.py` verifies every metric across `README_V2.md` and `docs_generated/v2/*.md` matches `results/numbers.json`.
+- `unittest discover` runs `85` tests with `0` failures (`83` baseline + blind-scorer & claim-linter suites, or verify live count on your checkout).
+- `tests/test_docs_numbers.py` and `tools/lint_claims.py` verify quantitative claims match `results/numbers.json`.
 
 ---
 
@@ -53,15 +54,26 @@ Expected results:
 
 ```powershell
 # Preflight environment, Forge API, weights & patches
-python tools\verify_setup.py
+my_app_env\Scripts\python.exe tools\verify_setup.py
 
 # Render DEV-2 comparison bundle + run leave-one-out ablation on DEV-2
-python tools\render_dev2_bundle.py
-python tools\score_ablation_dev2.py
+my_app_env\Scripts\python.exe tools\render_dev2_bundle.py
+my_app_env\Scripts\python.exe tools\score_ablation_dev2.py
 
 # Or run an end-to-end 1-scene smoke test from scratch
-python run_from_scratch.py --pipeline v2 --mode default --scene 1 --seed 11
+my_app_env\Scripts\python.exe run_from_scratch.py --pipeline v2 --mode default --scene 1 --seed 11
 ```
+
+---
+
+## 4. Streamlit UI (`app.py`) Defaults vs Locked `best_config.json`
+
+| Parameter / Surface | `consistency_v2/best_config.json` | `app.py` Interactive UI Default | Notes |
+| :--- | :---: | :---: | :--- |
+| `enable_dual_instantid` (`M4b`) | `False` | `False` | Fixed in `app.py:696` (`v2_m4` toggle default updated from `True` -> `False`) |
+| `enable_ip_adapter_plus` (`M4`) | `True` (`0.55`) | `True` (`0.55`) | Inherited from `ConsistencyV2Config` (not exposed as a toggle) |
+| Resolved `ConsistencyV2Config` Hash | `df4a0a2648acdfe1` | `df4a0a2648acdfe1` | Exact parity (`compute_hash()`) in `default` mode |
+| Render Inputs & Tab 4 Metrics | `TEST-2` (`1101–1505`, `holdout_v2.json`) | `ebright.json` (`seed=11`); Tab 4 shows legacy static cards (`app.py:1004-1007`) | Interactive `app.py` studio is not an evaluation runner |
 
 ---
 

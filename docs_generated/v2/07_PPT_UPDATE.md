@@ -15,4 +15,4 @@
 4. **Original Pre-Registered Hypotheses (`P1`–`P4`):**
    - Strict all-split verdict: **`0/4` MET** (`P1` NOT MET; `P2`/`P3` pass Ebright `97.5%`/`80.0%` and Combined `93.75%`/`64.06%` only, failing Holdout; `P4` NOT MET).
 5. **Known Limits & Future Work:**
-   - `identity_at_position` & `combined_binding` = `0.0%` for both v1 & v2; LOO ablations show `no_m4_ip_adapter` outperformed `full_v2` on DEV-2 & TEST-2; prior visual review checks were **automated, not human** (human TEST-2 blind test pending).
+   - `identity_at_position` & `combined_binding` = `0.0%` for both v1 & v2; post-hoc exploratory ablations (not used to tune `v2.0`) show `no_m4_ip_adapter` slightly exceeded `full_v2` on 4-judge Bio inside `0.03` noise while dropping `Facenet512`/`DINOv2` (candidate for a multi-seed re-test in `v2.1`); `M10` is ON with no ablation arm; prior visual review checks were **automated, not human** (human TEST-2 blind test pending).
