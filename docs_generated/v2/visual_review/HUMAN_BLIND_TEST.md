@@ -87,4 +87,10 @@ For each `crop_01` .. `crop_20`, fill `blind_reid.<crop_id>.predicted_character_
 
 ## Next Step (Scoring Only After Human Return)
 
-Once `blind_predictions_human.json` is filled by a human evaluator, score it against the sealed key in `scratch/sealed_keys/human_test2_ebright/`.
+Once `blind_predictions_human.json` is completely filled by a human evaluator, score it against the sealed key in `scratch/sealed_keys/human_test2_ebright/` with:
+
+```powershell
+my_app_env\Scripts\python.exe tools\score_human_blind_test.py
+```
+
+If any `selected_option` or `predicted_character_id` entry is blank, the scorer exits with code `2` (`PENDING_HUMAN_INPUT`) without unblinding or writing a report.
