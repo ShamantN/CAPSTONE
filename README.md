@@ -1,93 +1,78 @@
-# 🎬 Multi-Modal Character Consistency Pipeline (MMCCP)
+# Multi-Modal Character Consistency Pipeline (MMCCP) v2.0
 
-> **MMCCP v2.0 (Reconciled `v2.0.0-rc3` on `main`):**
-> - **Technical Scorecard & Honest Limitations:** [`README_V2.md`](README_V2.md)
-> - **Run From Scratch Guides (Windows / Linux / Colab):** [`docs/run/00_START_HERE.md`](docs/run/00_START_HERE.md)
-> - **Google Colab Notebook:** [`notebooks/MMCCP_Colab.ipynb`](notebooks/MMCCP_Colab.ipynb) *(status: `UNTESTED` live in Colab; see checklist in [`docs/run/03_GOOGLE_COLAB.md`](docs/run/03_GOOGLE_COLAB.md))*
-> - **Preflight Verification Tool:** `python tools/verify_setup.py`
+**PES University Capstone Project (`PW26_CGM_02`) — Parent Initiative: Novel to Video Generation (NVG)**  
+**Department of Computer Science and Engineering | Faculty Guide:** Prof. Chitra G M  
+**Student Team:** Samiya Naaz, Shamant Nagabhushana, Shihab K A, Shivu K C  
+**Current Release Tag (Pre-Release Finalization):** `v2.0.0-rc3` (`main` PR pending; final `v2.0.0` release tag blocked until PR merge & Phase 6–7 release checks)
 
-![Python](https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge&logo=python)
-![Streamlit](https://img.shields.io/badge/Streamlit-1.28-FF4B4B?style=for-the-badge&logo=streamlit)
-![Stable Diffusion](https://img.shields.io/badge/Stable_Diffusion-XL-5C5CFF?style=for-the-badge&logo=ai)
-![ControlNet](https://img.shields.io/badge/ControlNet-SDXL-brightgreen?style=for-the-badge)
-![OpenCV](https://img.shields.io/badge/OpenCV-4.8.0-5C3EE8?style=for-the-badge&logo=opencv)
-
-A highly advanced character consistency architecture designed to solve identity bleeding, prompt mixing, and temporal inconsistency in generative AI storyboarding. By orchestrating LLMs (Google Gemini) and Latent Diffusion (Stable Diffusion XL via Forge), MMCCP generates multi-character cinematic storyboards with absolute visual consistency.
-
----
-
-## 🧠 Architecture Overview: The 6 Pillars
-
-The core innovation of the MMCCP lies in its surgical manipulation of latent space conditioning and text prompt formulation. We solve fundamental flaws in current AI diffusion models through a rigid, six-pillar architectural pipeline.
-
-### 1. Identity Initialization (Solving Concept Bleeding)
-* **The Flaw:** Stable Diffusion possesses inherent latent bias for real names (e.g., "Emma" biases towards Emma Watson).
-* **The Solution:** We hash character names into unique, mathematically blank alphanumeric tokens (e.g., `YEbright_A1B2C`). This guarantees a zero-shot neural pathway, forcing the AI to rely entirely on explicit physical descriptors rather than latent pre-training biases.
-
-### 2. Visual DNA Caching (Solving Identity Drift)
-* **The Flaw:** Text descriptors are not rigid enough to hold facial geometry consistently across multiple frames.
-* **The Solution:** The system generates a high-quality, high-step anchor portrait for the character. This image is encoded to Base64 and permanently cached in our JSON database as the character's immutable "Visual DNA" for all subsequent scenes.
-
-### 3. Linguistic Isolation (Solving Prompt Bleeding)
-* **The Flaw:** In multi-character scenes, attributes like clothing colors mix and bleed across characters in the cross-attention layers.
-* **The Solution:** We dynamically inject spatial coordinates (e.g., "sitting on the left") and utilize the absolute `BREAK` keyword. This forces Stable Diffusion to process characters in mathematically isolated attention layers, preventing attribute contamination.
-
-### 4. Two-Pass Render / Structural Tracing (Solving Action Override)
-* **The Flaw:** Feeding a static character reference directly into an Image-to-Image prompt destroys the dynamic action and pose requested by the text.
-* **The Solution (Structural Tracing):**
-    * **Pass 1:** Text-to-Image acts as a structural sketch, generating the dynamic physics and pose (the draft).
-    * **Pass 2:** Img2Img traces this draft using a strict `denoising_strength` of 0.55. This locks the geometric pose while ControlNet IP-Adapter acts as a digital eyedropper, painting the cached clothing/textures over the pre-established bodies.
-
-### 5. Multi-Face Routing (Solving the Clone Glitch)
-* **The Flaw:** Global face-swapper extensions blindly map a single reference face to all detected bodies in a scene, creating identical clones.
-* **The Solution:** We execute a left-to-right matrix routing strategy. Using PIL, we composite Anchor Portraits side-by-side into a single "Sticker Sheet." By synchronizing the spatial prompt (left/right) with the sticker sheet (left/right), we pass a rigid target payload (e.g., `"0,1"`) to the ReActor extension, guaranteeing Face 0 maps exclusively to Body 0.
-
-### 6. The Max-Match Matrix (Consistency Metrics)
-* **The Flaw:** Without quantitative measurement, "consistency" is subjective.
-* **The Solution:** The script uses DeepFace to extract faces from the generated scene, converts them into 512-dimensional vectors using the ArcFace neural network, and calculates the Cosine Similarity angle against the Anchor DNA. A one-to-many "Max-Match" array evaluates if the target face exceeds our stringent success threshold (Cosine Similarity > 0.85).
+> [!IMPORTANT]
+> **Quick Navigation:**
+> - **Run From Scratch (Windows / Linux / Google Colab):** [`docs/run/00_START_HERE.md`](docs/run/00_START_HERE.md)
+> - **Preflight Environment Check:** `python tools/verify_setup.py`
+> - **Colab Notebook (`UNTESTED` live):** [`notebooks/MMCCP_Colab.ipynb`](notebooks/MMCCP_Colab.ipynb) *(checklist in [`docs/run/03_GOOGLE_COLAB.md`](docs/run/03_GOOGLE_COLAB.md))*
+> - **Full Measured Scorecard & Statistical Audit:** [`README_V2.md`](README_V2.md) & [`docs_generated/v2/07_measured_results.md`](docs_generated/v2/07_measured_results.md)
+> - **Honest Limitations `(a)–(n)`:** [`docs/KNOWN_LIMITATIONS.md`](docs/KNOWN_LIMITATIONS.md)
+> - **Reproducibility Commands:** [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md)
+> - **Contributor Rules & Governance:** [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
 ---
 
-## ⚙️ Installation & Setup
+## 1. Overview & Hardware Target
 
-### Prerequisites
-### Prerequisites (v2.0)
-* **Python 3.10.6** (`py -3.10` on Windows) + NVIDIA GPU (`>= 8 GB` VRAM recommended)
-* **Stable Diffusion WebUI Forge** running on `--api --xformers` (`http://127.0.0.1:7860`)
-* Required Extensions: `adetailer`, `sd-forge-couple`, `sd-webui-controlnet`, `sd-webui-reactor`
-* See [`docs/run/04_MODELS_AND_DOWNLOADS.md`](docs/run/04_MODELS_AND_DOWNLOADS.md) for verified URLs, destinations, and SHA-256 checksums.
+MMCCP is a training-free, zero-shot multi-character storyboarding pipeline built over Stable Diffusion XL (`Juggernaut-XL v9`) via WebUI Forge (`sdapi/v1/*`) and evaluated under a frozen CPU deterministic verifier (`v1.2`, SHA `3fa69071f888643b...`).
 
-### Quickstart (See [`docs/run/01_NEW_MACHINE_WINDOWS.md`](docs/run/01_NEW_MACHINE_WINDOWS.md) for Full Walkthrough)
-1. **Clone the repository:**
-   ```powershell
-   git clone https://github.com/ShamantN/CAPSTONE.git
-   cd CAPSTONE
-   ```
-2. **Create a Python 3.10 virtual environment & install CUDA PyTorch + requirements:**
-   ```powershell
-   py -3.10 -m venv venv
-   .\venv\Scripts\Activate.ps1
-   pip install torch==2.3.1 torchvision==0.18.1 --index-url https://download.pytorch.org/whl/cu121
-   pip install xformers==0.0.27 --index-url https://download.pytorch.org/whl/cu121
-   pip install -r requirements.txt
-   ```
-3. **Hydrate canonical banks, verify setup & run preflight (`--mode new-machine`):**
-   ```powershell
-   python tools\verify_setup.py --mode new-machine --fix-hints
-   python tools\sync_canonical_banks.py
-   ```
-4. **Render from zero cache or launch the 4-Tab Streamlit Studio UI:**
-   ```powershell
-   python run_from_scratch.py --pipeline v2 --mode fast --story storyboards\ebright.json --scene 1 --seed 11
-   python -m streamlit run app.py
-   ```
+- **Tested Target Hardware:** NVIDIA GeForce RTX 3070 Ti Laptop GPU (`8192` MiB VRAM), Intel Core i7-12650H, `32` GB DDR4 RAM, Windows 11 Home, Python `3.10`, PyTorch `2.3.1+cu121`.
+- **No Weights in Git:** Zero binary model weights or generated PNG datasets are committed (`C:\Stable-Diffusion\` and local caches supply weights via [`docs/run/04_MODELS_AND_DOWNLOADS.md`](docs/run/04_MODELS_AND_DOWNLOADS.md)).
 
 ---
 
-## 📊 Application Flow
-1. **Input:** Paste a raw novel chapter or story into the UI.
-2. **LLM Extraction:** Gemini extracts structured JSON scenes, characters, and environments.
-3. **Pipeline Execution:** The pipeline iterates through scenes, applying the 6 pillars (Tokenization, DNA caching, Two-Pass generation, Routing, and ArcFace validation).
-4. **Output:** A fully rendered cinematic storyboard with calculated metric scores attached to each frame.
+## 2. Architecture Modules (`M1–M12` Status in Frozen `v2.0`)
 
-> Developed as an advanced generative AI capstone project focusing on latent space control, microservices orchestration, and consistency matrix routing.
+Derived directly from [`consistency_v2/config.py`](consistency_v2/config.py), [`consistency_v2/best_config.json`](consistency_v2/best_config.json), and [`consistency_v2/pipeline_v2.py`](consistency_v2/pipeline_v2.py):
+
+| Module | Component | Default `v2.0` Config | Implementation / Empirical Note |
+| :--- | :--- | :---: | :--- |
+| **M1** | Multi-Reference Identity Bank (`identity_bank.py`) | **ON** | Stores certified canonical portrait embeddings & torso CIELAB vectors (`single_anchor` mode used in demo) |
+| **M2** | Programmatic Layout Planner (`layout_planner.py`) | **ON** | Non-overlapping boxes + OpenPose COCO-18 guidance; **capped at 2 characters max** |
+| **M3** | True Regional Conditioning (`regional.py`) | **ON** | `sd-forge-couple` 17-arg API (`regional_global_weight=0.40`); 2-column partition |
+| **M4** | Dual InstantID (`identity_units.py`) | **OFF** | `enable_dual_instantid=False` to avoid OpenPose spatial contention & VRAM overflow |
+| **M4** | IP-Adapter Plus-Face SDXL (`identity_units.py`) | **ON** (`0.55`) | Active in `v2.0`, though `no_m4_ip_adapter` outperformed `full_v2` in `DEV-2` & `TEST-2` ablations (`M4 OFF` recommended for `v2.1`) |
+| **M5** | Direct InsightFace Face Transplant (`face_swap.py`) | **ON** | CPU `inswapper_128.onnx` + CodeFormer (`0.85` fidelity); `enable_crop_upscale_swap=False` in config |
+| **M6** | Adaptive Face Detailer (`face_detailer.py`) | **ON** | Padded face inpaint refinement (`denoise=0.28`, `steps=20`, `padding=48`) |
+| **M7** | Wardrobe & Palette Lock (`wardrobe.py`) | **ON** | SegFormer clothes mask + CIELAB transfer (`Delta E <= 38.0`, `blend_strength=0.70` code-locked; static studio attire only) |
+| **M8** | Reference-Only Attention (`reference_unit.py`) | **OFF** | `enable_reference_attention=False` (avoids studio background bleed & VRAM growth) |
+| **M9** | Best-of-N & Healing (`candidates.py`, `healing_v2.py`) | **OFF** | `enable_best_of_n=False` in default mode and **not executed inside `generate_scene()`** |
+| **M10** | Cross-Scene Identity Memory (`identity_memory.py`) | **ON** | Drift-guarded (`0.75`) crop promotion enabled in default config (`OFF` during browser demo) |
+| **M11** | Character LoRA Training (`use_character_lora`) | **OFF** | Explicitly **OUT OF SCOPE** (`{606, 707, 808}` permanently quarantined) |
+| **M12** | Collage-Init Composition (`collage_init.py`) | **OFF** | Implemented & unit-tested; `enable_collage_init=False` in locked `v2.0` default config |
+
+---
+
+## 3. Sealed `TEST-2` Headline Results (From `results/numbers.json`)
+
+Evaluated **one-shot** under Frozen Verifier `v1.2` across `42` paired scenes (`64` face slots) comparing MMCCP `v2.0` against Baseline `v1` (`v2.0.0-rc2` post-hoc scorecard shifts retracted; see [`README_V2.md`](README_V2.md) and [`docs_generated/v2/PREREG_RECONCILIATION.md`](docs_generated/v2/PREREG_RECONCILIATION.md)):
+
+| Split (`v2` vs `v1`) | Renders / Faces | Bio Mean | Rank-1 Accuracy | Spatial Pass | Wardrobe Pass | Defects / Scene |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Ebright `TEST-2`** | `30` / `40` | `0.3147` vs `0.3091` (`+0.0056`, `p=0.3754`) | **`80.0%`** (`32/40`) vs `65.0%` (`26/40`) | `97.5%` (`39/40`) vs `100.0%` | **`80.0%`** (`32/40`) vs `45.0%` (`p=0.000183`) | **`1.50`** vs `3.07` (`-51.1%`, `p=0.001453`) |
+| **Holdout `TEST-2`** | `12` / `24` | `0.2596` vs `0.2758` (`-0.0162`, `p=0.8213`) | `54.2%` (`13/24`) vs `62.5%` (`15/24`) | `87.5%` (`21/24`) vs `79.2%` | `37.5%` (`9/24`) vs `41.7%` | `1.25` vs `1.92` (`-0.67`, `p=0.3242`) |
+| **Combined `TEST-2`** | `42` / `64` | `0.2940` vs `0.2966` (`-0.0026`, `p=0.3233`) | `70.31%` (`45/64`) vs `64.06%` | `93.75%` (`60/64`) vs `92.19%` | `64.06%` (`41/64`) vs `43.75%` (`p=0.004556`) | `1.43` vs `2.74` (`-1.31`, `p=0.000877`) |
+
+- **Strict Pre-Registered Hypotheses (`P1–P4`):** **`0/4` all-split rules satisfied** (`P1` CI crosses zero; `P2` Spatial & `P3` Wardrobe meet targets on Ebright/Combined while failing Holdout; `P4` fails both `<= 7.4 GB` whole-system VRAM ceiling and `0` extra YOLO persons).
+- **VRAM & Stability (`vram_test2_sealed.csv`, `8,112` samples):** Whole-system peak **`7984` MiB** (`7.797` GiB, `52`s above `7400` MiB, `0` OOMs; `7011` MiB process delta above `973` MiB idle baseline).
+- **Combined Binding Gate (`identity_at_position` & `combined_binding`):** `0.0%` for **both** `v1` and `v2` under strict `3/4` judge absolute cosine calibration (`verifier_v1.3_proposal.md`).
+
+---
+
+## 4. Summary of Key Limitations & Demo Assets
+
+- **Architectural & Evaluation Gaps:** Holdout 3-character Scene 4 drops its 3rd character (`(g)`), static studio `clothing_colors` overwrite graduation attire (`(h)`), Holdout unseen characters show parity/lag behind `v1` (`(c)`), InsightFace `buffalo_l` judge alignment introduces partial circularity (`(i)`), `no_m4_ip_adapter` outperformed `full_v2` in single-seed ablations (`(j)`), and human blind evaluation (`HUMAN_BLIND_TEST.md`) remains pending (`(k)`). Read all `14` items in **[`docs/KNOWN_LIMITATIONS.md`](docs/KNOWN_LIMITATIONS.md)**.
+- **From-Scratch Browser Showcase (`DEMO ONLY`):** Sanitized method matrix and verifier scorecard from the local Ebright Scenes `1–5` browser demo live in [`docs/demo/METHODS_USED.md`](docs/demo/METHODS_USED.md) and [`docs/demo/scorecard.csv`](docs/demo/scorecard.csv).
+
+---
+
+## 5. Contributing, Licenses & Citation
+
+- **Contributing:** Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before opening any branch or PR (`check_freeze.py`, `audit_test2_isolation.py`, `secret_scan.py`, and `unittest` gates apply).
+- **Licenses:** No weights are redistributed here, and **no root `LICENSE` file exists for MMCCP's original code** (`LICENSE_FOR_OWN_CODE=""`; standard copyright & PES University academic rules apply). Third-party weights/dependencies include non-commercial (`InsightFace`, `CodeFormer`), `AGPL-3.0` (`WebUI Forge`, `YOLOv8n`), and Open RAIL terms — see [`docs/run/LICENSES_AND_MODELS.md`](docs/run/LICENSES_AND_MODELS.md).
+- **Citation:** See [`CITATION.cff`](CITATION.cff).

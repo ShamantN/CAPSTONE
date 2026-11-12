@@ -1,7 +1,7 @@
 # Multi-Modal Character Consistency Pipeline (MMCCP) v2
 
 > [!NOTE]
-> **ARCHITECTURE REFERENCE ONLY:** Quantitative results, pre-registration reconciliation, and closeout caveats live in root [`README_V2.md`](file:///D:/5TH%20SEM/HACKATHON/README_V2.md), [`07_measured_results.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/07_measured_results.md), and [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/PREREG_RECONCILIATION.md).
+> **ARCHITECTURE REFERENCE ONLY:** Quantitative results, pre-registration reconciliation, and closeout caveats live in root [`README_V2.md`](../../README_V2.md), [`07_measured_results.md`](07_measured_results.md), and [`PREREG_RECONCILIATION.md`](PREREG_RECONCILIATION.md).
 > All `v2.0.0-rc1` and `v2.0.0-rc2` overstatements have been retracted and reconciled under Frozen Verifier v1.2.
 
 **PES University Capstone Phase 3 — Project ID:** `PW26_CGM_02`  
@@ -104,9 +104,9 @@ M11 was deliberately marked **OUT OF SCOPE** for this run to prioritize inferenc
 A clean extension point has been preserved in the codebase so M11 can be added later without refactoring existing pipelines:
 
 1. **Config Toggle:**
-   - In [`consistency_v2/config.py`](file:///D:/5TH%20SEM/HACKATHON/consistency_v2/config.py), the parameter `use_character_lora: bool = False` is already present. Setting `use_character_lora=True` in `best_config.json` will activate downstream LoRA loading.
+   - In [`consistency_v2/config.py`](../../consistency_v2/config.py), the parameter `use_character_lora: bool = False` is already present. Setting `use_character_lora=True` in `best_config.json` will activate downstream LoRA loading.
 2. **LoRA Registry:**
-   - [`conditioning/lora_registry.py`](file:///D:/5TH%20SEM/HACKATHON/conditioning/lora_registry.py) remains fully functional and provides `resolve_character_lora(char_id)` to map character tokens to trained `.safetensors` files in `C:\Stable-Diffusion\webui\models\Lora\`.
+   - [`conditioning/lora_registry.py`](../../conditioning/lora_registry.py) remains fully functional and provides `resolve_character_lora(char_id)` to map character tokens to trained `.safetensors` files in `C:\Stable-Diffusion\webui\models\Lora\`.
 3. **Dedicated Held-Out Seeds for LoRA:**
    - The seeds **{606, 707, 808}** were strictly held out and reserved. They have **NEVER** been used for development, tuning, testing, or ablation in this run. A future LoRA training run can use these clean seeds to benchmark generalization on truly untouched random noise vectors.
 4. **Step-by-Step Training Guide:**

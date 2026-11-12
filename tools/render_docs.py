@@ -144,7 +144,7 @@ def render_all():
 **Reconciled Closeout (`v2.0.0-rc3` Candidate) — Honest Artifact-Backed State**
 
 > [!NOTE]
-> Documentation reconciled from `v2.0.0-rc2`: earlier `rc2` summaries omitted pre-registration shifts, mixed defect units (`per-scene` vs `per-face-instance`), overstated Holdout performance, and omitted whole-system VRAM excursions above `{pc['p4_vram_limit_gb']} GB`. All metrics below are generated strictly from [`results/numbers.json`](file:///D:/5TH%20SEM/HACKATHON/results/numbers.json).
+> Documentation reconciled from `v2.0.0-rc2`: earlier `rc2` summaries omitted pre-registration shifts, mixed defect units (`per-scene` vs `per-face-instance`), overstated Holdout performance, and omitted whole-system VRAM excursions above `{pc['p4_vram_limit_gb']} GB`. All metrics below are generated strictly from [`results/numbers.json`](results/numbers.json).
 
 ### Branch, Tag, Reproduction & Non-Repo Assets
 - **Recommended Branch / Tag:** Use `main` (containing reconciled `v2.0.0` closeout) or tag `v2.0.0-rc3` (`consistency-v2` release candidate snapshot prior to `main` merge).
@@ -196,13 +196,13 @@ Evaluated one-shot on **TEST-2** across `{comb['images_count']}` renders (`{eb['
 - **Ebright:** Identity shows parity with Baseline v1 (`Delta Bio = {d_eb['delta_bio']:+.4f}`, scene-cluster 95% CI `{_fmt_ci(d_eb['delta_bio_cluster_95ci'])}`, image 95% CI `{_fmt_ci(d_eb['delta_bio_image_95ci'])}`, Wilcoxon `W={d_eb['delta_bio_wilcoxon_w']:.1f}`, `p={d_eb['delta_bio_wilcoxon_p']:.4f}`); **Rank-1** improved (`{d_eb['delta_rank1']*100:+.1f}%`, image 95% CI `{_fmt_ci(d_eb['delta_rank1_image_95ci'], 1, True)}` excludes 0, whereas 6-cluster CI `{_fmt_ci(d_eb['delta_rank1_cluster_95ci'], 1, True)}` includes 0, `p={d_eb['delta_rank1_wilcoxon_p']:.4f}`); **Wardrobe** improved (`{d_eb['delta_wardrobe']*100:+.1f}%`, cluster CI `{_fmt_ci(d_eb['delta_wardrobe_cluster_95ci'], 1, True)}` and image CI `{_fmt_ci(d_eb['delta_wardrobe_image_95ci'], 1, True)}` both exclude 0, `W={d_eb['delta_wardrobe_wilcoxon_w']:.1f}`, `p={d_eb['delta_wardrobe_wilcoxon_p']:.6f}`); **Defects per scene** dropped `{derived['ebright_defects_per_scene_pct_reduction']:.1f}%` (`{v1_eb['mean_defects_per_scene']:.2f} -> {eb['mean_defects_per_scene']:.2f}`, `Delta = {d_eb['delta_defects_per_scene']:+.2f}`, cluster CI `{_fmt_ci(d_eb['delta_defects_per_scene_cluster_95ci'], 2)}` and image CI `{_fmt_ci(d_eb['delta_defects_per_scene_image_95ci'], 2)}` both exclude 0, `W={d_eb['delta_defects_per_scene_wilcoxon_w']:.1f}`, `p={d_eb['delta_defects_per_scene_wilcoxon_p']:.6f}`).
 - **Holdout:** MMCCP v2 was **not better than Baseline v1** (`Bio Delta = {d_ho['delta_bio']:+.4f}`, `Rank-1 Delta = {d_ho['delta_rank1']*100:+.1f}%`, `Wardrobe Delta = {d_ho['delta_wardrobe']*100:+.1f}%`, `Defects/Scene Delta = {d_ho['delta_defects_per_scene']:+.2f}`, all CIs include 0). Spatial pass (`{ho['spatial_pass_rate']*100:.1f}%`, `{ho['spatial_v2_count']}/{ho['spatial_total_count']}`) fell below `{pc['p2_spatial_threshold_pct']:.1f}%` because Scene 4 (`3` expected characters) rendered only `2` characters on all `{len(exp_cases.get('holdout_scene_4', []))}` seeds.
 - **Unmeasurable Combined Binding Gate:** `identity_at_position_pass_rate` and `combined_binding_pass_rate` are **`0.0%`** (`0/{eb['faces_count']}` Ebright, `0/{ho['faces_count']}` Holdout) for **both** Baseline v1 and MMCCP v2 due to strict multi-judge ensemble calibration, making combined binding unmeasurable under Verifier v{meta['verifier_version']}.
-- **Partial Scoring Circularity:** Verifier anchor references are identical to M4/M5 source anchors; InsightFace similarity reflects swap alignment more strongly than independent judges (Section 6 of [`07_measured_results.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/07_measured_results.md)).
+- **Partial Scoring Circularity:** Verifier anchor references are identical to M4/M5 source anchors; InsightFace similarity reflects swap alignment more strongly than independent judges (Section 6 of [`07_measured_results.md`](docs_generated/v2/07_measured_results.md)).
 
 ---
 
 ## 2. Original Pre-Registered Scorecard (`P1`–`P4`)
 
-Full forensic comparison in [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/PREREG_RECONCILIATION.md):
+Full forensic comparison in [`PREREG_RECONCILIATION.md`](docs_generated/v2/PREREG_RECONCILIATION.md):
 - **Overall Original Verdict:** **`{orig_sc['strict_all_splits_met_count']}/4` strict all-split original rules satisfied** (`0/4` `MET` across all required TEST-2 splits; `P2` and `P3` pass on Ebright & Combined only while failing Holdout).
 1. **`{orig_sc['P1']['hypothesis']}` — [`{orig_sc['P1']['status']}`]** (`{orig_sc['P1']['rationale']}`)
 2. **`{orig_sc['P2']['hypothesis']}` — [`{orig_sc['P2']['status']}`]** (`{orig_sc['P2']['rationale']}`)
@@ -232,7 +232,7 @@ Full forensic comparison in [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HA
 - **Sealed TEST-2 VRAM (`{telem['samples_count']}` 1 Hz samples):** Whole-system peak = **`{telem['peak_vram_mb']}` MiB** (`{telem['peak_vram_gib']:.3f}` GiB / `{telem['peak_vram_gb_decimal']:.3f}` GB; exceeds `{pc['p4_vram_limit_gb']} GB` ceiling: `{telem['seconds_above_7400_mb']}`s > `{pc['p4_vram_limit_mb']:.0f}` MiB, `{telem['seconds_above_7577_6_mib']}`s > `{pc['p4_vram_limit_mib']:.1f}` MiB across `{telem['excursion_episodes_count']}` episodes). Idle-desktop pre-render baseline = `{telem['idle_desktop_baseline_mb']:.0f}` MiB (`{telem['idle_sample_count']}` samples), giving `{telem['process_attributable_delta_peak_mb']:.0f}` MiB (`{telem['process_attributable_delta_peak_gib']:.3f}` GiB) process-attributable delta (`0` OOMs).
 - **Combined 9 Telemetry CSVs (`{telem_9['files_count']}` files, `{telem_9['samples_count']}` samples):** Overall peak `{telem_9['max_mb']:.0f}` MiB, `p99 = {telem_9['p99_mb']:.1f}` MiB, `{telem_9['seconds_above_7400_mb']}`s > `{pc['p4_vram_limit_mb']:.0f}` MiB.
 - **Extra YOLO Person Detector (`conf=0.40`):** Flagged `{total_extra_v2}/{comb['images_count']}` v2 TEST-2 renders (`scene_5_seed_1202.png`: `3` vs `2` expected) vs `{total_extra_v1}/{comb['images_count']}` in v1 (`scene_1_seed_1202.png` + `scene_2_mentorship_seed_1202.png`).
-- **Visual Review:** Prior DEV-2 blind A/B (`{blind_ab['ab_v2_wins']}/{blind_ab['ab_total_pairs']}` = `{blind_ab['ab_v2_win_rate']*100:.2f}%`), Re-ID (`{blind_ab['reid_correct']}/{blind_ab['reid_total_crops']}`), canary (`{canary['total_caught']}/{canary['total_canaries']}`), and VLM checks were **automated, not human**. Human TEST-2 Ebright blind evaluation protocol is staged in [`HUMAN_BLIND_TEST.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/visual_review/HUMAN_BLIND_TEST.md) (status: `{avr['human_blind_test_status']}`).
+- **Visual Review:** Prior DEV-2 blind A/B (`{blind_ab['ab_v2_wins']}/{blind_ab['ab_total_pairs']}` = `{blind_ab['ab_v2_win_rate']*100:.2f}%`), Re-ID (`{blind_ab['reid_correct']}/{blind_ab['reid_total_crops']}`), canary (`{canary['total_caught']}/{canary['total_canaries']}`), and VLM checks were **automated, not human**. Human TEST-2 Ebright blind evaluation protocol is staged in [`HUMAN_BLIND_TEST.md`](docs_generated/v2/visual_review/HUMAN_BLIND_TEST.md) (status: `{avr['human_blind_test_status']}`).
 """
     (PROJECT_ROOT / "README_V2.md").write_text(readme_v2, encoding="utf-8")
     print("[OK] Rendered README_V2.md")
@@ -243,7 +243,7 @@ Full forensic comparison in [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HA
     reconcil_md = f"""# Pre-Registration Reconciliation & Hypothesis Audit (TEST-2)
 
 **Verifier Version:** Frozen `v{meta['verifier_version']}` (`SHA: {meta['verifier_freeze_sha'][:16]}...`)  
-**Scope:** Reconciles the original R10 pre-registered hypotheses (`P1`–`P4`) defined before unsealing `TEST-2` against the post-hoc rules committed in `7904ad5` (`tools/compute_test2_statistics.py`). All metrics below are generated strictly from [`results/numbers.json`](file:///D:/5TH%20SEM/HACKATHON/results/numbers.json).
+**Scope:** Reconciles the original R10 pre-registered hypotheses (`P1`–`P4`) defined before unsealing `TEST-2` against the post-hoc rules committed in `7904ad5` (`tools/compute_test2_statistics.py`). All metrics below are generated strictly from [`results/numbers.json`](../../results/numbers.json).
 
 ---
 
@@ -362,7 +362,7 @@ Defect unit definitions:
 
 ## 2. Original Pre-Registered Scorecard (`P1`–`P4`)
 
-See full table and post-hoc reconciliation in [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/PREREG_RECONCILIATION.md):
+See full table and post-hoc reconciliation in [`PREREG_RECONCILIATION.md`](PREREG_RECONCILIATION.md):
 - **`{orig_sc['P1']['hypothesis']}` — [`{orig_sc['P1']['status']}`]**: {orig_sc['P1']['rationale']}
 - **`{orig_sc['P2']['hypothesis']}` — [`{orig_sc['P2']['status']}`]**: {orig_sc['P2']['rationale']}
 - **`{orig_sc['P3']['hypothesis']}` — [`{orig_sc['P3']['status']}`]**: {orig_sc['P3']['rationale']}
@@ -423,7 +423,7 @@ All images below were inspected directly with the image viewer before reading th
 
 ## 7. Visual Review Status (`automated, not human`)
 - Prior Phase R8 evaluations on DEV-2 (`{blind_ab['ab_v2_wins']}/{blind_ab['ab_total_pairs']}` blind A/B preference = `{blind_ab['ab_v2_win_rate']*100:.2f}%`, `p={blind_ab['ab_p_value']:.4f}`; `{blind_ab['reid_correct']}/{blind_ab['reid_total_crops']}` blind crop Re-ID; `{canary['total_caught']}/{canary['total_canaries']}` planted canaries; VLM `kappa` proxy) are **automated, not human** evaluations (`blind_review_summary.json` / `blind_evaluation_report.md` marked `AUTOMATED-SUPERSEDED`).
-- Human TEST-2 Ebright blind test is staged awaiting user scoring in [`HUMAN_BLIND_TEST.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/visual_review/HUMAN_BLIND_TEST.md) and [`blind_predictions_human.json`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/visual_review/blind_predictions_human.json).
+- Human TEST-2 Ebright blind test is staged awaiting user scoring in [`HUMAN_BLIND_TEST.md`](visual_review/HUMAN_BLIND_TEST.md) and [`blind_predictions_human.json`](visual_review/blind_predictions_human.json).
 """
     (PROJECT_ROOT / "docs_generated" / "v2" / "07_measured_results.md").write_text(measured_md, encoding="utf-8")
     print("[OK] Rendered docs_generated/v2/07_measured_results.md")
@@ -492,7 +492,7 @@ All images below were inspected directly with the image viewer before reading th
     pr19_comment = f"""## CORRECTION NOTICE: Reconciled Finalization Audit (`v2.0.0-rc3` Candidate)
 
 > [!WARNING]
-> **RETRACTING OVERSTATED `v2.0.0-rc2` SCORECARD CLAIMS:** The earlier `v2.0.0-rc2` (`{tl['rc2_commit']}`) comment reported `4/4 MET` hypotheses using post-hoc redefined criteria written on `{tl['compute_test2_statistics_authored_ist']}` after `TEST-2` scores were inspected (`{tl['first_v2_test2_score_ist']}`), conflated per-scene (`{eb['mean_defects_per_scene']:.2f}`) with instance-weighted (`{d_eb['delta_defects_per_instance_weighted']:+.2f}`) defect metrics, and omitted whole-system VRAM excursions (`{telem['peak_vram_mb']}` MiB). Below are the reconciled, script-verified numbers from [`results/numbers.json`](file:///D:/5TH%20SEM/HACKATHON/results/numbers.json).
+> **RETRACTING OVERSTATED `v2.0.0-rc2` SCORECARD CLAIMS:** The earlier `v2.0.0-rc2` (`{tl['rc2_commit']}`) comment reported `4/4 MET` hypotheses using post-hoc redefined criteria written on `{tl['compute_test2_statistics_authored_ist']}` after `TEST-2` scores were inspected (`{tl['first_v2_test2_score_ist']}`), conflated per-scene (`{eb['mean_defects_per_scene']:.2f}`) with instance-weighted (`{d_eb['delta_defects_per_instance_weighted']:+.2f}`) defect metrics, and omitted whole-system VRAM excursions (`{telem['peak_vram_mb']}` MiB). Below are the reconciled, script-verified numbers from [`results/numbers.json`](../../results/numbers.json).
 
 ### 1. Reconciled Sealed TEST-2 Scorecard (`{comb['images_count']}` Renders: `{eb['images_count']}` Ebright + `{ho['images_count']}` Holdout)
 
@@ -535,11 +535,18 @@ All images below were inspected directly with the image viewer before reading th
         )
         new_banner = (
             "> [!NOTE]\n"
+            "> **ARCHITECTURE REFERENCE ONLY:** Quantitative results, pre-registration reconciliation, and closeout caveats live in root [`README_V2.md`](../../README_V2.md), [`07_measured_results.md`](07_measured_results.md), and [`PREREG_RECONCILIATION.md`](PREREG_RECONCILIATION.md).\n"
+            "> All `v2.0.0-rc1` and `v2.0.0-rc2` overstatements have been retracted and reconciled under Frozen Verifier v1.2."
+        )
+        old_abs_banner = (
+            "> [!NOTE]\n"
             "> **ARCHITECTURE REFERENCE ONLY:** Quantitative results, pre-registration reconciliation, and closeout caveats live in root [`README_V2.md`](file:///D:/5TH%20SEM/HACKATHON/README_V2.md), [`07_measured_results.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/07_measured_results.md), and [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/PREREG_RECONCILIATION.md).\n"
             "> All `v2.0.0-rc1` and `v2.0.0-rc2` overstatements have been retracted and reconciled under Frozen Verifier v1.2."
         )
         if old_banner in dr_txt:
             docs_readme_path.write_text(dr_txt.replace(old_banner, new_banner), encoding="utf-8")
+        elif old_abs_banner in dr_txt:
+            docs_readme_path.write_text(dr_txt.replace(old_abs_banner, new_banner), encoding="utf-8")
 
     print("[OK] Rendered all 7 documentation artifacts strictly from results/numbers.json")
 

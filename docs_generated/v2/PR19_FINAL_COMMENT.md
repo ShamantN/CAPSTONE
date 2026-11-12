@@ -1,7 +1,7 @@
 ## CORRECTION NOTICE: Reconciled Finalization Audit (`v2.0.0-rc3` Candidate)
 
 > [!WARNING]
-> **RETRACTING OVERSTATED `v2.0.0-rc2` SCORECARD CLAIMS:** The earlier `v2.0.0-rc2` (`7904ad5`) comment reported `4/4 MET` hypotheses using post-hoc redefined criteria written on `2026-11-06 13:41:51 +0530` after `TEST-2` scores were inspected (`2026-11-06 13:31:15 +0530`), conflated per-scene (`1.50`) with instance-weighted (`-1.05`) defect metrics, and omitted whole-system VRAM excursions (`7984` MiB). Below are the reconciled, script-verified numbers from [`results/numbers.json`](file:///D:/5TH%20SEM/HACKATHON/results/numbers.json).
+> **RETRACTING OVERSTATED `v2.0.0-rc2` SCORECARD CLAIMS:** The earlier `v2.0.0-rc2` (`7904ad5`) comment reported `4/4 MET` hypotheses using post-hoc redefined criteria written on `2026-11-06 13:41:51 +0530` after `TEST-2` scores were inspected (`2026-11-06 13:31:15 +0530`), conflated per-scene (`1.50`) with instance-weighted (`-1.05`) defect metrics, and omitted whole-system VRAM excursions (`7984` MiB). Below are the reconciled, script-verified numbers from [`results/numbers.json`](../../results/numbers.json).
 
 ### 1. Reconciled Sealed TEST-2 Scorecard (`42` Renders: `30` Ebright + `12` Holdout)
 

@@ -4,7 +4,7 @@
 **Reconciled Closeout (`v2.0.0-rc3` Candidate) — Honest Artifact-Backed State**
 
 > [!NOTE]
-> Documentation reconciled from `v2.0.0-rc2`: earlier `rc2` summaries omitted pre-registration shifts, mixed defect units (`per-scene` vs `per-face-instance`), overstated Holdout performance, and omitted whole-system VRAM excursions above `7.4 GB`. All metrics below are generated strictly from [`results/numbers.json`](file:///D:/5TH%20SEM/HACKATHON/results/numbers.json).
+> Documentation reconciled from `v2.0.0-rc2`: earlier `rc2` summaries omitted pre-registration shifts, mixed defect units (`per-scene` vs `per-face-instance`), overstated Holdout performance, and omitted whole-system VRAM excursions above `7.4 GB`. All metrics below are generated strictly from [`results/numbers.json`](results/numbers.json).
 
 ### Branch, Tag, Reproduction & Non-Repo Assets
 - **Recommended Branch / Tag:** Use `main` (containing reconciled `v2.0.0` closeout) or tag `v2.0.0-rc3` (`consistency-v2` release candidate snapshot prior to `main` merge).
@@ -56,13 +56,13 @@ Evaluated one-shot on **TEST-2** across `42` renders (`30` Ebright / `40` faces;
 - **Ebright:** Identity shows parity with Baseline v1 (`Delta Bio = +0.0056`, scene-cluster 95% CI `[-0.0149, +0.0317]`, image 95% CI `[-0.0124, +0.0244]`, Wilcoxon `W=343.0`, `p=0.3754`); **Rank-1** improved (`+15.0%`, image 95% CI `[+2.4%, +28.6%]` excludes 0, whereas 6-cluster CI `[+0.0%, +33.3%]` includes 0, `p=0.0578`); **Wardrobe** improved (`+35.0%`, cluster CI `[+20.0%, +48.6%]` and image CI `[+22.5%, +47.6%]` both exclude 0, `W=0.0`, `p=0.000183`); **Defects per scene** dropped `51.1%` (`3.07 -> 1.50`, `Delta = -1.57`, cluster CI `[-3.20, -0.13]` and image CI `[-2.37, -0.77]` both exclude 0, `W=39.5`, `p=0.001453`).
 - **Holdout:** MMCCP v2 was **not better than Baseline v1** (`Bio Delta = -0.0162`, `Rank-1 Delta = -8.3%`, `Wardrobe Delta = -4.2%`, `Defects/Scene Delta = -0.67`, all CIs include 0). Spatial pass (`87.5%`, `21/24`) fell below `90.0%` because Scene 4 (`3` expected characters) rendered only `2` characters on all `3` seeds.
 - **Unmeasurable Combined Binding Gate:** `identity_at_position_pass_rate` and `combined_binding_pass_rate` are **`0.0%`** (`0/40` Ebright, `0/24` Holdout) for **both** Baseline v1 and MMCCP v2 due to strict multi-judge ensemble calibration, making combined binding unmeasurable under Verifier v1.2.
-- **Partial Scoring Circularity:** Verifier anchor references are identical to M4/M5 source anchors; InsightFace similarity reflects swap alignment more strongly than independent judges (Section 6 of [`07_measured_results.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/07_measured_results.md)).
+- **Partial Scoring Circularity:** Verifier anchor references are identical to M4/M5 source anchors; InsightFace similarity reflects swap alignment more strongly than independent judges (Section 6 of [`07_measured_results.md`](docs_generated/v2/07_measured_results.md)).
 
 ---
 
 ## 2. Original Pre-Registered Scorecard (`P1`–`P4`)
 
-Full forensic comparison in [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/PREREG_RECONCILIATION.md):
+Full forensic comparison in [`PREREG_RECONCILIATION.md`](docs_generated/v2/PREREG_RECONCILIATION.md):
 - **Overall Original Verdict:** **`0/4` strict all-split original rules satisfied** (`0/4` `MET` across all required TEST-2 splits; `P2` and `P3` pass on Ebright & Combined only while failing Holdout).
 1. **`P1 (Original): Delta Re-ID (Biometric Ensemble & Rank-1) > 0 with 95% CI lower bound > 0` — [`NOT MET`]** (`Ebright Biometric Ensemble Delta = +0.0056 (cluster 95% CI [-0.0149, 0.0317], image 95% CI [-0.0124, 0.0244], Wilcoxon p=0.3754); Holdout Delta = -0.0162 (cluster CI [-0.092, 0.0661]); Combined Delta = -0.0026 (cluster CI [-0.039, 0.033]). Lower bound <= 0 across splits.`)
 2. **`P2 (Original): Spatial assignment pass rate >= 90.0%` — [`NOT MET`]** (`Ebright Spatial Pass = 97.5% (39/40, >=90% MET) and Combined = 93.75% (60/64, >=90%), but Holdout Spatial Pass = 87.5% (21/24, <90% NOT MET due to missing 3rd character on all 3 Scene 4 renders).`)
@@ -92,4 +92,4 @@ Full forensic comparison in [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HA
 - **Sealed TEST-2 VRAM (`8112` 1 Hz samples):** Whole-system peak = **`7984` MiB** (`7.797` GiB / `7.984` GB; exceeds `7.4 GB` ceiling: `52`s > `7400` MiB, `29`s > `7577.6` MiB across `36` episodes). Idle-desktop pre-render baseline = `973` MiB (`32` samples), giving `7011` MiB (`6.847` GiB) process-attributable delta (`0` OOMs).
 - **Combined 9 Telemetry CSVs (`9` files, `157357` samples):** Overall peak `8005` MiB, `p99 = 7442.0` MiB, `1838`s > `7400` MiB.
 - **Extra YOLO Person Detector (`conf=0.40`):** Flagged `1/42` v2 TEST-2 renders (`scene_5_seed_1202.png`: `3` vs `2` expected) vs `2/42` in v1 (`scene_1_seed_1202.png` + `scene_2_mentorship_seed_1202.png`).
-- **Visual Review:** Prior DEV-2 blind A/B (`10/12` = `83.33%`), Re-ID (`20/20`), canary (`3/3`), and VLM checks were **automated, not human**. Human TEST-2 Ebright blind evaluation protocol is staged in [`HUMAN_BLIND_TEST.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/visual_review/HUMAN_BLIND_TEST.md) (status: `PENDING_HUMAN_INPUT`).
+- **Visual Review:** Prior DEV-2 blind A/B (`10/12` = `83.33%`), Re-ID (`20/20`), canary (`3/3`), and VLM checks were **automated, not human**. Human TEST-2 Ebright blind evaluation protocol is staged in [`HUMAN_BLIND_TEST.md`](docs_generated/v2/visual_review/HUMAN_BLIND_TEST.md) (status: `PENDING_HUMAN_INPUT`).

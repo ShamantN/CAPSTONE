@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+title: "Multi-Modal Character Consistency Pipeline (MMCCP) v2.0 — PES University Capstone (PW26_CGM_02)"
+message: "If you cite or reference this capstone codebase, verification suite, or benchmark artifacts, please cite as below."
+type: software
+authors:
+  - family-names: "Nagabhushana"
+    given-names: "Shamant"
+  - family-names: "Naaz"
+    given-names: "Samiya"
+  - family-names: "K A"
+    given-names: "Shihab"
+  - family-names: "K C"
+    given-names: "Shivu"
+repository-code: "https://github.com/ShamantN/CAPSTONE"
+version: "2.0.0-rc3"
+date-released: "2026-11-10"
+keywords:
+  - "character-consistency"
+  - "stable-diffusion-xl"
+  - "storyboarding"
+  - "training-free"
+  - "multi-modal-verification"
+abstract: >-
+  MMCCP v2.0 (Project ID: PW26_CGM_02, PES University, Dept. of CSE, Faculty Guide: Prof. Chitra G M)
+  is a training-free character consistency pipeline for multi-panel storyboarding on consumer 8 GB VRAM GPUs,
+  paired with a frozen SHA-256 deterministic verification suite (v1.2). No permissive OSI LICENSE file is shipped;
+  standard copyright and institutional capstone policies apply to original source files, while third-party model
+  weights carry upstream licenses documented in docs/run/LICENSES_AND_MODELS.md.
+

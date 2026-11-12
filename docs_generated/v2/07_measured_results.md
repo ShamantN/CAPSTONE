@@ -43,7 +43,7 @@ Defect unit definitions:
 
 ## 2. Original Pre-Registered Scorecard (`P1`–`P4`)
 
-See full table and post-hoc reconciliation in [`PREREG_RECONCILIATION.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/PREREG_RECONCILIATION.md):
+See full table and post-hoc reconciliation in [`PREREG_RECONCILIATION.md`](PREREG_RECONCILIATION.md):
 - **`P1 (Original): Delta Re-ID (Biometric Ensemble & Rank-1) > 0 with 95% CI lower bound > 0` — [`NOT MET`]**: Ebright Biometric Ensemble Delta = +0.0056 (cluster 95% CI [-0.0149, 0.0317], image 95% CI [-0.0124, 0.0244], Wilcoxon p=0.3754); Holdout Delta = -0.0162 (cluster CI [-0.092, 0.0661]); Combined Delta = -0.0026 (cluster CI [-0.039, 0.033]). Lower bound <= 0 across splits.
 - **`P2 (Original): Spatial assignment pass rate >= 90.0%` — [`NOT MET`]**: Ebright Spatial Pass = 97.5% (39/40, >=90% MET) and Combined = 93.75% (60/64, >=90%), but Holdout Spatial Pass = 87.5% (21/24, <90% NOT MET due to missing 3rd character on all 3 Scene 4 renders).
 - **`P3 (Original): Wardrobe Delta-E pass rate >= 60.0%` — [`NOT MET`]**: Ebright Wardrobe Pass = 80.0% (32/40, >=60% MET) and Combined = 64.06% (41/64, >=60%), but Holdout Wardrobe Pass = 37.5% (9/24, <60% NOT MET vs v1 41.7%).
@@ -135,4 +135,4 @@ M5 (`inswapper_128`) operates inside the InsightFace `buffalo_l` embedding space
 
 ## 7. Visual Review Status (`automated, not human`)
 - Prior Phase R8 evaluations on DEV-2 (`10/12` blind A/B preference = `83.33%`, `p=0.0386`; `20/20` blind crop Re-ID; `3/3` planted canaries; VLM `kappa` proxy) are **automated, not human** evaluations (`blind_review_summary.json` / `blind_evaluation_report.md` marked `AUTOMATED-SUPERSEDED`).
-- Human TEST-2 Ebright blind test is staged awaiting user scoring in [`HUMAN_BLIND_TEST.md`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/visual_review/HUMAN_BLIND_TEST.md) and [`blind_predictions_human.json`](file:///D:/5TH%20SEM/HACKATHON/docs_generated/v2/visual_review/blind_predictions_human.json).
+- Human TEST-2 Ebright blind test is staged awaiting user scoring in [`HUMAN_BLIND_TEST.md`](visual_review/HUMAN_BLIND_TEST.md) and [`blind_predictions_human.json`](visual_review/blind_predictions_human.json).

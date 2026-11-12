@@ -11,7 +11,7 @@
 
 Inspect each side-by-side composite image in `docs_generated/v2/visual_review/human_blind_ab/<pair_id>_blind.png`.
 For each pair, judge BOTH **character identity consistency** and **overall visual quality**, and record `"A"`, `"B"`, or `"tie"` under `ab_preference.<pair_id>.selected_option` in:
-- [`docs_generated/v2/visual_review/blind_predictions_human.json`](file:///D:/5TH SEM/HACKATHON/docs_generated/v2/visual_review/blind_predictions_human.json)
+- [`docs_generated/v2/visual_review/blind_predictions_human.json`](blind_predictions_human.json)
 
 | Pair ID | Blind Composite Path |
 | :--- | :--- |
