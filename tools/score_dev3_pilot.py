@@ -59,36 +59,61 @@ def score_candidate(cand_id: str, evaluator: Eval3Evaluator, story: StorySpec) -
                     img = cv2.imread(img_p)
                     anchor_crops[img_p] = img
 
-        # Audit each scene render in replicate
+        # Audit each scene render in replicate (with caching)
+        cache_path = rep_render_dir / "audits_cache.json"
         scene_audits = []
-        for sc_file in sorted(rep_render_dir.glob("*.json")):
-            with open(sc_file, "r", encoding="utf-8") as sf:
-                sc_data = json.load(sf)
+        if cache_path.exists():
+            print(f"  [CACHE] Loading cached scene audits from {cache_path.name}")
+            with open(cache_path, "r", encoding="utf-8") as cf:
+                scene_audits = json.load(cf)
+            for a in scene_audits:
+                elapsed = a.get("elapsed_seconds", 0.0)
+                if elapsed > 0:
+                    all_render_timings.append(elapsed)
+        else:
+            for sc_file in sorted(rep_render_dir.glob("rep_*.json")):
+                with open(sc_file, "r", encoding="utf-8") as sf:
+                    sc_data = json.load(sf)
 
-            img_p = rep_render_dir / f"{sc_data['render_id']}.png"
-            if not img_p.exists():
-                continue
+                img_p = rep_render_dir / f"{sc_data['render_id']}.png"
+                if not img_p.exists():
+                    continue
 
-            elapsed = sc_data.get("elapsed_seconds", 0.0)
-            if elapsed > 0:
-                all_render_timings.append(elapsed)
+                elapsed = sc_data.get("elapsed_seconds", 0.0)
+                if elapsed > 0:
+                    all_render_timings.append(elapsed)
 
-            sc_num = sc_data.get("scene_number", 1)
-            exp_chars = sc_data.get("expected_characters", [])
-            char_pos = sc_data.get("character_positions", {})
+                sc_num = sc_data.get("scene_number", 1)
+                exp_chars = sc_data.get("expected_characters", [])
+                char_pos = sc_data.get("character_positions", {})
 
-            # Run single scene audit
-            audit = evaluator.audit_single_scene_image(
-                image_path=img_p,
-                expected_characters=exp_chars,
-                character_positions=char_pos,
-                anchor_crops=anchor_crops
-            )
-            audit["scene_number"] = sc_num
-            audit["render_id"] = sc_data["render_id"]
-            audit["seed"] = sc_data.get("seed", 0)
-            audit["elapsed_seconds"] = elapsed
-            scene_audits.append(audit)
+                # Run single scene audit
+                audit = evaluator.audit_single_scene_image(
+                    image_path=img_p,
+                    expected_characters=exp_chars,
+                    character_positions=char_pos,
+                    anchor_crops=anchor_crops
+                )
+                audit["scene_number"] = sc_num
+                audit["render_id"] = sc_data["render_id"]
+                audit["seed"] = sc_data.get("seed", 0)
+                audit["elapsed_seconds"] = elapsed
+                scene_audits.append(audit)
+
+            # Save cache
+            def _clean_json(obj):
+                if isinstance(obj, dict):
+                    return {k: _clean_json(v) for k, v in obj.items()}
+                elif isinstance(obj, list):
+                    return [_clean_json(v) for v in obj]
+                elif isinstance(obj, np.ndarray):
+                    return obj.tolist()
+                elif isinstance(obj, (np.floating, np.integer)):
+                    return obj.item()
+                return obj
+
+            with open(cache_path, "w", encoding="utf-8") as cf:
+                json.dump(_clean_json(scene_audits), cf)
 
         # Expected characters across Story A scenes 1 to 5
         story_chars = ["young_ebright", "mother", "teen_ebright", "college_ebright", "james_wong"]

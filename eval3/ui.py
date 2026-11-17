@@ -25,7 +25,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from eval3.runner import EVAL_OUTPUT_BASE
-from eval3.registry import discover_evaluation_runs, compute_run_progress_eta
+from eval3.registry import discover_evaluation_runs
 from eval3.metrics.evaluator import Eval3Evaluator
 
 

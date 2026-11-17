@@ -214,7 +214,7 @@ class Eval3Evaluator:
             if len(s_exp) == 1 and len(s_faces) >= 1:
                 # Single character scene: assign largest face
                 f_best = sorted(s_faces, key=lambda f: f["bbox"]["w"] * f["bbox"]["h"], reverse=True)[0]
-                rec = {"char_id": s_exp[0], "scene": audit.get("scene_number", 0), "face": f_best}
+                rec = {"char_id": s_exp[0], "scene": audit.get("scene_number", 0), "render_id": audit.get("render_id", ""), "face": f_best}
                 faces_by_char[s_exp[0]].append(rec)
                 all_detected_faces.append(rec)
 
@@ -223,8 +223,8 @@ class Eval3Evaluator:
                 sorted_f = sorted(s_faces, key=lambda f: f["bbox"]["x"])
                 c_left = s_exp[0]
                 c_right = s_exp[1]
-                rec_l = {"char_id": c_left, "scene": audit.get("scene_number", 0), "face": sorted_f[0]}
-                rec_r = {"char_id": c_right, "scene": audit.get("scene_number", 0), "face": sorted_f[-1]}
+                rec_l = {"char_id": c_left, "scene": audit.get("scene_number", 0), "render_id": audit.get("render_id", ""), "face": sorted_f[0]}
+                rec_r = {"char_id": c_right, "scene": audit.get("scene_number", 0), "render_id": audit.get("render_id", ""), "face": sorted_f[-1]}
                 faces_by_char[c_left].append(rec_l)
                 faces_by_char[c_right].append(rec_r)
                 all_detected_faces.extend([rec_l, rec_r])
@@ -240,7 +240,7 @@ class Eval3Evaluator:
         for cid, f_list in faces_by_char.items():
             for i in range(len(f_list)):
                 for j in range(i + 1, len(f_list)):
-                    if f_list[i]["scene"] != f_list[j]["scene"]:
+                    if f_list[i].get("scene") != f_list[j].get("scene") and f_list[i].get("render_id") != f_list[j].get("render_id"):
                         embs1 = f_list[i]["face"]["embeddings"]
                         embs2 = f_list[j]["face"]["embeddings"]
                         cos_map = self.compute_pair_judge_cosines(embs1, embs2)
@@ -249,7 +249,7 @@ class Eval3Evaluator:
                         for m in BiometricEnsemble.JUDGE_MODELS:
                             judge_scores[m]["genuine"].append(cos_map[m])
 
-        # Impostor: different characters in same replicate
+        # Impostor: different characters, strictly across different scenes and different images in same replicate
         char_keys = list(faces_by_char.keys())
         for i in range(len(char_keys)):
             for j in range(i + 1, len(char_keys)):
@@ -257,6 +257,8 @@ class Eval3Evaluator:
                 c2 = char_keys[j]
                 for f1 in faces_by_char[c1]:
                     for f2 in faces_by_char[c2]:
+                        if f1.get("scene") == f2.get("scene") or f1.get("render_id") == f2.get("render_id"):
+                            continue  # Protocol: pairs must never come from the same scene or same image
                         embs1 = f1["face"]["embeddings"]
                         embs2 = f2["face"]["embeddings"]
                         cos_map = self.compute_pair_judge_cosines(embs1, embs2)
@@ -337,7 +339,7 @@ class Eval3Evaluator:
         pm3_rate = round(float(correct_scenes_count) / float(total_scenes), 4) if total_scenes > 0 else 0.0
 
         # Secondary summaries
-        sharpnesses = [f["face"]["sharpness"] for f in all_detected_faces]
+        sharpnesses = [f["face"].get("sharpness", 100.0) for f in all_detected_faces]
         mean_sharpness = round(float(np.mean(sharpnesses)), 2) if sharpnesses else 0.0
         extra_persons = sum(1 for a in scene_audits if a.get("extra_person_flag", False))
         extra_person_rate = round(float(extra_persons) / float(total_scenes), 4) if total_scenes > 0 else 0.0

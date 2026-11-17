@@ -71,6 +71,40 @@ class TestEval3Metrics(unittest.TestCase):
             self.assertTrue(s_csv.exists())
             self.assertTrue(sum_json.exists())
 
+    def test_pair_formation_disjointness_regression(self):
+        """Regression test for F3: genuine and impostor pairs must NEVER come from the same scene or image."""
+        evaluator = Eval3Evaluator()
+        # Mock audit with two characters in scene 1 and one in scene 2
+        mock_audits = [
+            {
+                "scene_number": 1,
+                "render_id": "rep_00_scene_01_seed_100",
+                "expected_characters": ["char_a", "char_b"],
+                "detected_faces": [
+                    {"bbox": {"x": 10, "y": 10, "w": 50, "h": 50}, "embeddings": {m: [0.1]*512 for m in ["Facenet512", "SFace", "GhostFaceNet", "ArcFace"]}},
+                    {"bbox": {"x": 100, "y": 10, "w": 50, "h": 50}, "embeddings": {m: [0.2]*512 for m in ["Facenet512", "SFace", "GhostFaceNet", "ArcFace"]}}
+                ]
+            },
+            {
+                "scene_number": 2,
+                "render_id": "rep_00_scene_02_seed_101",
+                "expected_characters": ["char_a"],
+                "detected_faces": [
+                    {"bbox": {"x": 50, "y": 50, "w": 60, "h": 60}, "embeddings": {m: [0.12]*512 for m in ["Facenet512", "SFace", "GhostFaceNet", "ArcFace"]}}
+                ]
+            }
+        ]
+        rep_res = evaluator.evaluate_replicate(
+            replicate_idx=0,
+            scene_audits=mock_audits,
+            expected_chars=["char_a", "char_b"]
+        )
+        # Genuine pairs: char_a across scene 1 and scene 2 -> 1 pair
+        self.assertEqual(rep_res["n_genuine_pairs"], 1)
+        # Impostor pairs: char_a (scene 2) vs char_b (scene 1) -> 1 pair
+        # char_a (scene 1) vs char_b (scene 1) MUST BE EXCLUDED because they share scene 1!
+        self.assertEqual(rep_res["n_impostor_pairs"], 1)
+
 
 if __name__ == "__main__":
     unittest.main()
