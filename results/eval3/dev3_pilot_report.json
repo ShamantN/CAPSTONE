@@ -1,0 +1,118 @@
+{
+  "candidates": {
+    "C0": {
+      "candidate_id": "C0",
+      "config_hash": "df4a0a2648ac",
+      "config_compute_hash": "df4a0a2648acdfe1",
+      "pm1_cross_scene_auc": 1.0,
+      "pm2_cross_scene_rank1": 0.5714,
+      "pm3_scene_correctness_rate": 0.9,
+      "judge_aucs": {
+        "Facenet512": 0.9992,
+        "SFace": 0.9912,
+        "GhostFaceNet": 1.0,
+        "ArcFace": 0.9885
+      },
+      "mean_seconds_per_render": 205.28,
+      "replicate_results": [
+        {
+          "replicate_idx": 0,
+          "pm1_auc": 1.0,
+          "pm2_rank1": 0.5714,
+          "pm3_rate": 0.9,
+          "n_genuine_pairs": 8,
+          "n_impostor_pairs": 53
+        },
+        {
+          "replicate_idx": 1,
+          "pm1_auc": 1.0,
+          "pm2_rank1": 0.5714,
+          "pm3_rate": 0.9,
+          "n_genuine_pairs": 8,
+          "n_impostor_pairs": 76
+        }
+      ]
+    },
+    "C1": {
+      "candidate_id": "C1",
+      "config_hash": "d5cae1b7d310",
+      "config_compute_hash": "d5cae1b7d310bb36",
+      "pm1_cross_scene_auc": 1.0,
+      "pm2_cross_scene_rank1": 0.5714,
+      "pm3_scene_correctness_rate": 0.9,
+      "judge_aucs": {
+        "Facenet512": 0.9943,
+        "SFace": 0.9896,
+        "GhostFaceNet": 0.9988,
+        "ArcFace": 0.9874
+      },
+      "mean_seconds_per_render": 194.82,
+      "replicate_results": [
+        {
+          "replicate_idx": 0,
+          "pm1_auc": 1.0,
+          "pm2_rank1": 0.5714,
+          "pm3_rate": 0.9,
+          "n_genuine_pairs": 8,
+          "n_impostor_pairs": 53
+        },
+        {
+          "replicate_idx": 1,
+          "pm1_auc": 1.0,
+          "pm2_rank1": 0.5714,
+          "pm3_rate": 0.9,
+          "n_genuine_pairs": 8,
+          "n_impostor_pairs": 76
+        }
+      ]
+    },
+    "C2": {
+      "candidate_id": "C2",
+      "config_hash": "9821eb35ddb1",
+      "config_compute_hash": "9821eb35ddb10bb2",
+      "pm1_cross_scene_auc": 0.9178,
+      "pm2_cross_scene_rank1": 0.4642,
+      "pm3_scene_correctness_rate": 0.9,
+      "judge_aucs": {
+        "Facenet512": 0.9581,
+        "SFace": 0.8315,
+        "GhostFaceNet": 0.7923,
+        "ArcFace": 0.926
+      },
+      "mean_seconds_per_render": 137.63,
+      "replicate_results": [
+        {
+          "replicate_idx": 0,
+          "pm1_auc": 0.9112,
+          "pm2_rank1": 0.5714,
+          "pm3_rate": 0.8,
+          "n_genuine_pairs": 8,
+          "n_impostor_pairs": 76
+        },
+        {
+          "replicate_idx": 1,
+          "pm1_auc": 0.9243,
+          "pm2_rank1": 0.3571,
+          "pm3_rate": 1.0,
+          "n_genuine_pairs": 8,
+          "n_impostor_pairs": 76
+        }
+      ]
+    }
+  },
+  "winner": "C0",
+  "winner_config_hash": "df4a0a2648ac",
+  "budget_plan": {
+    "budget_hours_cap": 6.0,
+    "mean_seconds_per_scene_render_T_render": 205.28,
+    "total_scenes_per_replicate": 12,
+    "seeds_per_scene": 3,
+    "renders_per_replicate": 36,
+    "seconds_per_replicate": 7910.1,
+    "chosen_replicates_R": 4,
+    "stage_b_estimated_hours": 8.96,
+    "stage_d_estimated_hours": 0.88,
+    "stage_b_estimated_renders": 320,
+    "stage_b_fits_budget": false
+  }
+}

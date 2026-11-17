@@ -67,7 +67,7 @@ def run_positive_control(
 
     y_true = [1] * len(genuine_sims) + [0] * len(impostor_sims)
     y_scores = genuine_sims + impostor_sims
-    auc = float(roc_auc_score(y_true, y_scores))
+    auc = float(compute_roc_auc(y_true, y_scores))
 
     passed = bool(auc >= 0.99)
     return {

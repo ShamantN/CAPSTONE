@@ -1,0 +1,54 @@
+{
+  "version": "eval3_v1.0",
+  "description": "Out-of-loop 4-judge DeepFace ensemble calibration fitted on DEV-3 genuine/impostor pairs",
+  "judges": {
+    "Facenet512": {
+      "mean_genuine": 0.89,
+      "std_genuine": 0.0245,
+      "mean_impostor": 0.162,
+      "std_impostor": 0.0349,
+      "logistic_w": 4.9033,
+      "logistic_b": -2.5818,
+      "threshold_far05": 0.212,
+      "d_prime": 24.1595,
+      "n_genuine": 5,
+      "n_impostor": 5
+    },
+    "SFace": {
+      "mean_genuine": 0.822,
+      "std_genuine": 0.0214,
+      "mean_impostor": 0.192,
+      "std_impostor": 0.036,
+      "logistic_w": 5.6595,
+      "logistic_b": -2.8742,
+      "threshold_far05": 0.242,
+      "d_prime": 21.2857,
+      "n_genuine": 5,
+      "n_impostor": 5
+    },
+    "GhostFaceNet": {
+      "mean_genuine": 0.87,
+      "std_genuine": 0.02,
+      "mean_impostor": 0.138,
+      "std_impostor": 0.0279,
+      "logistic_w": 4.8812,
+      "logistic_b": -2.4618,
+      "threshold_far05": 0.18,
+      "d_prime": 30.1872,
+      "n_genuine": 5,
+      "n_impostor": 5
+    },
+    "ArcFace": {
+      "mean_genuine": 0.86,
+      "std_genuine": 0.02,
+      "mean_impostor": 0.174,
+      "std_impostor": 0.0326,
+      "logistic_w": 5.2039,
+      "logistic_b": -2.6937,
+      "threshold_far05": 0.222,
+      "d_prime": 25.3553,
+      "n_genuine": 5,
+      "n_impostor": 5
+    }
+  }
+}

@@ -44,15 +44,22 @@ def fit_platt_scaling(scores: np.ndarray, labels: np.ndarray) -> Tuple[float, fl
     if len(scores) < 10 or len(np.unique(labels)) < 2:
         return 10.0, -3.5
 
+    # Platt (1999) target smoothing: t+ = (N+ + 1)/(N+ + 2), t- = 1/(N- + 2)
+    n_pos = float(np.sum(labels == 1))
+    n_neg = float(np.sum(labels == 0))
+    t_pos = (n_pos + 1.0) / (n_pos + 2.0)
+    t_neg = 1.0 / (n_neg + 2.0)
+    smooth_labels = np.where(labels == 1, t_pos, t_neg)
+
     def loss(params):
         w, b = params
         z = np.clip(w * scores + b, -25.0, 25.0)
         p = 1.0 / (1.0 + np.exp(-z))
         p = np.clip(p, 1e-15, 1.0 - 1e-15)
-        bce = -np.sum(labels * np.log(p) + (1.0 - labels) * np.log(1.0 - p))
-        return bce + 0.5 * (w ** 2)
+        bce = -np.sum(smooth_labels * np.log(p) + (1.0 - smooth_labels) * np.log(1.0 - p))
+        return bce + 1e-4 * (w ** 2)
 
-    res = minimize(loss, [5.0, -2.0], method="L-BFGS-B")
+    res = minimize(loss, [10.0, -4.0], method="L-BFGS-B")
     if res.success:
         w, b = res.x
         return round(float(w), 4), round(float(b), 4)

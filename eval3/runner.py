@@ -242,6 +242,11 @@ class Eval3Runner:
             else:
                 shutil.copyfile(best["image_path"], str(ref_path))
 
+            # Initialize identity bank metadata for this character
+            from consistency_v2.identity_bank import IdentityBankManager
+            bank_mgr = IdentityBankManager(bank_root=banks_dir)
+            bank_mgr.initialize_character_bank(cid, [ref_path])
+
             # Write selection record
             with open(sidecar_path, "w", encoding="utf-8") as f:
                 json.dump({k: v for k, v in best.items() if k not in ["img_bgr", "crop_bgr"]}, f, indent=2)
