@@ -285,26 +285,61 @@ class Eval3Evaluator:
             else:
                 judge_aucs[m] = 0.50
 
-        # 2. PM2: Leave-One-Scene-Out Rank-1 (Intention-to-Treat)
-        # Denominator: total expected face slots across all scenes in replicate
-        total_expected_faces = sum(len(a.get("expected_characters", [])) for a in scene_audits)
+        # 2. PM2: Leave-One-Scene-Out Rank-1 (Eligible Probes with Intention-to-Treat)
+        # Determine character appearance counts across scenes to establish ELIGIBILITY
+        char_scene_counts: Dict[str, set] = {c: set() for c in expected_chars}
+        for audit in scene_audits:
+            sc_num = audit.get("scene_number", 0)
+            for c in audit.get("expected_characters", []):
+                if c in char_scene_counts:
+                    char_scene_counts[c].add(sc_num)
+
+        # A character is eligible for leave-one-scene-out cross-scene identification
+        # if and only if they appear in at least 2 different scenes of this replicate.
+        eligible_chars = {c for c, sc_set in char_scene_counts.items() if len(sc_set) >= 2}
+        ineligible_chars = set(expected_chars) - eligible_chars
+
+        # Probe counts
+        n_expected = sum(len(a.get("expected_characters", [])) for a in scene_audits)
+        n_eligible = sum(1 for a in scene_audits for c in a.get("expected_characters", []) if c in eligible_chars)
+        n_ineligible = n_expected - n_eligible
+
         rank1_hits = 0
         rank3_hits = 0
         reciprocal_ranks = []
+        cmc_hits = {k: 0 for k in range(1, len(expected_chars) + 1)}
 
-        for cid in expected_chars:
-            c_records = faces_by_char.get(cid, [])
-            for rec in c_records:
-                probe_scene = rec["scene"]
-                probe_face = rec["face"]
+        # Evaluate only ELIGIBLE probe slots across all scenes
+        for audit in scene_audits:
+            sc_num = audit.get("scene_number", 0)
+            render_id = audit.get("render_id", "")
+            for cid in audit.get("expected_characters", []):
+                if cid not in eligible_chars:
+                    continue  # Ineligible character: single-scene appearance makes cross-scene gallery match impossible
+
+                # Check if this probe face was successfully detected
+                probe_rec = next(
+                    (r for r in faces_by_char.get(cid, []) if r["scene"] == sc_num and r.get("render_id") == render_id),
+                    None
+                )
+
+                if probe_rec is None:
+                    # Intention-to-treat: an undetected or missing face counts as incorrect!
+                    # Assigned rank beyond gallery; reciprocal rank is 0.0
+                    rank = len(expected_chars) + 1
+                    reciprocal_ranks.append(0.0)
+                    continue
+
+                probe_face = probe_rec["face"]
                 probe_embs = probe_face["embeddings"]
+                probe_scene = sc_num
 
-                # Gallery templates: for each character, compute mean embedding across OTHER scenes
+                # Gallery templates: for each candidate character in expected_chars,
+                # compute mean embedding across OTHER scenes
                 gallery_scores = {}
                 for cand_cid in expected_chars:
                     cand_faces = [r["face"]["embeddings"] for r in faces_by_char.get(cand_cid, []) if r["scene"] != probe_scene]
                     if cand_faces:
-                        # Mean cosine across 4 judges against gallery representations
                         cand_sims = []
                         for cf_emb in cand_faces:
                             cos_map = self.compute_pair_judge_cosines(probe_embs, cf_emb)
@@ -316,22 +351,27 @@ class Eval3Evaluator:
                 # Compute rank of genuine character
                 sorted_gallery = sorted(gallery_scores.items(), key=lambda x: x[1], reverse=True)
                 ranked_cids = [item[0] for item in sorted_gallery]
-                if cid in ranked_cids:
+                if cid in ranked_cids and gallery_scores[cid] > -1.0:
                     rank = ranked_cids.index(cid) + 1
+                    if rank == 1:
+                        rank1_hits += 1
+                    if rank <= 3:
+                        rank3_hits += 1
+                    reciprocal_ranks.append(1.0 / float(rank))
+                    for k in range(1, len(expected_chars) + 1):
+                        if rank <= k:
+                            cmc_hits[k] += 1
                 else:
                     rank = len(expected_chars) + 1
+                    reciprocal_ranks.append(0.0)
 
-                if rank == 1:
-                    rank1_hits += 1
-                if rank <= 3:
-                    rank3_hits += 1
-                reciprocal_ranks.append(1.0 / float(rank))
-
-        # Intention-to-treat denominator
-        pm2_rank1 = round(float(rank1_hits) / float(total_expected_faces), 4) if total_expected_faces > 0 else 0.0
-        rank3_rate = round(float(rank3_hits) / float(total_expected_faces), 4) if total_expected_faces > 0 else 0.0
-        mrr = round(float(sum(reciprocal_ranks)) / float(total_expected_faces), 4) if total_expected_faces > 0 else 0.0
+        # Denominator: ELIGIBLE probes (intention-to-treat preserved over all eligible slots)
+        pm2_rank1 = round(float(rank1_hits) / float(n_eligible), 4) if n_eligible > 0 else 0.0
+        rank3_rate = round(float(rank3_hits) / float(n_eligible), 4) if n_eligible > 0 else 0.0
+        mrr = round(float(sum(reciprocal_ranks)) / float(n_eligible), 4) if n_eligible > 0 else 0.0
+        cmc_curve = {k: round(float(cmc_hits[k]) / float(n_eligible), 4) for k in range(1, len(expected_chars) + 1)} if n_eligible > 0 else {}
         chance_level = round(1.0 / float(len(expected_chars)), 4) if expected_chars else 0.0
+        pm2_old_unfiltered = round(float(rank1_hits) / float(n_expected), 4) if n_expected > 0 else 0.0
 
         # 3. PM3: Scene Correctness Rate
         correct_scenes_count = sum(1 for a in scene_audits if a.get("pm3_correct", False))
@@ -348,16 +388,26 @@ class Eval3Evaluator:
             "replicate_idx": replicate_idx,
             "pm1_cross_scene_auc": round(pm1_auc, 4),
             "pm2_cross_scene_rank1": pm2_rank1,
+            "pm2_old_unfiltered": pm2_old_unfiltered,
             "pm3_scene_correctness_rate": pm3_rate,
             "rank3_accuracy": rank3_rate,
             "mrr": mrr,
+            "cmc_curve": cmc_curve,
             "chance_level": chance_level,
+            "n_gallery_characters": len(expected_chars),
+            "n_expected": n_expected,
+            "n_eligible": n_eligible,
+            "n_ineligible": n_ineligible,
+            "eligible_characters": sorted(list(eligible_chars)),
+            "ineligible_characters": sorted(list(ineligible_chars)),
+            "rank1_hits": rank1_hits,
+            "rank3_hits": rank3_hits,
             "judge_aucs": {k: round(v, 4) for k, v in judge_aucs.items()},
             "n_genuine_pairs": len(genuine_scores),
             "n_impostor_pairs": len(impostor_scores),
-            "total_expected_faces": total_expected_faces,
+            "total_expected_faces": n_expected,
             "total_detected_faces": len(all_detected_faces),
-            "face_recall": round(float(len(all_detected_faces)) / float(total_expected_faces), 4) if total_expected_faces > 0 else 0.0,
+            "face_recall": round(float(len(all_detected_faces)) / float(n_expected), 4) if n_expected > 0 else 0.0,
             "total_scenes": total_scenes,
             "correct_scenes": correct_scenes_count,
             "extra_person_rate": extra_person_rate,

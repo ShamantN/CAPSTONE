@@ -101,7 +101,7 @@ def render_eval_tab():
             st.metric("PM2: Cross-Scene Rank-1 [OUT-OF-LOOP]", f"{p2.get('empirical_mean', 0.0):.4f}")
             b2 = p2.get("bootstrap", {})
             if b2:
-                st.caption(f"95% CI: `[{b2.get('ci_95_lower', 0.0):.4f}, {b2.get('ci_95_upper', 1.0):.4f}]` | Chance: `{p2.get('chance_floor', 0.20):.2f}`")
+                st.caption(f"95% CI: `[{b2.get('ci_95_lower', 0.0):.4f}, {b2.get('ci_95_upper', 1.0):.4f}]` | Chance: `{p2.get('chance_floor', 0.20):.2f}` | Probes: Eligible (>=2 scenes)")
         with m3:
             p3 = pm.get("pm3_scene_correctness_rate", {})
             st.metric("PM3: Scene Correctness [OUT-OF-LOOP]", f"{p3.get('empirical_mean', 0.0):.4f}")

@@ -11,9 +11,9 @@
     "control_2_negative": {
       "control_name": "Control 2: Negative Control (1000 Shuffles AUC ~ 0.50)",
       "passed": true,
-      "mean_shuffled_auc": 0.5005,
-      "min_auc": 0.2876,
-      "max_auc": 0.7016,
+      "mean_shuffled_auc": 0.4979,
+      "min_auc": 0.2613,
+      "max_auc": 0.8114,
       "n_shuffles": 1000
     },
     "control_3_blank": {

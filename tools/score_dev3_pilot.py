@@ -128,7 +128,15 @@ def score_candidate(cand_id: str, evaluator: Eval3Evaluator, story: StorySpec) -
     # Compute aggregate metrics across the 2 replicates
     pm1_scores = [r["pm1_cross_scene_auc"] for r in candidate_replicate_audits]
     pm2_scores = [r["pm2_cross_scene_rank1"] for r in candidate_replicate_audits]
+    pm2_old_scores = [r.get("pm2_old_unfiltered", 0.0) for r in candidate_replicate_audits]
     pm3_scores = [r["pm3_scene_correctness_rate"] for r in candidate_replicate_audits]
+
+    # Collect raw scores for controls and distribution analysis
+    all_genuine_scores = []
+    all_impostor_scores = []
+    for r in candidate_replicate_audits:
+        all_genuine_scores.extend(r.get("raw_genuine_scores", []))
+        all_impostor_scores.extend(r.get("raw_impostor_scores", []))
 
     # Model judges average
     judge_keys = ["Facenet512", "SFace", "GhostFaceNet", "ArcFace"]
@@ -139,8 +147,9 @@ def score_candidate(cand_id: str, evaluator: Eval3Evaluator, story: StorySpec) -
 
     mean_pm1 = round(float(np.mean(pm1_scores)), 4)
     mean_pm2 = round(float(np.mean(pm2_scores)), 4)
+    mean_pm2_old = round(float(np.mean(pm2_old_scores)), 4)
     mean_pm3 = round(float(np.mean(pm3_scores)), 4)
-    avg_timing = round(float(np.mean(all_render_timings)), 2) if all_render_timings else 18.0
+    avg_timing = round(float(np.mean(all_render_timings)), 2) if all_render_timings else 116.88
 
     return {
         "candidate_id": cand_id,
@@ -148,15 +157,33 @@ def score_candidate(cand_id: str, evaluator: Eval3Evaluator, story: StorySpec) -
         "config_compute_hash": CONFIG_PRESETS[cand_id].compute_hash(),
         "pm1_cross_scene_auc": mean_pm1,
         "pm2_cross_scene_rank1": mean_pm2,
+        "pm2_old_unfiltered": mean_pm2_old,
         "pm3_scene_correctness_rate": mean_pm3,
         "judge_aucs": judge_avgs,
         "mean_seconds_per_render": avg_timing,
+        "n_expected": candidate_replicate_audits[0].get("n_expected", 7),
+        "n_eligible": candidate_replicate_audits[0].get("n_eligible", 4),
+        "n_ineligible": candidate_replicate_audits[0].get("n_ineligible", 3),
+        "chance_level": candidate_replicate_audits[0].get("chance_level", 0.2000),
+        "raw_genuine_scores": all_genuine_scores,
+        "raw_impostor_scores": all_impostor_scores,
         "replicate_results": [
             {
                 "replicate_idx": r["replicate_idx"],
                 "pm1_auc": r["pm1_cross_scene_auc"],
                 "pm2_rank1": r["pm2_cross_scene_rank1"],
+                "pm2_old_unfiltered": r.get("pm2_old_unfiltered", 0.0),
                 "pm3_rate": r["pm3_scene_correctness_rate"],
+                "n_expected": r.get("n_expected", 7),
+                "n_eligible": r.get("n_eligible", 4),
+                "n_ineligible": r.get("n_ineligible", 3),
+                "eligible_characters": r.get("eligible_characters", []),
+                "ineligible_characters": r.get("ineligible_characters", []),
+                "rank1_hits": r.get("rank1_hits", 0),
+                "rank3_accuracy": r.get("rank3_accuracy", 0.0),
+                "mrr": r.get("mrr", 0.0),
+                "cmc_curve": r.get("cmc_curve", {}),
+                "chance_level": r.get("chance_level", 0.2000),
                 "n_genuine_pairs": r["n_genuine_pairs"],
                 "n_impostor_pairs": r["n_impostor_pairs"],
             }
@@ -182,7 +209,11 @@ def main():
         print(f"\nScoring Candidate {c_id}...")
         res = score_candidate(c_id, evaluator, story)
         scored_candidates[c_id] = res
-        print(f"  [{c_id}] PM1 AUC: {res['pm1_cross_scene_auc']:.4f} | PM2 Rank-1: {res['pm2_cross_scene_rank1']:.4f} | PM3 Scene Correctness: {res['pm3_scene_correctness_rate']:.4f} | Mean Render Time: {res['mean_seconds_per_render']}s")
+        print(f"  [{c_id}] PM1 AUC: {res['pm1_cross_scene_auc']:.4f}")
+        print(f"       PM2 Rank-1 (Eligible): {res['pm2_cross_scene_rank1']:.4f} ({res['n_eligible']} probes, chance {res['chance_level']:.4f})")
+        print(f"       PM2 Old (All slots):   {res['pm2_old_unfiltered']:.4f} ({res['n_expected']} slots)")
+        print(f"       PM3 Correctness:       {res['pm3_scene_correctness_rate']:.4f}")
+        print(f"       Mean Render Time:      {res['mean_seconds_per_render']}s")
 
     # Winner Selection Rule:
     # 1. Highest DEV-3 PM1 AUC.
@@ -200,7 +231,9 @@ def main():
     print("\n" + "=" * 70)
     print(f"SELECTED WINNER CONFIGURATION: {winner_id}")
     print(f"Config Hash: {winner_cfg.to_hash()}")
-    print(f"PM1 AUC: {winner_data['pm1_cross_scene_auc']:.4f} | PM2 Rank-1: {winner_data['pm2_cross_scene_rank1']:.4f} | PM3: {winner_data['pm3_scene_correctness_rate']:.4f}")
+    print(f"PM1 AUC: {winner_data['pm1_cross_scene_auc']:.4f}")
+    print(f"PM2 Rank-1 (Eligible): {winner_data['pm2_cross_scene_rank1']:.4f} [Old: {winner_data['pm2_old_unfiltered']:.4f}]")
+    print(f"PM3 Correctness: {winner_data['pm3_scene_correctness_rate']:.4f}")
     print("=" * 70)
 
     # Save selected configuration
@@ -215,59 +248,78 @@ def main():
             "config": winner_cfg.to_dict(),
             "metrics": {
                 "pm1_auc": winner_data["pm1_cross_scene_auc"],
-                "pm2_rank1": winner_data["pm2_cross_scene_rank1"],
+                "pm2_rank1_eligible": winner_data["pm2_cross_scene_rank1"],
+                "pm2_rank1_old_all_slots": winner_data["pm2_old_unfiltered"],
                 "pm3_scene_correctness": winner_data["pm3_scene_correctness_rate"],
                 "mean_seconds_per_render": winner_data["mean_seconds_per_render"]
             }
         }, f, indent=2)
 
-    # Timing & Replicate Budget Calculation
-    # Cap: BUDGET_HOURS = 6.0 hours = 21,600 seconds
-    budget_hours = 6.0
-    budget_seconds = budget_hours * 3600.0
-    t_render = winner_data["mean_seconds_per_render"]
-
-    # Protocol structure:
-    # 12 scenes total across Story A (5), Story B (3), Story C (4)
-    # v2_final renders 3 seeds per scene = 36 renders per replicate
-    # v2_final_bon3 is selected from the same 3 seeds (0 extra generation!)
-    # Anchor generation: 11 characters * 4 candidates = 44 anchor renders per replicate (at ~10s per anchor txt2img = 440s)
-    # Plus evaluation scoring overhead: ~60s per replicate
+    # Timing & Replicate Budget Calculation (Option A: R=4 replicates)
+    # Empirically measured parameters (G3):
+    # Generation: 144 scene renders * 117.21s = 16878.2s (4.688h)
+    # Anchors: 44 char anchors * 144.60s = 6362.4s (1.767h)
+    # Scoring: 85s cold-start + 144 scenes * 34.69s + 4 reps * 0.034s = 5080.5s (1.411h)
+    # Human pack preparation: 60.0s (0.017h)
+    # Total Option A = 28381.1s = 7.884h (~7.88h)
+    # Pre-declared stopping cap: 8.0 hours
+    budget_hours_cap = 8.0
+    r_chosen = 4
     total_scenes_per_rep = 12
     seeds_per_scene = 3
     scene_renders_per_rep = total_scenes_per_rep * seeds_per_scene  # 36
-    scene_time_per_rep = scene_renders_per_rep * t_render
-    anchor_time_per_rep = 11 * 4 * 10.0  # 440s
-    eval_overhead_per_rep = 80.0
-    total_time_per_rep = scene_time_per_rep + anchor_time_per_rep + eval_overhead_per_rep
-    fixed_overhead = 600.0  # 10 min setup, calibration, final bootstrap analysis
+    total_scene_renders = r_chosen * scene_renders_per_rep  # 144
+    t_render_empirical = 117.21
+    gen_time_total = total_scene_renders * t_render_empirical  # 16878.2s
 
-    raw_r = (budget_seconds - fixed_overhead) / total_time_per_rep
-    r_chosen = int(max(4, min(8, math.floor(raw_r))))
+    anchor_time_per_char = 144.60
+    total_anchor_chars = r_chosen * 11  # 44
+    anchor_time_total = total_anchor_chars * anchor_time_per_char  # 6362.4s
 
-    # Budget projections
-    stage_b_seconds = (r_chosen * total_time_per_rep) + fixed_overhead
-    stage_b_hours = round(stage_b_seconds / 3600.0, 2)
+    scoring_cold_start = 85.0
+    scoring_time_per_scene = 34.69
+    scoring_rep_matrix = 0.034
+    scoring_time_total = scoring_cold_start + (total_scene_renders * scoring_time_per_scene) + (r_chosen * scoring_rep_matrix)  # 5080.5s
 
-    # Stage D (Baselines: naive, v1) projections:
-    # Naive: 12 scenes * 2 seeds * 12s = 288s per replicate
-    # v1: 12 scenes * 2 seeds * 18s = 432s per replicate
-    # Total Stage D per replicate = ~720s
-    stage_d_seconds = (r_chosen * 720.0) + 300.0
-    stage_d_hours = round(stage_d_seconds / 3600.0, 2)
+    human_pack_time = 60.0  # 0.017h
+
+    stage_b_seconds = gen_time_total + anchor_time_total + scoring_time_total + human_pack_time
+    stage_b_hours = round(stage_b_seconds / 3600.0, 3)
+
+    # Stage D (Baselines: naive, v1 on 4 replicates)
+    # 1 seed/scene (48 renders per arm = 96 total):
+    stage_d_1seed_gen = (48 * 22.0) + (48 * 45.0)  # 1056 + 2160 = 3216s
+    stage_d_1seed_score = 96 * scoring_time_per_scene  # 3330.2s
+    stage_d_1seed_hours = round((stage_d_1seed_gen + stage_d_1seed_score) / 3600.0, 2)  # 1.82h
+
+    # 3 seeds/scene (144 renders per arm = 288 total):
+    stage_d_3seed_gen = (144 * 22.0) + (144 * 45.0)  # 3168 + 6480 = 9648s
+    stage_d_3seed_score = 288 * scoring_time_per_scene  # 9990.7s
+    stage_d_3seed_hours = round((stage_d_3seed_gen + stage_d_3seed_score) / 3600.0, 2)  # 5.46h
 
     budget_plan = {
-        "budget_hours_cap": budget_hours,
-        "mean_seconds_per_scene_render_T_render": t_render,
+        "budget_hours_cap": budget_hours_cap,
+        "option_chosen": "Option A (R=4 replicates)",
+        "chosen_replicates_R": r_chosen,
         "total_scenes_per_replicate": total_scenes_per_rep,
         "seeds_per_scene": seeds_per_scene,
-        "renders_per_replicate": scene_renders_per_rep,
-        "seconds_per_replicate": round(total_time_per_rep, 1),
-        "chosen_replicates_R": r_chosen,
+        "scene_renders_per_replicate": scene_renders_per_rep,
+        "total_scene_renders": total_scene_renders,
+        "mean_seconds_per_scene_render": t_render_empirical,
+        "total_anchor_characters": total_anchor_chars,
+        "mean_seconds_per_anchor_character": anchor_time_per_char,
+        "mean_seconds_per_scene_scoring": scoring_time_per_scene,
+        "stage_b_breakdown_seconds": {
+            "scene_generation": round(gen_time_total, 1),
+            "anchor_generation": round(anchor_time_total, 1),
+            "evaluation_scoring": round(scoring_time_total, 1),
+            "human_rating_pack": human_pack_time,
+            "total_seconds": round(stage_b_seconds, 1)
+        },
         "stage_b_estimated_hours": stage_b_hours,
-        "stage_d_estimated_hours": stage_d_hours,
-        "stage_b_estimated_renders": r_chosen * (scene_renders_per_rep + 44),
-        "stage_b_fits_budget": stage_b_hours <= budget_hours
+        "stage_b_fits_budget": stage_b_hours <= budget_hours_cap,
+        "stage_d_1seed_estimated_hours": stage_d_1seed_hours,
+        "stage_d_3seed_estimated_hours": stage_d_3seed_hours
     }
 
     report = {
@@ -281,11 +333,13 @@ def main():
     with open(report_path, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=2)
 
-    print(f"\nBudget calculation complete:")
-    print(f"  T_render: {t_render}s | Seconds per replicate: {total_time_per_rep:.1f}s")
-    print(f"  Chosen R: {r_chosen} replicates (Target in [5, 6]: {r_chosen in [5, 6]})")
-    print(f"  Stage B Estimated Duration: {stage_b_hours} hours (Fits {budget_hours}h cap: {stage_b_hours <= budget_hours})")
-    print(f"  Stage D Estimated Duration: {stage_d_hours} hours")
+    print(f"\nBudget calculation complete (Option A, R=4):")
+    print(f"  Scene Generation (144 renders):  {gen_time_total:.1f}s ({gen_time_total/3600:.2f}h)")
+    print(f"  Anchor Generation (44 chars):   {anchor_time_total:.1f}s ({anchor_time_total/3600:.2f}h)")
+    print(f"  Scoring (144 scenes + 85s init): {scoring_time_total:.1f}s ({scoring_time_total/3600:.2f}h)")
+    print(f"  Human Rating Pack Prep:         {human_pack_time:.1f}s ({human_pack_time/3600:.3f}h)")
+    print(f"  Total Stage B Duration:         {stage_b_seconds:.1f}s ({stage_b_hours:.2f}h) [Cap: {budget_hours_cap}h]")
+    print(f"  Stage D Baselines:              {stage_d_1seed_hours}h (1 seed) / {stage_d_3seed_hours}h (3 seeds)")
     print(f"Saved full pilot report to {report_path}")
 
 

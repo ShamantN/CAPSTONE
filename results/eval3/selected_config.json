@@ -58,7 +58,8 @@
   },
   "metrics": {
     "pm1_auc": 1.0,
-    "pm2_rank1": 0.5714,
+    "pm2_rank1_eligible": 1.0,
+    "pm2_rank1_old_all_slots": 0.5714,
     "pm3_scene_correctness": 0.9,
     "mean_seconds_per_render": 205.28
   }

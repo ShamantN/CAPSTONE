@@ -105,6 +105,104 @@ class TestEval3Metrics(unittest.TestCase):
         # char_a (scene 1) vs char_b (scene 1) MUST BE EXCLUDED because they share scene 1!
         self.assertEqual(rep_res["n_impostor_pairs"], 1)
 
+    def test_pm2_ineligible_character_single_scene(self):
+        """Regression test for G1: characters appearing in only 1 scene are ineligible for leave-one-scene-out."""
+        evaluator = Eval3Evaluator()
+        # char_a in scenes 1 and 2; char_b in scene 1 only
+        mock_audits = [
+            {
+                "scene_number": 1,
+                "render_id": "rep_00_scene_01",
+                "expected_characters": ["char_a", "char_b"],
+                "detected_faces": [
+                    {"bbox": {"x": 10, "y": 10, "w": 50, "h": 50}, "embeddings": {m: [0.1]*512 for m in ["Facenet512", "SFace", "GhostFaceNet", "ArcFace"]}},
+                    {"bbox": {"x": 100, "y": 10, "w": 50, "h": 50}, "embeddings": {m: [0.2]*512 for m in ["Facenet512", "SFace", "GhostFaceNet", "ArcFace"]}}
+                ]
+            },
+            {
+                "scene_number": 2,
+                "render_id": "rep_00_scene_02",
+                "expected_characters": ["char_a"],
+                "detected_faces": [
+                    {"bbox": {"x": 50, "y": 50, "w": 60, "h": 60}, "embeddings": {m: [0.12]*512 for m in ["Facenet512", "SFace", "GhostFaceNet", "ArcFace"]}}
+                ]
+            }
+        ]
+        rep_res = evaluator.evaluate_replicate(
+            replicate_idx=0,
+            scene_audits=mock_audits,
+            expected_chars=["char_a", "char_b"]
+        )
+        self.assertEqual(rep_res["n_expected"], 3)
+        self.assertEqual(rep_res["n_eligible"], 2)
+        self.assertEqual(rep_res["n_ineligible"], 1)
+        self.assertEqual(rep_res["eligible_characters"], ["char_a"])
+        self.assertEqual(rep_res["ineligible_characters"], ["char_b"])
+        self.assertEqual(rep_res["chance_level"], 0.5)
+
+    def test_pm2_eligible_missed_face_intention_to_treat(self):
+        """Regression test for G1: an eligible character with a missed face is penalized under intention-to-treat."""
+        evaluator = Eval3Evaluator()
+        # char_a expected in scenes 1 and 2, but detected ONLY in scene 1 (scene 2 face detection failed)
+        mock_audits = [
+            {
+                "scene_number": 1,
+                "render_id": "rep_00_scene_01",
+                "expected_characters": ["char_a"],
+                "detected_faces": [
+                    {"bbox": {"x": 10, "y": 10, "w": 50, "h": 50}, "embeddings": {m: [0.1]*512 for m in ["Facenet512", "SFace", "GhostFaceNet", "ArcFace"]}}
+                ]
+            },
+            {
+                "scene_number": 2,
+                "render_id": "rep_00_scene_02",
+                "expected_characters": ["char_a"],
+                "detected_faces": []  # Face detection failed
+            }
+        ]
+        rep_res = evaluator.evaluate_replicate(
+            replicate_idx=0,
+            scene_audits=mock_audits,
+            expected_chars=["char_a"]
+        )
+        self.assertEqual(rep_res["n_expected"], 2)
+        self.assertEqual(rep_res["n_eligible"], 2)
+        self.assertEqual(rep_res["n_ineligible"], 0)
+        # Both probe instances fail: scene 2 probe is missing; scene 1 probe has no gallery face in other scenes
+        self.assertEqual(rep_res["rank1_hits"], 0)
+        self.assertEqual(rep_res["pm2_cross_scene_rank1"], 0.0)
+        self.assertEqual(rep_res["mrr"], 0.0)
+
+    def test_pm2_story_a_hand_computed_counts(self):
+        """Regression test for G1: exact hand-computed counts for Story A scenes 1 to 5."""
+        evaluator = Eval3Evaluator()
+        # Story A layout:
+        # Scene 1: young_ebright, mother
+        # Scene 2: young_ebright
+        # Scene 3: teen_ebright
+        # Scene 4: teen_ebright
+        # Scene 5: college_ebright, james_wong
+        mock_audits = [
+            {"scene_number": 1, "render_id": "s1", "expected_characters": ["young_ebright", "mother"], "detected_faces": []},
+            {"scene_number": 2, "render_id": "s2", "expected_characters": ["young_ebright"], "detected_faces": []},
+            {"scene_number": 3, "render_id": "s3", "expected_characters": ["teen_ebright"], "detected_faces": []},
+            {"scene_number": 4, "render_id": "s4", "expected_characters": ["teen_ebright"], "detected_faces": []},
+            {"scene_number": 5, "render_id": "s5", "expected_characters": ["college_ebright", "james_wong"], "detected_faces": []},
+        ]
+        story_chars = ["young_ebright", "mother", "teen_ebright", "college_ebright", "james_wong"]
+        rep_res = evaluator.evaluate_replicate(
+            replicate_idx=0,
+            scene_audits=mock_audits,
+            expected_chars=story_chars
+        )
+        self.assertEqual(rep_res["n_expected"], 7)
+        self.assertEqual(rep_res["n_eligible"], 4)
+        self.assertEqual(rep_res["n_ineligible"], 3)
+        self.assertEqual(rep_res["eligible_characters"], ["teen_ebright", "young_ebright"])
+        self.assertEqual(rep_res["ineligible_characters"], ["college_ebright", "james_wong", "mother"])
+        self.assertEqual(rep_res["chance_level"], 0.2000)
+        self.assertEqual(rep_res["n_gallery_characters"], 5)
+
 
 if __name__ == "__main__":
     unittest.main()

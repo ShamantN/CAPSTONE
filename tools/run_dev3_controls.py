@@ -47,7 +47,8 @@ def main():
             pilot_rep = json.load(f)
             # Use winner C0 scores if available
             c0_data = pilot_rep.get("candidates", {}).get("C0", {})
-            # Read score files or generate empirical scores from C0 renders
+            genuine_scores = c0_data.get("raw_genuine_scores", [])
+            impostor_scores = c0_data.get("raw_impostor_scores", [])
 
     # Find sample images for Control 1 and Control 5
     c0_dir = EVAL_OUTPUT_BASE / "dev3_pilot_C0"
