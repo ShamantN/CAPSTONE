@@ -54,6 +54,8 @@ def load_all_evaluation_characters() -> Dict[str, CharacterSpec]:
 
 def build_anchor_prompt(char: CharacterSpec, age_state: Optional[AgeState] = None) -> Tuple[str, str]:
     """Builds demographic anchor prompt and negative prompt."""
+    if age_state is None and getattr(char, "age_states", None):
+        age_state = char.age_states.get("primary") or next(iter(char.age_states.values()), None)
     age = age_state.age_years if age_state else "25"
     stage = age_state.stage_name if age_state else "adult"
     hair_style = age_state.hairstyle if age_state and age_state.hairstyle else char.hair_style
@@ -201,17 +203,72 @@ def generate_character_candidates(
     out_dir: Path,
     auditor: SceneAuditor,
     forge_url: Optional[str] = None,
-    max_candidates: int = 8
+    max_candidates: int = 8,
+    min_candidates: int = 4,
+    on_render_cb: Optional[Any] = None,
 ) -> List[Dict[str, Any]]:
-    """Generates up to max_candidates for a single character and audits each against 4-point gate."""
+    """
+    Generates candidates for a single character and audits each against the 4-point gate.
+    Always generates at least min_candidates (default 4); if none pass the 4-point gate,
+    continues up to max_candidates (default 8) until a candidate passes or max_candidates
+    is reached. Keeps every generated candidate on disk and supports resuming.
+    """
     out_dir.mkdir(parents=True, exist_ok=True)
     pos_prompt, neg_prompt = build_anchor_prompt(char_spec)
 
     candidates: List[Dict[str, Any]] = []
     for k in range(max_candidates):
+        # Stop after min_candidates if at least one candidate already passed the gate
+        if k >= min_candidates and any(c.get("passed_gate", False) for c in candidates):
+            break
+
         seed = get_anchor_seed(replicate_idx, char_idx, k, is_test3=is_test3)
-        img_bgr = generate_candidate_txt2img(pos_prompt, neg_prompt, seed, forge_url=forge_url)
+        img_path = out_dir / f"{char_id}_cand_{k}_seed_{seed}.png"
+        json_path = out_dir / f"{char_id}_cand_{k}_seed_{seed}.json"
+
+        # Resumability check
+        if img_path.exists() and json_path.exists():
+            try:
+                with open(json_path, "r", encoding="utf-8") as f:
+                    cand_record = json.load(f)
+                img_bgr = cv2.imread(str(img_path))
+                if img_bgr is not None:
+                    cand_record["img_bgr"] = img_bgr
+                    candidates.append(cand_record)
+                    continue
+            except Exception:
+                pass
+
+        t0 = time.time()
+        retry_count = 0
+        img_bgr = None
+        for attempt in range(2):  # 1 initial + 1 infrastructure retry
+            img_bgr = generate_candidate_txt2img(pos_prompt, neg_prompt, seed, forge_url=forge_url)
+            if img_bgr is not None:
+                break
+            retry_count += 1
+            time.sleep(5)
+
+        elapsed = round(time.time() - t0, 2)
+        if on_render_cb is not None:
+            on_render_cb(img_bgr is None)
+
         if img_bgr is None:
+            # Record infrastructure failure
+            fail_record = {
+                "char_id": char_id,
+                "replicate_idx": replicate_idx,
+                "char_idx": char_idx,
+                "candidate_idx": k,
+                "seed": seed,
+                "status": "FAILED",
+                "retry_count": retry_count,
+                "elapsed_seconds": elapsed,
+                "passed_gate": False,
+                "selection_score": 0.0,
+            }
+            with open(json_path, "w", encoding="utf-8") as f:
+                json.dump(fail_record, f, indent=2)
             continue
 
         gate = audit_candidate_4point_gate(img_bgr, auditor)
@@ -221,18 +278,21 @@ def generate_character_candidates(
             "char_idx": char_idx,
             "candidate_idx": k,
             "seed": seed,
+            "status": "SUCCESS",
+            "retry_count": retry_count,
+            "elapsed_seconds": elapsed,
             "passed_gate": gate["passed"],
             "selection_score": gate["selection_score"],
             "face_width_px": gate["face_width_px"],
             "face_confidence": gate["face_confidence"],
             "sharpness": gate["sharpness"],
-            "image_path": str(out_dir / f"{char_id}_cand_{k}_seed_{seed}.png"),
+            "image_path": str(img_path),
         }
 
         # Save candidate image
         cv2.imwrite(cand_record["image_path"], img_bgr)
         # Save sidecar JSON
-        with open(out_dir / f"{char_id}_cand_{k}_seed_{seed}.json", "w", encoding="utf-8") as f:
+        with open(json_path, "w", encoding="utf-8") as f:
             json.dump({k2: v2 for k2, v2 in cand_record.items() if k2 != "crop_bgr"}, f, indent=2)
 
         cand_record["img_bgr"] = img_bgr
@@ -240,6 +300,64 @@ def generate_character_candidates(
         candidates.append(cand_record)
 
     return candidates
+
+
+def check_intra_replicate_separation(
+    selected_anchors: Dict[str, Dict[str, Any]],
+    threshold: float = DEFAULT_SEPARATION_THRESHOLD,
+) -> Dict[str, Any]:
+    """
+    Computes pairwise mean 4-judge cosine similarity across all selected character anchors
+    within a replicate. Reports violations where similarity >= threshold (0.42).
+    Runs on CPU (via BiometricEnsemble / DeepFace).
+    """
+    from consistency_v2.verify.biometric_ensemble import cosine_similarity
+
+    ensemble = BiometricEnsemble()
+    embs_by_char: Dict[str, Dict[str, Optional[np.ndarray]]] = {}
+    for cid, meta in selected_anchors.items():
+        img_p = meta.get("image_path")
+        img = cv2.imread(str(img_p)) if img_p and Path(img_p).exists() else meta.get("img_bgr")
+        if img is None:
+            embs_by_char[cid] = {m: None for m in BiometricEnsemble.JUDGE_MODELS}
+            continue
+        embs_by_char[cid] = ensemble.extract_judge_embeddings(img)
+
+    cids = sorted(list(selected_anchors.keys()))
+    pairwise: List[Dict[str, Any]] = []
+    violations: List[Dict[str, Any]] = []
+    for i in range(len(cids)):
+        for j in range(i + 1, len(cids)):
+            c1, c2 = cids[i], cids[j]
+            sims = []
+            per_judge = {}
+            for m in BiometricEnsemble.JUDGE_MODELS:
+                e1 = embs_by_char[c1].get(m)
+                e2 = embs_by_char[c2].get(m)
+                s = float(cosine_similarity(e1, e2)) if (e1 is not None and e2 is not None) else 0.0
+                per_judge[m] = round(s, 4)
+                sims.append(s)
+            mean_sim = round(float(np.mean(sims)), 4) if sims else 0.0
+            entry = {
+                "char_1": c1,
+                "char_2": c2,
+                "mean_4judge_cosine": mean_sim,
+                "per_judge": per_judge,
+                "passed": bool(mean_sim < threshold),
+            }
+            pairwise.append(entry)
+            if not entry["passed"]:
+                violations.append(entry)
+
+    return {
+        "threshold": threshold,
+        "n_characters": len(cids),
+        "n_pairs": len(pairwise),
+        "max_pairwise_similarity": round(max((p["mean_4judge_cosine"] for p in pairwise), default=0.0), 4),
+        "all_passed": len(violations) == 0,
+        "violations": violations,
+        "pairwise": pairwise,
+    }
 
 
 def select_best_anchor(candidates: List[Dict[str, Any]]) -> Dict[str, Any]:
