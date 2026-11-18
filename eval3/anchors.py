@@ -314,6 +314,7 @@ def check_intra_replicate_separation(
     from consistency_v2.verify.biometric_ensemble import cosine_similarity
 
     ensemble = BiometricEnsemble()
+    auditor = SceneAuditor()
     embs_by_char: Dict[str, Dict[str, Optional[np.ndarray]]] = {}
     for cid, meta in selected_anchors.items():
         img_p = meta.get("image_path")
@@ -321,7 +322,9 @@ def check_intra_replicate_separation(
         if img is None:
             embs_by_char[cid] = {m: None for m in BiometricEnsemble.JUDGE_MODELS}
             continue
-        embs_by_char[cid] = ensemble.extract_judge_embeddings(img)
+        faces = auditor.detect_faces(img)
+        crop = faces[0].get("crop_bgr") if faces and faces[0].get("crop_bgr") is not None else img
+        embs_by_char[cid] = ensemble.extract_face_embeddings(crop)
 
     cids = sorted(list(selected_anchors.keys()))
     pairwise: List[Dict[str, Any]] = []

@@ -128,7 +128,10 @@ def restart_forge_server(forge_url: str, log_file: Path, reason: str = "schedule
 
     time.sleep(6)
 
-    # 2. Launch Forge detached via cmd.exe /c run.bat
+    # 2. Launch Forge detached via cmd.exe /c run.bat with clean GPU environment
+    # (strip CUDA_VISIBLE_DEVICES=-1 that keeps the runner process itself CPU-only)
+    forge_env = dict(os.environ)
+    forge_env.pop("CUDA_VISIBLE_DEVICES", None)
     log_file.parent.mkdir(parents=True, exist_ok=True)
     with open(log_file, "a", encoding="utf-8") as lf:
         lf.write(f"\n=== Forge Restart ({reason}) at {datetime.datetime.now(datetime.timezone.utc).isoformat()} ===\n")
@@ -137,6 +140,9 @@ def restart_forge_server(forge_url: str, log_file: Path, reason: str = "schedule
     DETACHED_PROCESS = 0x00000008
     subprocess.Popen(
         ["cmd.exe", "/c", f"cd /d {FORGE_ROOT} && run.bat"],
+        cwd=str(FORGE_ROOT),
+        env=forge_env,
+        stdin=subprocess.DEVNULL,
         stdout=lf_handle,
         stderr=subprocess.STDOUT,
         creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP,

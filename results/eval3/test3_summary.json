@@ -1,0 +1,4621 @@
+{
+  "run_id": "test3_v2_final",
+  "protocol_version": "TEST-3 Phase 1 (v1.2.1)",
+  "scored_at_utc": "2026-11-18T16:42:48.038243+00:00",
+  "scoring_duration_seconds": 4763.45,
+  "scoring_duration_hours": 1.3232,
+  "generation_duration_seconds": 28904.94,
+  "generation_duration_hours": 8.029,
+  "generation_status": "STOPPED_AT_CAP",
+  "completed_replicates": [
+    "rep_00",
+    "rep_01",
+    "rep_02"
+  ],
+  "partial_replicates_excluded": [
+    "rep_03"
+  ],
+  "partial_replicates_summary": {
+    "rep_03": {
+      "n_renders_completed": 17,
+      "pm3_partial": 1.0,
+      "report_path": "results\\eval3\\partial\\test3_v2_final_rep_03_partial_scored.json"
+    }
+  },
+  "frozen_hashes": {
+    "evaluator_sha256": "6cc0b42652cd02ccf03ad821309633cf1e8b11cf284dd5dddab9e338e9a77524",
+    "calibration_sha256": "5adaa6fa2234bf702d609a86677130595a222a2751a78e5066244f517f17b0f2",
+    "verifier_freeze_sha256": "3fa69071f888643bccb1c21ee732415ac81996a9f3cb0b71dedd68086fecb4b6",
+    "config_hash": "df4a0a2648ac",
+    "config_compute_hash": "df4a0a2648acdfe1"
+  },
+  "bootstrap_iterations": 10000,
+  "bootstrap_rng_seed": 42,
+  "pm2_tie_handling_convention": "Gallery ranking uses Python Timsort descending by calibrated ensemble score (sorted(gallery_scores.items(), key=lambda x: x[1], reverse=True)), preserving deterministic insertion order of expected_chars on exact ties. Missing/undetected eligible probe faces or empty other-scene galleries (score == -1.0) count as incorrect under intention-to-treat (rank = N_gallery + 1, reciprocal rank = 0.0).",
+  "n_replicates": 3,
+  "total_scenes_evaluated": 108,
+  "total_faces_evaluated": 174,
+  "primary_metrics": {
+    "pm1_cross_scene_auc": {
+      "loop_label": "OUT-OF-LOOP",
+      "empirical_mean": 0.9578,
+      "bootstrap": {
+        "mean": 0.9577,
+        "std": 0.0051,
+        "ci_95_lower": 0.9499,
+        "ci_95_upper": 0.9701
+      },
+      "chance_floor": 0.5,
+      "ceiling": 1.0
+    },
+    "pm2_cross_scene_rank1": {
+      "loop_label": "OUT-OF-LOOP",
+      "empirical_mean": 0.9556,
+      "pm2_old_unfiltered_mean": 0.7544,
+      "bootstrap": {
+        "mean": 0.9553,
+        "std": 0.0104,
+        "ci_95_lower": 0.9333,
+        "ci_95_upper": 0.9778
+      },
+      "chance_floor": 0.0909,
+      "n_gallery_characters": 11,
+      "n_expected_per_rep": 57,
+      "n_eligible_per_rep": 45,
+      "n_ineligible_per_rep": 12,
+      "within_story_mean_pm2": 0.9907,
+      "ceiling": 1.0
+    },
+    "pm3_scene_correctness_rate": {
+      "loop_label": "OUT-OF-LOOP",
+      "empirical_mean": 0.9444,
+      "bootstrap": {
+        "mean": 0.9445,
+        "std": 0.0257,
+        "ci_95_lower": 0.8889,
+        "ci_95_upper": 0.9907
+      },
+      "chance_floor": 0.0,
+      "ceiling": 1.0
+    }
+  },
+  "secondary_metrics": {
+    "rank3_accuracy": {
+      "loop_label": "OUT-OF-LOOP",
+      "mean": 0.9926
+    },
+    "mrr": {
+      "loop_label": "OUT-OF-LOOP",
+      "mean": 0.9753
+    },
+    "face_recall": {
+      "loop_label": "OUT-OF-LOOP",
+      "mean": 1.0
+    },
+    "extra_person_rate": {
+      "loop_label": "OUT-OF-LOOP",
+      "mean": 0.0556
+    },
+    "mean_face_sharpness": {
+      "loop_label": "OUT-OF-LOOP",
+      "mean": 975.34
+    },
+    "judge_aucs": {
+      "Facenet512": 0.9363,
+      "SFace": 0.9626,
+      "GhostFaceNet": 0.954,
+      "ArcFace": 0.9449
+    },
+    "pooled_biometric_separation": {
+      "d_prime": 2.6081,
+      "eer": 0.1111,
+      "tar_at_far05": 0.8642
+    },
+    "n_genuine_pairs_total": 243,
+    "n_impostor_pairs_total": 4185
+  },
+  "in_loop_metrics_v1_2": {
+    "loop_label": "IN-LOOP",
+    "mean_v1_2_ensemble_score": 0.7075,
+    "v1_2_rank1_vs_anchor_rate": 0.0,
+    "mean_buffalo_l_anchor_similarity": 0.2412,
+    "mean_wardrobe_cielab_delta_e": 24.26
+  },
+  "arms": {
+    "v2_final": {
+      "arm": "v2_final",
+      "n_replicates": 3,
+      "primary_metrics": {
+        "pm1_cross_scene_auc": {
+          "loop_label": "OUT-OF-LOOP",
+          "empirical_mean": 0.9578,
+          "bootstrap": {
+            "mean": 0.9577,
+            "std": 0.0051,
+            "ci_95_lower": 0.9499,
+            "ci_95_upper": 0.9701
+          },
+          "chance_floor": 0.5,
+          "ceiling": 1.0
+        },
+        "pm2_cross_scene_rank1": {
+          "loop_label": "OUT-OF-LOOP",
+          "empirical_mean": 0.9556,
+          "pm2_old_unfiltered_mean": 0.7544,
+          "bootstrap": {
+            "mean": 0.9553,
+            "std": 0.0104,
+            "ci_95_lower": 0.9333,
+            "ci_95_upper": 0.9778
+          },
+          "chance_floor": 0.0909,
+          "n_gallery_characters": 11,
+          "n_expected_per_rep": 57,
+          "n_eligible_per_rep": 45,
+          "n_ineligible_per_rep": 12,
+          "within_story_mean_pm2": 0.9907,
+          "ceiling": 1.0
+        },
+        "pm3_scene_correctness_rate": {
+          "loop_label": "OUT-OF-LOOP",
+          "empirical_mean": 0.9444,
+          "bootstrap": {
+            "mean": 0.9445,
+            "std": 0.0257,
+            "ci_95_lower": 0.8889,
+            "ci_95_upper": 0.9907
+          },
+          "chance_floor": 0.0,
+          "ceiling": 1.0
+        }
+      },
+      "secondary_metrics": {
+        "rank3_accuracy": {
+          "loop_label": "OUT-OF-LOOP",
+          "mean": 0.9926
+        },
+        "mrr": {
+          "loop_label": "OUT-OF-LOOP",
+          "mean": 0.9753
+        },
+        "face_recall": {
+          "loop_label": "OUT-OF-LOOP",
+          "mean": 1.0
+        },
+        "extra_person_rate": {
+          "loop_label": "OUT-OF-LOOP",
+          "mean": 0.0556
+        },
+        "mean_face_sharpness": {
+          "loop_label": "OUT-OF-LOOP",
+          "mean": 975.34
+        },
+        "judge_aucs": {
+          "Facenet512": 0.9363,
+          "SFace": 0.9626,
+          "GhostFaceNet": 0.954,
+          "ArcFace": 0.9449
+        },
+        "pooled_biometric_separation": {
+          "d_prime": 2.6081,
+          "eer": 0.1111,
+          "tar_at_far05": 0.8642
+        },
+        "n_genuine_pairs_total": 243,
+        "n_impostor_pairs_total": 4185
+      },
+      "per_story": {
+        "Story_A": {
+          "n_gallery_characters": 5,
+          "chance_floor_pm2": 0.2,
+          "n_expected_per_rep": 21,
+          "n_eligible_per_rep": 12,
+          "n_ineligible_per_rep": 9,
+          "eligible_characters": [
+            "teen_ebright",
+            "young_ebright"
+          ],
+          "ineligible_characters": [
+            "college_ebright",
+            "james_wong",
+            "mother"
+          ],
+          "pm1_cross_scene_auc_mean": 1.0,
+          "pm1_bootstrap": {
+            "mean": 1.0,
+            "std": 0.0,
+            "ci_95_lower": 1.0,
+            "ci_95_upper": 1.0
+          },
+          "pm2_cross_scene_rank1_mean": 1.0,
+          "pm2_old_unfiltered_mean": 0.5714,
+          "pm2_bootstrap": {
+            "mean": 1.0,
+            "std": 0.0,
+            "ci_95_lower": 1.0,
+            "ci_95_upper": 1.0
+          },
+          "pm3_scene_correctness_mean": 0.9555,
+          "pm3_bootstrap": {
+            "mean": 0.9551,
+            "std": 0.0355,
+            "ci_95_lower": 0.8667,
+            "ci_95_upper": 1.0
+          },
+          "rank3_accuracy_mean": 1.0,
+          "mrr_mean": 1.0,
+          "per_replicate": [
+            {
+              "replicate_idx": 0,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.5714,
+              "pm3_scene_correctness_rate": 0.9333,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0,
+                "4": 1.0,
+                "5": 1.0
+              },
+              "chance_level": 0.2,
+              "n_gallery_characters": 5,
+              "n_expected": 21,
+              "n_eligible": 12,
+              "n_ineligible": 9,
+              "eligible_characters": [
+                "teen_ebright",
+                "young_ebright"
+              ],
+              "ineligible_characters": [
+                "college_ebright",
+                "james_wong",
+                "mother"
+              ],
+              "rank1_hits": 12,
+              "rank3_hits": 12,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 0.9877,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 0.9993
+              },
+              "n_genuine_pairs": 18,
+              "n_impostor_pairs": 153,
+              "total_expected_faces": 21,
+              "total_detected_faces": 21,
+              "face_recall": 1.0,
+              "total_scenes": 15,
+              "correct_scenes": 14,
+              "extra_person_rate": 0.0667,
+              "mean_face_sharpness": 592.21,
+              "d_prime": 7.1134,
+              "eer": 0.0,
+              "tar_at_far05": 1.0
+            },
+            {
+              "replicate_idx": 1,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.5714,
+              "pm3_scene_correctness_rate": 0.9333,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0,
+                "4": 1.0,
+                "5": 1.0
+              },
+              "chance_level": 0.2,
+              "n_gallery_characters": 5,
+              "n_expected": 21,
+              "n_eligible": 12,
+              "n_ineligible": 9,
+              "eligible_characters": [
+                "teen_ebright",
+                "young_ebright"
+              ],
+              "ineligible_characters": [
+                "college_ebright",
+                "james_wong",
+                "mother"
+              ],
+              "rank1_hits": 12,
+              "rank3_hits": 12,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 1.0
+              },
+              "n_genuine_pairs": 18,
+              "n_impostor_pairs": 153,
+              "total_expected_faces": 21,
+              "total_detected_faces": 21,
+              "face_recall": 1.0,
+              "total_scenes": 15,
+              "correct_scenes": 14,
+              "extra_person_rate": 0.0667,
+              "mean_face_sharpness": 663.58,
+              "d_prime": 13.2054,
+              "eer": 0.0,
+              "tar_at_far05": 1.0
+            },
+            {
+              "replicate_idx": 2,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.5714,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0,
+                "4": 1.0,
+                "5": 1.0
+              },
+              "chance_level": 0.2,
+              "n_gallery_characters": 5,
+              "n_expected": 21,
+              "n_eligible": 12,
+              "n_ineligible": 9,
+              "eligible_characters": [
+                "teen_ebright",
+                "young_ebright"
+              ],
+              "ineligible_characters": [
+                "college_ebright",
+                "james_wong",
+                "mother"
+              ],
+              "rank1_hits": 12,
+              "rank3_hits": 12,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 0.9906,
+                "GhostFaceNet": 0.9902,
+                "ArcFace": 0.9982
+              },
+              "n_genuine_pairs": 18,
+              "n_impostor_pairs": 153,
+              "total_expected_faces": 21,
+              "total_detected_faces": 21,
+              "face_recall": 1.0,
+              "total_scenes": 15,
+              "correct_scenes": 15,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 849.44,
+              "d_prime": 3.5804,
+              "eer": 0.0,
+              "tar_at_far05": 1.0
+            }
+          ]
+        },
+        "Story_B": {
+          "n_gallery_characters": 3,
+          "chance_floor_pm2": 0.3333,
+          "n_expected_per_rep": 15,
+          "n_eligible_per_rep": 12,
+          "n_ineligible_per_rep": 3,
+          "eligible_characters": [
+            "dr_marcus_vance",
+            "elena_child"
+          ],
+          "ineligible_characters": [
+            "clara_thorn"
+          ],
+          "pm1_cross_scene_auc_mean": 0.9177,
+          "pm1_bootstrap": {
+            "mean": 0.9177,
+            "std": 0.0266,
+            "ci_95_lower": 0.8714,
+            "ci_95_upper": 0.9805
+          },
+          "pm2_cross_scene_rank1_mean": 0.9722,
+          "pm2_old_unfiltered_mean": 0.7778,
+          "pm2_bootstrap": {
+            "mean": 0.9723,
+            "std": 0.0227,
+            "ci_95_lower": 0.9167,
+            "ci_95_upper": 1.0
+          },
+          "pm3_scene_correctness_mean": 0.9259,
+          "pm3_bootstrap": {
+            "mean": 0.9259,
+            "std": 0.0767,
+            "ci_95_lower": 0.7407,
+            "ci_95_upper": 1.0
+          },
+          "rank3_accuracy_mean": 1.0,
+          "mrr_mean": 0.9861,
+          "per_replicate": [
+            {
+              "replicate_idx": 0,
+              "pm1_cross_scene_auc": 0.9805,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.8,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 15,
+              "n_eligible": 12,
+              "n_ineligible": 3,
+              "eligible_characters": [
+                "dr_marcus_vance",
+                "elena_child"
+              ],
+              "ineligible_characters": [
+                "clara_thorn"
+              ],
+              "rank1_hits": 12,
+              "rank3_hits": 12,
+              "judge_aucs": {
+                "Facenet512": 0.8745,
+                "SFace": 0.9578,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 0.9167
+              },
+              "n_genuine_pairs": 18,
+              "n_impostor_pairs": 54,
+              "total_expected_faces": 15,
+              "total_detected_faces": 15,
+              "face_recall": 1.0,
+              "total_scenes": 9,
+              "correct_scenes": 9,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1114.41,
+              "d_prime": 1.405,
+              "eer": 0.0556,
+              "tar_at_far05": 0.9444
+            },
+            {
+              "replicate_idx": 1,
+              "pm1_cross_scene_auc": 0.9012,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.8,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 15,
+              "n_eligible": 12,
+              "n_ineligible": 3,
+              "eligible_characters": [
+                "dr_marcus_vance",
+                "elena_child"
+              ],
+              "ineligible_characters": [
+                "clara_thorn"
+              ],
+              "rank1_hits": 12,
+              "rank3_hits": 12,
+              "judge_aucs": {
+                "Facenet512": 0.7973,
+                "SFace": 0.9866,
+                "GhostFaceNet": 0.9681,
+                "ArcFace": 0.8786
+              },
+              "n_genuine_pairs": 18,
+              "n_impostor_pairs": 54,
+              "total_expected_faces": 15,
+              "total_detected_faces": 15,
+              "face_recall": 1.0,
+              "total_scenes": 9,
+              "correct_scenes": 9,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1123.25,
+              "d_prime": 1.405,
+              "eer": 0.2778,
+              "tar_at_far05": 0.6111
+            },
+            {
+              "replicate_idx": 2,
+              "pm1_cross_scene_auc": 0.8714,
+              "pm2_cross_scene_rank1": 0.9167,
+              "pm2_old_unfiltered": 0.7333,
+              "pm3_scene_correctness_rate": 0.7778,
+              "rank3_accuracy": 1.0,
+              "mrr": 0.9583,
+              "cmc_curve": {
+                "1": 0.9167,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 15,
+              "n_eligible": 12,
+              "n_ineligible": 3,
+              "eligible_characters": [
+                "dr_marcus_vance",
+                "elena_child"
+              ],
+              "ineligible_characters": [
+                "clara_thorn"
+              ],
+              "rank1_hits": 11,
+              "rank3_hits": 12,
+              "judge_aucs": {
+                "Facenet512": 0.7737,
+                "SFace": 0.9455,
+                "GhostFaceNet": 0.8992,
+                "ArcFace": 0.8673
+              },
+              "n_genuine_pairs": 18,
+              "n_impostor_pairs": 54,
+              "total_expected_faces": 15,
+              "total_detected_faces": 15,
+              "face_recall": 1.0,
+              "total_scenes": 9,
+              "correct_scenes": 7,
+              "extra_person_rate": 0.2222,
+              "mean_face_sharpness": 895.88,
+              "d_prime": 1.2424,
+              "eer": 0.2778,
+              "tar_at_far05": 0.6111
+            }
+          ]
+        },
+        "Story_C": {
+          "n_gallery_characters": 3,
+          "chance_floor_pm2": 0.3333,
+          "n_expected_per_rep": 21,
+          "n_eligible_per_rep": 21,
+          "n_ineligible_per_rep": 0,
+          "eligible_characters": [
+            "arthur_elder",
+            "leo_child",
+            "maya_adult"
+          ],
+          "ineligible_characters": [],
+          "pm1_cross_scene_auc_mean": 1.0,
+          "pm1_bootstrap": {
+            "mean": 1.0,
+            "std": 0.0,
+            "ci_95_lower": 1.0,
+            "ci_95_upper": 1.0
+          },
+          "pm2_cross_scene_rank1_mean": 1.0,
+          "pm2_old_unfiltered_mean": 1.0,
+          "pm2_bootstrap": {
+            "mean": 1.0,
+            "std": 0.0,
+            "ci_95_lower": 1.0,
+            "ci_95_upper": 1.0
+          },
+          "pm3_scene_correctness_mean": 0.9444,
+          "pm3_bootstrap": {
+            "mean": 0.9437,
+            "std": 0.0585,
+            "ci_95_lower": 0.8056,
+            "ci_95_upper": 1.0
+          },
+          "rank3_accuracy_mean": 1.0,
+          "mrr_mean": 1.0,
+          "per_replicate": [
+            {
+              "replicate_idx": 0,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 1.0,
+              "pm3_scene_correctness_rate": 0.8333,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 21,
+              "n_eligible": 21,
+              "n_ineligible": 0,
+              "eligible_characters": [
+                "arthur_elder",
+                "leo_child",
+                "maya_adult"
+              ],
+              "ineligible_characters": [],
+              "rank1_hits": 21,
+              "rank3_hits": 21,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 1.0
+              },
+              "n_genuine_pairs": 45,
+              "n_impostor_pairs": 117,
+              "total_expected_faces": 21,
+              "total_detected_faces": 21,
+              "face_recall": 1.0,
+              "total_scenes": 12,
+              "correct_scenes": 10,
+              "extra_person_rate": 0.1667,
+              "mean_face_sharpness": 1345.39,
+              "d_prime": 3.2285,
+              "eer": 0.0,
+              "tar_at_far05": 1.0
+            },
+            {
+              "replicate_idx": 1,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 1.0,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 21,
+              "n_eligible": 21,
+              "n_ineligible": 0,
+              "eligible_characters": [
+                "arthur_elder",
+                "leo_child",
+                "maya_adult"
+              ],
+              "ineligible_characters": [],
+              "rank1_hits": 21,
+              "rank3_hits": 21,
+              "judge_aucs": {
+                "Facenet512": 0.9996,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 0.9998
+              },
+              "n_genuine_pairs": 45,
+              "n_impostor_pairs": 117,
+              "total_expected_faces": 21,
+              "total_detected_faces": 21,
+              "face_recall": 1.0,
+              "total_scenes": 12,
+              "correct_scenes": 12,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1116.0,
+              "d_prime": 3.0605,
+              "eer": 0.0,
+              "tar_at_far05": 1.0
+            },
+            {
+              "replicate_idx": 2,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 1.0,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 21,
+              "n_eligible": 21,
+              "n_ineligible": 0,
+              "eligible_characters": [
+                "arthur_elder",
+                "leo_child",
+                "maya_adult"
+              ],
+              "ineligible_characters": [],
+              "rank1_hits": 21,
+              "rank3_hits": 21,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 1.0
+              },
+              "n_genuine_pairs": 45,
+              "n_impostor_pairs": 117,
+              "total_expected_faces": 21,
+              "total_detected_faces": 21,
+              "face_recall": 1.0,
+              "total_scenes": 12,
+              "correct_scenes": 12,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1137.17,
+              "d_prime": 3.9536,
+              "eer": 0.0,
+              "tar_at_far05": 1.0
+            }
+          ]
+        }
+      },
+      "per_character": {
+        "young_ebright": {
+          "age_group": "child",
+          "pm2_eligible": true,
+          "n_eligible_probes": 18,
+          "rank1_hits": 18,
+          "pm2_rank1_within_story": 1.0,
+          "mean_v1_2_ensemble_score_in_loop": 0.7739,
+          "mean_buffalo_l_sim_in_loop": 0.2817,
+          "mean_face_sharpness": 761.72
+        },
+        "mother": {
+          "age_group": "adult",
+          "pm2_eligible": false,
+          "n_eligible_probes": 0,
+          "rank1_hits": "N/A (ineligible)",
+          "pm2_rank1_within_story": "N/A (ineligible)",
+          "mean_v1_2_ensemble_score_in_loop": 0.8009,
+          "mean_buffalo_l_sim_in_loop": 0.2375,
+          "mean_face_sharpness": 1135.2
+        },
+        "teen_ebright": {
+          "age_group": "teen",
+          "pm2_eligible": true,
+          "n_eligible_probes": 18,
+          "rank1_hits": 18,
+          "pm2_rank1_within_story": 1.0,
+          "mean_v1_2_ensemble_score_in_loop": 0.6695,
+          "mean_buffalo_l_sim_in_loop": 0.1972,
+          "mean_face_sharpness": 208.21
+        },
+        "college_ebright": {
+          "age_group": "adult",
+          "pm2_eligible": false,
+          "n_eligible_probes": 0,
+          "rank1_hits": "N/A (ineligible)",
+          "pm2_rank1_within_story": "N/A (ineligible)",
+          "mean_v1_2_ensemble_score_in_loop": 0.7595,
+          "mean_buffalo_l_sim_in_loop": 0.3176,
+          "mean_face_sharpness": 949.66
+        },
+        "james_wong": {
+          "age_group": "adult",
+          "pm2_eligible": false,
+          "n_eligible_probes": 0,
+          "rank1_hits": "N/A (ineligible)",
+          "pm2_rank1_within_story": "N/A (ineligible)",
+          "mean_v1_2_ensemble_score_in_loop": 0.6996,
+          "mean_buffalo_l_sim_in_loop": 0.4021,
+          "mean_face_sharpness": 887.48
+        },
+        "elena_child": {
+          "age_group": "child",
+          "pm2_eligible": true,
+          "n_eligible_probes": 18,
+          "rank1_hits": 18,
+          "pm2_rank1_within_story": 1.0,
+          "mean_v1_2_ensemble_score_in_loop": 0.7893,
+          "mean_buffalo_l_sim_in_loop": 0.2293,
+          "mean_face_sharpness": 531.25
+        },
+        "dr_marcus_vance": {
+          "age_group": "adult",
+          "pm2_eligible": true,
+          "n_eligible_probes": 18,
+          "rank1_hits": 17,
+          "pm2_rank1_within_story": 0.9444,
+          "mean_v1_2_ensemble_score_in_loop": 0.3198,
+          "mean_buffalo_l_sim_in_loop": 0.1249,
+          "mean_face_sharpness": 1323.31
+        },
+        "clara_thorn": {
+          "age_group": "adult",
+          "pm2_eligible": false,
+          "n_eligible_probes": 0,
+          "rank1_hits": "N/A (ineligible)",
+          "pm2_rank1_within_story": "N/A (ineligible)",
+          "mean_v1_2_ensemble_score_in_loop": 0.7826,
+          "mean_buffalo_l_sim_in_loop": 0.2808,
+          "mean_face_sharpness": 1513.44
+        },
+        "leo_child": {
+          "age_group": "child",
+          "pm2_eligible": true,
+          "n_eligible_probes": 27,
+          "rank1_hits": 27,
+          "pm2_rank1_within_story": 1.0,
+          "mean_v1_2_ensemble_score_in_loop": 0.7631,
+          "mean_buffalo_l_sim_in_loop": 0.2134,
+          "mean_face_sharpness": 1190.08
+        },
+        "maya_adult": {
+          "age_group": "adult",
+          "pm2_eligible": true,
+          "n_eligible_probes": 18,
+          "rank1_hits": 18,
+          "pm2_rank1_within_story": 1.0,
+          "mean_v1_2_ensemble_score_in_loop": 0.8019,
+          "mean_buffalo_l_sim_in_loop": 0.1387,
+          "mean_face_sharpness": 946.35
+        },
+        "arthur_elder": {
+          "age_group": "elder",
+          "pm2_eligible": true,
+          "n_eligible_probes": 18,
+          "rank1_hits": 18,
+          "pm2_rank1_within_story": 1.0,
+          "mean_v1_2_ensemble_score_in_loop": 0.7004,
+          "mean_buffalo_l_sim_in_loop": 0.2839,
+          "mean_face_sharpness": 1466.85
+        }
+      },
+      "per_age_group": {
+        "child": {
+          "eligible_characters": [
+            "young_ebright",
+            "elena_child",
+            "leo_child"
+          ],
+          "ineligible_characters": [],
+          "n_eligible_probes": 63,
+          "rank1_hits": 63,
+          "pm2_rank1_within_story": 1.0,
+          "mean_v1_2_ensemble_score_in_loop": 0.7737
+        },
+        "adult": {
+          "eligible_characters": [
+            "dr_marcus_vance",
+            "maya_adult"
+          ],
+          "ineligible_characters": [
+            "mother",
+            "college_ebright",
+            "james_wong",
+            "clara_thorn"
+          ],
+          "n_eligible_probes": 36,
+          "rank1_hits": 35,
+          "pm2_rank1_within_story": 0.9722,
+          "mean_v1_2_ensemble_score_in_loop": 0.6608
+        },
+        "teen": {
+          "eligible_characters": [
+            "teen_ebright"
+          ],
+          "ineligible_characters": [],
+          "n_eligible_probes": 18,
+          "rank1_hits": 18,
+          "pm2_rank1_within_story": 1.0,
+          "mean_v1_2_ensemble_score_in_loop": 0.6695
+        },
+        "elder": {
+          "eligible_characters": [
+            "arthur_elder"
+          ],
+          "ineligible_characters": [],
+          "n_eligible_probes": 18,
+          "rank1_hits": 18,
+          "pm2_rank1_within_story": 1.0,
+          "mean_v1_2_ensemble_score_in_loop": 0.7004
+        }
+      },
+      "per_replicate": [
+        {
+          "replicate_idx": 0,
+          "pm1_cross_scene_auc": 0.9701,
+          "pm2_cross_scene_rank1": 0.9778,
+          "pm2_old_unfiltered": 0.7719,
+          "pm3_scene_correctness_rate": 0.9167,
+          "rank3_accuracy": 1.0,
+          "mrr": 0.9889,
+          "cmc_curve": {
+            "1": 0.9778,
+            "2": 1.0,
+            "3": 1.0,
+            "4": 1.0,
+            "5": 1.0,
+            "6": 1.0,
+            "7": 1.0,
+            "8": 1.0,
+            "9": 1.0,
+            "10": 1.0,
+            "11": 1.0
+          },
+          "chance_level": 0.0909,
+          "n_gallery_characters": 11,
+          "n_expected": 57,
+          "n_eligible": 45,
+          "n_ineligible": 12,
+          "eligible_characters": [
+            "arthur_elder",
+            "dr_marcus_vance",
+            "elena_child",
+            "leo_child",
+            "maya_adult",
+            "teen_ebright",
+            "young_ebright"
+          ],
+          "ineligible_characters": [
+            "clara_thorn",
+            "college_ebright",
+            "james_wong",
+            "mother"
+          ],
+          "rank1_hits": 44,
+          "rank3_hits": 45,
+          "judge_aucs": {
+            "Facenet512": 0.9531,
+            "SFace": 0.9625,
+            "GhostFaceNet": 0.968,
+            "ArcFace": 0.9508
+          },
+          "n_genuine_pairs": 81,
+          "n_impostor_pairs": 1395,
+          "total_expected_faces": 57,
+          "total_detected_faces": 57,
+          "face_recall": 1.0,
+          "total_scenes": 36,
+          "correct_scenes": 33,
+          "extra_person_rate": 0.0833,
+          "mean_face_sharpness": 1007.12,
+          "d_prime": 2.675,
+          "eer": 0.1111,
+          "tar_at_far05": 0.8642,
+          "per_story": {
+            "Story_A": {
+              "replicate_idx": 0,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.5714,
+              "pm3_scene_correctness_rate": 0.9333,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0,
+                "4": 1.0,
+                "5": 1.0
+              },
+              "chance_level": 0.2,
+              "n_gallery_characters": 5,
+              "n_expected": 21,
+              "n_eligible": 12,
+              "n_ineligible": 9,
+              "eligible_characters": [
+                "teen_ebright",
+                "young_ebright"
+              ],
+              "ineligible_characters": [
+                "college_ebright",
+                "james_wong",
+                "mother"
+              ],
+              "rank1_hits": 12,
+              "rank3_hits": 12,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 0.9877,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 0.9993
+              },
+              "n_genuine_pairs": 18,
+              "n_impostor_pairs": 153,
+              "total_expected_faces": 21,
+              "total_detected_faces": 21,
+              "face_recall": 1.0,
+              "total_scenes": 15,
+              "correct_scenes": 14,
+              "extra_person_rate": 0.0667,
+              "mean_face_sharpness": 592.21,
+              "d_prime": 7.1134,
+              "eer": 0.0,
+              "tar_at_far05": 1.0,
+              "scenes": [
+                {
+                  "render_id": "rep_00_Story_A_sc01_s0_seed_8451",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_A_sc01_s1_seed_8452",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_A_sc01_s2_seed_8453",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_A_sc02_s0_seed_8454",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_A_sc02_s1_seed_8455",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_A_sc02_s2_seed_8456",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_A_sc03_s0_seed_8457",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_A_sc03_s1_seed_8458",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_A_sc03_s2_seed_8459",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_A_sc04_s0_seed_8460",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_A_sc04_s1_seed_8461",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_A_sc04_s2_seed_8462",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_A_sc05_s0_seed_8463",
+                  "pm3_correct": false
+                },
+                {
+                  "render_id": "rep_00_Story_A_sc05_s1_seed_8464",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_A_sc05_s2_seed_8465",
+                  "pm3_correct": true
+                }
+              ]
+            },
+            "Story_B": {
+              "replicate_idx": 0,
+              "pm1_cross_scene_auc": 0.9805,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.8,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 15,
+              "n_eligible": 12,
+              "n_ineligible": 3,
+              "eligible_characters": [
+                "dr_marcus_vance",
+                "elena_child"
+              ],
+              "ineligible_characters": [
+                "clara_thorn"
+              ],
+              "rank1_hits": 12,
+              "rank3_hits": 12,
+              "judge_aucs": {
+                "Facenet512": 0.8745,
+                "SFace": 0.9578,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 0.9167
+              },
+              "n_genuine_pairs": 18,
+              "n_impostor_pairs": 54,
+              "total_expected_faces": 15,
+              "total_detected_faces": 15,
+              "face_recall": 1.0,
+              "total_scenes": 9,
+              "correct_scenes": 9,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1114.41,
+              "d_prime": 1.405,
+              "eer": 0.0556,
+              "tar_at_far05": 0.9444,
+              "scenes": [
+                {
+                  "render_id": "rep_00_Story_B_sc01_s0_seed_8466",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_B_sc01_s1_seed_8467",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_B_sc01_s2_seed_8468",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_B_sc02_s0_seed_8469",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_B_sc02_s1_seed_8470",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_B_sc02_s2_seed_8471",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_B_sc03_s0_seed_8472",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_B_sc03_s1_seed_8473",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_B_sc03_s2_seed_8474",
+                  "pm3_correct": true
+                }
+              ]
+            },
+            "Story_C": {
+              "replicate_idx": 0,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 1.0,
+              "pm3_scene_correctness_rate": 0.8333,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 21,
+              "n_eligible": 21,
+              "n_ineligible": 0,
+              "eligible_characters": [
+                "arthur_elder",
+                "leo_child",
+                "maya_adult"
+              ],
+              "ineligible_characters": [],
+              "rank1_hits": 21,
+              "rank3_hits": 21,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 1.0
+              },
+              "n_genuine_pairs": 45,
+              "n_impostor_pairs": 117,
+              "total_expected_faces": 21,
+              "total_detected_faces": 21,
+              "face_recall": 1.0,
+              "total_scenes": 12,
+              "correct_scenes": 10,
+              "extra_person_rate": 0.1667,
+              "mean_face_sharpness": 1345.39,
+              "d_prime": 3.2285,
+              "eer": 0.0,
+              "tar_at_far05": 1.0,
+              "scenes": [
+                {
+                  "render_id": "rep_00_Story_C_sc01_s0_seed_8481",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_C_sc01_s1_seed_8482",
+                  "pm3_correct": false
+                },
+                {
+                  "render_id": "rep_00_Story_C_sc01_s2_seed_8483",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_C_sc02_s0_seed_8484",
+                  "pm3_correct": false
+                },
+                {
+                  "render_id": "rep_00_Story_C_sc02_s1_seed_8485",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_C_sc02_s2_seed_8486",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_C_sc03_s0_seed_8487",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_C_sc03_s1_seed_8488",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_C_sc03_s2_seed_8489",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_C_sc04_s0_seed_8490",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_C_sc04_s1_seed_8491",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_C_sc04_s2_seed_8492",
+                  "pm3_correct": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "replicate_idx": 1,
+          "pm1_cross_scene_auc": 0.9533,
+          "pm2_cross_scene_rank1": 0.9556,
+          "pm2_old_unfiltered": 0.7544,
+          "pm3_scene_correctness_rate": 0.9722,
+          "rank3_accuracy": 1.0,
+          "mrr": 0.9778,
+          "cmc_curve": {
+            "1": 0.9556,
+            "2": 1.0,
+            "3": 1.0,
+            "4": 1.0,
+            "5": 1.0,
+            "6": 1.0,
+            "7": 1.0,
+            "8": 1.0,
+            "9": 1.0,
+            "10": 1.0,
+            "11": 1.0
+          },
+          "chance_level": 0.0909,
+          "n_gallery_characters": 11,
+          "n_expected": 57,
+          "n_eligible": 45,
+          "n_ineligible": 12,
+          "eligible_characters": [
+            "arthur_elder",
+            "dr_marcus_vance",
+            "elena_child",
+            "leo_child",
+            "maya_adult",
+            "teen_ebright",
+            "young_ebright"
+          ],
+          "ineligible_characters": [
+            "clara_thorn",
+            "college_ebright",
+            "james_wong",
+            "mother"
+          ],
+          "rank1_hits": 43,
+          "rank3_hits": 45,
+          "judge_aucs": {
+            "Facenet512": 0.9106,
+            "SFace": 0.9677,
+            "GhostFaceNet": 0.9528,
+            "ArcFace": 0.9467
+          },
+          "n_genuine_pairs": 81,
+          "n_impostor_pairs": 1395,
+          "total_expected_faces": 57,
+          "total_detected_faces": 57,
+          "face_recall": 1.0,
+          "total_scenes": 36,
+          "correct_scenes": 35,
+          "extra_person_rate": 0.0278,
+          "mean_face_sharpness": 951.23,
+          "d_prime": 2.564,
+          "eer": 0.1111,
+          "tar_at_far05": 0.7778,
+          "per_story": {
+            "Story_A": {
+              "replicate_idx": 1,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.5714,
+              "pm3_scene_correctness_rate": 0.9333,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0,
+                "4": 1.0,
+                "5": 1.0
+              },
+              "chance_level": 0.2,
+              "n_gallery_characters": 5,
+              "n_expected": 21,
+              "n_eligible": 12,
+              "n_ineligible": 9,
+              "eligible_characters": [
+                "teen_ebright",
+                "young_ebright"
+              ],
+              "ineligible_characters": [
+                "college_ebright",
+                "james_wong",
+                "mother"
+              ],
+              "rank1_hits": 12,
+              "rank3_hits": 12,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 1.0
+              },
+              "n_genuine_pairs": 18,
+              "n_impostor_pairs": 153,
+              "total_expected_faces": 21,
+              "total_detected_faces": 21,
+              "face_recall": 1.0,
+              "total_scenes": 15,
+              "correct_scenes": 14,
+              "extra_person_rate": 0.0667,
+              "mean_face_sharpness": 663.58,
+              "d_prime": 13.2054,
+              "eer": 0.0,
+              "tar_at_far05": 1.0,
+              "scenes": [
+                {
+                  "render_id": "rep_01_Story_A_sc01_s0_seed_8496",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_A_sc01_s1_seed_8497",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_A_sc01_s2_seed_8498",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_A_sc02_s0_seed_8499",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_A_sc02_s1_seed_8500",
+                  "pm3_correct": false
+                },
+                {
+                  "render_id": "rep_01_Story_A_sc02_s2_seed_8501",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_A_sc03_s0_seed_8502",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_A_sc03_s1_seed_8503",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_A_sc03_s2_seed_8504",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_A_sc04_s0_seed_8505",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_A_sc04_s1_seed_8506",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_A_sc04_s2_seed_8507",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_A_sc05_s0_seed_8508",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_A_sc05_s1_seed_8509",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_A_sc05_s2_seed_8510",
+                  "pm3_correct": true
+                }
+              ]
+            },
+            "Story_B": {
+              "replicate_idx": 1,
+              "pm1_cross_scene_auc": 0.9012,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.8,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 15,
+              "n_eligible": 12,
+              "n_ineligible": 3,
+              "eligible_characters": [
+                "dr_marcus_vance",
+                "elena_child"
+              ],
+              "ineligible_characters": [
+                "clara_thorn"
+              ],
+              "rank1_hits": 12,
+              "rank3_hits": 12,
+              "judge_aucs": {
+                "Facenet512": 0.7973,
+                "SFace": 0.9866,
+                "GhostFaceNet": 0.9681,
+                "ArcFace": 0.8786
+              },
+              "n_genuine_pairs": 18,
+              "n_impostor_pairs": 54,
+              "total_expected_faces": 15,
+              "total_detected_faces": 15,
+              "face_recall": 1.0,
+              "total_scenes": 9,
+              "correct_scenes": 9,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1123.25,
+              "d_prime": 1.405,
+              "eer": 0.2778,
+              "tar_at_far05": 0.6111,
+              "scenes": [
+                {
+                  "render_id": "rep_01_Story_B_sc01_s0_seed_8511",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_B_sc01_s1_seed_8512",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_B_sc01_s2_seed_8513",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_B_sc02_s0_seed_8514",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_B_sc02_s1_seed_8515",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_B_sc02_s2_seed_8516",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_B_sc03_s0_seed_8517",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_B_sc03_s1_seed_8518",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_B_sc03_s2_seed_8519",
+                  "pm3_correct": true
+                }
+              ]
+            },
+            "Story_C": {
+              "replicate_idx": 1,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 1.0,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 21,
+              "n_eligible": 21,
+              "n_ineligible": 0,
+              "eligible_characters": [
+                "arthur_elder",
+                "leo_child",
+                "maya_adult"
+              ],
+              "ineligible_characters": [],
+              "rank1_hits": 21,
+              "rank3_hits": 21,
+              "judge_aucs": {
+                "Facenet512": 0.9996,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 0.9998
+              },
+              "n_genuine_pairs": 45,
+              "n_impostor_pairs": 117,
+              "total_expected_faces": 21,
+              "total_detected_faces": 21,
+              "face_recall": 1.0,
+              "total_scenes": 12,
+              "correct_scenes": 12,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1116.0,
+              "d_prime": 3.0605,
+              "eer": 0.0,
+              "tar_at_far05": 1.0,
+              "scenes": [
+                {
+                  "render_id": "rep_01_Story_C_sc01_s0_seed_8526",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_C_sc01_s1_seed_8527",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_C_sc01_s2_seed_8528",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_C_sc02_s0_seed_8529",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_C_sc02_s1_seed_8530",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_C_sc02_s2_seed_8531",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_C_sc03_s0_seed_8532",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_C_sc03_s1_seed_8533",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_C_sc03_s2_seed_8534",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_C_sc04_s0_seed_8535",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_C_sc04_s1_seed_8536",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_C_sc04_s2_seed_8537",
+                  "pm3_correct": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "replicate_idx": 2,
+          "pm1_cross_scene_auc": 0.9499,
+          "pm2_cross_scene_rank1": 0.9333,
+          "pm2_old_unfiltered": 0.7368,
+          "pm3_scene_correctness_rate": 0.9444,
+          "rank3_accuracy": 0.9778,
+          "mrr": 0.9593,
+          "cmc_curve": {
+            "1": 0.9333,
+            "2": 0.9778,
+            "3": 0.9778,
+            "4": 0.9778,
+            "5": 0.9778,
+            "6": 1.0,
+            "7": 1.0,
+            "8": 1.0,
+            "9": 1.0,
+            "10": 1.0,
+            "11": 1.0
+          },
+          "chance_level": 0.0909,
+          "n_gallery_characters": 11,
+          "n_expected": 57,
+          "n_eligible": 45,
+          "n_ineligible": 12,
+          "eligible_characters": [
+            "arthur_elder",
+            "dr_marcus_vance",
+            "elena_child",
+            "leo_child",
+            "maya_adult",
+            "teen_ebright",
+            "young_ebright"
+          ],
+          "ineligible_characters": [
+            "clara_thorn",
+            "college_ebright",
+            "james_wong",
+            "mother"
+          ],
+          "rank1_hits": 42,
+          "rank3_hits": 44,
+          "judge_aucs": {
+            "Facenet512": 0.9452,
+            "SFace": 0.9577,
+            "GhostFaceNet": 0.9412,
+            "ArcFace": 0.9371
+          },
+          "n_genuine_pairs": 81,
+          "n_impostor_pairs": 1395,
+          "total_expected_faces": 57,
+          "total_detected_faces": 57,
+          "face_recall": 1.0,
+          "total_scenes": 36,
+          "correct_scenes": 34,
+          "extra_person_rate": 0.0556,
+          "mean_face_sharpness": 967.67,
+          "d_prime": 2.5985,
+          "eer": 0.1111,
+          "tar_at_far05": 0.8889,
+          "per_story": {
+            "Story_A": {
+              "replicate_idx": 2,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.5714,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0,
+                "4": 1.0,
+                "5": 1.0
+              },
+              "chance_level": 0.2,
+              "n_gallery_characters": 5,
+              "n_expected": 21,
+              "n_eligible": 12,
+              "n_ineligible": 9,
+              "eligible_characters": [
+                "teen_ebright",
+                "young_ebright"
+              ],
+              "ineligible_characters": [
+                "college_ebright",
+                "james_wong",
+                "mother"
+              ],
+              "rank1_hits": 12,
+              "rank3_hits": 12,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 0.9906,
+                "GhostFaceNet": 0.9902,
+                "ArcFace": 0.9982
+              },
+              "n_genuine_pairs": 18,
+              "n_impostor_pairs": 153,
+              "total_expected_faces": 21,
+              "total_detected_faces": 21,
+              "face_recall": 1.0,
+              "total_scenes": 15,
+              "correct_scenes": 15,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 849.44,
+              "d_prime": 3.5804,
+              "eer": 0.0,
+              "tar_at_far05": 1.0,
+              "scenes": [
+                {
+                  "render_id": "rep_02_Story_A_sc01_s0_seed_8541",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_A_sc01_s1_seed_8542",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_A_sc01_s2_seed_8543",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_A_sc02_s0_seed_8544",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_A_sc02_s1_seed_8545",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_A_sc02_s2_seed_8546",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_A_sc03_s0_seed_8547",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_A_sc03_s1_seed_8548",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_A_sc03_s2_seed_8549",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_A_sc04_s0_seed_8550",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_A_sc04_s1_seed_8551",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_A_sc04_s2_seed_8552",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_A_sc05_s0_seed_8553",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_A_sc05_s1_seed_8554",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_A_sc05_s2_seed_8555",
+                  "pm3_correct": true
+                }
+              ]
+            },
+            "Story_B": {
+              "replicate_idx": 2,
+              "pm1_cross_scene_auc": 0.8714,
+              "pm2_cross_scene_rank1": 0.9167,
+              "pm2_old_unfiltered": 0.7333,
+              "pm3_scene_correctness_rate": 0.7778,
+              "rank3_accuracy": 1.0,
+              "mrr": 0.9583,
+              "cmc_curve": {
+                "1": 0.9167,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 15,
+              "n_eligible": 12,
+              "n_ineligible": 3,
+              "eligible_characters": [
+                "dr_marcus_vance",
+                "elena_child"
+              ],
+              "ineligible_characters": [
+                "clara_thorn"
+              ],
+              "rank1_hits": 11,
+              "rank3_hits": 12,
+              "judge_aucs": {
+                "Facenet512": 0.7737,
+                "SFace": 0.9455,
+                "GhostFaceNet": 0.8992,
+                "ArcFace": 0.8673
+              },
+              "n_genuine_pairs": 18,
+              "n_impostor_pairs": 54,
+              "total_expected_faces": 15,
+              "total_detected_faces": 15,
+              "face_recall": 1.0,
+              "total_scenes": 9,
+              "correct_scenes": 7,
+              "extra_person_rate": 0.2222,
+              "mean_face_sharpness": 895.88,
+              "d_prime": 1.2424,
+              "eer": 0.2778,
+              "tar_at_far05": 0.6111,
+              "scenes": [
+                {
+                  "render_id": "rep_02_Story_B_sc01_s0_seed_8556",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_B_sc01_s1_seed_8557",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_B_sc01_s2_seed_8558",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_B_sc02_s0_seed_8559",
+                  "pm3_correct": false
+                },
+                {
+                  "render_id": "rep_02_Story_B_sc02_s1_seed_8560",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_B_sc02_s2_seed_8561",
+                  "pm3_correct": false
+                },
+                {
+                  "render_id": "rep_02_Story_B_sc03_s0_seed_8562",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_B_sc03_s1_seed_8563",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_B_sc03_s2_seed_8564",
+                  "pm3_correct": true
+                }
+              ]
+            },
+            "Story_C": {
+              "replicate_idx": 2,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 1.0,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 21,
+              "n_eligible": 21,
+              "n_ineligible": 0,
+              "eligible_characters": [
+                "arthur_elder",
+                "leo_child",
+                "maya_adult"
+              ],
+              "ineligible_characters": [],
+              "rank1_hits": 21,
+              "rank3_hits": 21,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 1.0
+              },
+              "n_genuine_pairs": 45,
+              "n_impostor_pairs": 117,
+              "total_expected_faces": 21,
+              "total_detected_faces": 21,
+              "face_recall": 1.0,
+              "total_scenes": 12,
+              "correct_scenes": 12,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1137.17,
+              "d_prime": 3.9536,
+              "eer": 0.0,
+              "tar_at_far05": 1.0,
+              "scenes": [
+                {
+                  "render_id": "rep_02_Story_C_sc01_s0_seed_8571",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_C_sc01_s1_seed_8572",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_C_sc01_s2_seed_8573",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_C_sc02_s0_seed_8574",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_C_sc02_s1_seed_8575",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_C_sc02_s2_seed_8576",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_C_sc03_s0_seed_8577",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_C_sc03_s1_seed_8578",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_C_sc03_s2_seed_8579",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_C_sc04_s0_seed_8580",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_C_sc04_s1_seed_8581",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_C_sc04_s2_seed_8582",
+                  "pm3_correct": true
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "v2_final_bon3": {
+      "arm": "v2_final_bon3",
+      "n_replicates": 3,
+      "primary_metrics": {
+        "pm1_cross_scene_auc": {
+          "loop_label": "OUT-OF-LOOP",
+          "empirical_mean": 0.9451,
+          "bootstrap": {
+            "mean": 0.9452,
+            "std": 0.0146,
+            "ci_95_lower": 0.9176,
+            "ci_95_upper": 0.9785
+          },
+          "chance_floor": 0.5,
+          "ceiling": 1.0
+        },
+        "pm2_cross_scene_rank1": {
+          "loop_label": "OUT-OF-LOOP",
+          "empirical_mean": 0.9333,
+          "pm2_old_unfiltered_mean": 0.7368,
+          "bootstrap": {
+            "mean": 0.9336,
+            "std": 0.0315,
+            "ci_95_lower": 0.8667,
+            "ci_95_upper": 1.0
+          },
+          "chance_floor": 0.0909,
+          "n_gallery_characters": 11,
+          "n_expected_per_rep": 19,
+          "n_eligible_per_rep": 15,
+          "n_ineligible_per_rep": 4,
+          "within_story_mean_pm2": 0.9722,
+          "ceiling": 1.0
+        },
+        "pm3_scene_correctness_rate": {
+          "loop_label": "OUT-OF-LOOP",
+          "empirical_mean": 1.0,
+          "bootstrap": {
+            "mean": 1.0,
+            "std": 0.0,
+            "ci_95_lower": 1.0,
+            "ci_95_upper": 1.0
+          },
+          "chance_floor": 0.0,
+          "ceiling": 1.0
+        }
+      },
+      "secondary_metrics": {
+        "rank3_accuracy": {
+          "loop_label": "OUT-OF-LOOP",
+          "mean": 0.9556
+        },
+        "mrr": {
+          "loop_label": "OUT-OF-LOOP",
+          "mean": 0.9495
+        },
+        "face_recall": {
+          "loop_label": "OUT-OF-LOOP",
+          "mean": 1.0
+        },
+        "extra_person_rate": {
+          "loop_label": "OUT-OF-LOOP",
+          "mean": 0.0
+        },
+        "mean_face_sharpness": {
+          "loop_label": "OUT-OF-LOOP",
+          "mean": 1171.72
+        },
+        "judge_aucs": {
+          "Facenet512": 0.9184,
+          "SFace": 0.9749,
+          "GhostFaceNet": 0.9353,
+          "ArcFace": 0.936
+        },
+        "pooled_biometric_separation": {
+          "d_prime": 2.6832,
+          "eer": 0.1115,
+          "tar_at_far05": 0.8519
+        },
+        "n_genuine_pairs_total": 27,
+        "n_impostor_pairs_total": 465
+      },
+      "per_story": {
+        "Story_A": {
+          "n_gallery_characters": 5,
+          "chance_floor_pm2": 0.2,
+          "n_expected_per_rep": 7,
+          "n_eligible_per_rep": 4,
+          "n_ineligible_per_rep": 3,
+          "eligible_characters": [
+            "teen_ebright",
+            "young_ebright"
+          ],
+          "ineligible_characters": [
+            "college_ebright",
+            "james_wong",
+            "mother"
+          ],
+          "pm1_cross_scene_auc_mean": 1.0,
+          "pm1_bootstrap": {
+            "mean": 1.0,
+            "std": 0.0,
+            "ci_95_lower": 1.0,
+            "ci_95_upper": 1.0
+          },
+          "pm2_cross_scene_rank1_mean": 1.0,
+          "pm2_old_unfiltered_mean": 0.5714,
+          "pm2_bootstrap": {
+            "mean": 1.0,
+            "std": 0.0,
+            "ci_95_lower": 1.0,
+            "ci_95_upper": 1.0
+          },
+          "pm3_scene_correctness_mean": 1.0,
+          "pm3_bootstrap": {
+            "mean": 1.0,
+            "std": 0.0,
+            "ci_95_lower": 1.0,
+            "ci_95_upper": 1.0
+          },
+          "rank3_accuracy_mean": 1.0,
+          "mrr_mean": 1.0,
+          "per_replicate": [
+            {
+              "replicate_idx": 0,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.5714,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0,
+                "4": 1.0,
+                "5": 1.0
+              },
+              "chance_level": 0.2,
+              "n_gallery_characters": 5,
+              "n_expected": 7,
+              "n_eligible": 4,
+              "n_ineligible": 3,
+              "eligible_characters": [
+                "teen_ebright",
+                "young_ebright"
+              ],
+              "ineligible_characters": [
+                "college_ebright",
+                "james_wong",
+                "mother"
+              ],
+              "rank1_hits": 4,
+              "rank3_hits": 4,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 1.0
+              },
+              "n_genuine_pairs": 2,
+              "n_impostor_pairs": 17,
+              "total_expected_faces": 7,
+              "total_detected_faces": 7,
+              "face_recall": 1.0,
+              "total_scenes": 5,
+              "correct_scenes": 5,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 729.6,
+              "d_prime": 10.5608,
+              "eer": 0.0,
+              "tar_at_far05": 1.0
+            },
+            {
+              "replicate_idx": 1,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.5714,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0,
+                "4": 1.0,
+                "5": 1.0
+              },
+              "chance_level": 0.2,
+              "n_gallery_characters": 5,
+              "n_expected": 7,
+              "n_eligible": 4,
+              "n_ineligible": 3,
+              "eligible_characters": [
+                "teen_ebright",
+                "young_ebright"
+              ],
+              "ineligible_characters": [
+                "college_ebright",
+                "james_wong",
+                "mother"
+              ],
+              "rank1_hits": 4,
+              "rank3_hits": 4,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 1.0
+              },
+              "n_genuine_pairs": 2,
+              "n_impostor_pairs": 17,
+              "total_expected_faces": 7,
+              "total_detected_faces": 7,
+              "face_recall": 1.0,
+              "total_scenes": 5,
+              "correct_scenes": 5,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 781.68,
+              "d_prime": 28.1234,
+              "eer": 0.0,
+              "tar_at_far05": 1.0
+            },
+            {
+              "replicate_idx": 2,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.5714,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0,
+                "4": 1.0,
+                "5": 1.0
+              },
+              "chance_level": 0.2,
+              "n_gallery_characters": 5,
+              "n_expected": 7,
+              "n_eligible": 4,
+              "n_ineligible": 3,
+              "eligible_characters": [
+                "teen_ebright",
+                "young_ebright"
+              ],
+              "ineligible_characters": [
+                "college_ebright",
+                "james_wong",
+                "mother"
+              ],
+              "rank1_hits": 4,
+              "rank3_hits": 4,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 1.0
+              },
+              "n_genuine_pairs": 2,
+              "n_impostor_pairs": 17,
+              "total_expected_faces": 7,
+              "total_detected_faces": 7,
+              "face_recall": 1.0,
+              "total_scenes": 5,
+              "correct_scenes": 5,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1067.48,
+              "d_prime": 11.9109,
+              "eer": 0.0,
+              "tar_at_far05": 1.0
+            }
+          ]
+        },
+        "Story_B": {
+          "n_gallery_characters": 3,
+          "chance_floor_pm2": 0.3333,
+          "n_expected_per_rep": 5,
+          "n_eligible_per_rep": 4,
+          "n_ineligible_per_rep": 1,
+          "eligible_characters": [
+            "dr_marcus_vance",
+            "elena_child"
+          ],
+          "ineligible_characters": [
+            "clara_thorn"
+          ],
+          "pm1_cross_scene_auc_mean": 0.8611,
+          "pm1_bootstrap": {
+            "mean": 0.8611,
+            "std": 0.0598,
+            "ci_95_lower": 0.75,
+            "ci_95_upper": 1.0
+          },
+          "pm2_cross_scene_rank1_mean": 0.9167,
+          "pm2_old_unfiltered_mean": 0.7333,
+          "pm2_bootstrap": {
+            "mean": 0.9172,
+            "std": 0.0673,
+            "ci_95_lower": 0.75,
+            "ci_95_upper": 1.0
+          },
+          "pm3_scene_correctness_mean": 1.0,
+          "pm3_bootstrap": {
+            "mean": 1.0,
+            "std": 0.0,
+            "ci_95_lower": 1.0,
+            "ci_95_upper": 1.0
+          },
+          "rank3_accuracy_mean": 1.0,
+          "mrr_mean": 0.9583,
+          "per_replicate": [
+            {
+              "replicate_idx": 0,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.8,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 5,
+              "n_eligible": 4,
+              "n_ineligible": 1,
+              "eligible_characters": [
+                "dr_marcus_vance",
+                "elena_child"
+              ],
+              "ineligible_characters": [
+                "clara_thorn"
+              ],
+              "rank1_hits": 4,
+              "rank3_hits": 4,
+              "judge_aucs": {
+                "Facenet512": 0.75,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 0.9167
+              },
+              "n_genuine_pairs": 2,
+              "n_impostor_pairs": 6,
+              "total_expected_faces": 5,
+              "total_detected_faces": 5,
+              "face_recall": 1.0,
+              "total_scenes": 3,
+              "correct_scenes": 3,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1394.46,
+              "d_prime": 1.4192,
+              "eer": 0.0,
+              "tar_at_far05": 1.0
+            },
+            {
+              "replicate_idx": 1,
+              "pm1_cross_scene_auc": 0.8333,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.8,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 5,
+              "n_eligible": 4,
+              "n_ineligible": 1,
+              "eligible_characters": [
+                "dr_marcus_vance",
+                "elena_child"
+              ],
+              "ineligible_characters": [
+                "clara_thorn"
+              ],
+              "rank1_hits": 4,
+              "rank3_hits": 4,
+              "judge_aucs": {
+                "Facenet512": 0.8333,
+                "SFace": 1.0,
+                "GhostFaceNet": 0.9167,
+                "ArcFace": 0.8333
+              },
+              "n_genuine_pairs": 2,
+              "n_impostor_pairs": 6,
+              "total_expected_faces": 5,
+              "total_detected_faces": 5,
+              "face_recall": 1.0,
+              "total_scenes": 3,
+              "correct_scenes": 3,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1376.8,
+              "d_prime": 1.4133,
+              "eer": 0.4167,
+              "tar_at_far05": 0.5
+            },
+            {
+              "replicate_idx": 2,
+              "pm1_cross_scene_auc": 0.75,
+              "pm2_cross_scene_rank1": 0.75,
+              "pm2_old_unfiltered": 0.6,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 0.875,
+              "cmc_curve": {
+                "1": 0.75,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 5,
+              "n_eligible": 4,
+              "n_ineligible": 1,
+              "eligible_characters": [
+                "dr_marcus_vance",
+                "elena_child"
+              ],
+              "ineligible_characters": [
+                "clara_thorn"
+              ],
+              "rank1_hits": 3,
+              "rank3_hits": 4,
+              "judge_aucs": {
+                "Facenet512": 0.5,
+                "SFace": 0.9167,
+                "GhostFaceNet": 0.6667,
+                "ArcFace": 0.6667
+              },
+              "n_genuine_pairs": 2,
+              "n_impostor_pairs": 6,
+              "total_expected_faces": 5,
+              "total_detected_faces": 5,
+              "face_recall": 1.0,
+              "total_scenes": 3,
+              "correct_scenes": 3,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1115.24,
+              "d_prime": 1.4136,
+              "eer": 0.5,
+              "tar_at_far05": 0.5
+            }
+          ]
+        },
+        "Story_C": {
+          "n_gallery_characters": 3,
+          "chance_floor_pm2": 0.3333,
+          "n_expected_per_rep": 7,
+          "n_eligible_per_rep": 7,
+          "n_ineligible_per_rep": 0,
+          "eligible_characters": [
+            "arthur_elder",
+            "leo_child",
+            "maya_adult"
+          ],
+          "ineligible_characters": [],
+          "pm1_cross_scene_auc_mean": 1.0,
+          "pm1_bootstrap": {
+            "mean": 1.0,
+            "std": 0.0,
+            "ci_95_lower": 1.0,
+            "ci_95_upper": 1.0
+          },
+          "pm2_cross_scene_rank1_mean": 1.0,
+          "pm2_old_unfiltered_mean": 1.0,
+          "pm2_bootstrap": {
+            "mean": 1.0,
+            "std": 0.0,
+            "ci_95_lower": 1.0,
+            "ci_95_upper": 1.0
+          },
+          "pm3_scene_correctness_mean": 1.0,
+          "pm3_bootstrap": {
+            "mean": 1.0,
+            "std": 0.0,
+            "ci_95_lower": 1.0,
+            "ci_95_upper": 1.0
+          },
+          "rank3_accuracy_mean": 1.0,
+          "mrr_mean": 1.0,
+          "per_replicate": [
+            {
+              "replicate_idx": 0,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 1.0,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 7,
+              "n_eligible": 7,
+              "n_ineligible": 0,
+              "eligible_characters": [
+                "arthur_elder",
+                "leo_child",
+                "maya_adult"
+              ],
+              "ineligible_characters": [],
+              "rank1_hits": 7,
+              "rank3_hits": 7,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 1.0
+              },
+              "n_genuine_pairs": 5,
+              "n_impostor_pairs": 13,
+              "total_expected_faces": 7,
+              "total_detected_faces": 7,
+              "face_recall": 1.0,
+              "total_scenes": 4,
+              "correct_scenes": 4,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1639.14,
+              "d_prime": 3.3196,
+              "eer": 0.0,
+              "tar_at_far05": 1.0
+            },
+            {
+              "replicate_idx": 1,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 1.0,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 7,
+              "n_eligible": 7,
+              "n_ineligible": 0,
+              "eligible_characters": [
+                "arthur_elder",
+                "leo_child",
+                "maya_adult"
+              ],
+              "ineligible_characters": [],
+              "rank1_hits": 7,
+              "rank3_hits": 7,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 1.0
+              },
+              "n_genuine_pairs": 5,
+              "n_impostor_pairs": 13,
+              "total_expected_faces": 7,
+              "total_detected_faces": 7,
+              "face_recall": 1.0,
+              "total_scenes": 4,
+              "correct_scenes": 4,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1242.35,
+              "d_prime": 3.6226,
+              "eer": 0.0,
+              "tar_at_far05": 1.0
+            },
+            {
+              "replicate_idx": 2,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 1.0,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 7,
+              "n_eligible": 7,
+              "n_ineligible": 0,
+              "eligible_characters": [
+                "arthur_elder",
+                "leo_child",
+                "maya_adult"
+              ],
+              "ineligible_characters": [],
+              "rank1_hits": 7,
+              "rank3_hits": 7,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 1.0
+              },
+              "n_genuine_pairs": 5,
+              "n_impostor_pairs": 13,
+              "total_expected_faces": 7,
+              "total_detected_faces": 7,
+              "face_recall": 1.0,
+              "total_scenes": 4,
+              "correct_scenes": 4,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1304.78,
+              "d_prime": 3.199,
+              "eer": 0.0,
+              "tar_at_far05": 1.0
+            }
+          ]
+        }
+      },
+      "per_character": {
+        "young_ebright": {
+          "age_group": "child",
+          "pm2_eligible": true,
+          "n_eligible_probes": 6,
+          "rank1_hits": 6,
+          "pm2_rank1_within_story": 1.0,
+          "mean_v1_2_ensemble_score_in_loop": 0.7732,
+          "mean_buffalo_l_sim_in_loop": 0.2788,
+          "mean_face_sharpness": 899.04
+        },
+        "mother": {
+          "age_group": "adult",
+          "pm2_eligible": false,
+          "n_eligible_probes": 0,
+          "rank1_hits": "N/A (ineligible)",
+          "pm2_rank1_within_story": "N/A (ineligible)",
+          "mean_v1_2_ensemble_score_in_loop": 0.8027,
+          "mean_buffalo_l_sim_in_loop": 0.2439,
+          "mean_face_sharpness": 1282.79
+        },
+        "teen_ebright": {
+          "age_group": "teen",
+          "pm2_eligible": true,
+          "n_eligible_probes": 6,
+          "rank1_hits": 6,
+          "pm2_rank1_within_story": 1.0,
+          "mean_v1_2_ensemble_score_in_loop": 0.6665,
+          "mean_buffalo_l_sim_in_loop": 0.2426,
+          "mean_face_sharpness": 325.85
+        },
+        "college_ebright": {
+          "age_group": "adult",
+          "pm2_eligible": false,
+          "n_eligible_probes": 0,
+          "rank1_hits": "N/A (ineligible)",
+          "pm2_rank1_within_story": "N/A (ineligible)",
+          "mean_v1_2_ensemble_score_in_loop": 0.7543,
+          "mean_buffalo_l_sim_in_loop": 0.3317,
+          "mean_face_sharpness": 1108.68
+        },
+        "james_wong": {
+          "age_group": "adult",
+          "pm2_eligible": false,
+          "n_eligible_probes": 0,
+          "rank1_hits": "N/A (ineligible)",
+          "pm2_rank1_within_story": "N/A (ineligible)",
+          "mean_v1_2_ensemble_score_in_loop": 0.7379,
+          "mean_buffalo_l_sim_in_loop": 0.4165,
+          "mean_face_sharpness": 1175.86
+        },
+        "elena_child": {
+          "age_group": "child",
+          "pm2_eligible": true,
+          "n_eligible_probes": 6,
+          "rank1_hits": 6,
+          "pm2_rank1_within_story": 1.0,
+          "mean_v1_2_ensemble_score_in_loop": 0.7971,
+          "mean_buffalo_l_sim_in_loop": 0.2226,
+          "mean_face_sharpness": 526.36
+        },
+        "dr_marcus_vance": {
+          "age_group": "adult",
+          "pm2_eligible": true,
+          "n_eligible_probes": 6,
+          "rank1_hits": 5,
+          "pm2_rank1_within_story": 0.8333,
+          "mean_v1_2_ensemble_score_in_loop": 0.3485,
+          "mean_buffalo_l_sim_in_loop": 0.1648,
+          "mean_face_sharpness": 1720.92
+        },
+        "clara_thorn": {
+          "age_group": "adult",
+          "pm2_eligible": false,
+          "n_eligible_probes": 0,
+          "rank1_hits": "N/A (ineligible)",
+          "pm2_rank1_within_story": "N/A (ineligible)",
+          "mean_v1_2_ensemble_score_in_loop": 0.7729,
+          "mean_buffalo_l_sim_in_loop": 0.2811,
+          "mean_face_sharpness": 1982.95
+        },
+        "leo_child": {
+          "age_group": "child",
+          "pm2_eligible": true,
+          "n_eligible_probes": 9,
+          "rank1_hits": 9,
+          "pm2_rank1_within_story": 1.0,
+          "mean_v1_2_ensemble_score_in_loop": 0.7531,
+          "mean_buffalo_l_sim_in_loop": 0.2109,
+          "mean_face_sharpness": 1378.49
+        },
+        "maya_adult": {
+          "age_group": "adult",
+          "pm2_eligible": true,
+          "n_eligible_probes": 6,
+          "rank1_hits": 6,
+          "pm2_rank1_within_story": 1.0,
+          "mean_v1_2_ensemble_score_in_loop": 0.7978,
+          "mean_buffalo_l_sim_in_loop": 0.1384,
+          "mean_face_sharpness": 1037.79
+        },
+        "arthur_elder": {
+          "age_group": "elder",
+          "pm2_eligible": true,
+          "n_eligible_probes": 6,
+          "rank1_hits": 6,
+          "pm2_rank1_within_story": 1.0,
+          "mean_v1_2_ensemble_score_in_loop": 0.7167,
+          "mean_buffalo_l_sim_in_loop": 0.292,
+          "mean_face_sharpness": 1778.47
+        }
+      },
+      "per_age_group": {
+        "child": {
+          "eligible_characters": [
+            "young_ebright",
+            "elena_child",
+            "leo_child"
+          ],
+          "ineligible_characters": [],
+          "n_eligible_probes": 21,
+          "rank1_hits": 21,
+          "pm2_rank1_within_story": 1.0,
+          "mean_v1_2_ensemble_score_in_loop": 0.7714
+        },
+        "adult": {
+          "eligible_characters": [
+            "dr_marcus_vance",
+            "maya_adult"
+          ],
+          "ineligible_characters": [
+            "mother",
+            "college_ebright",
+            "james_wong",
+            "clara_thorn"
+          ],
+          "n_eligible_probes": 12,
+          "rank1_hits": 11,
+          "pm2_rank1_within_story": 0.9167,
+          "mean_v1_2_ensemble_score_in_loop": 0.67
+        },
+        "teen": {
+          "eligible_characters": [
+            "teen_ebright"
+          ],
+          "ineligible_characters": [],
+          "n_eligible_probes": 6,
+          "rank1_hits": 6,
+          "pm2_rank1_within_story": 1.0,
+          "mean_v1_2_ensemble_score_in_loop": 0.6665
+        },
+        "elder": {
+          "eligible_characters": [
+            "arthur_elder"
+          ],
+          "ineligible_characters": [],
+          "n_eligible_probes": 6,
+          "rank1_hits": 6,
+          "pm2_rank1_within_story": 1.0,
+          "mean_v1_2_ensemble_score_in_loop": 0.7167
+        }
+      },
+      "per_replicate": [
+        {
+          "replicate_idx": 0,
+          "pm1_cross_scene_auc": 0.9785,
+          "pm2_cross_scene_rank1": 1.0,
+          "pm2_old_unfiltered": 0.7895,
+          "pm3_scene_correctness_rate": 1.0,
+          "rank3_accuracy": 1.0,
+          "mrr": 1.0,
+          "cmc_curve": {
+            "1": 1.0,
+            "2": 1.0,
+            "3": 1.0,
+            "4": 1.0,
+            "5": 1.0,
+            "6": 1.0,
+            "7": 1.0,
+            "8": 1.0,
+            "9": 1.0,
+            "10": 1.0,
+            "11": 1.0
+          },
+          "chance_level": 0.0909,
+          "n_gallery_characters": 11,
+          "n_expected": 19,
+          "n_eligible": 15,
+          "n_ineligible": 4,
+          "eligible_characters": [
+            "arthur_elder",
+            "dr_marcus_vance",
+            "elena_child",
+            "leo_child",
+            "maya_adult",
+            "teen_ebright",
+            "young_ebright"
+          ],
+          "ineligible_characters": [
+            "clara_thorn",
+            "college_ebright",
+            "james_wong",
+            "mother"
+          ],
+          "rank1_hits": 15,
+          "rank3_hits": 15,
+          "judge_aucs": {
+            "Facenet512": 0.9373,
+            "SFace": 0.9828,
+            "GhostFaceNet": 0.9713,
+            "ArcFace": 0.967
+          },
+          "n_genuine_pairs": 9,
+          "n_impostor_pairs": 155,
+          "total_expected_faces": 19,
+          "total_detected_faces": 19,
+          "face_recall": 1.0,
+          "total_scenes": 12,
+          "correct_scenes": 12,
+          "extra_person_rate": 0.0,
+          "mean_face_sharpness": 1239.66,
+          "d_prime": 2.738,
+          "eer": 0.1104,
+          "tar_at_far05": 0.8889,
+          "per_story": {
+            "Story_A": {
+              "replicate_idx": 0,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.5714,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0,
+                "4": 1.0,
+                "5": 1.0
+              },
+              "chance_level": 0.2,
+              "n_gallery_characters": 5,
+              "n_expected": 7,
+              "n_eligible": 4,
+              "n_ineligible": 3,
+              "eligible_characters": [
+                "teen_ebright",
+                "young_ebright"
+              ],
+              "ineligible_characters": [
+                "college_ebright",
+                "james_wong",
+                "mother"
+              ],
+              "rank1_hits": 4,
+              "rank3_hits": 4,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 1.0
+              },
+              "n_genuine_pairs": 2,
+              "n_impostor_pairs": 17,
+              "total_expected_faces": 7,
+              "total_detected_faces": 7,
+              "face_recall": 1.0,
+              "total_scenes": 5,
+              "correct_scenes": 5,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 729.6,
+              "d_prime": 10.5608,
+              "eer": 0.0,
+              "tar_at_far05": 1.0,
+              "scenes": [
+                {
+                  "render_id": "rep_00_Story_A_sc01_s2_seed_8453",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_A_sc02_s0_seed_8454",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_A_sc03_s1_seed_8458",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_A_sc04_s1_seed_8461",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_A_sc05_s1_seed_8464",
+                  "pm3_correct": true
+                }
+              ]
+            },
+            "Story_B": {
+              "replicate_idx": 0,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.8,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 5,
+              "n_eligible": 4,
+              "n_ineligible": 1,
+              "eligible_characters": [
+                "dr_marcus_vance",
+                "elena_child"
+              ],
+              "ineligible_characters": [
+                "clara_thorn"
+              ],
+              "rank1_hits": 4,
+              "rank3_hits": 4,
+              "judge_aucs": {
+                "Facenet512": 0.75,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 0.9167
+              },
+              "n_genuine_pairs": 2,
+              "n_impostor_pairs": 6,
+              "total_expected_faces": 5,
+              "total_detected_faces": 5,
+              "face_recall": 1.0,
+              "total_scenes": 3,
+              "correct_scenes": 3,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1394.46,
+              "d_prime": 1.4192,
+              "eer": 0.0,
+              "tar_at_far05": 1.0,
+              "scenes": [
+                {
+                  "render_id": "rep_00_Story_B_sc01_s2_seed_8468",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_B_sc02_s1_seed_8470",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_B_sc03_s0_seed_8472",
+                  "pm3_correct": true
+                }
+              ]
+            },
+            "Story_C": {
+              "replicate_idx": 0,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 1.0,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 7,
+              "n_eligible": 7,
+              "n_ineligible": 0,
+              "eligible_characters": [
+                "arthur_elder",
+                "leo_child",
+                "maya_adult"
+              ],
+              "ineligible_characters": [],
+              "rank1_hits": 7,
+              "rank3_hits": 7,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 1.0
+              },
+              "n_genuine_pairs": 5,
+              "n_impostor_pairs": 13,
+              "total_expected_faces": 7,
+              "total_detected_faces": 7,
+              "face_recall": 1.0,
+              "total_scenes": 4,
+              "correct_scenes": 4,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1639.14,
+              "d_prime": 3.3196,
+              "eer": 0.0,
+              "tar_at_far05": 1.0,
+              "scenes": [
+                {
+                  "render_id": "rep_00_Story_C_sc01_s2_seed_8483",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_C_sc02_s2_seed_8486",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_C_sc03_s0_seed_8487",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_00_Story_C_sc04_s2_seed_8492",
+                  "pm3_correct": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "replicate_idx": 1,
+          "pm1_cross_scene_auc": 0.9391,
+          "pm2_cross_scene_rank1": 0.9333,
+          "pm2_old_unfiltered": 0.7368,
+          "pm3_scene_correctness_rate": 1.0,
+          "rank3_accuracy": 1.0,
+          "mrr": 0.9556,
+          "cmc_curve": {
+            "1": 0.9333,
+            "2": 0.9333,
+            "3": 1.0,
+            "4": 1.0,
+            "5": 1.0,
+            "6": 1.0,
+            "7": 1.0,
+            "8": 1.0,
+            "9": 1.0,
+            "10": 1.0,
+            "11": 1.0
+          },
+          "chance_level": 0.0909,
+          "n_gallery_characters": 11,
+          "n_expected": 19,
+          "n_eligible": 15,
+          "n_ineligible": 4,
+          "eligible_characters": [
+            "arthur_elder",
+            "dr_marcus_vance",
+            "elena_child",
+            "leo_child",
+            "maya_adult",
+            "teen_ebright",
+            "young_ebright"
+          ],
+          "ineligible_characters": [
+            "clara_thorn",
+            "college_ebright",
+            "james_wong",
+            "mother"
+          ],
+          "rank1_hits": 14,
+          "rank3_hits": 15,
+          "judge_aucs": {
+            "Facenet512": 0.9176,
+            "SFace": 0.9763,
+            "GhostFaceNet": 0.9179,
+            "ArcFace": 0.9312
+          },
+          "n_genuine_pairs": 9,
+          "n_impostor_pairs": 155,
+          "total_expected_faces": 19,
+          "total_detected_faces": 19,
+          "face_recall": 1.0,
+          "total_scenes": 12,
+          "correct_scenes": 12,
+          "extra_person_rate": 0.0,
+          "mean_face_sharpness": 1108.01,
+          "d_prime": 2.7483,
+          "eer": 0.1104,
+          "tar_at_far05": 0.7778,
+          "per_story": {
+            "Story_A": {
+              "replicate_idx": 1,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.5714,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0,
+                "4": 1.0,
+                "5": 1.0
+              },
+              "chance_level": 0.2,
+              "n_gallery_characters": 5,
+              "n_expected": 7,
+              "n_eligible": 4,
+              "n_ineligible": 3,
+              "eligible_characters": [
+                "teen_ebright",
+                "young_ebright"
+              ],
+              "ineligible_characters": [
+                "college_ebright",
+                "james_wong",
+                "mother"
+              ],
+              "rank1_hits": 4,
+              "rank3_hits": 4,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 1.0
+              },
+              "n_genuine_pairs": 2,
+              "n_impostor_pairs": 17,
+              "total_expected_faces": 7,
+              "total_detected_faces": 7,
+              "face_recall": 1.0,
+              "total_scenes": 5,
+              "correct_scenes": 5,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 781.68,
+              "d_prime": 28.1234,
+              "eer": 0.0,
+              "tar_at_far05": 1.0,
+              "scenes": [
+                {
+                  "render_id": "rep_01_Story_A_sc01_s2_seed_8498",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_A_sc02_s2_seed_8501",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_A_sc03_s0_seed_8502",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_A_sc04_s1_seed_8506",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_A_sc05_s1_seed_8509",
+                  "pm3_correct": true
+                }
+              ]
+            },
+            "Story_B": {
+              "replicate_idx": 1,
+              "pm1_cross_scene_auc": 0.8333,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.8,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 5,
+              "n_eligible": 4,
+              "n_ineligible": 1,
+              "eligible_characters": [
+                "dr_marcus_vance",
+                "elena_child"
+              ],
+              "ineligible_characters": [
+                "clara_thorn"
+              ],
+              "rank1_hits": 4,
+              "rank3_hits": 4,
+              "judge_aucs": {
+                "Facenet512": 0.8333,
+                "SFace": 1.0,
+                "GhostFaceNet": 0.9167,
+                "ArcFace": 0.8333
+              },
+              "n_genuine_pairs": 2,
+              "n_impostor_pairs": 6,
+              "total_expected_faces": 5,
+              "total_detected_faces": 5,
+              "face_recall": 1.0,
+              "total_scenes": 3,
+              "correct_scenes": 3,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1376.8,
+              "d_prime": 1.4133,
+              "eer": 0.4167,
+              "tar_at_far05": 0.5,
+              "scenes": [
+                {
+                  "render_id": "rep_01_Story_B_sc01_s0_seed_8511",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_B_sc02_s1_seed_8515",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_B_sc03_s2_seed_8519",
+                  "pm3_correct": true
+                }
+              ]
+            },
+            "Story_C": {
+              "replicate_idx": 1,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 1.0,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 7,
+              "n_eligible": 7,
+              "n_ineligible": 0,
+              "eligible_characters": [
+                "arthur_elder",
+                "leo_child",
+                "maya_adult"
+              ],
+              "ineligible_characters": [],
+              "rank1_hits": 7,
+              "rank3_hits": 7,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 1.0
+              },
+              "n_genuine_pairs": 5,
+              "n_impostor_pairs": 13,
+              "total_expected_faces": 7,
+              "total_detected_faces": 7,
+              "face_recall": 1.0,
+              "total_scenes": 4,
+              "correct_scenes": 4,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1242.35,
+              "d_prime": 3.6226,
+              "eer": 0.0,
+              "tar_at_far05": 1.0,
+              "scenes": [
+                {
+                  "render_id": "rep_01_Story_C_sc01_s2_seed_8528",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_C_sc02_s2_seed_8531",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_C_sc03_s2_seed_8534",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_01_Story_C_sc04_s1_seed_8536",
+                  "pm3_correct": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "replicate_idx": 2,
+          "pm1_cross_scene_auc": 0.9176,
+          "pm2_cross_scene_rank1": 0.8667,
+          "pm2_old_unfiltered": 0.6842,
+          "pm3_scene_correctness_rate": 1.0,
+          "rank3_accuracy": 0.8667,
+          "mrr": 0.8929,
+          "cmc_curve": {
+            "1": 0.8667,
+            "2": 0.8667,
+            "3": 0.8667,
+            "4": 0.9333,
+            "5": 0.9333,
+            "6": 0.9333,
+            "7": 1.0,
+            "8": 1.0,
+            "9": 1.0,
+            "10": 1.0,
+            "11": 1.0
+          },
+          "chance_level": 0.0909,
+          "n_gallery_characters": 11,
+          "n_expected": 19,
+          "n_eligible": 15,
+          "n_ineligible": 4,
+          "eligible_characters": [
+            "arthur_elder",
+            "dr_marcus_vance",
+            "elena_child",
+            "leo_child",
+            "maya_adult",
+            "teen_ebright",
+            "young_ebright"
+          ],
+          "ineligible_characters": [
+            "clara_thorn",
+            "college_ebright",
+            "james_wong",
+            "mother"
+          ],
+          "rank1_hits": 13,
+          "rank3_hits": 13,
+          "judge_aucs": {
+            "Facenet512": 0.9004,
+            "SFace": 0.9656,
+            "GhostFaceNet": 0.9168,
+            "ArcFace": 0.9097
+          },
+          "n_genuine_pairs": 9,
+          "n_impostor_pairs": 155,
+          "total_expected_faces": 19,
+          "total_detected_faces": 19,
+          "face_recall": 1.0,
+          "total_scenes": 12,
+          "correct_scenes": 12,
+          "extra_person_rate": 0.0,
+          "mean_face_sharpness": 1167.48,
+          "d_prime": 2.6645,
+          "eer": 0.1104,
+          "tar_at_far05": 0.8889,
+          "per_story": {
+            "Story_A": {
+              "replicate_idx": 2,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 0.5714,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0,
+                "4": 1.0,
+                "5": 1.0
+              },
+              "chance_level": 0.2,
+              "n_gallery_characters": 5,
+              "n_expected": 7,
+              "n_eligible": 4,
+              "n_ineligible": 3,
+              "eligible_characters": [
+                "teen_ebright",
+                "young_ebright"
+              ],
+              "ineligible_characters": [
+                "college_ebright",
+                "james_wong",
+                "mother"
+              ],
+              "rank1_hits": 4,
+              "rank3_hits": 4,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 1.0
+              },
+              "n_genuine_pairs": 2,
+              "n_impostor_pairs": 17,
+              "total_expected_faces": 7,
+              "total_detected_faces": 7,
+              "face_recall": 1.0,
+              "total_scenes": 5,
+              "correct_scenes": 5,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1067.48,
+              "d_prime": 11.9109,
+              "eer": 0.0,
+              "tar_at_far05": 1.0,
+              "scenes": [
+                {
+                  "render_id": "rep_02_Story_A_sc01_s2_seed_8543",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_A_sc02_s0_seed_8544",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_A_sc03_s2_seed_8549",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_A_sc04_s0_seed_8550",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_A_sc05_s1_seed_8554",
+                  "pm3_correct": true
+                }
+              ]
+            },
+            "Story_B": {
+              "replicate_idx": 2,
+              "pm1_cross_scene_auc": 0.75,
+              "pm2_cross_scene_rank1": 0.75,
+              "pm2_old_unfiltered": 0.6,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 0.875,
+              "cmc_curve": {
+                "1": 0.75,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 5,
+              "n_eligible": 4,
+              "n_ineligible": 1,
+              "eligible_characters": [
+                "dr_marcus_vance",
+                "elena_child"
+              ],
+              "ineligible_characters": [
+                "clara_thorn"
+              ],
+              "rank1_hits": 3,
+              "rank3_hits": 4,
+              "judge_aucs": {
+                "Facenet512": 0.5,
+                "SFace": 0.9167,
+                "GhostFaceNet": 0.6667,
+                "ArcFace": 0.6667
+              },
+              "n_genuine_pairs": 2,
+              "n_impostor_pairs": 6,
+              "total_expected_faces": 5,
+              "total_detected_faces": 5,
+              "face_recall": 1.0,
+              "total_scenes": 3,
+              "correct_scenes": 3,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1115.24,
+              "d_prime": 1.4136,
+              "eer": 0.5,
+              "tar_at_far05": 0.5,
+              "scenes": [
+                {
+                  "render_id": "rep_02_Story_B_sc01_s1_seed_8557",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_B_sc02_s1_seed_8560",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_B_sc03_s1_seed_8563",
+                  "pm3_correct": true
+                }
+              ]
+            },
+            "Story_C": {
+              "replicate_idx": 2,
+              "pm1_cross_scene_auc": 1.0,
+              "pm2_cross_scene_rank1": 1.0,
+              "pm2_old_unfiltered": 1.0,
+              "pm3_scene_correctness_rate": 1.0,
+              "rank3_accuracy": 1.0,
+              "mrr": 1.0,
+              "cmc_curve": {
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "chance_level": 0.3333,
+              "n_gallery_characters": 3,
+              "n_expected": 7,
+              "n_eligible": 7,
+              "n_ineligible": 0,
+              "eligible_characters": [
+                "arthur_elder",
+                "leo_child",
+                "maya_adult"
+              ],
+              "ineligible_characters": [],
+              "rank1_hits": 7,
+              "rank3_hits": 7,
+              "judge_aucs": {
+                "Facenet512": 1.0,
+                "SFace": 1.0,
+                "GhostFaceNet": 1.0,
+                "ArcFace": 1.0
+              },
+              "n_genuine_pairs": 5,
+              "n_impostor_pairs": 13,
+              "total_expected_faces": 7,
+              "total_detected_faces": 7,
+              "face_recall": 1.0,
+              "total_scenes": 4,
+              "correct_scenes": 4,
+              "extra_person_rate": 0.0,
+              "mean_face_sharpness": 1304.78,
+              "d_prime": 3.199,
+              "eer": 0.0,
+              "tar_at_far05": 1.0,
+              "scenes": [
+                {
+                  "render_id": "rep_02_Story_C_sc01_s0_seed_8571",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_C_sc02_s1_seed_8575",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_C_sc03_s0_seed_8577",
+                  "pm3_correct": true
+                },
+                {
+                  "render_id": "rep_02_Story_C_sc04_s2_seed_8582",
+                  "pm3_correct": true
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "per_replicate": [
+    {
+      "replicate_idx": 0,
+      "pm1_cross_scene_auc": 0.9701,
+      "pm2_cross_scene_rank1": 0.9778,
+      "pm2_old_unfiltered": 0.7719,
+      "pm3_scene_correctness_rate": 0.9167,
+      "rank3_accuracy": 1.0,
+      "mrr": 0.9889,
+      "cmc_curve": {
+        "1": 0.9778,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0,
+        "9": 1.0,
+        "10": 1.0,
+        "11": 1.0
+      },
+      "chance_level": 0.0909,
+      "n_gallery_characters": 11,
+      "n_expected": 57,
+      "n_eligible": 45,
+      "n_ineligible": 12,
+      "eligible_characters": [
+        "arthur_elder",
+        "dr_marcus_vance",
+        "elena_child",
+        "leo_child",
+        "maya_adult",
+        "teen_ebright",
+        "young_ebright"
+      ],
+      "ineligible_characters": [
+        "clara_thorn",
+        "college_ebright",
+        "james_wong",
+        "mother"
+      ],
+      "rank1_hits": 44,
+      "rank3_hits": 45,
+      "judge_aucs": {
+        "Facenet512": 0.9531,
+        "SFace": 0.9625,
+        "GhostFaceNet": 0.968,
+        "ArcFace": 0.9508
+      },
+      "n_genuine_pairs": 81,
+      "n_impostor_pairs": 1395,
+      "total_expected_faces": 57,
+      "total_detected_faces": 57,
+      "face_recall": 1.0,
+      "total_scenes": 36,
+      "correct_scenes": 33,
+      "extra_person_rate": 0.0833,
+      "mean_face_sharpness": 1007.12,
+      "d_prime": 2.675,
+      "eer": 0.1111,
+      "tar_at_far05": 0.8642,
+      "per_story": {
+        "Story_A": {
+          "replicate_idx": 0,
+          "pm1_cross_scene_auc": 1.0,
+          "pm2_cross_scene_rank1": 1.0,
+          "pm2_old_unfiltered": 0.5714,
+          "pm3_scene_correctness_rate": 0.9333,
+          "rank3_accuracy": 1.0,
+          "mrr": 1.0,
+          "cmc_curve": {
+            "1": 1.0,
+            "2": 1.0,
+            "3": 1.0,
+            "4": 1.0,
+            "5": 1.0
+          },
+          "chance_level": 0.2,
+          "n_gallery_characters": 5,
+          "n_expected": 21,
+          "n_eligible": 12,
+          "n_ineligible": 9,
+          "eligible_characters": [
+            "teen_ebright",
+            "young_ebright"
+          ],
+          "ineligible_characters": [
+            "college_ebright",
+            "james_wong",
+            "mother"
+          ],
+          "rank1_hits": 12,
+          "rank3_hits": 12,
+          "judge_aucs": {
+            "Facenet512": 1.0,
+            "SFace": 0.9877,
+            "GhostFaceNet": 1.0,
+            "ArcFace": 0.9993
+          },
+          "n_genuine_pairs": 18,
+          "n_impostor_pairs": 153,
+          "total_expected_faces": 21,
+          "total_detected_faces": 21,
+          "face_recall": 1.0,
+          "total_scenes": 15,
+          "correct_scenes": 14,
+          "extra_person_rate": 0.0667,
+          "mean_face_sharpness": 592.21,
+          "d_prime": 7.1134,
+          "eer": 0.0,
+          "tar_at_far05": 1.0,
+          "scenes": [
+            {
+              "render_id": "rep_00_Story_A_sc01_s0_seed_8451",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_A_sc01_s1_seed_8452",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_A_sc01_s2_seed_8453",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_A_sc02_s0_seed_8454",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_A_sc02_s1_seed_8455",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_A_sc02_s2_seed_8456",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_A_sc03_s0_seed_8457",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_A_sc03_s1_seed_8458",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_A_sc03_s2_seed_8459",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_A_sc04_s0_seed_8460",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_A_sc04_s1_seed_8461",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_A_sc04_s2_seed_8462",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_A_sc05_s0_seed_8463",
+              "pm3_correct": false
+            },
+            {
+              "render_id": "rep_00_Story_A_sc05_s1_seed_8464",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_A_sc05_s2_seed_8465",
+              "pm3_correct": true
+            }
+          ]
+        },
+        "Story_B": {
+          "replicate_idx": 0,
+          "pm1_cross_scene_auc": 0.9805,
+          "pm2_cross_scene_rank1": 1.0,
+          "pm2_old_unfiltered": 0.8,
+          "pm3_scene_correctness_rate": 1.0,
+          "rank3_accuracy": 1.0,
+          "mrr": 1.0,
+          "cmc_curve": {
+            "1": 1.0,
+            "2": 1.0,
+            "3": 1.0
+          },
+          "chance_level": 0.3333,
+          "n_gallery_characters": 3,
+          "n_expected": 15,
+          "n_eligible": 12,
+          "n_ineligible": 3,
+          "eligible_characters": [
+            "dr_marcus_vance",
+            "elena_child"
+          ],
+          "ineligible_characters": [
+            "clara_thorn"
+          ],
+          "rank1_hits": 12,
+          "rank3_hits": 12,
+          "judge_aucs": {
+            "Facenet512": 0.8745,
+            "SFace": 0.9578,
+            "GhostFaceNet": 1.0,
+            "ArcFace": 0.9167
+          },
+          "n_genuine_pairs": 18,
+          "n_impostor_pairs": 54,
+          "total_expected_faces": 15,
+          "total_detected_faces": 15,
+          "face_recall": 1.0,
+          "total_scenes": 9,
+          "correct_scenes": 9,
+          "extra_person_rate": 0.0,
+          "mean_face_sharpness": 1114.41,
+          "d_prime": 1.405,
+          "eer": 0.0556,
+          "tar_at_far05": 0.9444,
+          "scenes": [
+            {
+              "render_id": "rep_00_Story_B_sc01_s0_seed_8466",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_B_sc01_s1_seed_8467",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_B_sc01_s2_seed_8468",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_B_sc02_s0_seed_8469",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_B_sc02_s1_seed_8470",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_B_sc02_s2_seed_8471",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_B_sc03_s0_seed_8472",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_B_sc03_s1_seed_8473",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_B_sc03_s2_seed_8474",
+              "pm3_correct": true
+            }
+          ]
+        },
+        "Story_C": {
+          "replicate_idx": 0,
+          "pm1_cross_scene_auc": 1.0,
+          "pm2_cross_scene_rank1": 1.0,
+          "pm2_old_unfiltered": 1.0,
+          "pm3_scene_correctness_rate": 0.8333,
+          "rank3_accuracy": 1.0,
+          "mrr": 1.0,
+          "cmc_curve": {
+            "1": 1.0,
+            "2": 1.0,
+            "3": 1.0
+          },
+          "chance_level": 0.3333,
+          "n_gallery_characters": 3,
+          "n_expected": 21,
+          "n_eligible": 21,
+          "n_ineligible": 0,
+          "eligible_characters": [
+            "arthur_elder",
+            "leo_child",
+            "maya_adult"
+          ],
+          "ineligible_characters": [],
+          "rank1_hits": 21,
+          "rank3_hits": 21,
+          "judge_aucs": {
+            "Facenet512": 1.0,
+            "SFace": 1.0,
+            "GhostFaceNet": 1.0,
+            "ArcFace": 1.0
+          },
+          "n_genuine_pairs": 45,
+          "n_impostor_pairs": 117,
+          "total_expected_faces": 21,
+          "total_detected_faces": 21,
+          "face_recall": 1.0,
+          "total_scenes": 12,
+          "correct_scenes": 10,
+          "extra_person_rate": 0.1667,
+          "mean_face_sharpness": 1345.39,
+          "d_prime": 3.2285,
+          "eer": 0.0,
+          "tar_at_far05": 1.0,
+          "scenes": [
+            {
+              "render_id": "rep_00_Story_C_sc01_s0_seed_8481",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_C_sc01_s1_seed_8482",
+              "pm3_correct": false
+            },
+            {
+              "render_id": "rep_00_Story_C_sc01_s2_seed_8483",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_C_sc02_s0_seed_8484",
+              "pm3_correct": false
+            },
+            {
+              "render_id": "rep_00_Story_C_sc02_s1_seed_8485",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_C_sc02_s2_seed_8486",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_C_sc03_s0_seed_8487",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_C_sc03_s1_seed_8488",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_C_sc03_s2_seed_8489",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_C_sc04_s0_seed_8490",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_C_sc04_s1_seed_8491",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_00_Story_C_sc04_s2_seed_8492",
+              "pm3_correct": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "replicate_idx": 1,
+      "pm1_cross_scene_auc": 0.9533,
+      "pm2_cross_scene_rank1": 0.9556,
+      "pm2_old_unfiltered": 0.7544,
+      "pm3_scene_correctness_rate": 0.9722,
+      "rank3_accuracy": 1.0,
+      "mrr": 0.9778,
+      "cmc_curve": {
+        "1": 0.9556,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0,
+        "9": 1.0,
+        "10": 1.0,
+        "11": 1.0
+      },
+      "chance_level": 0.0909,
+      "n_gallery_characters": 11,
+      "n_expected": 57,
+      "n_eligible": 45,
+      "n_ineligible": 12,
+      "eligible_characters": [
+        "arthur_elder",
+        "dr_marcus_vance",
+        "elena_child",
+        "leo_child",
+        "maya_adult",
+        "teen_ebright",
+        "young_ebright"
+      ],
+      "ineligible_characters": [
+        "clara_thorn",
+        "college_ebright",
+        "james_wong",
+        "mother"
+      ],
+      "rank1_hits": 43,
+      "rank3_hits": 45,
+      "judge_aucs": {
+        "Facenet512": 0.9106,
+        "SFace": 0.9677,
+        "GhostFaceNet": 0.9528,
+        "ArcFace": 0.9467
+      },
+      "n_genuine_pairs": 81,
+      "n_impostor_pairs": 1395,
+      "total_expected_faces": 57,
+      "total_detected_faces": 57,
+      "face_recall": 1.0,
+      "total_scenes": 36,
+      "correct_scenes": 35,
+      "extra_person_rate": 0.0278,
+      "mean_face_sharpness": 951.23,
+      "d_prime": 2.564,
+      "eer": 0.1111,
+      "tar_at_far05": 0.7778,
+      "per_story": {
+        "Story_A": {
+          "replicate_idx": 1,
+          "pm1_cross_scene_auc": 1.0,
+          "pm2_cross_scene_rank1": 1.0,
+          "pm2_old_unfiltered": 0.5714,
+          "pm3_scene_correctness_rate": 0.9333,
+          "rank3_accuracy": 1.0,
+          "mrr": 1.0,
+          "cmc_curve": {
+            "1": 1.0,
+            "2": 1.0,
+            "3": 1.0,
+            "4": 1.0,
+            "5": 1.0
+          },
+          "chance_level": 0.2,
+          "n_gallery_characters": 5,
+          "n_expected": 21,
+          "n_eligible": 12,
+          "n_ineligible": 9,
+          "eligible_characters": [
+            "teen_ebright",
+            "young_ebright"
+          ],
+          "ineligible_characters": [
+            "college_ebright",
+            "james_wong",
+            "mother"
+          ],
+          "rank1_hits": 12,
+          "rank3_hits": 12,
+          "judge_aucs": {
+            "Facenet512": 1.0,
+            "SFace": 1.0,
+            "GhostFaceNet": 1.0,
+            "ArcFace": 1.0
+          },
+          "n_genuine_pairs": 18,
+          "n_impostor_pairs": 153,
+          "total_expected_faces": 21,
+          "total_detected_faces": 21,
+          "face_recall": 1.0,
+          "total_scenes": 15,
+          "correct_scenes": 14,
+          "extra_person_rate": 0.0667,
+          "mean_face_sharpness": 663.58,
+          "d_prime": 13.2054,
+          "eer": 0.0,
+          "tar_at_far05": 1.0,
+          "scenes": [
+            {
+              "render_id": "rep_01_Story_A_sc01_s0_seed_8496",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_A_sc01_s1_seed_8497",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_A_sc01_s2_seed_8498",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_A_sc02_s0_seed_8499",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_A_sc02_s1_seed_8500",
+              "pm3_correct": false
+            },
+            {
+              "render_id": "rep_01_Story_A_sc02_s2_seed_8501",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_A_sc03_s0_seed_8502",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_A_sc03_s1_seed_8503",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_A_sc03_s2_seed_8504",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_A_sc04_s0_seed_8505",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_A_sc04_s1_seed_8506",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_A_sc04_s2_seed_8507",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_A_sc05_s0_seed_8508",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_A_sc05_s1_seed_8509",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_A_sc05_s2_seed_8510",
+              "pm3_correct": true
+            }
+          ]
+        },
+        "Story_B": {
+          "replicate_idx": 1,
+          "pm1_cross_scene_auc": 0.9012,
+          "pm2_cross_scene_rank1": 1.0,
+          "pm2_old_unfiltered": 0.8,
+          "pm3_scene_correctness_rate": 1.0,
+          "rank3_accuracy": 1.0,
+          "mrr": 1.0,
+          "cmc_curve": {
+            "1": 1.0,
+            "2": 1.0,
+            "3": 1.0
+          },
+          "chance_level": 0.3333,
+          "n_gallery_characters": 3,
+          "n_expected": 15,
+          "n_eligible": 12,
+          "n_ineligible": 3,
+          "eligible_characters": [
+            "dr_marcus_vance",
+            "elena_child"
+          ],
+          "ineligible_characters": [
+            "clara_thorn"
+          ],
+          "rank1_hits": 12,
+          "rank3_hits": 12,
+          "judge_aucs": {
+            "Facenet512": 0.7973,
+            "SFace": 0.9866,
+            "GhostFaceNet": 0.9681,
+            "ArcFace": 0.8786
+          },
+          "n_genuine_pairs": 18,
+          "n_impostor_pairs": 54,
+          "total_expected_faces": 15,
+          "total_detected_faces": 15,
+          "face_recall": 1.0,
+          "total_scenes": 9,
+          "correct_scenes": 9,
+          "extra_person_rate": 0.0,
+          "mean_face_sharpness": 1123.25,
+          "d_prime": 1.405,
+          "eer": 0.2778,
+          "tar_at_far05": 0.6111,
+          "scenes": [
+            {
+              "render_id": "rep_01_Story_B_sc01_s0_seed_8511",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_B_sc01_s1_seed_8512",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_B_sc01_s2_seed_8513",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_B_sc02_s0_seed_8514",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_B_sc02_s1_seed_8515",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_B_sc02_s2_seed_8516",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_B_sc03_s0_seed_8517",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_B_sc03_s1_seed_8518",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_B_sc03_s2_seed_8519",
+              "pm3_correct": true
+            }
+          ]
+        },
+        "Story_C": {
+          "replicate_idx": 1,
+          "pm1_cross_scene_auc": 1.0,
+          "pm2_cross_scene_rank1": 1.0,
+          "pm2_old_unfiltered": 1.0,
+          "pm3_scene_correctness_rate": 1.0,
+          "rank3_accuracy": 1.0,
+          "mrr": 1.0,
+          "cmc_curve": {
+            "1": 1.0,
+            "2": 1.0,
+            "3": 1.0
+          },
+          "chance_level": 0.3333,
+          "n_gallery_characters": 3,
+          "n_expected": 21,
+          "n_eligible": 21,
+          "n_ineligible": 0,
+          "eligible_characters": [
+            "arthur_elder",
+            "leo_child",
+            "maya_adult"
+          ],
+          "ineligible_characters": [],
+          "rank1_hits": 21,
+          "rank3_hits": 21,
+          "judge_aucs": {
+            "Facenet512": 0.9996,
+            "SFace": 1.0,
+            "GhostFaceNet": 1.0,
+            "ArcFace": 0.9998
+          },
+          "n_genuine_pairs": 45,
+          "n_impostor_pairs": 117,
+          "total_expected_faces": 21,
+          "total_detected_faces": 21,
+          "face_recall": 1.0,
+          "total_scenes": 12,
+          "correct_scenes": 12,
+          "extra_person_rate": 0.0,
+          "mean_face_sharpness": 1116.0,
+          "d_prime": 3.0605,
+          "eer": 0.0,
+          "tar_at_far05": 1.0,
+          "scenes": [
+            {
+              "render_id": "rep_01_Story_C_sc01_s0_seed_8526",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_C_sc01_s1_seed_8527",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_C_sc01_s2_seed_8528",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_C_sc02_s0_seed_8529",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_C_sc02_s1_seed_8530",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_C_sc02_s2_seed_8531",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_C_sc03_s0_seed_8532",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_C_sc03_s1_seed_8533",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_C_sc03_s2_seed_8534",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_C_sc04_s0_seed_8535",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_C_sc04_s1_seed_8536",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_01_Story_C_sc04_s2_seed_8537",
+              "pm3_correct": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "replicate_idx": 2,
+      "pm1_cross_scene_auc": 0.9499,
+      "pm2_cross_scene_rank1": 0.9333,
+      "pm2_old_unfiltered": 0.7368,
+      "pm3_scene_correctness_rate": 0.9444,
+      "rank3_accuracy": 0.9778,
+      "mrr": 0.9593,
+      "cmc_curve": {
+        "1": 0.9333,
+        "2": 0.9778,
+        "3": 0.9778,
+        "4": 0.9778,
+        "5": 0.9778,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0,
+        "9": 1.0,
+        "10": 1.0,
+        "11": 1.0
+      },
+      "chance_level": 0.0909,
+      "n_gallery_characters": 11,
+      "n_expected": 57,
+      "n_eligible": 45,
+      "n_ineligible": 12,
+      "eligible_characters": [
+        "arthur_elder",
+        "dr_marcus_vance",
+        "elena_child",
+        "leo_child",
+        "maya_adult",
+        "teen_ebright",
+        "young_ebright"
+      ],
+      "ineligible_characters": [
+        "clara_thorn",
+        "college_ebright",
+        "james_wong",
+        "mother"
+      ],
+      "rank1_hits": 42,
+      "rank3_hits": 44,
+      "judge_aucs": {
+        "Facenet512": 0.9452,
+        "SFace": 0.9577,
+        "GhostFaceNet": 0.9412,
+        "ArcFace": 0.9371
+      },
+      "n_genuine_pairs": 81,
+      "n_impostor_pairs": 1395,
+      "total_expected_faces": 57,
+      "total_detected_faces": 57,
+      "face_recall": 1.0,
+      "total_scenes": 36,
+      "correct_scenes": 34,
+      "extra_person_rate": 0.0556,
+      "mean_face_sharpness": 967.67,
+      "d_prime": 2.5985,
+      "eer": 0.1111,
+      "tar_at_far05": 0.8889,
+      "per_story": {
+        "Story_A": {
+          "replicate_idx": 2,
+          "pm1_cross_scene_auc": 1.0,
+          "pm2_cross_scene_rank1": 1.0,
+          "pm2_old_unfiltered": 0.5714,
+          "pm3_scene_correctness_rate": 1.0,
+          "rank3_accuracy": 1.0,
+          "mrr": 1.0,
+          "cmc_curve": {
+            "1": 1.0,
+            "2": 1.0,
+            "3": 1.0,
+            "4": 1.0,
+            "5": 1.0
+          },
+          "chance_level": 0.2,
+          "n_gallery_characters": 5,
+          "n_expected": 21,
+          "n_eligible": 12,
+          "n_ineligible": 9,
+          "eligible_characters": [
+            "teen_ebright",
+            "young_ebright"
+          ],
+          "ineligible_characters": [
+            "college_ebright",
+            "james_wong",
+            "mother"
+          ],
+          "rank1_hits": 12,
+          "rank3_hits": 12,
+          "judge_aucs": {
+            "Facenet512": 1.0,
+            "SFace": 0.9906,
+            "GhostFaceNet": 0.9902,
+            "ArcFace": 0.9982
+          },
+          "n_genuine_pairs": 18,
+          "n_impostor_pairs": 153,
+          "total_expected_faces": 21,
+          "total_detected_faces": 21,
+          "face_recall": 1.0,
+          "total_scenes": 15,
+          "correct_scenes": 15,
+          "extra_person_rate": 0.0,
+          "mean_face_sharpness": 849.44,
+          "d_prime": 3.5804,
+          "eer": 0.0,
+          "tar_at_far05": 1.0,
+          "scenes": [
+            {
+              "render_id": "rep_02_Story_A_sc01_s0_seed_8541",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_A_sc01_s1_seed_8542",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_A_sc01_s2_seed_8543",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_A_sc02_s0_seed_8544",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_A_sc02_s1_seed_8545",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_A_sc02_s2_seed_8546",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_A_sc03_s0_seed_8547",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_A_sc03_s1_seed_8548",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_A_sc03_s2_seed_8549",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_A_sc04_s0_seed_8550",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_A_sc04_s1_seed_8551",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_A_sc04_s2_seed_8552",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_A_sc05_s0_seed_8553",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_A_sc05_s1_seed_8554",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_A_sc05_s2_seed_8555",
+              "pm3_correct": true
+            }
+          ]
+        },
+        "Story_B": {
+          "replicate_idx": 2,
+          "pm1_cross_scene_auc": 0.8714,
+          "pm2_cross_scene_rank1": 0.9167,
+          "pm2_old_unfiltered": 0.7333,
+          "pm3_scene_correctness_rate": 0.7778,
+          "rank3_accuracy": 1.0,
+          "mrr": 0.9583,
+          "cmc_curve": {
+            "1": 0.9167,
+            "2": 1.0,
+            "3": 1.0
+          },
+          "chance_level": 0.3333,
+          "n_gallery_characters": 3,
+          "n_expected": 15,
+          "n_eligible": 12,
+          "n_ineligible": 3,
+          "eligible_characters": [
+            "dr_marcus_vance",
+            "elena_child"
+          ],
+          "ineligible_characters": [
+            "clara_thorn"
+          ],
+          "rank1_hits": 11,
+          "rank3_hits": 12,
+          "judge_aucs": {
+            "Facenet512": 0.7737,
+            "SFace": 0.9455,
+            "GhostFaceNet": 0.8992,
+            "ArcFace": 0.8673
+          },
+          "n_genuine_pairs": 18,
+          "n_impostor_pairs": 54,
+          "total_expected_faces": 15,
+          "total_detected_faces": 15,
+          "face_recall": 1.0,
+          "total_scenes": 9,
+          "correct_scenes": 7,
+          "extra_person_rate": 0.2222,
+          "mean_face_sharpness": 895.88,
+          "d_prime": 1.2424,
+          "eer": 0.2778,
+          "tar_at_far05": 0.6111,
+          "scenes": [
+            {
+              "render_id": "rep_02_Story_B_sc01_s0_seed_8556",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_B_sc01_s1_seed_8557",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_B_sc01_s2_seed_8558",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_B_sc02_s0_seed_8559",
+              "pm3_correct": false
+            },
+            {
+              "render_id": "rep_02_Story_B_sc02_s1_seed_8560",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_B_sc02_s2_seed_8561",
+              "pm3_correct": false
+            },
+            {
+              "render_id": "rep_02_Story_B_sc03_s0_seed_8562",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_B_sc03_s1_seed_8563",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_B_sc03_s2_seed_8564",
+              "pm3_correct": true
+            }
+          ]
+        },
+        "Story_C": {
+          "replicate_idx": 2,
+          "pm1_cross_scene_auc": 1.0,
+          "pm2_cross_scene_rank1": 1.0,
+          "pm2_old_unfiltered": 1.0,
+          "pm3_scene_correctness_rate": 1.0,
+          "rank3_accuracy": 1.0,
+          "mrr": 1.0,
+          "cmc_curve": {
+            "1": 1.0,
+            "2": 1.0,
+            "3": 1.0
+          },
+          "chance_level": 0.3333,
+          "n_gallery_characters": 3,
+          "n_expected": 21,
+          "n_eligible": 21,
+          "n_ineligible": 0,
+          "eligible_characters": [
+            "arthur_elder",
+            "leo_child",
+            "maya_adult"
+          ],
+          "ineligible_characters": [],
+          "rank1_hits": 21,
+          "rank3_hits": 21,
+          "judge_aucs": {
+            "Facenet512": 1.0,
+            "SFace": 1.0,
+            "GhostFaceNet": 1.0,
+            "ArcFace": 1.0
+          },
+          "n_genuine_pairs": 45,
+          "n_impostor_pairs": 117,
+          "total_expected_faces": 21,
+          "total_detected_faces": 21,
+          "face_recall": 1.0,
+          "total_scenes": 12,
+          "correct_scenes": 12,
+          "extra_person_rate": 0.0,
+          "mean_face_sharpness": 1137.17,
+          "d_prime": 3.9536,
+          "eer": 0.0,
+          "tar_at_far05": 1.0,
+          "scenes": [
+            {
+              "render_id": "rep_02_Story_C_sc01_s0_seed_8571",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_C_sc01_s1_seed_8572",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_C_sc01_s2_seed_8573",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_C_sc02_s0_seed_8574",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_C_sc02_s1_seed_8575",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_C_sc02_s2_seed_8576",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_C_sc03_s0_seed_8577",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_C_sc03_s1_seed_8578",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_C_sc03_s2_seed_8579",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_C_sc04_s0_seed_8580",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_C_sc04_s1_seed_8581",
+              "pm3_correct": true
+            },
+            {
+              "render_id": "rep_02_Story_C_sc04_s2_seed_8582",
+              "pm3_correct": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

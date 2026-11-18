@@ -1,0 +1,180 @@
+{
+  "run_id": "test3_v2_final",
+  "replicate_key": "rep_03",
+  "excluded_from_primary_analysis": true,
+  "reason": "Reached 8.0h generation cap mid-replicate",
+  "n_renders_completed": 17,
+  "pm3_scene_correctness_rate_partial": 1.0,
+  "renders": [
+    {
+      "render_id": "rep_03_Story_A_sc01_s0_seed_8586",
+      "story_label": "Story_A",
+      "scene_number": 1,
+      "seed": 8586,
+      "pm3_correct": true,
+      "yolo_persons_count": 2,
+      "detected_faces_count": 2,
+      "mean_v1_2_ensemble_score": 0.7934
+    },
+    {
+      "render_id": "rep_03_Story_A_sc01_s1_seed_8587",
+      "story_label": "Story_A",
+      "scene_number": 1,
+      "seed": 8587,
+      "pm3_correct": true,
+      "yolo_persons_count": 2,
+      "detected_faces_count": 2,
+      "mean_v1_2_ensemble_score": 0.7848
+    },
+    {
+      "render_id": "rep_03_Story_A_sc01_s2_seed_8588",
+      "story_label": "Story_A",
+      "scene_number": 1,
+      "seed": 8588,
+      "pm3_correct": true,
+      "yolo_persons_count": 2,
+      "detected_faces_count": 2,
+      "mean_v1_2_ensemble_score": 0.7739
+    },
+    {
+      "render_id": "rep_03_Story_A_sc02_s0_seed_8589",
+      "story_label": "Story_A",
+      "scene_number": 2,
+      "seed": 8589,
+      "pm3_correct": true,
+      "yolo_persons_count": 1,
+      "detected_faces_count": 1,
+      "mean_v1_2_ensemble_score": 0.8332
+    },
+    {
+      "render_id": "rep_03_Story_A_sc02_s1_seed_8590",
+      "story_label": "Story_A",
+      "scene_number": 2,
+      "seed": 8590,
+      "pm3_correct": true,
+      "yolo_persons_count": 1,
+      "detected_faces_count": 1,
+      "mean_v1_2_ensemble_score": 0.8398
+    },
+    {
+      "render_id": "rep_03_Story_A_sc02_s2_seed_8591",
+      "story_label": "Story_A",
+      "scene_number": 2,
+      "seed": 8591,
+      "pm3_correct": true,
+      "yolo_persons_count": 1,
+      "detected_faces_count": 1,
+      "mean_v1_2_ensemble_score": 0.8595
+    },
+    {
+      "render_id": "rep_03_Story_A_sc03_s0_seed_8592",
+      "story_label": "Story_A",
+      "scene_number": 3,
+      "seed": 8592,
+      "pm3_correct": true,
+      "yolo_persons_count": 1,
+      "detected_faces_count": 1,
+      "mean_v1_2_ensemble_score": 0.8203
+    },
+    {
+      "render_id": "rep_03_Story_A_sc03_s1_seed_8593",
+      "story_label": "Story_A",
+      "scene_number": 3,
+      "seed": 8593,
+      "pm3_correct": true,
+      "yolo_persons_count": 1,
+      "detected_faces_count": 1,
+      "mean_v1_2_ensemble_score": 0.8896
+    },
+    {
+      "render_id": "rep_03_Story_A_sc03_s2_seed_8594",
+      "story_label": "Story_A",
+      "scene_number": 3,
+      "seed": 8594,
+      "pm3_correct": true,
+      "yolo_persons_count": 1,
+      "detected_faces_count": 1,
+      "mean_v1_2_ensemble_score": 0.7973
+    },
+    {
+      "render_id": "rep_03_Story_A_sc04_s0_seed_8595",
+      "story_label": "Story_A",
+      "scene_number": 4,
+      "seed": 8595,
+      "pm3_correct": true,
+      "yolo_persons_count": 1,
+      "detected_faces_count": 1,
+      "mean_v1_2_ensemble_score": 0.8187
+    },
+    {
+      "render_id": "rep_03_Story_A_sc04_s1_seed_8596",
+      "story_label": "Story_A",
+      "scene_number": 4,
+      "seed": 8596,
+      "pm3_correct": true,
+      "yolo_persons_count": 1,
+      "detected_faces_count": 1,
+      "mean_v1_2_ensemble_score": 0.8828
+    },
+    {
+      "render_id": "rep_03_Story_A_sc04_s2_seed_8597",
+      "story_label": "Story_A",
+      "scene_number": 4,
+      "seed": 8597,
+      "pm3_correct": true,
+      "yolo_persons_count": 1,
+      "detected_faces_count": 1,
+      "mean_v1_2_ensemble_score": 0.8339
+    },
+    {
+      "render_id": "rep_03_Story_A_sc05_s0_seed_8598",
+      "story_label": "Story_A",
+      "scene_number": 5,
+      "seed": 8598,
+      "pm3_correct": true,
+      "yolo_persons_count": 2,
+      "detected_faces_count": 2,
+      "mean_v1_2_ensemble_score": 0.7183
+    },
+    {
+      "render_id": "rep_03_Story_A_sc05_s1_seed_8599",
+      "story_label": "Story_A",
+      "scene_number": 5,
+      "seed": 8599,
+      "pm3_correct": true,
+      "yolo_persons_count": 2,
+      "detected_faces_count": 2,
+      "mean_v1_2_ensemble_score": 0.7469
+    },
+    {
+      "render_id": "rep_03_Story_A_sc05_s2_seed_8600",
+      "story_label": "Story_A",
+      "scene_number": 5,
+      "seed": 8600,
+      "pm3_correct": true,
+      "yolo_persons_count": 2,
+      "detected_faces_count": 2,
+      "mean_v1_2_ensemble_score": 0.7766
+    },
+    {
+      "render_id": "rep_03_Story_B_sc01_s0_seed_8601",
+      "story_label": "Story_B",
+      "scene_number": 1,
+      "seed": 8601,
+      "pm3_correct": true,
+      "yolo_persons_count": 1,
+      "detected_faces_count": 1,
+      "mean_v1_2_ensemble_score": 0.7878
+    },
+    {
+      "render_id": "rep_03_Story_B_sc01_s1_seed_8602",
+      "story_label": "Story_B",
+      "scene_number": 1,
+      "seed": 8602,
+      "pm3_correct": true,
+      "yolo_persons_count": 1,
+      "detected_faces_count": 1,
+      "mean_v1_2_ensemble_score": 0.7871
+    }
+  ]
+}
