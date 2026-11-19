@@ -1,0 +1,129 @@
+{
+  "timestamp_utc": "2026-11-17T14:05:49Z",
+  "hardware": "NVIDIA GeForce RTX 3070 Ti Laptop GPU (8192 MB VRAM)",
+  "forge_url": "http://127.0.0.1:7860",
+  "clean_environment": "No other evaluations running",
+  "seeds_used": [
+    7203,
+    7206
+  ],
+  "results": {
+    "C0": {
+      "mean_total_seconds": 123.82,
+      "runs": [
+        {
+          "candidate": "C0",
+          "config_hash": "df4a0a2648ac",
+          "scene_number": 1,
+          "characters_count": 2,
+          "seed": 7203,
+          "render_id": "clean_timing_C0_scene_01_seed_7203",
+          "timings": {
+            "layout_skeleton_s": 0.003,
+            "pass1_txt2img_s": 92.724,
+            "pass2_img2img_s": 13.19,
+            "face_detailer_s": 30.258,
+            "face_swap_s": 12.327,
+            "wardrobe_lock_s": 5.282,
+            "total_elapsed_s": 163.481
+          }
+        },
+        {
+          "candidate": "C0",
+          "config_hash": "df4a0a2648ac",
+          "scene_number": 2,
+          "characters_count": 1,
+          "seed": 7206,
+          "render_id": "clean_timing_C0_scene_02_seed_7206",
+          "timings": {
+            "layout_skeleton_s": 0.001,
+            "pass1_txt2img_s": 45.825,
+            "pass2_img2img_s": 9.582,
+            "face_detailer_s": 14.135,
+            "face_swap_s": 10.215,
+            "wardrobe_lock_s": 1.129,
+            "total_elapsed_s": 84.164
+          }
+        }
+      ]
+    },
+    "C1": {
+      "mean_total_seconds": 110.18,
+      "runs": [
+        {
+          "candidate": "C1",
+          "config_hash": "d5cae1b7d310",
+          "scene_number": 1,
+          "characters_count": 2,
+          "seed": 7203,
+          "render_id": "clean_timing_C1_scene_01_seed_7203",
+          "timings": {
+            "layout_skeleton_s": 0.001,
+            "pass1_txt2img_s": 72.372,
+            "pass2_img2img_s": 12.738,
+            "face_detailer_s": 28.129,
+            "face_swap_s": 13.064,
+            "wardrobe_lock_s": 2.862,
+            "total_elapsed_s": 133.344
+          }
+        },
+        {
+          "candidate": "C1",
+          "config_hash": "d5cae1b7d310",
+          "scene_number": 2,
+          "characters_count": 1,
+          "seed": 7206,
+          "render_id": "clean_timing_C1_scene_02_seed_7206",
+          "timings": {
+            "layout_skeleton_s": 0.001,
+            "pass1_txt2img_s": 48.281,
+            "pass2_img2img_s": 9.767,
+            "face_detailer_s": 14.422,
+            "face_swap_s": 10.061,
+            "wardrobe_lock_s": 1.182,
+            "total_elapsed_s": 87.014
+          }
+        }
+      ]
+    },
+    "C2": {
+      "mean_total_seconds": 522.39,
+      "runs": [
+        {
+          "candidate": "C2",
+          "config_hash": "9821eb35ddb1",
+          "scene_number": 1,
+          "characters_count": 2,
+          "seed": 7203,
+          "render_id": "clean_timing_C2_scene_01_seed_7203",
+          "timings": {
+            "layout_skeleton_s": 0.001,
+            "pass1_txt2img_s": 40.785,
+            "pass2_img2img_s": 12.894,
+            "face_detailer_s": 27.228,
+            "face_swap_s": 11.517,
+            "wardrobe_lock_s": 2.684,
+            "total_elapsed_s": 99.745
+          }
+        },
+        {
+          "candidate": "C2",
+          "config_hash": "9821eb35ddb1",
+          "scene_number": 2,
+          "characters_count": 1,
+          "seed": 7206,
+          "render_id": "clean_timing_C2_scene_02_seed_7206",
+          "timings": {
+            "layout_skeleton_s": 0.001,
+            "pass1_txt2img_s": 36.343,
+            "pass2_img2img_s": 862.272,
+            "face_detailer_s": 19.118,
+            "face_swap_s": 18.603,
+            "wardrobe_lock_s": 2.68,
+            "total_elapsed_s": 945.041
+          }
+        }
+      ]
+    }
+  }
+}

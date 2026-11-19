@@ -1,0 +1,80 @@
+{
+  "old_value": 0.0,
+  "new_value": 0.9415,
+  "hits": 161,
+  "total_faces": 171,
+  "per_replicate": {
+    "rep_00": {
+      "hits": 50,
+      "total": 57,
+      "rate": 0.8772
+    },
+    "rep_01": {
+      "hits": 56,
+      "total": 57,
+      "rate": 0.9825
+    },
+    "rep_02": {
+      "hits": 55,
+      "total": 57,
+      "rate": 0.9649
+    }
+  },
+  "per_character": {
+    "young_ebright": {
+      "hits": 18,
+      "total": 18,
+      "rate": 1.0
+    },
+    "mother": {
+      "hits": 9,
+      "total": 9,
+      "rate": 1.0
+    },
+    "teen_ebright": {
+      "hits": 12,
+      "total": 18,
+      "rate": 0.6667
+    },
+    "college_ebright": {
+      "hits": 9,
+      "total": 9,
+      "rate": 1.0
+    },
+    "james_wong": {
+      "hits": 9,
+      "total": 9,
+      "rate": 1.0
+    },
+    "elena_child": {
+      "hits": 18,
+      "total": 18,
+      "rate": 1.0
+    },
+    "dr_marcus_vance": {
+      "hits": 14,
+      "total": 18,
+      "rate": 0.7778
+    },
+    "clara_thorn": {
+      "hits": 9,
+      "total": 9,
+      "rate": 1.0
+    },
+    "leo_child": {
+      "hits": 27,
+      "total": 27,
+      "rate": 1.0
+    },
+    "maya_adult": {
+      "hits": 18,
+      "total": 18,
+      "rate": 1.0
+    },
+    "arthur_elder": {
+      "hits": 18,
+      "total": 18,
+      "rate": 1.0
+    }
+  }
+}

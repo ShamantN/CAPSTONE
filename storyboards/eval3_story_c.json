@@ -1,0 +1,291 @@
+{
+  "story_id": "eval3_story_c",
+  "title": "The Cedar Grove Chronicles: Three Generations",
+  "visual_style": "Cinematic Realistic, photo, 35mm photograph, soft natural lighting, high dynamic range",
+  "global_negative_prompt": "blurry, deformed, bad anatomy, bad hands, missing fingers, extra fingers, ugly, watermark, text, signature, duplicate, cartoon, 3d render",
+  "characters": {
+    "leo_child": {
+      "id": "leo_child",
+      "name": "Leo",
+      "unique_token": "[leo_child]",
+      "gender": "male",
+      "ethnicity": "Caucasian",
+      "skin_tone": "fair",
+      "face_shape": "soft youthful round",
+      "hair_color": "dark brown",
+      "hair_style": "short wavy curly hair",
+      "eye_color": "warm brown",
+      "build": "small 8-year-old child",
+      "distinctive_features": [
+        "curious youthful expression",
+        "rosy cheeks",
+        "short tousled curly dark hair"
+      ],
+      "recurring_clothing": "navy blue cotton crewneck sweater and beige khaki pants",
+      "clothing_colors": [
+        "navy blue",
+        "beige khaki"
+      ],
+      "age_states": {
+        "child": {
+          "age_years": "8",
+          "stage_name": "child",
+          "appearance_modifications": [
+            "youthful 8-year-old boy"
+          ],
+          "hairstyle": "short tousled dark curly hair",
+          "clothing_description": "navy blue crewneck sweater and beige khaki pants",
+          "reference_image_b64": null,
+          "embedding": null
+        }
+      }
+    },
+    "maya_adult": {
+      "id": "maya_adult",
+      "name": "Maya",
+      "unique_token": "[maya_adult]",
+      "gender": "female",
+      "ethnicity": "South Asian",
+      "skin_tone": "warm olive brown",
+      "face_shape": "oval with defined cheekbones",
+      "hair_color": "dark espresso brown",
+      "hair_style": "shoulder-length soft wavy hair",
+      "eye_color": "deep amber brown",
+      "build": "slender athletic adult woman",
+      "distinctive_features": [
+        "intelligent focused expression",
+        "subtle laugh lines",
+        "neatly parted dark wavy hair"
+      ],
+      "recurring_clothing": "forest green knit cardigan over a cream linen shirt and dark denim trousers",
+      "clothing_colors": [
+        "forest green",
+        "cream"
+      ],
+      "age_states": {
+        "adult": {
+          "age_years": "34",
+          "stage_name": "adult",
+          "appearance_modifications": [
+            "poised 34-year-old woman"
+          ],
+          "hairstyle": "shoulder-length dark wavy hair",
+          "clothing_description": "forest green cardigan over cream shirt with dark trousers",
+          "reference_image_b64": null,
+          "embedding": null
+        }
+      }
+    },
+    "arthur_elder": {
+      "id": "arthur_elder",
+      "name": "Arthur",
+      "unique_token": "[arthur_elder]",
+      "gender": "male",
+      "ethnicity": "Caucasian",
+      "skin_tone": "weathered fair",
+      "face_shape": "distinguished square jaw",
+      "hair_color": "silver grey",
+      "hair_style": "receding short silver grey hair with a neat trimmed white beard",
+      "eye_color": "clear slate blue",
+      "build": "tall lean older gentleman",
+      "distinctive_features": [
+        "neatly trimmed short white beard",
+        "crinkled laugh lines around blue eyes",
+        "dignified grandfatherly presence"
+      ],
+      "recurring_clothing": "charcoal grey tweed wool waistcoat over a light blue collared Oxford shirt and dark slate trousers",
+      "clothing_colors": [
+        "charcoal grey",
+        "light blue"
+      ],
+      "age_states": {
+        "elder": {
+          "age_years": "68",
+          "stage_name": "elder",
+          "appearance_modifications": [
+            "dignified 68-year-old man with silver beard"
+          ],
+          "hairstyle": "short silver hair with trimmed white beard",
+          "clothing_description": "charcoal tweed waistcoat, light blue shirt, dark trousers",
+          "reference_image_b64": null,
+          "embedding": null
+        }
+      }
+    }
+  },
+  "scenes": [
+    {
+      "scene_id": "scene_1_porch",
+      "scene_number": 1,
+      "title": "Autumn Discovery on the Cedar Porch",
+      "location_name": "Cedar Grove Country House - Sunlit Front Porch",
+      "environment_type": "outdoor residential porch",
+      "lighting": "gentle golden morning sunlight, soft backlighting from autumn garden",
+      "shot_type": "Medium shot",
+      "camera_angle": "Eye level",
+      "action_description": "Eight-year-old Leo standing alone on the wooden porch, examining an orange maple leaf in his hands with quiet wonder.",
+      "characters_present": [
+        "leo_child"
+      ],
+      "character_positions": {
+        "leo_child": "center"
+      },
+      "character_age_states": {
+        "leo_child": "child"
+      },
+      "required_props": [
+        "fallen maple leaf"
+      ],
+      "forbidden_props": [
+        "modern electronics",
+        "automobiles"
+      ],
+      "negative_prompt_additions": "crowd, extra people",
+      "qa_requirements": {
+        "expected_character_count": 1,
+        "primary_character": "leo_child"
+      }
+    },
+    {
+      "scene_id": "scene_2_workshop",
+      "scene_number": 2,
+      "title": "Apprentice in the Timber Workshop",
+      "location_name": "Rustic Garden Potting Shed and Woodwork Bench",
+      "environment_type": "indoor rustic workshop",
+      "lighting": "warm window light through dusty glass panes, ambient timber glow",
+      "shot_type": "Wide two-shot",
+      "camera_angle": "Eye level",
+      "action_description": "Arthur the elder standing on the left showing Leo on the right how to measure dried timber with a wooden ruler across the rustic table.",
+      "characters_present": [
+        "arthur_elder",
+        "leo_child"
+      ],
+      "character_positions": {
+        "arthur_elder": "left",
+        "leo_child": "right"
+      },
+      "character_age_states": {
+        "arthur_elder": "elder",
+        "leo_child": "child"
+      },
+      "required_props": [
+        "wooden workbench",
+        "timber plank"
+      ],
+      "forbidden_props": [
+        "power tools",
+        "plastic containers"
+      ],
+      "negative_prompt_additions": "crowd, extra people, female characters",
+      "qa_requirements": {
+        "expected_character_count": 2,
+        "primary_characters": [
+          "arthur_elder",
+          "leo_child"
+        ]
+      }
+    },
+    {
+      "scene_id": "scene_3_kitchen",
+      "scene_number": 3,
+      "title": "Morning Discussion by the Cedar Hearth",
+      "location_name": "Farmhouse Kitchen Breakfast Table",
+      "environment_type": "indoor farmhouse kitchen",
+      "lighting": "clear daylight streaming through bay windows, soft warm kitchen interior",
+      "shot_type": "Wide two-shot",
+      "camera_angle": "Eye level",
+      "action_description": "Maya seated on the left holding a ceramic tea cup, talking warmly with Arthur seated on the right across the oak table.",
+      "characters_present": [
+        "maya_adult",
+        "arthur_elder"
+      ],
+      "character_positions": {
+        "maya_adult": "left",
+        "arthur_elder": "right"
+      },
+      "character_age_states": {
+        "maya_adult": "adult",
+        "arthur_elder": "elder"
+      },
+      "required_props": [
+        "oak kitchen table",
+        "ceramic mug"
+      ],
+      "forbidden_props": [
+        "microwave",
+        "plastic cups"
+      ],
+      "negative_prompt_additions": "children, crowd, extra people",
+      "qa_requirements": {
+        "expected_character_count": 2,
+        "primary_characters": [
+          "maya_adult",
+          "arthur_elder"
+        ]
+      }
+    },
+    {
+      "scene_id": "scene_4_living_room",
+      "scene_number": 4,
+      "title": "Evening Reading in the Armchair",
+      "location_name": "Living Room Hearthside Corner",
+      "environment_type": "indoor cozy living room",
+      "lighting": "soft amber lamp light and warm fireplace reflections",
+      "shot_type": "Wide two-shot",
+      "camera_angle": "Eye level",
+      "action_description": "Maya seated on the left reading aloud from an illustrated clothbound book to young Leo sitting attentive on the right beside her.",
+      "characters_present": [
+        "maya_adult",
+        "leo_child"
+      ],
+      "character_positions": {
+        "maya_adult": "left",
+        "leo_child": "right"
+      },
+      "character_age_states": {
+        "maya_adult": "adult",
+        "leo_child": "child"
+      },
+      "required_props": [
+        "clothbound book",
+        "armchair"
+      ],
+      "forbidden_props": [
+        "television",
+        "screens",
+        "elderly people"
+      ],
+      "negative_prompt_additions": "elderly man, crowd, extra people",
+      "qa_requirements": {
+        "expected_character_count": 2,
+        "primary_characters": [
+          "maya_adult",
+          "leo_child"
+        ]
+      }
+    }
+  ],
+  "props": {
+    "fallen_maple_leaf": {
+      "id": "fallen_maple_leaf",
+      "name": "Fallen Maple Leaf",
+      "description": "A crisp dried golden orange autumn maple leaf",
+      "category": "natural",
+      "clip_prompt": "a single golden orange autumn maple leaf",
+      "reference_b64": null
+    },
+    "clothbound_book": {
+      "id": "clothbound_book",
+      "name": "Clothbound Book",
+      "description": "A dark red clothbound hardcover storybook",
+      "category": "tool",
+      "clip_prompt": "a vintage dark red clothbound hardcover book",
+      "reference_b64": null
+    }
+  },
+  "metadata": {
+    "author": "Antigravity TEST-3 Protocol",
+    "version": "1.0",
+    "purpose": "TEST-3 Story C: 3 new characters across three generations with at most 2 characters per scene"
+  }
+}

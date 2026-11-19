@@ -1,0 +1,17 @@
+{
+  "pack_id": "test3_v2_final_human_pack_v1",
+  "run_id": "test3_v2_final",
+  "created_at_utc": "2026-11-18T16:49:04.314229+00:00",
+  "randomization_seed": 20261118,
+  "recommended_raters": 2,
+  "n_task_a_trials": 21,
+  "task_a_chance_level": 0.25,
+  "n_task_b_sequences": 21,
+  "n_blind_crops": 57,
+  "n_face_strips_built": 33,
+  "blind_pack_path": "D:\\5TH SEM\\HACKATHON_eval\\test3_v2_final\\human_rating_pack\\rating_pack_blind.json",
+  "blind_pack_sha256": "7278c7c69ccebfb0d320e0aa6a1ff75607605049360136230bd93243e9254724",
+  "sealed_key_path": "D:\\5TH SEM\\HACKATHON_eval\\test3_v2_final\\human_rating_pack\\SEALED_ANSWER_KEY.json",
+  "sealed_key_sha256": "d2337811a557adcfe5a16dc9c66d4a71e363f6ee052b91eef42138776632eb6a",
+  "ratings_output_dir": "results/eval3/human_ratings"
+}

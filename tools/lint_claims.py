@@ -43,6 +43,7 @@ REPO_TARGET_DOCS = [
     "docs/run/HANDOFF_CHECKLIST.md",
     "docs/run/LICENSES_AND_MODELS.md",
     "docs/run/MAINTAINER_SETUP.md",
+    "docs/EVAL3_PHASE1_REPORT.md",
     "docs_generated/v2/README_V2.md",
     "docs_generated/v2/07_measured_results.md",
     "docs_generated/v2/07_PPT_UPDATE.md",
@@ -57,17 +58,19 @@ FINAL_TARGET_DOCS = [
     "CLAIMS_AND_LIMITS.md",
     "SLIDE_FACTS.md",
     "QA_PREP.md",
+    "EVAL3_PHASE1_SUMMARY.md",
 ]
 
 # Non-metric version/spec/hardware numbers legitimately appearing in docs.
 ALLOWED_SPEC_NUMBERS: Set[float] = {
     1.0, 1.2, 1.3, 1.5, 2.0, 2.1, 2.3, 3.0, 3.1, 3.10, 4.0, 5.5, 6.0, 7.4,
     8.0, 10.0, 12.1, 15.0, 16.0, 20.0, 24.0, 25.0, 28.0, 30.0, 32.0, 35.0,
-    38.0, 40.0, 42.0, 45.0, 48.0, 50.0, 55.0, 60.0, 64.0, 65.0, 70.0, 75.0,
-    80.0, 85.0, 90.0, 95.0, 99.0, 100.0, 128.0, 140.0, 512.0, 1024.0,
+    38.0, 40.0, 42.0, 45.0, 48.0, 50.0, 55.0, 60.0, 63.3, 64.0, 65.0, 70.0, 75.0,
+    80.0, 85.0, 90.0, 95.0, 99.0, 100.0, 128.0, 140.0, 512.0, 1024.0, 3070.0, 8192.0,
 }
 
 BANNED_SINGLE_WORDS = ("proves", "state-of-the-art", "solves")
+BANNED_COMPARATIVE_PHASE1 = ("better", "improves", "improved", "outperforms", "superior")
 BANNED_OVERCLAIMS = (
     "all 4 hypotheses met",
     "zero memorization",
@@ -131,12 +134,23 @@ def load_backed_numbers(
                     backed.add(val)
                     backed.add(abs(val))
                     backed.add(round(val * 100.0, 6))
+    eval3_dir = PROJECT_ROOT / "results" / "eval3"
+    if eval3_dir.exists():
+        for json_path in eval3_dir.rglob("*.json"):
+            if "sealed" in json_path.name.lower() or "answer" in json_path.name.lower():
+                continue
+            try:
+                data = json.loads(json_path.read_text(encoding="utf-8"))
+                _collect_json_numbers(data, backed)
+            except Exception:
+                pass
     return backed
 
 
 def _strip_non_prose_tokens(line: str) -> str:
     # Remove markdown links URLs, code spans containing hashes/paths/versions, ISO dates, timestamps
-    cleaned = re.sub(r"https?://\S+", " ", line)
+    cleaned = re.sub(r"(?<=\d),(?=\d)", "", line)
+    cleaned = re.sub(r"https?://\S+", " ", cleaned)
     cleaned = re.sub(r"\b\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}Z)?\b", " ", cleaned)
     cleaned = re.sub(r"\b\d{2}:\d{2}(?::\d{2})?\b", " ", cleaned)
     cleaned = re.sub(r"\bv?\d+\.\d+\.\d+(?:-[a-z0-9.]+)?\b", " ", cleaned, flags=re.IGNORECASE)
@@ -156,12 +170,12 @@ def _is_number_backed(token: str, is_pct: bool, backed: Set[float]) -> bool:
     else:
         decimals = 0
     tol = 0.5 * (10.0 ** (-decimals)) + 1e-6
-    candidates = [raw]
+    candidates = [(raw, tol)]
     if is_pct:
-        candidates.append(raw / 100.0)
-    for cand in candidates:
+        candidates.append((raw / 100.0, tol / 100.0))
+    for cand, c_tol in candidates:
         for b in backed:
-            if abs(b - cand) <= tol or abs(abs(b) - cand) <= tol:
+            if abs(b - cand) <= c_tol or abs(abs(b) - cand) <= c_tol:
                 return True
     return False
 
@@ -215,6 +229,15 @@ def lint_markdown_file(path: Path, backed: Set[float], check_numbers: bool = Tru
                 issues.append(
                     f"{path}:{lineno}: unbacked 'significantly' (only allowed for Wardrobe/Defects/Rank-1 image CI): {stripped[:120]}"
                 )
+
+        is_phase1 = "eval3_phase1" in path.name.lower() or ("eval3" in path.name.lower() and "report" in path.name.lower())
+        if is_phase1:
+            for comp_word in BANNED_COMPARATIVE_PHASE1:
+                for m in re.finditer(rf"\b{re.escape(comp_word)}\b", lower):
+                    prefix = lower[max(0, m.start() - 55) : m.start()]
+                    if NEGATION_PREFIX_RE.search(prefix):
+                        continue
+                    issues.append(f"{path}:{lineno}: unnegated comparative word {comp_word!r} prohibited in Phase 1 docs: {stripped[:120]}")
 
     return issues
 

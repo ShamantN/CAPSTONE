@@ -1,0 +1,40 @@
+{
+  "all_controls_passed": true,
+  "controls": {
+    "control_1_positive": {
+      "control_name": "Control 1: Positive Control (Perturbation AUC >= 0.99)",
+      "passed": true,
+      "measured_auc": 1.0,
+      "mean_genuine_sim": 0.9373,
+      "mean_impostor_sim": 0.1757
+    },
+    "control_2_negative": {
+      "control_name": "Control 2: Negative Control (1000 Shuffles AUC ~ 0.50)",
+      "passed": true,
+      "mean_shuffled_auc": 0.4979,
+      "min_auc": 0.2613,
+      "max_auc": 0.8114,
+      "n_shuffles": 1000
+    },
+    "control_3_blank": {
+      "control_name": "Control 3: Blank Image Detection (0 Faces)",
+      "passed": true,
+      "faces_detected": 0
+    },
+    "control_4_synthetic": {
+      "control_name": "Control 4: Synthetic-Data Calibration & Bootstrap Coverage",
+      "passed": true,
+      "perfect_separation_auc": 1.0,
+      "identical_distributions_auc": 0.4516,
+      "bootstrap_coverage_rate": 0.91,
+      "coverage_trials": 100
+    },
+    "control_5_diversity": {
+      "control_name": "Control 5: Diversity & Copy-Paste Guard",
+      "passed": true,
+      "mean_cross_scene_similarity": 0.6716,
+      "max_cross_scene_similarity": 0.769,
+      "copy_paste_flag": false
+    }
+  }
+}

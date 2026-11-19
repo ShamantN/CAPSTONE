@@ -1,0 +1,69 @@
+{
+  "status": "SUCCESS",
+  "pack_integrity": {
+    "status": "PASS",
+    "items_with_target_displayed": "21/21",
+    "target_face_displayed_all_items": true,
+    "pack_integrity_errors": []
+  },
+  "rater_protocol": {
+    "evaluation_standard": "PRELIMINARY / EXPLORATORY: one rater, n=21 items, wide CIs, rater not independent of the project",
+    "primary_rater": "rater_1",
+    "primary_rater_description": "team member who knows the project; blind to the key but not to the project",
+    "primary_rater_file": "ratings_rater_1.json",
+    "primary_rater_sha256": "ce4a5c92fe9d7580d20d1429f35a09405d85b572dc612725c2b7ba5df4b00af1",
+    "excluded_rater": "rater_2",
+    "excluded_rater_file": "ratings_rater_2.json",
+    "excluded_rater_status": "duplicate or carried-over session, excluded from the analysis",
+    "excluded_rater_note": "rater_2 was completed by the same person as rater_1 (a team member; no second independent rater exists). Data comparison confirms carried-over session: 21/21 Task B ratings identical, identical 6 unanswered Task A items, 14/15 Task A answered items identical with single divergence on A17, and timestamp delta of 3m 21s."
+  },
+  "task_a_same_person_matching": {
+    "primary_intention_to_treat_n21": {
+      "rater": "rater_1",
+      "hits": 14,
+      "n_trials": 21,
+      "accuracy": 0.6667,
+      "exact_95_ci": [
+        0.4303,
+        0.8541
+      ],
+      "chance_floor": 0.25,
+      "verdict": "above chance"
+    },
+    "sensitivity_answered_only_n15": {
+      "rater": "rater_1",
+      "hits": 14,
+      "n_trials": 15,
+      "accuracy": 0.9333,
+      "exact_95_ci": [
+        0.6805,
+        0.9983
+      ],
+      "chance_floor": 0.25,
+      "verdict": "above chance"
+    },
+    "no_match_items": {
+      "count": 6,
+      "item_ids": [
+        "A02",
+        "A04",
+        "A10",
+        "A16",
+        "A18",
+        "A21"
+      ],
+      "plain_language_finding": "In 6 of 21 trials (items A02, A04, A10, A16, A18, A21), the rater saw no match among the four options, which is lower than the automatic metrics suggest. The keyed target face was displayed in 21 of 21 items."
+    }
+  },
+  "task_b_sequence_consistency": {
+    "rater": "rater_1",
+    "n_sequences": 21,
+    "mean": 3.1429,
+    "std": 1.3553,
+    "median": 4.0,
+    "bootstrap_95_ci": [
+      2.5714,
+      3.7143
+    ]
+  }
+}

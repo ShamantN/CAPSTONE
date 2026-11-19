@@ -748,11 +748,13 @@ def render_app_ui():
         st.caption("🖥️ Target: RTX 3070 Ti (8GB VRAM Guard Active)")
 
     # Main Tabs
-    tab1, tab2, tab3, tab4 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
         "🎬 6-Scene Storyboard & Consistency Matrix",
         "🧬 Visual DNA Character Anchors",
         "📈 Phase 3 Benchmark Metrics & Diagnostics",
-        "🔍 Frozen Verifier & Contact Sheets"
+        "🔍 Frozen Verifier & Contact Sheets",
+        "📊 Evaluation Runs (TEST-3)",
+        "📝 Human Rating"
     ])
 
     # Tab 2: Visual DNA Anchors
@@ -1026,6 +1028,22 @@ def render_app_ui():
                 st.info("No contact sheets found in docs_generated/v2/visual_review/contact_sheets.")
         else:
             st.info("Contact sheets directory not initialized.")
+
+    # Tab 5: Evaluation Runs (TEST-3 Protocol)
+    with tab5:
+        try:
+            from eval3.ui import render_eval_tab
+            render_eval_tab()
+        except Exception as e:
+            st.error(f"Failed loading Evaluation Runs tab: {e}")
+
+    # Tab 6: Blinded Human Rating Pack (TEST-3 Stage B)
+    with tab6:
+        try:
+            from eval3.ui import render_human_rating_tab
+            render_human_rating_tab()
+        except Exception as e:
+            st.error(f"Failed loading Human Rating tab: {e}")
 
 
 if __name__ == "__main__":

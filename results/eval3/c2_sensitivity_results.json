@@ -1,0 +1,83 @@
+{
+  "PM1_AUC": {
+    "values": [
+      0.9701,
+      0.9533,
+      0.9499
+    ],
+    "mean": 0.9578,
+    "sample_sd": 0.0108,
+    "standard_error": 0.0062,
+    "t_crit_df2": 4.3027,
+    "t_ci_95": [
+      0.9309,
+      0.9846
+    ],
+    "loro_drop_rep00": 0.9516,
+    "loro_drop_rep01": 0.96,
+    "loro_drop_rep02": 0.9617,
+    "t_ci_95_uncapped": [
+      0.9309,
+      0.9846
+    ],
+    "t_ci_95_capped": [
+      0.9309,
+      0.9846
+    ],
+    "cap_note": "Uncapped (<= 1.0)"
+  },
+  "PM2_Rank1": {
+    "values": [
+      0.9778,
+      0.9556,
+      0.9333
+    ],
+    "mean": 0.9556,
+    "sample_sd": 0.0223,
+    "standard_error": 0.0128,
+    "t_crit_df2": 4.3027,
+    "t_ci_95": [
+      0.9003,
+      1.0108
+    ],
+    "loro_drop_rep00": 0.9445,
+    "loro_drop_rep01": 0.9556,
+    "loro_drop_rep02": 0.9667,
+    "t_ci_95_uncapped": [
+      0.9003,
+      1.0108
+    ],
+    "t_ci_95_capped": [
+      0.9003,
+      1.0
+    ],
+    "cap_note": "Upper bound capped at 1.0 (rate metric ceiling)"
+  },
+  "PM3_Correctness": {
+    "values": [
+      0.9167,
+      0.9722,
+      0.9444
+    ],
+    "mean": 0.9444,
+    "sample_sd": 0.0278,
+    "standard_error": 0.016,
+    "t_crit_df2": 4.3027,
+    "t_ci_95": [
+      0.8755,
+      1.0134
+    ],
+    "loro_drop_rep00": 0.9583,
+    "loro_drop_rep01": 0.9305,
+    "loro_drop_rep02": 0.9445,
+    "t_ci_95_uncapped": [
+      0.8755,
+      1.0134
+    ],
+    "t_ci_95_capped": [
+      0.8755,
+      1.0
+    ],
+    "cap_note": "Upper bound capped at 1.0 (rate metric ceiling)"
+  }
+}
