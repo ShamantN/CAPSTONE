@@ -1,0 +1,71 @@
+{
+  "latency_per_scene_seconds": {
+    "n_scenes": 108,
+    "mean": 165.33,
+    "std": 55.25,
+    "median": 151.31,
+    "min": 82.95,
+    "max": 304.88
+  },
+  "peak_vram": {
+    "telemetry_file": "results\\telemetry\\vram_20261118_121015.csv",
+    "peak_vram_mb": 7979.0,
+    "peak_vram_gb": 7.79,
+    "mean_vram_mb": 4788.97
+  },
+  "generation_reliability": {
+    "total_primary_renders": 108,
+    "failures": 0,
+    "failure_rate": 0.0,
+    "retries": 0
+  },
+  "dinov2_head_similarity": {
+    "n_measurements": 174,
+    "mean": 0.6426,
+    "std": 0.1022
+  },
+  "not_computed_metrics": {
+    "clip_t_prompt_alignment": {
+      "status": "NOT COMPUTED",
+      "reason": "Frozen verifier v1.2 architecture implements CLIP for discrete semantic prop detection and solarization/inversion probing; continuous cosine similarity between full prompt text and image tokens was not part of the frozen verifier pipeline."
+    },
+    "diversity_and_copy_paste_flag": {
+      "status": "NOT COMPUTED",
+      "reason": "No copy-paste detector or perceptual hash pairwise image distance module was pre-registered or executed during TEST-3 generation."
+    },
+    "stress_scene": {
+      "status": "NOT COMPUTED",
+      "reason": "3-character stress scenes (Story A Scene 6, Story B Scene 4, Story C Scene 5) were pre-registered to run after primary replicates; execution was halted at 8.029h by the pre-declared 8.0h cap stopping rule."
+    }
+  },
+  "detector_independence": {
+    "face_recall_detector": "DeepFace (RetinaFace with OpenCV Haar fallback)",
+    "pipeline_face_detector": "InsightFace (buffalo_l, in-loop)",
+    "independence_assessment": "Independent. Face recall (1.0000, 174/174 face slots detected) was audited out-of-loop using DeepFace's RetinaFace detector, completely isolated from the generation pipeline's in-loop InsightFace buffalo_l detector."
+  },
+  "anchor_vs_cross_scene_comparison": {
+    "in_loop_anchor_similarity": {
+      "metric": "InsightFace buffalo_l cosine similarity to certified anchor",
+      "mean": 0.2412,
+      "interpretation": "Measures fine-grained geometric likeness between a rendered face in a complex scene and the standalone certified anchor portrait. The low value (0.2412) reflects facial expression variations, head yaw/pitch, distance scaling, and lighting differences relative to the neutral anchor portrait."
+    },
+    "out_of_loop_cross_scene_identity": {
+      "metric": "4-Judge Ensemble (Facenet512, SFace, GhostFaceNet, ArcFace) AUC & Rank-1",
+      "pm1_auc": 0.9578,
+      "pm2_rank1": 0.9556,
+      "interpretation": "Measures whether faces of the same character across different narrative scenes and replicates are distinguishable from impostors. The high values (AUC 0.9578, Rank-1 95.56%) demonstrate that characters remain recognizable as themselves across diverse story contexts even though scene renderings drift geometrically from the static anchor crop."
+    }
+  },
+  "wall_clock_times": {
+    "total_generation_hours": 8.029,
+    "anchors_generation_hours": 2.249,
+    "scenes_generation_hours": 5.780,
+    "scoring_hours": 1.3232,
+    "scoring_seconds": 4763.45
+  },
+  "per_story_extra_person_rates": {
+    "Story_A": 0.0445,
+    "Story_B": 0.0741,
+    "Story_C": 0.0556
+  }
+}
