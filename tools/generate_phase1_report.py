@@ -91,15 +91,17 @@ def build_markdown(
     pm3_b_low, pm3_b_high = pm3["bootstrap"]["ci_95_lower"], pm3["bootstrap"]["ci_95_upper"]
     pm3_t_low, pm3_t_high = c2["PM3_Correctness"]["t_ci_95_capped"]
     pm3_verd = "above chance" if pm3_t_low > pm3["chance_floor"] else "not distinguishable from chance"
-    md.append(f"| **PM3: Scene Correctness Rate** | OUT-OF-LOOP | **{pm3['empirical_mean']:.4f}** | [{pm3_b_low:.4f}, {pm3_b_high:.4f}] | [{pm3_t_low:.4f}, {pm3_t_high:.4f}]* | {pm3['chance_floor']:.4f} | {pm3['ceiling']:.4f} | **{pm3_verd}** |")
+    md.append(f"| **PM3: Scene Correctness Rate** | OUT-OF-LOOP | **{pm3['empirical_mean']:.4f}** | [{pm3_b_low:.4f}, {pm3_b_high:.4f}] | [{pm3_t_low:.4f}, {pm3_t_high:.4f}]* | {pm3['chance_floor']:.4f} | {pm3['ceiling']:.4f} | **\"{pm3_verd}\" (registered rule)†** |")
 
     md.append("")
     md.append(f"\\* *Note on Student's $t$-intervals: For rate metrics PM2 and PM3, the raw upper bounds were {c2['PM2_Rank1']['t_ci_95_uncapped'][1]:.4f} and {c2['PM3_Correctness']['t_ci_95_uncapped'][1]:.4f}; each interval is capped at 1.0 (the natural rate ceiling) while preserving uncapped values in telemetry. Zero verdict words change under the Student's $t$-interval.*")
     md.append("")
+    md.append(f"† *Note on PM3 chance floor and verdict: PM3 measures scene correctness rate with a pre-registered chance floor of {pm3['chance_floor']:.4f}. Because the chance floor is 0, testing whether a non-negative rate is \"above chance\" is uninformative. PM3 is therefore primarily interpreted as an absolute rate of {pm3['empirical_mean']:.4f} (102/108 scenes) with 95% bootstrap CI [{pm3_b_low:.4f}, {pm3_b_high:.4f}] and capped Student's t-interval [{pm3_t_low:.4f}, {pm3_t_high:.4f}]; the phrase \"above chance\" is retained strictly as a direct quote of the pre-registered decision rule (PREREG_TEST3.md Section 9.2).*")
+    md.append("")
     md.append("### Key Statistical Takeaways")
     md.append(f"1. **PM1 (Cross-Scene AUC):** Achieved an empirical mean of **{pm1['empirical_mean']:.4f}** (95% bootstrap CI [{pm1_b_low:.4f}, {pm1_b_high:.4f}], $t$-interval [{pm1_t_low:.4f}, {pm1_t_high:.4f}]), scoring well above the 0.50 chance floor.")
     md.append(f"2. **PM2 (Rank-1 Identification on Eligible Probes):** Achieved an empirical mean of **{pm2['empirical_mean']:.4f}** (95% bootstrap CI [{pm2_b_low:.4f}, {pm2_b_high:.4f}], $t$-interval [{pm2_t_low:.4f}, {pm2_t_high:.4f}]), with within-story Rank-1 identification reaching **{pm2['within_story_mean_pm2']:.4f}** across the 11-character global gallery (chance floor = 0.0909). Probes from single-scene characters were excluded per Amendment 2 eligibility accounting ($n_{{\\text{{expected}}}} = 57, n_{{\\text{{eligible}}}} = 45, n_{{\\text{{ineligible}}}} = 12$ per replicate). Old unfiltered PM2 over all face slots was {pm2['pm2_old_unfiltered_mean']:.4f}.")
-    md.append(f"3. **PM3 (Scene Correctness Rate):** Achieved **{pm3['empirical_mean']:.4f}** (102/108 correct scenes; 95% bootstrap CI [{pm3_b_low:.4f}, {pm3_b_high:.4f}], $t$-interval [{pm3_t_low:.4f}, {pm3_t_high:.4f}]). Across all 108 renders, DeepFace face recall was **{sec['face_recall']['mean']:.4f}** (171/171 expected character face slots detected; 174 total faces detected including 3 extra persons), and extra person rate was **{sec['extra_person_rate']['mean']:.4f}** (6/108 scenes).")
+    md.append(f"3. **PM3 (Scene Correctness Rate):** Achieved an absolute rate of **{pm3['empirical_mean']:.4f}** (102/108 correct scenes; 95% bootstrap CI [{pm3_b_low:.4f}, {pm3_b_high:.4f}], $t$-interval [{pm3_t_low:.4f}, {pm3_t_high:.4f}]). Because PM3's nominal pre-registered chance floor is 0.0000, describing it as \"above chance\" is uninformative; \"above chance\" is quoted strictly per the registered decision rule (`PREREG_TEST3.md` Section 9.2). Across all 108 renders, DeepFace face recall was **{sec['face_recall']['mean']:.4f}** (171/171 expected character face slots detected; 174 total faces detected including 3 extra persons), and extra person rate was **{sec['extra_person_rate']['mean']:.4f}** (6/108 scenes).")
     md.append(f"4. **Post-Hoc Readout Correction (Item C1):** The in-loop verifier metric `v1_2_rank1_vs_anchor_rate` originally read `0.0` due to reading key `'is_rank1'` instead of frozen verifier key `'rank1_correct'`. Recomputed from the raw verifier outputs, the corrected value is **{c1['new_value']:.4f}** ({c1['hits']}/{c1['total_faces']} hits). Hash/diff verification confirms PM1, PM2, PM3, and all out-of-loop metrics remain 100% unchanged.")
     md.append("")
     md.append("---")
@@ -154,7 +156,7 @@ def build_markdown(
     md.append("### Automatic Metrics versus Human Judgement")
     nomatch = hr["task_a_same_person_matching"]["no_match_items"]
     md.append(f"{nomatch['plain_language_finding']}")
-    md.append("This human accuracy of 66.7% (14/21) is lower than the automatic metrics suggest (PM2 Rank-1 of 95.6% on eligible probes, 75.4% unfiltered). While the automatic out-of-loop 4-judge biometric ensemble readily discriminates facial embeddings across scenes, subtle perceptual drift in styling, lighting, expressions, and aging between scenes led human perception to judge 28.6% of trials as lacking a definitive match, even though the keyed target face was displayed in 21 of 21 items.")
+    md.append("This human accuracy of 66.7% (14/21) is lower than the automatic metrics suggest (PM2 Rank-1 of 95.6% on eligible probes, 75.4% unfiltered). For the 6 unanswered items (28.6% of trials), the single rater reported that none of the four displayed options matched the reference face; the keyed face was displayed in 21 of 21 items; no cause is recorded.")
     md.append("")
     md.append("---")
     md.append("")
@@ -171,20 +173,23 @@ def build_markdown(
     md.append(f"- **Face Recall:** **{sec['face_recall']['mean']:.4f}** (171/171 expected character face slots detected; 174 total faces detected including 3 extra persons). Measured out-of-loop using DeepFace (RetinaFace with Haar cascade fallback). This detector is fully independent of the generation pipeline's in-loop InsightFace `buffalo_l` detector.")
     md.append("")
     md.append("### In-Loop Anchor Similarity vs. Out-of-Loop Cross-Scene Consistency")
-    md.append(f"- **In-Loop Anchor Similarity (InsightFace `buffalo_l`):** Mean = **{c3['anchor_vs_cross_scene_comparison']['in_loop_anchor_similarity']['mean']:.4f}**.")
+    md.append(f"- **In-Loop Anchor Similarity (InsightFace `buffalo_l`):** Mean = **{c3['anchor_vs_cross_scene_comparison']['in_loop_anchor_similarity']['mean']:.4f}** (source: `results/eval3/c3_secondary_metrics_supplement.json#anchor_vs_cross_scene_comparison.in_loop_anchor_similarity.mean`).")
+    md.append("- **In-Loop Ensemble Score (Weighted per Face):** Mean = **0.7075**. Definition: composite in-loop quality and identity score averaged across all 171 individual character face crops; source: `results/eval3/test3_summary.json#in_loop_metrics_v1_2.mean_ensemble_score`.")
+    md.append("- **In-Loop Ensemble Score (Averaged per Scene):** Mean = **0.7147**. Definition: unweighted mean of per-scene average in-loop ensemble scores across all 108 generated scenes; source: `results/eval3/test3_per_scene.csv` column `mean_v1_2_ensemble_score_in_loop`.")
     md.append(f"- **Out-of-Loop Cross-Scene Identity (4-Judge AUC & Rank-1):** Mean AUC = **{c3['anchor_vs_cross_scene_comparison']['out_of_loop_cross_scene_identity']['pm1_auc']:.4f}**, Mean Rank-1 = **{c3['anchor_vs_cross_scene_comparison']['out_of_loop_cross_scene_identity']['pm2_rank1']:.4f}**.")
     md.append("- **Plain-Language Explanation:** Anchor similarity and cross-scene consistency measure distinct phenomena. Static anchor similarity measures whether a complex multi-character render geometrically replicates a neutral portrait crop; low scores (0.2412) are driven by head rotation, facial expressions, and distance scaling. Cross-scene consistency measures whether faces of the same character across different narrative scenes and replicates are distinguishable from impostors. The high AUC (0.9578) and Rank-1 (0.9556) demonstrate that characters remain recognizable across varied scenes despite shifting away from static anchor portraits.")
     md.append("")
     md.append("### Secondary Metrics Status Audit (Pre-Registration Check)")
     md.append(f"1. **Copy-Paste Flag & Diversity:** Pre-registered in `PREREG_TEST3.md` line 178 and `AMENDMENT_2.md` line 96 as an Empirical Control (Control 5) on pilot candidate C0 (`Mean Sim = 0.6716, Max = 0.7690`, PASS). Not pre-registered as an ongoing scene metric in TEST-3.")
     md.append(f"2. **CLIP-T Prompt Alignment:** `{c3['not_computed_metrics']['clip_t_prompt_alignment']['status']}`. {c3['not_computed_metrics']['clip_t_prompt_alignment']['reason']}")
-    md.append(f"3. **3-Character Stress Scene:** `{c3['not_computed_metrics']['stress_scene']['status']}`. {c3['not_computed_metrics']['stress_scene']['reason']}")
+    md.append("3. **3-Character Stress Scene:** `NOT COMPUTED (OMITTED)`. Story B Scene 4 is verified as a 3-character stress scene containing characters Clara Thorn, Elena Child, and Dr. Marcus Vance (`storyboards/holdout_v2.json` and `results/eval3/PREREG_TEST3_CLARIFICATION_1.md:line_26`). However, other identifiers cited in prior reports (`Story A Scene 6` and `Story C Scene 5`) are identifiers unverified: `storyboards/ebright.json` Scene 6 specifies only 1 character (`college_ebright`), and `storyboards/eval3_story_c.json` contains only 4 scenes total (no Scene 5 exists). Sources read: `storyboards/ebright.json`, `storyboards/holdout_v2.json`, `storyboards/eval3_story_c.json`, `results/eval3/PREREG_TEST3.md`, `results/eval3/PREREG_TEST3_AMENDMENT_1.md`, `results/eval3/PREREG_TEST3_AMENDMENT_2.md`, `results/eval3/PREREG_TEST3_CLARIFICATION_1.md:line_26`, and `results/eval3/c3_secondary_metrics_supplement.json`. Pre-registered stress scenes were scheduled to run only if the 8.0-hour cap permitted; generation halted at 8.029h mid-`rep_03`, so zero stress scenes were rendered.")
     md.append(f"4. **6-Image GPU Determinism Drift Test:** `NOT COMPUTED`. No repeat multi-seed drift test was conducted on TEST-3.")
     md.append("")
     md.append("### Compute, Telemetry & Reliability")
-    md.append(f"- **Latency per Scene:** Mean = **{c3['latency_per_scene_seconds']['mean']:.2f} s** (std = {c3['latency_per_scene_seconds']['std']:.2f} s, median = {c3['latency_per_scene_seconds']['median']:.2f} s, min = {c3['latency_per_scene_seconds']['min']:.2f} s, max = {c3['latency_per_scene_seconds']['max']:.2f} s).")
+    md.append(f"- **Latency per Scene (Stage B Production Run):** Mean = **165.33 s** (std = {c3['latency_per_scene_seconds']['std']:.2f} s, median = {c3['latency_per_scene_seconds']['median']:.2f} s, min = {c3['latency_per_scene_seconds']['min']:.2f} s, max = {c3['latency_per_scene_seconds']['max']:.2f} s). Definition: empirical wall-clock render time per scene across all 108 production scene renders with concurrent system processes and live telemetry logging; source: `results/eval3/c3_secondary_metrics_supplement.json#latency_per_scene_seconds`.")
+    md.append("- **Latency per Scene (Clean Timing Benchmark):** Benchmark Mean = **117.21 s**. Definition: per-scene render time measured under isolated, dedicated benchmark conditions across 12 scenes without background load; source: `dev3_pilot_report.json#timing.mean_seconds_per_scene_render` and `results/eval3/PREREG_TEST3_AMENDMENT_1.md:line_138`.")
     md.append(f"- **Total Wall-Clock Time:** Generation = **{c3['wall_clock_times']['total_generation_hours']:.3f} hours** (Anchors = {c3['wall_clock_times']['anchors_generation_hours']:.3f} h, Scenes = {c3['wall_clock_times']['scenes_generation_hours']:.3f} h); Scoring = **{c3['wall_clock_times']['scoring_hours']:.4f} hours** ({c3['wall_clock_times']['scoring_seconds']:.2f} s).")
-    md.append(f"- **VRAM Footprint:** Peak = **{c3['peak_vram']['peak_vram_gb']:.2f} GB** ({c3['peak_vram']['peak_vram_mb']:.1f} MB), Mean = {c3['peak_vram']['mean_vram_mb']:.1f} MB on NVIDIA GeForce RTX 3070 Ti Laptop GPU (8,192 MB physical VRAM). Zero VRAM watchdog triggers.")
+    md.append(f"- **VRAM Footprint:** Peak = **{c3['peak_vram']['peak_vram_gb']:.2f} GB** ({c3['peak_vram']['peak_vram_mb']:.1f} MB), Mean = {c3['peak_vram']['mean_vram_mb']:.1f} MB on NVIDIA GeForce RTX 3070 Ti Laptop GPU (8,192 MB physical VRAM; source: `results/eval3/c3_secondary_metrics_supplement.json#peak_vram`). Definition: `peak_vram_process_delta_mb` / peak VRAM measures whole-system GPU memory usage sampled at ~1 Hz via `nvidia-smi` query `memory_used_mb` in `results/telemetry/vram_20261118_121015.csv`, not a process-isolated delta. Total GPU memory utilization was recorded by `nvidia-smi`. Any claim that memory usage remained safely below capacity or that there were zero CUDA OOM errors is removed, as whole-system memory peaked at 7979.0 MB of 8192 MB capacity and process-level memory was not separately isolated.")
     md.append(f"- **Generation Reliability:** **{c3['generation_reliability']['failures']}/{c3['generation_reliability']['total_primary_renders']} failures** (failure rate = **{c3['generation_reliability']['failure_rate']*100:.1f}%**, {c3['generation_reliability']['retries']} retries across 313 total generation passes). 7/7 scheduled 40-render Forge restarts succeeded cleanly.")
     md.append("")
     md.append("---")
@@ -289,17 +294,27 @@ def build_markdown(
     md.append("3. **Structural PM3 Blindness:** Automated PM3 validates person counts and face detections, but cannot evaluate semantic age drift. In mixed-age 2-character scenes, adult characters were occasionally rendered as children, an artifact invisible to structural metrics.")
     md.append("4. **Partial Method Circularity:** InsightFace is utilized in-loop for face sizing and crop conditioning. To maintain evaluation integrity, identity metrics (PM1 and PM2) rely on an out-of-loop 4-judge ensemble (Facenet512, SFace, GhostFaceNet, ArcFace) with distinct feature representations.")
     md.append("5. **Prior Story Exposure:** Stories A and B were utilized during exploratory v2 method development, while Story C served as a holdout. High cross-scene performance was observed across both seen and unseen stories (Story C AUC = 1.0000).")
-    md.append("6. **Omitted Stress Scenes:** The 3-character stress scenes were omitted after generation halted at the 8.0-hour cap; performance on crowded multi-character scenes remains uncharacterized.")
+    md.append("6. **Omitted Stress Scenes:** The 3-character stress scenes were omitted after generation halted at the 8.0-hour cap. Only `Story B Scene 4` is verified as a 3-character stress scene in storyboard files; identifiers `Story A Scene 6` and `Story C Scene 5` are identifiers unverified. Performance on crowded multi-character scenes remains uncharacterized.")
     md.append("7. **Hardware & Non-Determinism:** Cross-platform non-determinism in PyTorch/xFormers CUDA kernels prevents bitwise pixel reproducibility across GPU architectures. Character anchors must be synthesized and certified per environment.")
     md.append("")
     md.append("---")
     md.append("")
-    md.append("## 9. Independent Falsification Audit Report (Subagent C7)")
+    md.append("## 9. Falsification Audit Report (Subagent C7)")
+    md.append("")
+    md.append("> [!WARNING]")
+    md.append("> **Audit Independence Notice:** This file was edited by the main agent after the subagent returned, and its independence is NOT established. It is preserved here for historical transparency regarding Stage C-Fix checks.")
     md.append("")
     if falsification_report:
-        md.append(falsification_report.strip())
+        falsification_report_clean = falsification_report.replace(
+            "rater selected no match due to subtle cross-scene perceptual drift (expressions, lighting, aging), lower than automatic biometric metrics.",
+            "the single rater reported that none of the four displayed options matched the reference face; the keyed face was displayed in 21 of 21 items; no cause is recorded."
+        ).replace(
+            "# INDEPENDENT BLIND FALSIFICATION AUDIT REPORT: STAGE C-FIX AUDIT",
+            "# FALSIFICATION AUDIT REPORT: STAGE C-FIX AUDIT (Independence NOT Established)"
+        )
+        md.append(falsification_report_clean.strip())
     else:
-        md.append("*(The findings of the independent subagent will be appended here verbatim upon completion of Step C7.)*")
+        md.append("*(The findings of the subagent will be appended here upon completion.)*")
     md.append("")
 
     return "\n".join(md)
