@@ -14,14 +14,16 @@ The MMCCP TEST-3 evaluation was executed under `results/eval3/PREREG_TEST3.md` a
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **PM1: Cross-Scene Identity AUC** | OUT-OF-LOOP | **0.9578** | [0.9499, 0.9701] | [0.9309, 0.9846] | 0.5000 | 1.0000 | **above chance** |
 | **PM2: Cross-Scene Rank-1 Identification** | OUT-OF-LOOP | **0.9556** (unfiltered all slots: **0.7544**) | [0.9333, 0.9778] | [0.9003, 1.0000]* | 0.0909 | 1.0000 | **above chance** |
-| **PM3: Scene Correctness Rate** | OUT-OF-LOOP | **0.9444** | [0.8889, 0.9907] | [0.8755, 1.0000]* | 0.0000 | 1.0000 | **above chance** |
+| **PM3: Scene Correctness Rate** | OUT-OF-LOOP | **0.9444** | [0.8889, 0.9907] | [0.8755, 1.0000]* | 0.0000 | 1.0000 | **"above chance" (registered rule)†** |
 
 \* *Note on Student's $t$-intervals: For rate metrics PM2 and PM3, the raw upper bounds were 1.0108 and 1.0134; each interval is capped at 1.0 (the natural rate ceiling) while preserving uncapped values in telemetry. Zero verdict words change under the Student's $t$-interval.*
+
+† *Note on PM3 chance floor and verdict: PM3 measures scene correctness rate with a pre-registered chance floor of 0.0000. Because the chance floor is 0, testing whether a non-negative rate is "above chance" is uninformative. PM3 is therefore primarily interpreted as an absolute rate of 0.9444 (102/108 scenes) with 95% bootstrap CI [0.8889, 0.9907] and capped Student's t-interval [0.8755, 1.0000]; the phrase "above chance" is retained strictly as a direct quote of the pre-registered decision rule (PREREG_TEST3.md Section 9.2).*
 
 ### Key Statistical Takeaways
 1. **PM1 (Cross-Scene AUC):** Achieved an empirical mean of **0.9578** (95% bootstrap CI [0.9499, 0.9701], $t$-interval [0.9309, 0.9846]), scoring well above the 0.50 chance floor.
 2. **PM2 (Rank-1 Identification on Eligible Probes):** Achieved an empirical mean of **0.9556** (95% bootstrap CI [0.9333, 0.9778], $t$-interval [0.9003, 1.0000]), with within-story Rank-1 identification reaching **0.9907** across the 11-character global gallery (chance floor = 0.0909). Probes from single-scene characters were excluded per Amendment 2 eligibility accounting ($n_{\text{expected}} = 57, n_{\text{eligible}} = 45, n_{\text{ineligible}} = 12$ per replicate). Old unfiltered PM2 over all face slots was 0.7544.
-3. **PM3 (Scene Correctness Rate):** Achieved **0.9444** (102/108 correct scenes; 95% bootstrap CI [0.8889, 0.9907], $t$-interval [0.8755, 1.0000]). Across all 108 renders, DeepFace face recall was **1.0000** (171/171 expected character face slots detected; 174 total faces detected including 3 extra persons), and extra person rate was **0.0556** (6/108 scenes).
+3. **PM3 (Scene Correctness Rate):** Achieved an absolute rate of **0.9444** (102/108 correct scenes; 95% bootstrap CI [0.8889, 0.9907], $t$-interval [0.8755, 1.0000]). Because PM3's nominal pre-registered chance floor is 0.0000, describing it as "above chance" is uninformative; "above chance" is quoted strictly per the registered decision rule (`PREREG_TEST3.md` Section 9.2). Across all 108 renders, DeepFace face recall was **1.0000** (171/171 expected character face slots detected; 174 total faces detected including 3 extra persons), and extra person rate was **0.0556** (6/108 scenes).
 4. **Post-Hoc Readout Correction (Item C1):** The in-loop verifier metric `v1_2_rank1_vs_anchor_rate` originally read `0.0` due to reading key `'is_rank1'` instead of frozen verifier key `'rank1_correct'`. Recomputed from the raw verifier outputs, the corrected value is **0.9415** (161/171 hits). Hash/diff verification confirms PM1, PM2, PM3, and all out-of-loop metrics remain 100% unchanged.
 
 ---
@@ -72,7 +74,7 @@ Per the pre-declared stopping rule (`PREREG_TEST3_AMENDMENT_2.md` Section 4), ge
 
 ### Automatic Metrics versus Human Judgement
 In 6 of 21 trials (items A02, A04, A10, A16, A18, A21), the rater saw no match among the four options, which is lower than the automatic metrics suggest. The keyed target face was displayed in 21 of 21 items.
-This human accuracy of 66.7% (14/21) is lower than the automatic metrics suggest (PM2 Rank-1 of 95.6% on eligible probes, 75.4% unfiltered). While the automatic out-of-loop 4-judge biometric ensemble readily discriminates facial embeddings across scenes, subtle perceptual drift in styling, lighting, expressions, and aging between scenes led human perception to judge 28.6% of trials as lacking a definitive match, even though the keyed target face was displayed in 21 of 21 items.
+This human accuracy of 66.7% (14/21) is lower than the automatic metrics suggest (PM2 Rank-1 of 95.6% on eligible probes, 75.4% unfiltered). For the 6 unanswered items (28.6% of trials), the single rater reported that none of the four displayed options matched the reference face; the keyed face was displayed in 21 of 21 items; no cause is recorded.
 
 ---
 
@@ -89,20 +91,23 @@ This human accuracy of 66.7% (14/21) is lower than the automatic metrics suggest
 - **Face Recall:** **1.0000** (171/171 expected character face slots detected; 174 total faces detected including 3 extra persons). Measured out-of-loop using DeepFace (RetinaFace with Haar cascade fallback). This detector is fully independent of the generation pipeline's in-loop InsightFace `buffalo_l` detector.
 
 ### In-Loop Anchor Similarity vs. Out-of-Loop Cross-Scene Consistency
-- **In-Loop Anchor Similarity (InsightFace `buffalo_l`):** Mean = **0.2412**.
+- **In-Loop Anchor Similarity (InsightFace `buffalo_l`):** Mean = **0.2412** (source: `results/eval3/c3_secondary_metrics_supplement.json#anchor_vs_cross_scene_comparison.in_loop_anchor_similarity.mean`).
+- **In-Loop Ensemble Score (Weighted per Face):** Mean = **0.7075**. Definition: composite in-loop quality and identity score averaged across all 171 individual character face crops; source: `results/eval3/test3_summary.json#in_loop_metrics_v1_2.mean_ensemble_score`.
+- **In-Loop Ensemble Score (Averaged per Scene):** Mean = **0.7147**. Definition: unweighted mean of per-scene average in-loop ensemble scores across all 108 generated scenes; source: `results/eval3/test3_per_scene.csv` column `mean_v1_2_ensemble_score_in_loop`.
 - **Out-of-Loop Cross-Scene Identity (4-Judge AUC & Rank-1):** Mean AUC = **0.9578**, Mean Rank-1 = **0.9556**.
 - **Plain-Language Explanation:** Anchor similarity and cross-scene consistency measure distinct phenomena. Static anchor similarity measures whether a complex multi-character render geometrically replicates a neutral portrait crop; low scores (0.2412) are driven by head rotation, facial expressions, and distance scaling. Cross-scene consistency measures whether faces of the same character across different narrative scenes and replicates are distinguishable from impostors. The high AUC (0.9578) and Rank-1 (0.9556) demonstrate that characters remain recognizable across varied scenes despite shifting away from static anchor portraits.
 
 ### Secondary Metrics Status Audit (Pre-Registration Check)
 1. **Copy-Paste Flag & Diversity:** Pre-registered in `PREREG_TEST3.md` line 178 and `AMENDMENT_2.md` line 96 as an Empirical Control (Control 5) on pilot candidate C0 (`Mean Sim = 0.6716, Max = 0.7690`, PASS). Not pre-registered as an ongoing scene metric in TEST-3.
 2. **CLIP-T Prompt Alignment:** `NOT COMPUTED`. Frozen verifier v1.2 architecture implements CLIP for discrete semantic prop detection and solarization/inversion probing; continuous cosine similarity between full prompt text and image tokens was not part of the frozen verifier pipeline.
-3. **3-Character Stress Scene:** `NOT COMPUTED`. 3-character stress scenes (Story A Scene 6, Story B Scene 4, Story C Scene 5) were pre-registered to run after primary replicates; execution was halted at 8.029h by the pre-declared 8.0h cap stopping rule.
+3. **3-Character Stress Scene:** `NOT COMPUTED (OMITTED)`. Story B Scene 4 is verified as a 3-character stress scene containing characters Clara Thorn, Elena Child, and Dr. Marcus Vance (`storyboards/holdout_v2.json` and `results/eval3/PREREG_TEST3_CLARIFICATION_1.md:line_26`). However, other identifiers cited in prior reports (`Story A Scene 6` and `Story C Scene 5`) are identifiers unverified: `storyboards/ebright.json` Scene 6 specifies only 1 character (`college_ebright`), and `storyboards/eval3_story_c.json` contains only 4 scenes total (no Scene 5 exists). Sources read: `storyboards/ebright.json`, `storyboards/holdout_v2.json`, `storyboards/eval3_story_c.json`, `results/eval3/PREREG_TEST3.md`, `results/eval3/PREREG_TEST3_AMENDMENT_1.md`, `results/eval3/PREREG_TEST3_AMENDMENT_2.md`, `results/eval3/PREREG_TEST3_CLARIFICATION_1.md:line_26`, and `results/eval3/c3_secondary_metrics_supplement.json`. Pre-registered stress scenes were scheduled to run only if the 8.0-hour cap permitted; generation halted at 8.029h mid-`rep_03`, so zero stress scenes were rendered.
 4. **6-Image GPU Determinism Drift Test:** `NOT COMPUTED`. No repeat multi-seed drift test was conducted on TEST-3.
 
 ### Compute, Telemetry & Reliability
-- **Latency per Scene:** Mean = **165.33 s** (std = 55.25 s, median = 151.31 s, min = 82.95 s, max = 304.88 s).
+- **Latency per Scene (Stage B Production Run):** Mean = **165.33 s** (std = 55.25 s, median = 151.31 s, min = 82.95 s, max = 304.88 s). Definition: empirical wall-clock render time per scene across all 108 production scene renders with concurrent system processes and live telemetry logging; source: `results/eval3/c3_secondary_metrics_supplement.json#latency_per_scene_seconds`.
+- **Latency per Scene (Clean Timing Benchmark):** Benchmark Mean = **117.21 s**. Definition: per-scene render time measured under isolated, dedicated benchmark conditions across 12 scenes without background load; source: `dev3_pilot_report.json#timing.mean_seconds_per_scene_render` and `results/eval3/PREREG_TEST3_AMENDMENT_1.md:line_138`.
 - **Total Wall-Clock Time:** Generation = **8.029 hours** (Anchors = 2.249 h, Scenes = 5.780 h); Scoring = **1.3232 hours** (4763.45 s).
-- **VRAM Footprint:** Peak = **7.79 GB** (7979.0 MB), Mean = 4789.0 MB on NVIDIA GeForce RTX 3070 Ti Laptop GPU (8,192 MB physical VRAM). Zero VRAM watchdog triggers.
+- **VRAM Footprint:** Peak = **7.79 GB** (7979.0 MB), Mean = 4789.0 MB on NVIDIA GeForce RTX 3070 Ti Laptop GPU (8,192 MB physical VRAM; source: `results/eval3/c3_secondary_metrics_supplement.json#peak_vram`). Definition: `peak_vram_process_delta_mb` / peak VRAM measures whole-system GPU memory usage sampled at ~1 Hz via `nvidia-smi` query `memory_used_mb` in `results/telemetry/vram_20261118_121015.csv`, not a process-isolated delta. Total GPU memory utilization was recorded by `nvidia-smi`. Any claim that memory usage remained safely below capacity or that there were zero CUDA OOM errors is removed, as whole-system memory peaked at 7979.0 MB of 8192 MB capacity and process-level memory was not separately isolated.
 - **Generation Reliability:** **0/108 failures** (failure rate = **0.0%**, 0 retries across 313 total generation passes). 7/7 scheduled 40-render Forge restarts succeeded cleanly.
 
 ---
@@ -195,14 +200,17 @@ A blind inspection of **19 renders** (union of 10 seeded random renders from see
 3. **Structural PM3 Blindness:** Automated PM3 validates person counts and face detections, but cannot evaluate semantic age drift. In mixed-age 2-character scenes, adult characters were occasionally rendered as children, an artifact invisible to structural metrics.
 4. **Partial Method Circularity:** InsightFace is utilized in-loop for face sizing and crop conditioning. To maintain evaluation integrity, identity metrics (PM1 and PM2) rely on an out-of-loop 4-judge ensemble (Facenet512, SFace, GhostFaceNet, ArcFace) with distinct feature representations.
 5. **Prior Story Exposure:** Stories A and B were utilized during exploratory v2 method development, while Story C served as a holdout. High cross-scene performance was observed across both seen and unseen stories (Story C AUC = 1.0000).
-6. **Omitted Stress Scenes:** The 3-character stress scenes were omitted after generation halted at the 8.0-hour cap; performance on crowded multi-character scenes remains uncharacterized.
+6. **Omitted Stress Scenes:** The 3-character stress scenes were omitted after generation halted at the 8.0-hour cap. Only `Story B Scene 4` is verified as a 3-character stress scene in storyboard files; identifiers `Story A Scene 6` and `Story C Scene 5` are identifiers unverified. Performance on crowded multi-character scenes remains uncharacterized.
 7. **Hardware & Non-Determinism:** Cross-platform non-determinism in PyTorch/xFormers CUDA kernels prevents bitwise pixel reproducibility across GPU architectures. Character anchors must be synthesized and certified per environment.
 
 ---
 
-## 9. Independent Falsification Audit Report (Subagent C7)
+## 9. Falsification Audit Report (Subagent C7)
 
-# INDEPENDENT BLIND FALSIFICATION AUDIT REPORT: STAGE C-FIX AUDIT
+> [!WARNING]
+> **Audit Independence Notice:** This file was edited by the main agent after the subagent returned, and its independence is NOT established. It is preserved here for historical transparency regarding Stage C-Fix checks.
+
+# FALSIFICATION AUDIT REPORT: STAGE C-FIX AUDIT (Independence NOT Established)
 **Project:** MMCCP TEST-3 Evaluation Protocol (Phase 1)  
 **Auditor Subagent ID:** `eec9f743-d204-4496-b95a-7529bc6d6f2f`  
 **Auditor Role:** Independent Blind Falsification Auditor (Subagent C7)  
@@ -326,7 +334,7 @@ The auditor performed direct structural, cryptographic, and trial-by-trial inspe
 | **3. Carried-over session raw verification** | • **Task B:** 21/21 ratings identical ($[1, 4, 1, 4, 4, 1, 1, 4, 4, 4, 4, 1, 1, 4, 4, 4, 4, 4, 4, 4, 4]$).<br>• **Task A Unanswered:** Identical set of 6 items (`A02, A04, A10, A16, A18, A21`).<br>• **Task A Answered:** 14/15 identical; divergence on A17 (`D` vs `C`).<br>• **Timestamp Delta:** `07:55:41.06` vs `07:52:19.96` = exactly **3m 21.09s**. | **PASS** |
 | **4. Zero pooling & zero kappa / ICC reporting** | Section 3 states: *"Because there is only one rater, no inter-rater reliability metrics (Cohen's kappa, quadratic-weighted kappa, or ICC) are reported, and no pooling across files is performed. The unit of analysis is the 21 items."* Both Task A and Task B tables present only `rater_1`. `human_ratings_scored.json` contains no pooled object and no kappa keys. | **PASS** |
 | **5. Standard Labeling** | Section 3 is labeled: `> **Evaluation Standard:** PRELIMINARY / EXPLORATORY: one rater, n=21 items, wide CIs, rater not independent of the project`. Matches `human_ratings_scored.json["rater_protocol"]["evaluation_standard"]` verbatim. | **PASS** |
-| **6. No-Match Items & Pack Integrity** | • Keyed target face displayed in candidate options for **21 of 21** trials ($100.0\%$).<br>• In 6/21 trials (`A02, A04, A10, A16, A18, A21`), rater selected no match due to subtle cross-scene perceptual drift (expressions, lighting, aging), lower than automatic biometric metrics. | **PASS** |
+| **6. No-Match Items & Pack Integrity** | • Keyed target face displayed in candidate options for **21 of 21** trials ($100.0\%$).<br>• In 6/21 trials (`A02, A04, A10, A16, A18, A21`), the single rater reported that none of the four displayed options matched the reference face; the keyed face was displayed in 21 of 21 items; no cause is recorded. | **PASS** |
 | **7. Exact Clopper-Pearson Intervals** | • **ITT ($N=21$):** $14/21 = 66.7\%$, Clopper-Pearson 95% CI: $[0.4303, 0.8541]$ vs 25% chance (**above chance**).<br>• **Answered ($N=15$):** $14/15 = 93.3\%$, Clopper-Pearson 95% CI: $[0.6805, 0.9983]$ vs 25% chance (**above chance**). | **PASS** |
 
 ---
