@@ -85,7 +85,7 @@ def build_markdown(
     pm2_b_low, pm2_b_high = pm2["bootstrap"]["ci_95_lower"], pm2["bootstrap"]["ci_95_upper"]
     pm2_t_low, pm2_t_high = c2["PM2_Rank1"]["t_ci_95_capped"]
     pm2_verd = "above chance" if pm2_t_low > pm2["chance_floor"] else "not distinguishable from chance"
-    md.append(f"| **PM2: Cross-Scene Rank-1 Identification** | OUT-OF-LOOP | **{pm2['empirical_mean']:.4f}** | [{pm2_b_low:.4f}, {pm2_b_high:.4f}] | [{pm2_t_low:.4f}, {pm2_t_high:.4f}]* | {pm2['chance_floor']:.4f} | {pm2['ceiling']:.4f} | **{pm2_verd}** |")
+    md.append(f"| **PM2: Cross-Scene Rank-1 Identification** | OUT-OF-LOOP | **{pm2['empirical_mean']:.4f}** (unfiltered all slots: **{pm2['pm2_old_unfiltered_mean']:.4f}**) | [{pm2_b_low:.4f}, {pm2_b_high:.4f}] | [{pm2_t_low:.4f}, {pm2_t_high:.4f}]* | {pm2['chance_floor']:.4f} | {pm2['ceiling']:.4f} | **{pm2_verd}** |")
 
     # PM3
     pm3_b_low, pm3_b_high = pm3["bootstrap"]["ci_95_lower"], pm3["bootstrap"]["ci_95_upper"]
@@ -127,12 +127,13 @@ def build_markdown(
     md.append("")
     md.append("## 3. Human Ratings Evaluation (Task A Matching & Task B Consistency)")
     md.append("")
-    md.append(f"Evaluation of the blinded human rating pack was scored using `tools/score_test3_human_ratings.py` across **{hr['raters_audit']['n_raters']} independent raters** (`rater_1`, `rater_2`).")
+    md.append(f"> **Evaluation Standard:** `{hr['rater_protocol']['evaluation_standard']}`")
     md.append("")
-    md.append("### Pack & File Integrity Audit")
-    md.append(f"- **Displayed Options Soundness:** Keyed target face was present among the 4 displayed choices in **{hr['pack_integrity']['items_with_target_displayed']}** Task A items (**100% integrity**).")
-    md.append(f"- **Rater File Hashes:** `ratings_rater_1.json` (`{hr['raters_audit']['rater_hashes']['ratings_rater_1.json'][:16]}...`) and `ratings_rater_2.json` (`{hr['raters_audit']['rater_hashes']['ratings_rater_2.json'][:16]}...`) are distinct files (hash match: False).")
-    md.append(f"- **Unanswered Items Audit:** Both raters left an identical set of **{hr['raters_audit']['unanswered_items_count_per_rater']} Task A items** unanswered (`{', '.join(hr['raters_audit']['unanswered_item_ids'])}`), judging that none of the 4 displayed options matched the reference. Zero pack integrity issues were found on these 6 items; they represent authentic perceptual mismatch.")
+    md.append("### Protocol & Rater Independence Audit")
+    md.append(f"- **Primary Rater:** Single-rater analysis using `{hr['rater_protocol']['primary_rater']}` ({hr['rater_protocol']['primary_rater_description']}). File: `{hr['rater_protocol']['primary_rater_file']}` (SHA-256: `{hr['rater_protocol']['primary_rater_sha256'][:16]}...`).")
+    md.append(f"- **Excluded Rater:** `{hr['rater_protocol']['excluded_rater']}` status: *{hr['rater_protocol']['excluded_rater_status']}*. {hr['rater_protocol']['excluded_rater_note']}")
+    md.append("- **Inter-Rater Reliability:** Because there is only one rater, no inter-rater reliability metrics (Cohen's $\\kappa$, quadratic-weighted $\\kappa$, or ICC) are reported, and no pooling across files is performed. The unit of analysis is the 21 items.")
+    md.append(f"- **Pack Integrity:** Keyed target face was displayed among the 4 choices in **{hr['pack_integrity']['items_with_target_displayed']}** Task A items (**100% integrity**).")
     md.append("")
     md.append("### Task A: Same-Person Matching (4-AFC, Chance = 25.0%)")
     md.append("")
@@ -140,31 +141,20 @@ def build_markdown(
     md.append("| :--- | :---: | :---: | :---: | :---: | :---: | :---: |")
     t_a_itt = hr["task_a_same_person_matching"]["primary_intention_to_treat_n21"]
     t_a_ans = hr["task_a_same_person_matching"]["sensitivity_answered_only_n15"]
-    for rname in ["rater_1", "rater_2", "pooled"]:
-        d = t_a_itt[rname]
-        md.append(f"| **PRIMARY: Intention-to-Treat ($N=21$)** | `{rname}` | {d['hits']}/{d['n_trials']} | **{d['accuracy']*100:.1f}%** | [{d['exact_95_ci'][0]:.4f}, {d['exact_95_ci'][1]:.4f}] | {d['chance_floor']*100:.1f}% | **{d['verdict']}** |")
-    for rname in ["rater_1", "rater_2", "pooled"]:
-        d = t_a_ans[rname]
-        md.append(f"| SENSITIVITY: Answered-Only ($N=15$) | `{rname}` | {d['hits']}/{d['n_trials']} | **{d['accuracy']*100:.1f}%** | [{d['exact_95_ci'][0]:.4f}, {d['exact_95_ci'][1]:.4f}] | {d['chance_floor']*100:.1f}% | **{d['verdict']}** |")
-
+    md.append(f"| **PRIMARY: Intention-to-Treat ($N=21$)** | `{t_a_itt['rater']}` | {t_a_itt['hits']}/{t_a_itt['n_trials']} | **{t_a_itt['accuracy']*100:.1f}%** | [{t_a_itt['exact_95_ci'][0]:.4f}, {t_a_itt['exact_95_ci'][1]:.4f}] | {t_a_itt['chance_floor']*100:.1f}% | **{t_a_itt['verdict']}** |")
+    md.append(f"| SENSITIVITY: Answered-Only ($N=15$) | `{t_a_ans['rater']}` | {t_a_ans['hits']}/{t_a_ans['n_trials']} | **{t_a_ans['accuracy']*100:.1f}%** | [{t_a_ans['exact_95_ci'][0]:.4f}, {t_a_ans['exact_95_ci'][1]:.4f}] | {t_a_ans['chance_floor']*100:.1f}% | **{t_a_ans['verdict']}** |")
     md.append("")
     md.append("### Task B: Sequence Consistency Ratings (1 to 5 Scale, $N=21$)")
     md.append("")
     md.append("| Rater | Sequences Evaluated | Mean Rating | Std Dev | Median | 95% Bootstrap CI |")
     md.append("| :--- | :---: | :---: | :---: | :---: | :---: |")
     t_b = hr["task_b_sequence_consistency"]
-    for rname in ["rater_1", "rater_2", "pooled"]:
-        d = t_b[rname]
-        n_s = d.get("n_sequences", d.get("n_sequences_total"))
-        md.append(f"| `{rname}` | {n_s} | **{d['mean']:.4f}** | {d['std']:.4f} | {d['median']:.1f} | [{d['bootstrap_95_ci'][0]:.4f}, {d['bootstrap_95_ci'][1]:.4f}] |")
-
+    md.append(f"| `{t_b['rater']}` | {t_b['n_sequences']} | **{t_b['mean']:.4f}** | {t_b['std']:.4f} | {t_b['median']:.1f} | [{t_b['bootstrap_95_ci'][0]:.4f}, {t_b['bootstrap_95_ci'][1]:.4f}] |")
     md.append("")
-    md.append("### Inter-Rater Agreement")
-    agr = hr["inter_rater_agreement"]
-    md.append(f"- **Task A Cohen's $\\kappa$ (Answered Items, $N=15$):** **`{agr['task_a_cohens_kappa_answered_only']:.4f}`** ({agr['task_a_percent_agreement_answered_only']*100:.1f}% pairwise agreement).")
-    md.append(f"- **Task A Cohen's $\\kappa$ (All $N=21$ Items including Unanswered):** **`{agr['task_a_cohens_kappa_all_21_with_no_match']:.4f}`** ({agr['task_a_percent_agreement_all_21']*100:.1f}% pairwise agreement).")
-    md.append(f"- **Task B Quadratic-Weighted $\\kappa$:** **`{agr['task_b_quadratic_weighted_kappa']:.4f}`** (perfect ordinal alignment).")
-    md.append(f"- **Sample Size Note:** {hr['sample_size_note']}")
+    md.append("### Automatic Metrics versus Human Judgement")
+    nomatch = hr["task_a_same_person_matching"]["no_match_items"]
+    md.append(f"{nomatch['plain_language_finding']}")
+    md.append("This human accuracy of 66.7% (14/21) is lower than the automatic metrics suggest (PM2 Rank-1 of 95.6% on eligible probes, 75.4% unfiltered). While the automatic out-of-loop 4-judge biometric ensemble readily discriminates facial embeddings across scenes, subtle perceptual drift in styling, lighting, expressions, and aging between scenes led human perception to judge 28.6% of trials as lacking a definitive match, even though the keyed target face was displayed in 21 of 21 items.")
     md.append("")
     md.append("---")
     md.append("")

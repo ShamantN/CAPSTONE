@@ -3,146 +3,67 @@
   "pack_integrity": {
     "status": "PASS",
     "items_with_target_displayed": "21/21",
+    "target_face_displayed_all_items": true,
     "pack_integrity_errors": []
   },
-  "raters_audit": {
-    "n_raters": 2,
-    "raters": [
-      "rater_1",
-      "rater_2"
-    ],
-    "files_are_distinct": true,
-    "rater_hashes": {
-      "ratings_rater_1.json": "ce4a5c92fe9d7580d20d1429f35a09405d85b572dc612725c2b7ba5df4b00af1",
-      "ratings_rater_2.json": "ced817d11a67257d976ebb2acfa30b508895fd719addb3627ce1e18d047f28ef"
-    },
-    "unanswered_items_identical": true,
-    "unanswered_items_count_per_rater": 6,
-    "unanswered_item_ids": [
-      "A02",
-      "A04",
-      "A10",
-      "A16",
-      "A18",
-      "A21"
-    ],
-    "unanswered_items_pack_integrity_issues": 0
+  "rater_protocol": {
+    "evaluation_standard": "PRELIMINARY / EXPLORATORY: one rater, n=21 items, wide CIs, rater not independent of the project",
+    "primary_rater": "rater_1",
+    "primary_rater_description": "team member who knows the project; blind to the key but not to the project",
+    "primary_rater_file": "ratings_rater_1.json",
+    "primary_rater_sha256": "ce4a5c92fe9d7580d20d1429f35a09405d85b572dc612725c2b7ba5df4b00af1",
+    "excluded_rater": "rater_2",
+    "excluded_rater_file": "ratings_rater_2.json",
+    "excluded_rater_status": "duplicate or carried-over session, excluded from the analysis",
+    "excluded_rater_note": "rater_2 was completed by the same person as rater_1 (a team member; no second independent rater exists). Data comparison confirms carried-over session: 21/21 Task B ratings identical, identical 6 unanswered Task A items, 14/15 Task A answered items identical with single divergence on A17, and timestamp delta of 3m 21s."
   },
   "task_a_same_person_matching": {
     "primary_intention_to_treat_n21": {
-      "rater_1": {
-        "hits": 14,
-        "n_trials": 21,
-        "accuracy": 0.6667,
-        "exact_95_ci": [
-          0.4303,
-          0.8541
-        ],
-        "chance_floor": 0.25,
-        "verdict": "above chance"
-      },
-      "rater_2": {
-        "hits": 15,
-        "n_trials": 21,
-        "accuracy": 0.7143,
-        "exact_95_ci": [
-          0.4782,
-          0.8872
-        ],
-        "chance_floor": 0.25,
-        "verdict": "above chance"
-      },
-      "pooled": {
-        "hits": 29,
-        "n_trials": 42,
-        "accuracy": 0.6905,
-        "exact_95_ci": [
-          0.5291,
-          0.8238
-        ],
-        "chance_floor": 0.25,
-        "verdict": "above chance"
-      }
+      "rater": "rater_1",
+      "hits": 14,
+      "n_trials": 21,
+      "accuracy": 0.6667,
+      "exact_95_ci": [
+        0.4303,
+        0.8541
+      ],
+      "chance_floor": 0.25,
+      "verdict": "above chance"
     },
     "sensitivity_answered_only_n15": {
-      "rater_1": {
-        "hits": 14,
-        "n_trials": 15,
-        "accuracy": 0.9333,
-        "exact_95_ci": [
-          0.6805,
-          0.9983
-        ],
-        "chance_floor": 0.25,
-        "verdict": "above chance"
-      },
-      "rater_2": {
-        "hits": 15,
-        "n_trials": 15,
-        "accuracy": 1.0,
-        "exact_95_ci": [
-          0.782,
-          1.0
-        ],
-        "chance_floor": 0.25,
-        "verdict": "above chance"
-      },
-      "pooled": {
-        "hits": 29,
-        "n_trials": 30,
-        "accuracy": 0.9667,
-        "exact_95_ci": [
-          0.8278,
-          0.9992
-        ],
-        "chance_floor": 0.25,
-        "verdict": "above chance"
-      }
+      "rater": "rater_1",
+      "hits": 14,
+      "n_trials": 15,
+      "accuracy": 0.9333,
+      "exact_95_ci": [
+        0.6805,
+        0.9983
+      ],
+      "chance_floor": 0.25,
+      "verdict": "above chance"
+    },
+    "no_match_items": {
+      "count": 6,
+      "item_ids": [
+        "A02",
+        "A04",
+        "A10",
+        "A16",
+        "A18",
+        "A21"
+      ],
+      "plain_language_finding": "In 6 of 21 trials (items A02, A04, A10, A16, A18, A21), the rater saw no match among the four options, which is lower than the automatic metrics suggest. The keyed target face was displayed in 21 of 21 items."
     }
   },
   "task_b_sequence_consistency": {
-    "rater_1": {
-      "mean": 3.1429,
-      "std": 1.3553,
-      "median": 4.0,
-      "bootstrap_95_ci": [
-        2.5714,
-        3.7143
-      ],
-      "n_sequences": 21
-    },
-    "rater_2": {
-      "mean": 3.1429,
-      "std": 1.3553,
-      "median": 4.0,
-      "bootstrap_95_ci": [
-        2.5714,
-        3.7143
-      ],
-      "n_sequences": 21
-    },
-    "pooled": {
-      "mean": 3.1429,
-      "std": 1.3553,
-      "median": 4.0,
-      "bootstrap_95_ci": [
-        2.7143,
-        3.5
-      ],
-      "n_sequences_total": 42
-    }
-  },
-  "inter_rater_agreement": {
-    "rater_pair": [
-      "rater_1",
-      "rater_2"
-    ],
-    "task_a_answered_items_count": 15,
-    "task_a_cohens_kappa_answered_only": 0.908,
-    "task_a_percent_agreement_answered_only": 0.9333,
-    "task_a_cohens_kappa_all_21_with_no_match": 0.9388,
-    "task_a_percent_agreement_all_21": 0.9524,
-    "task_b_quadratic_weighted_kappa": 1.0
-  },
-  "sample_size_note": "Sample size is N=21 items per task evaluated by 2 raters (6 Task A items unanimously judged 'no match'; ITT denominator N=21, sensitivity denominator N=15). Small sample size produces wide confidence intervals as expected."
+    "rater": "rater_1",
+    "n_sequences": 21,
+    "mean": 3.1429,
+    "std": 1.3553,
+    "median": 4.0,
+    "bootstrap_95_ci": [
+      2.5714,
+      3.7143
+    ]
+  }
 }

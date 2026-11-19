@@ -59,7 +59,7 @@
   "wall_clock_times": {
     "total_generation_hours": 8.029,
     "anchors_generation_hours": 2.249,
-    "scenes_generation_hours": 5.780,
+    "scenes_generation_hours": 5.78,
     "scoring_hours": 1.3232,
     "scoring_seconds": 4763.45
   },

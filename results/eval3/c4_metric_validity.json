@@ -18,16 +18,46 @@
   ],
   "bon3_picked_drift_render": "rep_02_Story_B_sc02_s1_seed_8560",
   "weakest_10_renders": [
-    {"render_id": "rep_01_Story_B_sc02_s2_seed_8516", "v1_2_score": 0.4212},
-    {"render_id": "rep_02_Story_B_sc02_s1_seed_8560", "v1_2_score": 0.4519},
-    {"render_id": "rep_02_Story_B_sc03_s0_seed_8562", "v1_2_score": 0.4522},
-    {"render_id": "rep_00_Story_A_sc04_s1_seed_8461", "v1_2_score": 0.4595},
-    {"render_id": "rep_00_Story_A_sc04_s2_seed_8462", "v1_2_score": 0.4611},
-    {"render_id": "rep_02_Story_B_sc02_s0_seed_8559", "v1_2_score": 0.4747},
-    {"render_id": "rep_00_Story_A_sc03_s1_seed_8458", "v1_2_score": 0.4786},
-    {"render_id": "rep_02_Story_B_sc03_s1_seed_8563", "v1_2_score": 0.4981},
-    {"render_id": "rep_00_Story_A_sc03_s2_seed_8459", "v1_2_score": 0.5021},
-    {"render_id": "rep_02_Story_B_sc02_s2_seed_8561", "v1_2_score": 0.5046}
+    {
+      "render_id": "rep_01_Story_B_sc02_s2_seed_8516",
+      "v1_2_score": 0.4212
+    },
+    {
+      "render_id": "rep_02_Story_B_sc02_s1_seed_8560",
+      "v1_2_score": 0.4519
+    },
+    {
+      "render_id": "rep_02_Story_B_sc03_s0_seed_8562",
+      "v1_2_score": 0.4522
+    },
+    {
+      "render_id": "rep_00_Story_A_sc04_s1_seed_8461",
+      "v1_2_score": 0.4595
+    },
+    {
+      "render_id": "rep_00_Story_A_sc04_s2_seed_8462",
+      "v1_2_score": 0.4611
+    },
+    {
+      "render_id": "rep_02_Story_B_sc02_s0_seed_8559",
+      "v1_2_score": 0.4747
+    },
+    {
+      "render_id": "rep_00_Story_A_sc03_s1_seed_8458",
+      "v1_2_score": 0.4786
+    },
+    {
+      "render_id": "rep_02_Story_B_sc03_s1_seed_8563",
+      "v1_2_score": 0.4981
+    },
+    {
+      "render_id": "rep_00_Story_A_sc03_s2_seed_8459",
+      "v1_2_score": 0.5021
+    },
+    {
+      "render_id": "rep_02_Story_B_sc02_s2_seed_8561",
+      "v1_2_score": 0.5046
+    }
   ],
   "metric_validity_limitation": "PM3 is strictly a structural check (bounding box counts, face counts, and coarse order). No automated metric in the evaluation suite detects semantic attribute or age drift (such as an adult character drawn as a child, observed in rep_02_Story_B_sc02_s1_seed_8560 and rep_01_Story_B_sc02_s2_seed_8516). Because the best-of-3 selector prioritizes structural Tier 3 correctness over semantic age fidelity, v2_final_bon3 selected rep_02_Story_B_sc02_s1_seed_8560 when alternative seeds had extra-person count mismatches."
 }
